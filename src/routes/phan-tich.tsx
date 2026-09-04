@@ -49,7 +49,7 @@ function heatTone(ratio: number) {
 }
 
 function PhanTich() {
-  const max = wardDensity[0].hoSo;
+  const max = wardDensity[0]?.hoSo ?? 1;
   const duBao = giaiNganTheoThang.map((m) => ({
     thang: m.thang,
     tong: +(m.thuongXuyen + m.motLan + m.dieuDuong + m.bhyt).toFixed(1),
@@ -201,7 +201,7 @@ function PhanTich() {
                   <div
                     className="h-full rounded-md bg-azure"
                     style={{
-                      width: `${(b.soLuong / phezuyetFunnel[0].soLuong) * 100}%`,
+                      width: `${(b.soLuong / (phezuyetFunnel[0]?.soLuong ?? 1)) * 100}%`,
                       opacity: 1 - i * 0.15,
                     }}
                   />

@@ -118,7 +118,7 @@ function Dashboard() {
           </div>
           <div className="mt-4 flex h-40 items-end gap-2 border-b pb-px">
             {giaiNganTheoThang.map((m, i) => {
-              const total = barHeights[i];
+              const total = barHeights[i] ?? 0;
               const pct = (total / maxBar) * 100;
               return (
                 <div
@@ -237,7 +237,7 @@ function Dashboard() {
                   <div
                     className="h-full rounded-full bg-primary"
                     style={{
-                      width: `${(w.hoSo / wardDensity[0].hoSo) * 100}%`,
+                      width: `${(w.hoSo / (wardDensity[0]?.hoSo ?? 1)) * 100}%`,
                       opacity: 1 - i * 0.05,
                     }}
                   />

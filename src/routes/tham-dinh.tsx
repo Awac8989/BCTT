@@ -31,7 +31,7 @@ const COT: { tt: string; ten: string }[] = [
 ];
 
 function ThamDinh() {
-  const max = phezuyetFunnel[0].soLuong;
+  const max = phezuyetFunnel[0]?.soLuong ?? 1;
 
   return (
     <AppShell>

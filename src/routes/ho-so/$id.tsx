@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { FileText, UploadCloud } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -23,11 +23,6 @@ export const Route = createFileRoute("/ho-so/$id")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  loader: ({ params }) => {
-    const hoSo = hoSoList.find((h) => h.id === params.id);
-    if (!hoSo) throw notFound();
-    return { hoSo };
-  },
   component: HoSoDetail,
 });
 
@@ -41,7 +36,8 @@ function Field({ label, value }: { label: string; value: string }) {
 }
 
 function HoSoDetail() {
-  const { hoSo } = Route.useLoaderData();
+  const { id } = Route.useParams();
+  const hoSo = hoSoList.find((h) => h.id === id) ?? hoSoList[0]!;
   const [ghiChu, setGhiChu] = useState(hoSo.ghiChuThamDinh ?? "");
   const tong = hoSo.mucTroCap + hoSo.phuCapPhucVu + hoSo.troCapDieuDuong;
 
