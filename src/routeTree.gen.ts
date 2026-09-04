@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChiTraRouteImport } from './routes/chi-tra'
 import { Route as ThamDinhRouteImport } from './routes/tham-dinh'
 import { Route as HoSoIndexRouteImport } from './routes/ho-so/index'
 import { Route as HoSoIdRouteImport } from './routes/ho-so/$id'
@@ -17,6 +18,11 @@ import { Route as HoSoIdRouteImport } from './routes/ho-so/$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChiTraRoute = ChiTraRouteImport.update({
+  id: '/chi-tra',
+  path: '/chi-tra',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ThamDinhRoute = ThamDinhRouteImport.update({
@@ -37,12 +43,14 @@ const HoSoIdRoute = HoSoIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/chi-tra': typeof ChiTraRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so/': typeof HoSoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/chi-tra': typeof ChiTraRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so': typeof HoSoIndexRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/chi-tra': typeof ChiTraRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so/': typeof HoSoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/tham-dinh' | '/ho-so/$id' | '/ho-so/'
+  fullPaths: '/' | '/chi-tra' | '/tham-dinh' | '/ho-so/$id' | '/ho-so/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tham-dinh' | '/ho-so/$id' | '/ho-so'
-  id: '__root__' | '/' | '/tham-dinh' | '/ho-so/$id' | '/ho-so/'
+  to: '/' | '/chi-tra' | '/tham-dinh' | '/ho-so/$id' | '/ho-so'
+  id: '__root__' | '/' | '/chi-tra' | '/tham-dinh' | '/ho-so/$id' | '/ho-so/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChiTraRoute: typeof ChiTraRoute
   ThamDinhRoute: typeof ThamDinhRoute
   HoSoIdRoute: typeof HoSoIdRoute
   HoSoIndexRoute: typeof HoSoIndexRoute
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chi-tra': {
+      id: '/chi-tra'
+      path: '/chi-tra'
+      fullPath: '/chi-tra'
+      preLoaderRoute: typeof ChiTraRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tham-dinh': {
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChiTraRoute: ChiTraRoute,
   ThamDinhRoute: ThamDinhRoute,
   HoSoIdRoute: HoSoIdRoute,
   HoSoIndexRoute: HoSoIndexRoute,
