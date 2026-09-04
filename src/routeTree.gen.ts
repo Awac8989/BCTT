@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChiTraRouteImport } from './routes/chi-tra'
+import { Route as DanhGiaRouteImport } from './routes/danh-gia'
+import { Route as HeThongRouteImport } from './routes/he-thong'
+import { Route as KhaoSatRouteImport } from './routes/khao-sat'
+import { Route as PhanTichRouteImport } from './routes/phan-tich'
+import { Route as ThamDinhRouteImport } from './routes/tham-dinh'
+import { Route as HoSoIndexRouteImport } from './routes/ho-so/index'
+import { Route as HoSoIdRouteImport } from './routes/ho-so/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChiTraRoute = ChiTraRouteImport.update({
+  id: '/chi-tra',
+  path: '/chi-tra',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DanhGiaRoute = DanhGiaRouteImport.update({
+  id: '/danh-gia',
+  path: '/danh-gia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HeThongRoute = HeThongRouteImport.update({
+  id: '/he-thong',
+  path: '/he-thong',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KhaoSatRoute = KhaoSatRouteImport.update({
+  id: '/khao-sat',
+  path: '/khao-sat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhanTichRoute = PhanTichRouteImport.update({
+  id: '/phan-tich',
+  path: '/phan-tich',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThamDinhRoute = ThamDinhRouteImport.update({
+  id: '/tham-dinh',
+  path: '/tham-dinh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HoSoIndexRoute = HoSoIndexRouteImport.update({
+  id: '/ho-so/',
+  path: '/ho-so/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HoSoIdRoute = HoSoIdRouteImport.update({
+  id: '/ho-so/$id',
+  path: '/ho-so/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/chi-tra': typeof ChiTraRoute
+  '/danh-gia': typeof DanhGiaRoute
+  '/he-thong': typeof HeThongRoute
+  '/khao-sat': typeof KhaoSatRoute
+  '/phan-tich': typeof PhanTichRoute
+  '/tham-dinh': typeof ThamDinhRoute
+  '/ho-so/$id': typeof HoSoIdRoute
+  '/ho-so/': typeof HoSoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/chi-tra': typeof ChiTraRoute
+  '/danh-gia': typeof DanhGiaRoute
+  '/he-thong': typeof HeThongRoute
+  '/khao-sat': typeof KhaoSatRoute
+  '/phan-tich': typeof PhanTichRoute
+  '/tham-dinh': typeof ThamDinhRoute
+  '/ho-so/$id': typeof HoSoIdRoute
+  '/ho-so': typeof HoSoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/chi-tra': typeof ChiTraRoute
+  '/danh-gia': typeof DanhGiaRoute
+  '/he-thong': typeof HeThongRoute
+  '/khao-sat': typeof KhaoSatRoute
+  '/phan-tich': typeof PhanTichRoute
+  '/tham-dinh': typeof ThamDinhRoute
+  '/ho-so/$id': typeof HoSoIdRoute
+  '/ho-so/': typeof HoSoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/chi-tra'
+    | '/danh-gia'
+    | '/he-thong'
+    | '/khao-sat'
+    | '/phan-tich'
+    | '/tham-dinh'
+    | '/ho-so/$id'
+    | '/ho-so/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/chi-tra'
+    | '/danh-gia'
+    | '/he-thong'
+    | '/khao-sat'
+    | '/phan-tich'
+    | '/tham-dinh'
+    | '/ho-so/$id'
+    | '/ho-so'
+  id:
+    | '__root__'
+    | '/'
+    | '/chi-tra'
+    | '/danh-gia'
+    | '/he-thong'
+    | '/khao-sat'
+    | '/phan-tich'
+    | '/tham-dinh'
+    | '/ho-so/$id'
+    | '/ho-so/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChiTraRoute: typeof ChiTraRoute
+  DanhGiaRoute: typeof DanhGiaRoute
+  HeThongRoute: typeof HeThongRoute
+  KhaoSatRoute: typeof KhaoSatRoute
+  PhanTichRoute: typeof PhanTichRoute
+  ThamDinhRoute: typeof ThamDinhRoute
+  HoSoIdRoute: typeof HoSoIdRoute
+  HoSoIndexRoute: typeof HoSoIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chi-tra': {
+      id: '/chi-tra'
+      path: '/chi-tra'
+      fullPath: '/chi-tra'
+      preLoaderRoute: typeof ChiTraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/danh-gia': {
+      id: '/danh-gia'
+      path: '/danh-gia'
+      fullPath: '/danh-gia'
+      preLoaderRoute: typeof DanhGiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/he-thong': {
+      id: '/he-thong'
+      path: '/he-thong'
+      fullPath: '/he-thong'
+      preLoaderRoute: typeof HeThongRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/khao-sat': {
+      id: '/khao-sat'
+      path: '/khao-sat'
+      fullPath: '/khao-sat'
+      preLoaderRoute: typeof KhaoSatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/phan-tich': {
+      id: '/phan-tich'
+      path: '/phan-tich'
+      fullPath: '/phan-tich'
+      preLoaderRoute: typeof PhanTichRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tham-dinh': {
+      id: '/tham-dinh'
+      path: '/tham-dinh'
+      fullPath: '/tham-dinh'
+      preLoaderRoute: typeof ThamDinhRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ho-so/': {
+      id: '/ho-so/'
+      path: '/ho-so'
+      fullPath: '/ho-so/'
+      preLoaderRoute: typeof HoSoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ho-so/$id': {
+      id: '/ho-so/$id'
+      path: '/ho-so/$id'
+      fullPath: '/ho-so/$id'
+      preLoaderRoute: typeof HoSoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChiTraRoute: ChiTraRoute,
+  DanhGiaRoute: DanhGiaRoute,
+  HeThongRoute: HeThongRoute,
+  KhaoSatRoute: KhaoSatRoute,
+  PhanTichRoute: PhanTichRoute,
+  ThamDinhRoute: ThamDinhRoute,
+  HoSoIdRoute: HoSoIdRoute,
+  HoSoIndexRoute: HoSoIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
