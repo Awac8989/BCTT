@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HoSoIndexRouteImport } from './routes/ho-so/index'
+import { Route as HoSoIdRouteImport } from './routes/ho-so/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const HoSoIndexRoute = HoSoIndexRouteImport.update({
   path: '/ho-so/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HoSoIdRoute = HoSoIdRouteImport.update({
+  id: '/ho-so/$id',
+  path: '/ho-so/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so/': typeof HoSoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so': typeof HoSoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so/': typeof HoSoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ho-so/'
+  fullPaths: '/' | '/ho-so/$id' | '/ho-so/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ho-so'
-  id: '__root__' | '/' | '/ho-so/'
+  to: '/' | '/ho-so/$id' | '/ho-so'
+  id: '__root__' | '/' | '/ho-so/$id' | '/ho-so/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HoSoIdRoute: typeof HoSoIdRoute
   HoSoIndexRoute: typeof HoSoIndexRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HoSoIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ho-so/$id': {
+      id: '/ho-so/$id'
+      path: '/ho-so/$id'
+      fullPath: '/ho-so/$id'
+      preLoaderRoute: typeof HoSoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HoSoIdRoute: HoSoIdRoute,
   HoSoIndexRoute: HoSoIndexRoute,
 }
 export const routeTree = rootRouteImport
