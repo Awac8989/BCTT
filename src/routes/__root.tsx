@@ -77,16 +77,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Hệ thống Quản lý Hồ sơ Người có công · Thủ Dầu Một" },
+      {
+        name: "description",
+        content:
+          "Hệ thống quản lý hồ sơ Người có công: tiếp nhận, thẩm định, chi trả trợ cấp, trực quan hóa dữ liệu và đo lường sự hài lòng của công dân.",
+      },
+      { name: "author", content: "Phòng Văn hóa - Xã hội, Thủ Dầu Một" },
+      { property: "og:title", content: "Hệ thống Quản lý Hồ sơ Người có công" },
+      {
+        property: "og:description",
+        content:
+          "Dashboard điều hành, thẩm định hồ sơ, quản lý chi trả và phân tích tiếng nói công dân.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -94,6 +107,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
