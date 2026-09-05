@@ -360,17 +360,14 @@ Kế thừa và chuẩn hóa mở rộng từ ERD hiện hữu (`sys_users`, `ho
 
 * Tiếng nói, sự đánh giá của người dân được ghi nhận trực tiếp và có dữ liệu kiểm chứng, nâng cao chất lượng nền hành chính công phục vụ nhân dân.
 
-This project was built with [Lovable](https://lovable.dev).
+---
 
-**Live app**: https://ho-so-tran-an.lovable.app
+## 🏛️ Đơn Vị Quản Lý & Vận Hành
 
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/359ff2b2-ad23-4f60-9210-18b4f0c63c6f).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+* **Cơ quan chủ quản**: Sở Lao động – Thương binh và Xã hội tỉnh Bình Dương
+* **Đơn vị phối hợp**: Phòng Văn hóa – Xã hội / UBND TP. Thủ Dầu Một
+* **Nền tảng kỹ thuật**: React 19 + TanStack Router/Start + Vite + Tailwind CSS + MySQL / PostgreSQL
+* **Tiêu chuẩn dữ liệu**: CSDL Quốc gia về Người có công theo Nghị định 131/2021/NĐ-CP & Đề án 06/CP
 
 ## Development
 

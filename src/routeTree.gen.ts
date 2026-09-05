@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChiTraRouteImport } from './routes/chi-tra'
 import { Route as DanhGiaRouteImport } from './routes/danh-gia'
+import { Route as DieuDuongRouteImport } from './routes/dieu-duong'
 import { Route as HeThongRouteImport } from './routes/he-thong'
 import { Route as KhaoSatRouteImport } from './routes/khao-sat'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as PhanTichRouteImport } from './routes/phan-tich'
 import { Route as ThamDinhRouteImport } from './routes/tham-dinh'
 import { Route as HoSoIndexRouteImport } from './routes/ho-so/index'
@@ -34,6 +36,11 @@ const DanhGiaRoute = DanhGiaRouteImport.update({
   path: '/danh-gia',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DieuDuongRoute = DieuDuongRouteImport.update({
+  id: '/dieu-duong',
+  path: '/dieu-duong',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HeThongRoute = HeThongRouteImport.update({
   id: '/he-thong',
   path: '/he-thong',
@@ -42,6 +49,11 @@ const HeThongRoute = HeThongRouteImport.update({
 const KhaoSatRoute = KhaoSatRouteImport.update({
   id: '/khao-sat',
   path: '/khao-sat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PhanTichRoute = PhanTichRouteImport.update({
@@ -69,8 +81,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chi-tra': typeof ChiTraRoute
   '/danh-gia': typeof DanhGiaRoute
+  '/dieu-duong': typeof DieuDuongRoute
   '/he-thong': typeof HeThongRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/login': typeof LoginRoute
   '/phan-tich': typeof PhanTichRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/ho-so/$id': typeof HoSoIdRoute
@@ -80,8 +94,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chi-tra': typeof ChiTraRoute
   '/danh-gia': typeof DanhGiaRoute
+  '/dieu-duong': typeof DieuDuongRoute
   '/he-thong': typeof HeThongRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/login': typeof LoginRoute
   '/phan-tich': typeof PhanTichRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/ho-so/$id': typeof HoSoIdRoute
@@ -92,8 +108,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/chi-tra': typeof ChiTraRoute
   '/danh-gia': typeof DanhGiaRoute
+  '/dieu-duong': typeof DieuDuongRoute
   '/he-thong': typeof HeThongRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/login': typeof LoginRoute
   '/phan-tich': typeof PhanTichRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/ho-so/$id': typeof HoSoIdRoute
@@ -105,8 +123,10 @@ export interface FileRouteTypes {
     | '/'
     | '/chi-tra'
     | '/danh-gia'
+    | '/dieu-duong'
     | '/he-thong'
     | '/khao-sat'
+    | '/login'
     | '/phan-tich'
     | '/tham-dinh'
     | '/ho-so/$id'
@@ -116,8 +136,10 @@ export interface FileRouteTypes {
     | '/'
     | '/chi-tra'
     | '/danh-gia'
+    | '/dieu-duong'
     | '/he-thong'
     | '/khao-sat'
+    | '/login'
     | '/phan-tich'
     | '/tham-dinh'
     | '/ho-so/$id'
@@ -127,8 +149,10 @@ export interface FileRouteTypes {
     | '/'
     | '/chi-tra'
     | '/danh-gia'
+    | '/dieu-duong'
     | '/he-thong'
     | '/khao-sat'
+    | '/login'
     | '/phan-tich'
     | '/tham-dinh'
     | '/ho-so/$id'
@@ -139,8 +163,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChiTraRoute: typeof ChiTraRoute
   DanhGiaRoute: typeof DanhGiaRoute
+  DieuDuongRoute: typeof DieuDuongRoute
   HeThongRoute: typeof HeThongRoute
   KhaoSatRoute: typeof KhaoSatRoute
+  LoginRoute: typeof LoginRoute
   PhanTichRoute: typeof PhanTichRoute
   ThamDinhRoute: typeof ThamDinhRoute
   HoSoIdRoute: typeof HoSoIdRoute
@@ -170,6 +196,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DanhGiaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dieu-duong': {
+      id: '/dieu-duong'
+      path: '/dieu-duong'
+      fullPath: '/dieu-duong'
+      preLoaderRoute: typeof DieuDuongRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/he-thong': {
       id: '/he-thong'
       path: '/he-thong'
@@ -182,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/khao-sat'
       fullPath: '/khao-sat'
       preLoaderRoute: typeof KhaoSatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/phan-tich': {
@@ -219,8 +259,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChiTraRoute: ChiTraRoute,
   DanhGiaRoute: DanhGiaRoute,
+  DieuDuongRoute: DieuDuongRoute,
   HeThongRoute: HeThongRoute,
   KhaoSatRoute: KhaoSatRoute,
+  LoginRoute: LoginRoute,
   PhanTichRoute: PhanTichRoute,
   ThamDinhRoute: ThamDinhRoute,
   HoSoIdRoute: HoSoIdRoute,

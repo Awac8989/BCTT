@@ -45,7 +45,11 @@ export const Route = createFileRoute("/phan-tich")({
 });
 
 function heatTone(ratio: number) {
-  return { backgroundColor: "var(--color-primary)", opacity: 0.18 + ratio * 0.8 };
+  // Gam màu xanh lam hành chính chuyển sắc mượt mà từ nhạt đến đậm
+  return {
+    backgroundColor: ratio > 0.7 ? "#00a65a" : ratio > 0.4 ? "#00c0ef" : "#3c8dbc",
+    opacity: 0.2 + ratio * 0.75,
+  };
 }
 
 function PhanTich() {
@@ -64,13 +68,13 @@ function PhanTich() {
           <div className="flex gap-2">
             <button
               onClick={() => toast.success("Đang trích xuất báo cáo quyết toán kinh phí…")}
-              className="rounded-md border px-3 py-2 text-sm text-muted-foreground hover:bg-foreground/5"
+              className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 shadow-2xs"
             >
               Báo cáo quyết toán
             </button>
             <button
               onClick={() => toast.success("Đã xuất mẫu biểu chuẩn C70a-HD")}
-              className="rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+              className="rounded-md bg-[#dd4b39] px-3 py-2 text-sm font-semibold text-white hover:bg-[#c23321] shadow-2xs"
             >
               Xuất mẫu biểu
             </button>
@@ -79,48 +83,55 @@ function PhanTich() {
       />
 
       <div className="grid gap-3 lg:grid-cols-3">
-        <div className="glass-card p-4 lg:col-span-2">
-          <div className="label-mono">Bản đồ nhiệt mật độ hồ sơ · 14 phường/xã</div>
+        <div className="bg-white border border-[#d2d6de] rounded p-4 shadow-2xs lg:col-span-2">
+          <div className="font-bold text-xs uppercase text-gray-800 tracking-wider">
+            Bản đồ nhiệt mật độ hồ sơ · 14 phường/xã
+          </div>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-5">
             {wardDensity.map((w) => (
               <button
                 key={w.phuong}
                 onClick={() => toast.success(`Đã lọc số liệu theo phường ${w.phuong}`)}
-                className="rounded-lg border p-3 text-left transition-transform hover:scale-[1.02]"
+                className="rounded-lg border border-white/40 p-3 text-left transition-all hover:scale-[1.02] shadow-xs text-white"
                 style={heatTone(w.hoSo / max)}
               >
-                <div className="text-[12px] font-medium text-foreground">{w.phuong}</div>
-                <div className="ledger-title mt-1 text-lg tabular-nums text-foreground">
+                <div className="text-[12px] font-bold drop-shadow-xs">{w.phuong}</div>
+                <div className="mt-1 text-lg font-extrabold tabular-nums drop-shadow-xs">
                   {formatNum(w.hoSo)}
                 </div>
-                <div className="font-mono text-[10px] text-foreground/70">{w.chiTra} tỷ/tháng</div>
+                <div className="font-mono text-[11px] opacity-90 drop-shadow-xs">{w.chiTra} tỷ/tháng</div>
               </button>
             ))}
           </div>
-          <div className="mt-3 flex items-center gap-2 label-mono">
-            Mật độ thấp
-            <span className="h-2 w-24 rounded-full bg-gradient-to-r from-primary/20 to-primary" />
-            Cao · nhấn để lọc
+          <div className="mt-3 flex items-center gap-2 text-xs text-gray-600 font-medium">
+            <span>Mật độ thấp</span>
+            <span className="h-2.5 w-32 rounded-full bg-gradient-to-r from-[#3c8dbc] via-[#00c0ef] to-[#00a65a]" />
+            <span>Mật độ cao (Nhấn để lọc chi tiết)</span>
           </div>
         </div>
 
-        <div className="glass-card p-4">
-          <div className="label-mono">Cơ cấu loại đối tượng</div>
+        <div className="bg-white border border-[#d2d6de] rounded p-4 shadow-2xs">
+          <div className="font-bold text-xs uppercase text-gray-800 tracking-wider border-b border-gray-100 pb-2">
+            Cơ cấu loại đối tượng
+          </div>
           <div className="mt-2 h-48">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={coCauDoiTuong} dataKey="value" nameKey="ten" innerRadius="55%" outerRadius="88%" stroke="none">
+                <Pie data={coCauDoiTuong} dataKey="value" nameKey="ten" innerRadius="55%" outerRadius="88%" stroke="#ffffff" strokeWidth={2}>
                   {coCauDoiTuong.map((d) => (
                     <Cell key={d.ten} fill={d.mau} />
                   ))}
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    background: "var(--color-ink-2)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: 8,
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #cbd5e1",
+                    borderRadius: 6,
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
                     fontSize: 12,
+                    color: "#1f2937",
                   }}
+                  formatter={(val: any) => [`${val}%`, "Tỷ lệ"]}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -128,9 +139,9 @@ function PhanTich() {
           <ul className="space-y-1.5 text-[12px]">
             {coCauDoiTuong.map((d) => (
               <li key={d.ten} className="flex items-center gap-2">
-                <span className="size-2.5 rounded-sm" style={{ backgroundColor: d.mau }} />
-                <span className="text-foreground">{d.ten}</span>
-                <span className="ml-auto font-mono text-muted-foreground">{d.value}%</span>
+                <span className="size-3 rounded-xs shrink-0 shadow-2xs" style={{ backgroundColor: d.mau }} />
+                <span className="text-gray-800 font-medium">{d.ten}</span>
+                <span className="ml-auto font-mono font-bold text-gray-700">{d.value}%</span>
               </li>
             ))}
           </ul>
@@ -138,52 +149,73 @@ function PhanTich() {
       </div>
 
       <div className="mt-3 grid gap-3 lg:grid-cols-3">
-        <div className="glass-card p-4 lg:col-span-2">
-          <div className="label-mono">Dự báo kinh phí giải ngân · tỷ VNĐ</div>
+        <div className="bg-white border border-[#d2d6de] rounded p-4 shadow-2xs lg:col-span-2">
+          <div className="font-bold text-xs uppercase text-gray-800 tracking-wider border-b border-gray-100 pb-2">
+            Dự báo kinh phí giải ngân · tỷ VNĐ
+          </div>
           <div className="mt-3 h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={duBao}>
-                <CartesianGrid stroke="var(--color-border)" vertical={false} />
-                <XAxis dataKey="thang" tick={{ fill: "var(--color-lab)", fontSize: 11 }} stroke="var(--color-border)" />
-                <YAxis tick={{ fill: "var(--color-lab)", fontSize: 11 }} stroke="var(--color-border)" />
+              <LineChart data={duBao} margin={{ top: 10, right: 15, left: -10, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis dataKey="thang" tick={{ fill: "#4b5563", fontSize: 11 }} stroke="#cbd5e1" />
+                <YAxis tick={{ fill: "#4b5563", fontSize: 11 }} stroke="#cbd5e1" unit=" tỷ" />
                 <Tooltip
                   contentStyle={{
-                    background: "var(--color-ink-2)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: 8,
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #cbd5e1",
+                    borderRadius: 6,
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
                     fontSize: 12,
+                    color: "#1f2937",
                   }}
+                  formatter={(val: any) => [`${val} tỷ VNĐ`, "Tổng giải ngân"]}
+                  labelStyle={{ fontWeight: "bold", color: "#f39c12", marginBottom: 3 }}
                 />
                 <Line
                   type="monotone"
                   dataKey="tong"
                   name="Tổng giải ngân"
-                  stroke="var(--color-gold)"
-                  strokeWidth={2}
-                  dot={{ r: 3, fill: "var(--color-gold)" }}
+                  stroke="#f39c12"
+                  strokeWidth={3}
+                  dot={{ r: 5, fill: "#f39c12", stroke: "#ffffff", strokeWidth: 2 }}
+                  activeDot={{ r: 7, fill: "#d68100" }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="glass-card p-4">
-          <div className="label-mono">Chỉ số hài lòng CSAT theo tháng · %</div>
+        <div className="bg-white border border-[#d2d6de] rounded p-4 shadow-2xs">
+          <div className="font-bold text-xs uppercase text-gray-800 tracking-wider border-b border-gray-100 pb-2">
+            Chỉ số hài lòng CSAT theo tháng · %
+          </div>
           <div className="mt-3 h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={csatTheoThang}>
-                <CartesianGrid stroke="var(--color-border)" vertical={false} />
-                <XAxis dataKey="thang" tick={{ fill: "var(--color-lab)", fontSize: 11 }} stroke="var(--color-border)" />
-                <YAxis domain={[85, 100]} tick={{ fill: "var(--color-lab)", fontSize: 11 }} stroke="var(--color-border)" />
+              <LineChart data={csatTheoThang} margin={{ top: 10, right: 15, left: -15, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis dataKey="thang" tick={{ fill: "#4b5563", fontSize: 11 }} stroke="#cbd5e1" />
+                <YAxis domain={[85, 100]} tick={{ fill: "#4b5563", fontSize: 11 }} stroke="#cbd5e1" unit="%" />
                 <Tooltip
                   contentStyle={{
-                    background: "var(--color-ink-2)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: 8,
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #cbd5e1",
+                    borderRadius: 6,
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
                     fontSize: 12,
+                    color: "#1f2937",
                   }}
+                  formatter={(val: any) => [`${val}%`, "Mức độ hài lòng CSAT"]}
+                  labelStyle={{ fontWeight: "bold", color: "#00a65a", marginBottom: 3 }}
                 />
-                <Line type="monotone" dataKey="csat" name="CSAT" stroke="var(--color-moss)" strokeWidth={2} />
+                <Line
+                  type="monotone"
+                  dataKey="csat"
+                  name="CSAT"
+                  stroke="#00a65a"
+                  strokeWidth={3}
+                  dot={{ r: 5, fill: "#00a65a", stroke: "#ffffff", strokeWidth: 2 }}
+                  activeDot={{ r: 7, fill: "#008d4c" }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>

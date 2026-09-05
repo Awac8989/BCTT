@@ -16,27 +16,102 @@ export type LoaiDoiTuong =
 
 export interface HoSo {
   id: string;
+  soHoSoTinh?: string | undefined; // Mã số tỉnh quản lý (VD: BD/16720-1)
   hoTen: string;
   cccd: string;
   ngaySinh: string;
+  namSinh?: string | number | undefined;
   gioiTinh: "Nam" | "Nữ";
+  huyen?: string | undefined;
   phuong: string;
   khuPho: string;
+  diaChiTiepNhan?: string | undefined; // Phường - Huyện
   loaiDoiTuong: LoaiDoiTuong;
+  banSaoBanGoc?: "Bản gốc" | "Bản sao" | undefined;
+  soBhyt?: string | undefined;
+  danToc?: string | undefined;
   tyLeTonThuong: number;
   trangThai: TrangThai;
   ngayTiepNhan: string;
   hanXuLy: string;
   quaHanNgay: number;
   canBoTiepNhan: string;
+  canBoQuanLy?: string | undefined;
   mucTroCap: number;
   phuCapPhucVu: number;
   troCapDieuDuong: number;
   taiLieu: string[];
-  ghiChuThamDinh?: string;
+  ghiChuThamDinh?: string | undefined;
+
+  // === CÁC TRƯỜNG ĐẶC TẢ CHI TIẾT HỒ SƠ LIỆT SĨ (Theo Cổng SLĐTBXH Bình Dương) ===
+  soHoSoBo?: string | undefined; // VD: BD/LS-07956
+  hoSoChuyenDenTu?: string | undefined;
+  ngayChuyenDen?: { ngay?: string; thang?: string; nam?: string } | undefined;
+  hoSoChuyenDi?: string | undefined;
+  ngayChuyenDi?: { ngay?: string; thang?: string; nam?: string } | undefined;
+
+  biDanh?: string | undefined;
+  sinhNgayChiTiet?: { ngay?: string; thang?: string; nam?: string } | undefined;
+  queQuan?: string | undefined;
+  truQuan?: string | undefined;
+  ngayNhapNguChiTiet?: { ngay?: string; thang?: string; nam?: string } | undefined;
+  capBac?: string | undefined;
+  chucVu?: string | undefined;
+  coQuanDonViKhiHySinh?: string | undefined;
+  hySinhNgayChiTiet?: { ngay?: string; thang?: string; nam?: string } | undefined;
+  thoiKy?: string | undefined;
+  truongHopHySinh?: string | undefined;
+  noiHySinh?: string | undefined;
+  noiMaiTang?: string | undefined;
+  giayBaoTu?: string | undefined;
+  baoTuNgayChiTiet?: { ngay?: string; thang?: string; nam?: string } | undefined;
+  donViCapGiayBaoTu?: string | undefined;
+  soBangToQuocGhiCong?: string | undefined;
+  qdCapBangSo?: string | undefined;
+  qdCapBangNgayChiTiet?: { ngay?: string; thang?: string; nam?: string } | undefined;
+  thuocDoiTuong?: string | undefined; // Dân Chính, Quân đội, Công an...
+  viTriLuuHoSo?: string | undefined;
+  isAnhHung?: boolean | undefined;
+
+  thanNhanLietSi?: {
+    hoTen: string;
+    quanHe: string;
+    namSinh?: string | number | undefined;
+    diaChi: string;
+    cheDoHuong: string;
+    soTien: number;
+  }[] | undefined;
 }
 
 export const MUC_CHUAN = 2_055_000;
+
+export const HUYEN_LIST = [
+  "TP. Thủ Dầu Một",
+  "TP. Dĩ An",
+  "TP. Thuận An",
+  "Bến Cát",
+  "Tân Uyên",
+  "Bắc Tân Uyên",
+  "Phú Giáo",
+  "Bàu Bàng",
+  "Dầu Tiếng",
+];
+
+export const HUYEN_PHUONG_MAP: Record<string, string[]> = {
+  "TP. Thủ Dầu Một": [
+    "Phú Cường", "Phú Hòa", "Hiệp Thành", "Định Hòa", "Phú Lợi", "Chánh Nghĩa",
+    "Phú Thọ", "Phú Mỹ", "Hiệp An", "Tương Bình Hiệp", "Chánh Mỹ", "Tân An",
+    "Thới Hòa", "Hòa Phú"
+  ],
+  "TP. Dĩ An": ["Dĩ An", "An Bình", "Bình An", "Bình Thắng", "Đông Hòa", "Tân Bình", "Tân Đông Hiệp"],
+  "TP. Thuận An": ["Lái Thiêu", "An Phú", "Bình Hòa", "Bình Chuẩn", "Bình Nhâm", "Hưng Định", "An Thạnh", "Thuận Giao", "Vĩnh Phú", "An Sơn"],
+  "Bến Cát": ["Mỹ Phước", "Thới Hòa", "Tân Định", "Hòa Lợi", "Chánh Phú Hòa", "An Điền", "An Tây", "Phú An"],
+  "Tân Uyên": ["Uyên Hưng", "Tân Phước Khánh", "Thái Hòa", "Thạnh Phước", "Tân Hiệp", "Khánh Bình", "Vĩnh Tân", "Bạch Đằng"],
+  "Bắc Tân Uyên": ["Bình Mỹ", "Tân Thành", "Tân Bình", "Tân Định", "Đất Cuốc", "Thường Tân", "Lạc An"],
+  "Phú Giáo": ["Phước Vĩnh", "Tam Lập", "Vĩnh Hòa", "Tân Hiệp", "An Bình", "An Linh", "An Thái", "Phước Sang"],
+  "Bàu Bàng": ["Lai Uyên", "Trừ Văn Thố", "Cây Trường II", "Tân Hưng", "Hưng Hòa"],
+  "Dầu Tiếng": ["Dầu Tiếng", "Thanh An", "Thanh Tuyền", "Định An", "Định Hiệp", "Minh Hòa"]
+};
 
 export const PHUONG_LIST = [
   "Phú Cường",
@@ -84,10 +159,10 @@ export const giaiNganTheoThang = [
 ];
 
 export const coCauDoiTuong = [
-  { ten: "Thương binh", value: 42, mau: "var(--color-primary)" },
-  { ten: "Thân nhân liệt sĩ", value: 30, mau: "var(--color-gold)" },
-  { ten: "Bệnh binh", value: 15, mau: "var(--color-azure)" },
-  { ten: "CĐHH & khác", value: 13, mau: "var(--color-ink-4)" },
+  { ten: "Thương binh", value: 42, mau: "#3c8dbc" }, // Xanh dương
+  { ten: "Thân nhân liệt sĩ", value: 30, mau: "#dd4b39" }, // Đỏ đô
+  { ten: "Bệnh binh", value: 15, mau: "#f39c12" }, // Vàng cam
+  { ten: "CĐHH & khác", value: 13, mau: "#00a65a" }, // Xanh lá
 ];
 
 export const phezuyetFunnel = [
@@ -141,6 +216,12 @@ export interface PhanHoi {
   sentiment: "POSITIVE" | "NEGATIVE" | "NEUTRAL";
   ngay: string;
   daXuLy: boolean;
+  tieuChi?: {
+    thaiDo: number;
+    thoiGian: number;
+    minhBach: number;
+    haTang: number;
+  } | undefined;
 }
 
 export const phanHoiList: PhanHoi[] = [
@@ -222,20 +303,369 @@ export const xepHangPhuong = [
 
 export const hoSoList: HoSo[] = [
   {
+    id: "12029",
+    soHoSoTinh: "04878",
+    soHoSoBo: "BD/LS-07956",
+    hoTen: "Hồ Văn Lên",
+    cccd: "074026001202",
+    ngaySinh: "1926",
+    namSinh: 1926,
+    sinhNgayChiTiet: { ngay: "", thang: "", nam: "1926" },
+    gioiTinh: "Nam",
+    huyen: "Thủ Dầu Một",
+    phuong: "Chánh Nghĩa",
+    khuPho: "Khu phố 2",
+    diaChiTiepNhan: "Chánh Nghĩa - Thủ Dầu Một",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420120291",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "10/05/2018",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công", "Giấy báo tử", "Trích lục hồ sơ liệt sĩ"],
+    queQuan: "Xã Chánh Hiệp, Châu Thành, Thị xã Thủ Dầu Một, tỉnh Sông Bé",
+    truQuan: "Chánh Nghĩa, Thủ Dầu Một",
+    ngayNhapNguChiTiet: { ngay: "", thang: "08", nam: "1945" },
+    capBac: "",
+    chucVu: "Ủy viên Ban tuyên huấn tỉnh",
+    coQuanDonViKhiHySinh: "Ban Tuyên giáo tỉnh Sông Bé",
+    hySinhNgayChiTiet: { ngay: "", thang: "07", nam: "1949" },
+    thoiKy: "Kháng Pháp (từ 19/08/1945 - 20/07/1954)",
+    truongHopHySinh: "Trên đường đi công tác về đơn vị bị địch càn quét bắn đồng chí hy sinh",
+    noiHySinh: "An Mỹ, Châu Thành",
+    noiMaiTang: "An Mỹ, Châu Thành",
+    giayBaoTu: "239/07",
+    baoTuNgayChiTiet: { ngay: "13", thang: "06", nam: "1977" },
+    donViCapGiayBaoTu: "Ban Tuyên giáo tỉnh Sông Bé",
+    soBangToQuocGhiCong: "GC887K",
+    qdCapBangSo: "1312TTga",
+    qdCapBangNgayChiTiet: { ngay: "26", thang: "10", nam: "1977" },
+    thuocDoiTuong: "Dân Chính",
+    viTriLuuHoSo: "Kho lưu trữ Sở LĐTBXH Bình Dương - Kệ A3, Hộp 12",
+    isAnhHung: false,
+    thanNhanLietSi: [
+      {
+        hoTen: "Hồ Thị Mai",
+        quanHe: "Con đẻ",
+        namSinh: 1948,
+        diaChi: "Phường Chánh Nghĩa, TP. Thủ Dầu Một",
+        cheDoHuong: "Người thờ cúng liệt sĩ",
+        soTien: 1_400_000,
+      },
+    ],
+  },
+  {
+    id: "BD-16720-1",
+    soHoSoTinh: "BD/16720-1",
+    soHoSoBo: "BD/LS-09812",
+    hoTen: "Phạm Ngọc Dưỡng",
+    cccd: "074045001923",
+    ngaySinh: "15/03/1945",
+    namSinh: 1945,
+    gioiTinh: "Nam",
+    huyen: "TP. Dĩ An",
+    phuong: "Bình An",
+    khuPho: "Khu phố Nội Hóa 1",
+    diaChiTiepNhan: "Bình An - Dĩ An",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420185921",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "12/04/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công", "Giấy chứng nhận gia đình liệt sĩ"],
+  },
+  {
+    id: "BD-16718-1",
+    soHoSoTinh: "BD/16718-1",
+    hoTen: "Nguyễn Văn Hạn",
+    cccd: "074048002841",
+    ngaySinh: "08/11/1948",
+    namSinh: 1948,
+    gioiTinh: "Nam",
+    huyen: "Bắc Tân Uyên",
+    phuong: "Bình Mỹ",
+    khuPho: "Ấp Bình Cơ",
+    diaChiTiepNhan: "Bình Mỹ - Bắc Tân Uyên",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420199120",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "18/06/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
+    id: "BD-16723-1",
+    soHoSoTinh: "BD/16723-1",
+    hoTen: "Nguyễn Văn Lý",
+    cccd: "074052003344",
+    ngaySinh: "20/05/1952",
+    namSinh: 1952,
+    gioiTinh: "Nam",
+    huyen: "TP. Dĩ An",
+    phuong: "Dĩ An",
+    khuPho: "Khu phố Thống Nhất 1",
+    diaChiTiepNhan: "Dĩ An - Dĩ An",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420211550",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "05/05/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
+    id: "BD-16715-1",
+    soHoSoTinh: "BD/16715-1",
+    hoTen: "Lê Văn Xiêm",
+    cccd: "074050004455",
+    ngaySinh: "10/10/1950",
+    namSinh: 1950,
+    gioiTinh: "Nam",
+    huyen: "Phú Giáo",
+    phuong: "Tam Lập",
+    khuPho: "Ấp Gia Biện",
+    diaChiTiepNhan: "Tam Lập - Phú Giáo",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420177890",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "19/04/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
+    id: "BD-16717-1",
+    soHoSoTinh: "BD/16717-1",
+    hoTen: "Nguyễn Văn Quýnh",
+    cccd: "074047005566",
+    ngaySinh: "02/09/1947",
+    namSinh: 1947,
+    gioiTinh: "Nam",
+    huyen: "Phú Giáo",
+    phuong: "Vĩnh Hòa",
+    khuPho: "Ấp Vĩnh Tiến",
+    diaChiTiepNhan: "Vĩnh Hòa - Phú Giáo",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420166540",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "15/04/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
+    id: "BD-16711-1",
+    soHoSoTinh: "BD/16711-1",
+    hoTen: "Nguyễn Đình Việt",
+    cccd: "074053006677",
+    ngaySinh: "14/01/1953",
+    namSinh: 1953,
+    gioiTinh: "Nam",
+    huyen: "Bến Cát",
+    phuong: "Tân Định",
+    khuPho: "Khu phố 1",
+    diaChiTiepNhan: "Tân Định - Bến Cát",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420155430",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "09/04/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
+    id: "BD-18719-1",
+    soHoSoTinh: "BD/18719-1",
+    hoTen: "Đỗ Xuân Mai",
+    cccd: "074049007788",
+    ngaySinh: "25/12/1949",
+    namSinh: 1949,
+    gioiTinh: "Nam",
+    huyen: "TP. Thuận An",
+    phuong: "Vĩnh Phú",
+    khuPho: "Khu phố Đông",
+    diaChiTiepNhan: "Vĩnh Phú - Thuận An",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420144320",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "22/06/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
+    id: "BD-16716-1",
+    soHoSoTinh: "BD/16716-1",
+    hoTen: "Đinh Ngọc Tảo",
+    cccd: "074046008899",
+    ngaySinh: "04/07/1946",
+    namSinh: 1946,
+    gioiTinh: "Nam",
+    huyen: "TP. Dĩ An",
+    phuong: "Dĩ An",
+    khuPho: "Khu phố Nhị Đồng 2",
+    diaChiTiepNhan: "Dĩ An - Dĩ An",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420133210",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "16/04/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
+    id: "BD-16713-1",
+    soHoSoTinh: "BD/16713-1",
+    hoTen: "Vũ Đình Nho",
+    cccd: "074051009911",
+    ngaySinh: "19/08/1951",
+    namSinh: 1951,
+    gioiTinh: "Nam",
+    huyen: "Phú Giáo",
+    phuong: "Tân Hiệp",
+    khuPho: "Ấp 1",
+    diaChiTiepNhan: "Tân Hiệp - Phú Giáo",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420122100",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "12/04/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
+    id: "BD-16726-1",
+    soHoSoTinh: "BD/16726-1",
+    hoTen: "Nguyễn Văn An",
+    cccd: "074054001122",
+    ngaySinh: "30/03/1954",
+    namSinh: 1954,
+    gioiTinh: "Nam",
+    huyen: "Bến Cát",
+    phuong: "An Tây",
+    khuPho: "Ấp Lộ 7A",
+    diaChiTiepNhan: "An Tây - Bến Cát",
+    loaiDoiTuong: "Thân nhân liệt sĩ",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "HT2747420111000",
+    danToc: "Kinh",
+    tyLeTonThuong: 0,
+    trangThai: "ĐÃ_DUYỆT",
+    ngayTiepNhan: "04/05/2021",
+    hanXuLy: "Hoàn thành",
+    quaHanNgay: 0,
+    canBoTiepNhan: "admin",
+    canBoQuanLy: "admin",
+    mucTroCap: 2_055_000,
+    phuCapPhucVu: 0,
+    troCapDieuDuong: 1_027_500,
+    taiLieu: ["Bằng Tổ quốc ghi công"],
+  },
+  {
     id: "TDM-NCC-2026-00412",
+    soHoSoTinh: "BD/20260-1",
     hoTen: "TRẦN VĂN SÁU",
     cccd: "074056001234",
     ngaySinh: "12/04/1949",
+    namSinh: 1949,
     gioiTinh: "Nam",
+    huyen: "TP. Thủ Dầu Một",
     phuong: "Phú Cường",
     khuPho: "Khu phố 3",
+    diaChiTiepNhan: "Phú Cường - TP. Thủ Dầu Một",
     loaiDoiTuong: "Thương binh",
+    banSaoBanGoc: "Bản gốc",
+    soBhyt: "CN3747420185921",
+    danToc: "Kinh",
     tyLeTonThuong: 61,
     trangThai: "CHỜ_PHÊ_DUYỆT",
     ngayTiepNhan: "20/08/2026",
     hanXuLy: "10/09/2026",
     quaHanNgay: 0,
     canBoTiepNhan: "Nguyễn Văn An",
+    canBoQuanLy: "Nguyễn Văn An",
     mucTroCap: 3_082_500,
     phuCapPhucVu: 0,
     troCapDieuDuong: 1_027_500,

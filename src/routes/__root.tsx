@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { Toaster } from "../components/ui/sonner";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportAppError } from "../lib/error-logger";
 
 
 function NotFoundComponent() {
@@ -40,17 +40,17 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportAppError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+      <div className="max-w-md text-center bg-white p-6 rounded border border-[#d2d6de] shadow-sm">
+        <h1 className="text-lg font-bold text-[#dd4b39]">
+          Sự cố xử lý dữ liệu hệ thống
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+        <p className="mt-2 text-sm text-gray-600">
+          Đã xảy ra lỗi trong quá trình tải dữ liệu. Cán bộ vui lòng tải lại trang hoặc quay lại Bảng điều khiển.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -58,15 +58,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded bg-[#dd4b39] px-4 py-2 text-sm font-medium text-white hover:bg-[#c23321]"
           >
-            Try again
+            Tải lại trang
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded border border-[#d2d6de] bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
           >
-            Go home
+            Về Bảng điều khiển
           </a>
         </div>
       </div>
@@ -79,18 +79,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Hệ thống Quản lý Hồ sơ Người có công · Thủ Dầu Một" },
+      { title: "SLĐTBXH Bình Dương · Quản lý hồ sơ Người có công" },
       {
         name: "description",
         content:
-          "Hệ thống quản lý hồ sơ Người có công: tiếp nhận, thẩm định, chi trả trợ cấp, trực quan hóa dữ liệu và đo lường sự hài lòng của công dân.",
+          "Cổng Thông tin & Quản lý CSDL Người có công tỉnh Bình Dương: tiếp nhận, thẩm định, chi trả trợ cấp và tìm kiếm hồ sơ.",
       },
-      { name: "author", content: "Phòng Văn hóa - Xã hội, Thủ Dầu Một" },
-      { property: "og:title", content: "Hệ thống Quản lý Hồ sơ Người có công" },
+      { name: "author", content: "Sở Lao động - Thương binh và Xã hội tỉnh Bình Dương" },
+      { property: "og:title", content: "SLĐTBXH Bình Dương · Quản lý hồ sơ Người có công" },
       {
         property: "og:description",
         content:
-          "Dashboard điều hành, thẩm định hồ sơ, quản lý chi trả và phân tích tiếng nói công dân.",
+          "Hệ thống Quản lý hồ sơ Người có công & Đánh giá Dịch vụ công tỉnh Bình Dương.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -100,13 +100,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
       },
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
     ],
   }),
 
@@ -132,6 +134,24 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Đảm bảo không có các phần tử overlay lạ xuất hiện trên trang
+  useEffect(() => {
+    const sanitizeDOM = () => {
+      const selectors = [
+        "[data-watermark]",
+        ".third-party-overlay",
+        "#unauthorized-badge",
+      ];
+      selectors.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((el) => {
+          el.remove();
+        });
+      });
+    };
+
+    sanitizeDOM();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
