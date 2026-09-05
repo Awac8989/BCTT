@@ -1,381 +1,210 @@
-# Welfare Compass
+# 🏛️ HỆ THỐNG QUẢN LÝ HỒ SƠ NGƯỜI CÓ CÔNG & ĐÁNH GIÁ DỊCH VỤ CÔNG
+### Sở Lao động - Thương binh và Xã hội tỉnh Bình Dương · Phòng LĐTBXH TP. Thủ Dầu Một
 
-Dựa trên báo cáo thực tập chuyên đề và tài liệu đặc tả dự án **"Hệ thống Quản lý Hồ sơ Người có công"** (thuộc đơn vị thực tập Phòng Văn hóa - Xã hội / Phòng VH&TT phường thủ dầu một ), dưới đây là bản **Mô tả chi tiết các Chức năng, Thiết kế Giao diện (UI/UX)**, tập trung sâu vào các module: **Trực quan hóa dữ liệu (Data Visualization)**, **Phân tích - Đánh giá nghiệp vụ (Analytics & Reporting)**, và **Thu thập phản hồi / đánh giá từ người dùng (User Feedback & Satisfaction Evaluation)**.
-
----
-
-# PHẦN 1. MA TRẬN PHÂN HỆ VÀ TÁC NHÂN HỆ THỐNG (ACTORS)
-
-Hệ thống được thiết kế hướng tới 4 nhóm người dùng chính:
-
-1. **Cán bộ Tiếp nhận (UBND Phường/Xã - Ward Officer):** Nhập hồ sơ, đính kèm căn cước/giấy tờ chứng nhận, gửi hồ sơ lên cấp thẩm định, ghi nhận chi trả.
-
-2. **Cán bộ Chuyên viên & Lãnh đạo Phòng (City/District Reviewer & Approver):** Thẩm định pháp lý, phê duyệt mức trợ cấp, ban hành quyết định, theo dõi tiến độ xử lý hồ sơ và chi trả ngân sách.
-
-3. **Quản trị viên Hệ thống (System Admin):** Cấu hình danh mục (phường xã, loại đối tượng, mức chuẩn trợ cấp), quản lý tài khoản, giám sát log hệ thống và tích hợp liên thông LGSP.
-
-4. **Công dân / Người có công / Thân nhân (Citizen/End-user):** Tra cứu tình trạng xử lý hồ sơ, tiếp nhận thông báo chi trả, thực hiện đánh giá mức độ hài lòng đối với dịch vụ công.
+[![Phiên bản](https://img.shields.io/badge/Phiên_bản-2.0_Made_by_MINHQUAN-red.svg)](https://github.com/Awac8989/ho-so-tran-an)
+[![Framework](https://img.shields.io/badge/React-19.2-blue.svg)](https://react.dev)
+[![Router](https://img.shields.io/badge/TanStack_Router-v1-orange.svg)](https://tanstack.com/router)
+[![Styling](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8.svg)](https://tailwindcss.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6.svg)](https://www.typescriptlang.org)
+[![Build](https://img.shields.io/badge/Vite-8.1-yellow.svg)](https://vitejs.dev)
 
 ---
 
-# PHẦN 2. MÔ TẢ CHI TIẾT CÁC CHỨC NĂNG NGHIỆP VỤ
+## 📖 Giới Thiệu Dự Án
 
+Xuất phát từ thực tiễn công tác giải quyết chế độ chính sách cho Người có công với cách mạng tại địa bàn tỉnh Bình Dương (trọng tâm là TP. Thủ Dầu Một), việc quản lý hồ sơ trước đây còn gặp nhiều khó khăn: hồ sơ giấy đồ sộ, việc đối soát chi trả trợ cấp hàng tháng qua Ngân hàng / Bưu điện mất nhiều thời gian, công tác lập danh sách điều dưỡng dễ sai sót định mức và chưa có kênh số hóa để lắng nghe phản hồi của người dân sau khi làm thủ tục tại Bộ phận Một cửa.
+
+**Hệ thống Quản lý Hồ sơ Người có công & Đánh giá Dịch vụ công (Phiên bản 2.0)** được tác giả **Minh Quân** nghiên cứu và phát triển nhằm mang đến một giải pháp công nghệ toàn diện, hiện đại, đạt chuẩn chính quyền số:
+- 📑 **Số hóa toàn bộ vòng đời hồ sơ Người có công:** Tiếp nhận ➔ Thẩm định điều kiện ➔ Phê duyệt trợ cấp ➔ Lập danh sách chi trả ➔ Điều dưỡng phục hồi sức khỏe.
+- 🖨️ **Chuẩn hóa mẫu biểu hành chính nhà nước:** Tự động tạo và in **Giấy tiếp nhận hồ sơ & Hẹn trả kết quả có Mã QR Code** (Mẫu số 01 - Nghị định 61/2018/NĐ-CP) và **Phiếu chi trả trợ cấp Mẫu C70a-HD**.
+- 🌟 **Tách bạch kênh đánh giá CSAT / SIPAS:** Người dân quét mã QR trên điện thoại hoặc thao tác tại Kiosk công cộng để đánh giá sự hài lòng độc lập; Cán bộ theo dõi giám sát chỉ số hài lòng theo thời gian thực trên Bảng điều khiển riêng.
+- 🔐 **Phân cấp điều hành rạch ròi:** Phân chia rõ quyền hạn giữa **Admin Cấp Sở** (quản trị toàn tỉnh) và **Admin Cấp Phòng** (thụ lý địa bàn cấp huyện/thành phố).
+
+---
+
+## 📸 Hình Ảnh Giao Diện & Tính Năng Thực Tế
+
+### 1. Cổng Đăng Nhập Quản Trị Công Vụ (`/login`)
+Được thiết kế trang trọng với Quốc huy Việt Nam, Quốc hiệu và sắc đỏ công quyền. Hệ thống tích hợp sẵn tab chuyển đổi phân quyền giữa **Admin Cấp Sở** và **Admin Cấp Phòng**, kèm nút **1-Click Đăng nhập** giúp trải nghiệm và đánh giá hệ thống tức thì.
+
+<p align="center">
+  <img src="docs/screenshots/01_login_cap_so.png" alt="Cổng Đăng Nhập Admin Cấp Sở" width="49%" />
+  <img src="docs/screenshots/02_login_cap_phong.png" alt="Cổng Đăng Nhập Admin Cấp Phòng" width="49%" />
+</p>
+
+* Dưới cùng của Cổng đăng nhập ghi nhận dấu ấn phiên bản: **`PHIÊN BẢN 2.0 MADE BY MINHQUAN`**.
+
+---
+
+### 2. Bảng Điều Khiển Trung Tâm & Phân Tầng Màu Sắc Trực Quan (`/`)
+Trang chủ điều hành cung cấp các thẻ KPI quan trọng: Tổng số đối tượng, Kinh phí chi trả hàng tháng, Tỷ lệ hồ sơ đúng hạn, Điểm hài lòng CSAT và Cảnh báo hồ sơ quá hạn xử lý.
+
+![Bảng điều khiển trung tâm](docs/screenshots/03_dashboard_tong_quan.png)
+
+Biểu đồ cột **"Kinh phí chi trả theo phường"** được phối màu phân tầng trực quan theo 3 cấp độ ngân sách, xóa bỏ hoàn toàn tình trạng màu đen đơn điệu:
+- 🟢 **Xanh Lá Emerald (`#00a65a`)**: Kinh phí cao ($\ge 2.5$ tỷ VNĐ/tháng) như Phú Cường, Phú Hòa, Hiệp Thành.
+- 🩵 **Xanh Ngọc Cyan (`#00c0ef`)**: Kinh phí trung bình ($1.5 - 2.5$ tỷ VNĐ/tháng).
+- 🔵 **Xanh Lam Royal Blue (`#3c8dbc`)**: Kinh phí dưới $1.5$ tỷ VNĐ/tháng.
+- Tooltip thẻ trắng đổ bóng nổi, tiêu đề đỏ đậm hiển thị rõ nét từng phường khi rê chuột.
+
+![Biểu đồ kinh phí chi trả theo phường](docs/screenshots/04_bieu_do_kinh_phi.png)
+
+---
+
+### 3. Menu Tài Khoản & Chuyển Đổi Nhanh Giữa Cấp Sở và Cấp Phòng
+Cán bộ có thể xem thông tin cá nhân, chức vụ, phạm vi thẩm quyền và chuyển đổi qua lại linh hoạt giữa **Admin Cấp Sở** và **Admin Cấp Phòng** chỉ với 1 cú click ngay trên thanh Header.
+
+![Chuyển đổi vai trò quản trị](docs/screenshots/05_chuyen_doi_vai_tro.png)
+
+---
+
+### 4. Xuất Giấy Hẹn Một Cửa Tích Hợp Mã QR Đánh Giá (`/ho-so`)
+Khi tiếp nhận hồ sơ tại Bộ phận Một cửa, cán bộ nhấn in để xuất **Giấy tiếp nhận hồ sơ và Hẹn trả kết quả** chuẩn Mẫu số 01 (Nghị định 61/2018/NĐ-CP).
+
+![Giấy hẹn tiếp nhận Một cửa tích hợp Mã QR](docs/screenshots/06_giay_hen_mot_cua_qr.png)
+
+* Khối **Mã QR Code lớn** in ngay trên giấy hẹn: Công dân chỉ cần mở camera điện thoại hoặc Zalo quét mã là chuyển ngay đến Cổng đánh giá với mã hồ sơ được điền sẵn.
+
+---
+
+### 5. Phân Hệ Đánh Giá CSAT Dành Riêng Cho Người Dân (`/khao-sat`)
+Giao diện hoàn toàn tách biệt với hệ thống cán bộ: không có thanh menu quản lý, tối ưu hoàn hảo cho màn hình di động và Kiosk cảm ứng. Chữ to, nút bấm lớn, hình mặt cười 1-5 sao và các thẻ góp ý nhanh giúp người cao tuổi và thân nhân liệt sĩ thao tác dễ dàng.
+
+![Cổng đánh giá sự hài lòng của công dân](docs/screenshots/07_cong_dan_danh_gia_csat.png)
+
+---
+
+### 6. Trung Tâm Giám Sát CSAT & SIPAS Của Cán Bộ (`/danh-gia`)
+Dữ liệu đánh giá của người dân sau khi gửi sẽ lập tức đồng bộ về màn hình giám sát của cán bộ:
+- Theo dõi 4 chỉ số KPI: Tỷ lệ CSAT, Tổng lượt đánh giá, Ý kiến chưa hài lòng ($\le 2$ sao) cần giải trình.
+- Biểu đồ **Radar 4 tiêu chí cốt lõi (Chuẩn SIPAS)**: Thái độ phục vụ, Thời gian xử lý, Tính công khai minh bạch, Cơ sở vật chất.
+- Bảng xếp hạng CSAT 14 phường/xã và nhật ký phản hồi công dân thời gian thực.
+
+![Giám sát đánh giá dịch vụ công của cán bộ](docs/screenshots/08_giam_sat_csat_can_bo.png)
+
+---
+
+### 7. Quản Lý Chi Trả Trợ Cấp & Xuất Phiếu Chi Mẫu C70a-HD (`/chi-tra`)
+Quản lý danh sách chi trả trợ cấp hàng tháng qua Tài khoản Ngân hàng (ATM) và Bưu điện văn hóa xã. Hỗ trợ xuất Phiếu chi chuẩn Mẫu C70a-HD có mã vạch xác thực.
+
+![Phiếu chi trả trợ cấp C70a-HD](docs/screenshots/09_phieu_chi_c70a_hd.png)
+
+---
+
+### 8. Tra Cứu & Xem Chi Tiết Hồ Sơ Liệt Sĩ (`/ho-so/$id`)
+Xem đầy đủ thông tin trích lục liệt sĩ, nguyên quán, nơi hy sinh, nghĩa trang an táng, danh sách thân nhân thờ cúng và các quyết định hưởng tiền tuất hàng tháng.
+
+![Chi tiết hồ sơ liệt sĩ](docs/screenshots/10_chi_tiet_ho_so_liet_si.png)
+
+---
+
+### 9. Quản Lý Chế Độ Điều Dưỡng Người Có Công (`/dieu-duong`)
+Thực hiện nghiêm túc quy định tại **Nghị định 131/2021/NĐ-CP**:
+- Phân loại điều dưỡng: Hàng năm (thương binh nặng $>81\%$, Mẹ VNAH) và 2 năm một lần.
+- Quản lý 2 hình thức: **Điều dưỡng tập trung** (kinh phí 4.869.000 đ/người) và **Điều dưỡng tại nhà** (kinh phí 2.434.500 đ/người).
+- Theo dõi chỉ tiêu phân bổ và danh sách đoàn đi điều dưỡng tại Vũng Tàu, Đà Lạt, Nha Trang.
+
+![Quản lý chỉ tiêu điều dưỡng NCC](docs/screenshots/11_quan_ly_dieu_duong.png)
+
+---
+
+### 10. Bản Đồ Nhiệt & Báo Cáo Thống Kê Phân Tích (`/phan-tich`)
+Bản đồ nhiệt mật độ đối tượng trên 14 phường/xã TP. Thủ Dầu Một chuyển màu trực quan từ xanh lá sang xanh lam, kết hợp biểu đồ dự báo ngân sách và cơ cấu chính sách.
+
+![Bản đồ nhiệt và phân tích số liệu điều hành](docs/screenshots/12_ban_do_nhiet_phan_tich.png)
+
+---
+
+## 🛠️ Công Nghệ Sử Dụng (Tech Stack)
+
+| Lớp kiến trúc | Công nghệ & Thư viện | Vai trò |
+| :--- | :--- | :--- |
+| **Frontend Framework** | **React 19.2 + TypeScript 5.9** | Giao diện người dùng hiện đại, an toàn kiểu dữ liệu |
+| **Routing & SSR** | **TanStack Router + TanStack Start** | Định tuyến dựa trên tệp tin (File-based routing), tải trang tức thì |
+| **Styling** | **Tailwind CSS v4** | Hệ thống utility tokens, giao diện công vụ trang trọng |
+| **Data Visualization** | **Recharts 2.15** | Biểu đồ cột phân tầng, Radar SIPAS, Pie chart, Line chart |
+| **State Management** | **React `useSyncExternalStore`** | Quản lý state tập trung, đồng bộ LocalStorage & kiểm toán Audit Logs |
+| **Icons & UI Elements**| **Lucide React + Radix UI + Sonner** | Hệ thống icon hành chính, modal, tooltip, thông báo toast |
+| **Database Schema** | **PostgreSQL (schema.sql)** | Thiết kế 8 bảng quan hệ chuẩn hóa 3NF, hỗ trợ ACID |
+
+---
+
+## 🚀 Hướng Dẫn Cài Đặt & Chạy Thử (Quick Start)
+
+### 1. Yêu cầu môi trường:
+- Đã cài đặt **Node.js** phiên bản 18 trở lên (Khuyến nghị Node.js v20 LTS).
+- Trình quản lý gói `npm` hoặc `bun`.
+
+### 2. Cài đặt các thư viện:
+```bash
+git clone https://github.com/Awac8989/ho-so-tran-an.git
+cd ho-so-tran-an
+npm install
 ```
 
-                    ┌────────────────────────────────────────────────────────┐
-
-                    │       HỆ THỐNG QUẢN LÝ HỒ SƠ NGƯỜI CÓ CÔNG             │
-
-                    └────────────────────────────────────────────────────────┘
-
-                                                 │
-
-     ┌──────────────────────┬────────────────────┼───────────────────┬─────────────────────┐
-
-     ▼                      ▼                    ▼                   ▼                     ▼
-
-[Phân hệ 1]            [Phân hệ 2]          [Phân hệ 3]         [Phân hệ 4]           [Phân hệ 5]
-
-Hồ sơ NCC &           Tính toán &           Trực quan hóa       Thu thập dữ liệu      Quản trị &
-
-Quy trình Xét duyệt   Lịch sử Chi trả       Dữ liệu & Báo cáo   & Đánh giá Người dùng Tích hợp LGSP
-
-```
-
----
-
-### PHÂN HỆ 1: QUẢN LÝ HỒ SƠ VÀ THẨM ĐỊNH XÉT DUYỆT
-
-* **1.1. Tiếp nhận và Khởi tạo Hồ sơ:**
-
-* Nhập liệu thông tin cá nhân: Họ tên, số CCCD (12 số có kiểm tra trùng lặp và cấu trúc regex), ngày sinh, giới tính, địa chỉ thường trú (phường/xã, khu phố/ấp).
-
-* Phân loại đối tượng chính sách: Mẹ VNAH, Thương binh, Bệnh binh, Cán bộ tiền khởi nghĩa, Thân nhân liệt sĩ, Nhiễm chất độc hóa học,...
-
-* Đính kèm tài liệu số hóa: Giấy ra viện, Biên bản giám định tỷ lệ tổn thương cơ thể (từ 21% - 100%), Huân huy chương, Quyết định phục viên.
-
-* **1.2. Thẩm định và Xét duyệt Hồ sơ:**
-
-* Luồng trạng thái: `MỚI_TIẾP_NHẬN` ➔ `ĐANG_THẨM_ĐỊNH` ➔ `CHỜ_PHÊ_DUYỆT` ➔ `ĐÃ_DUYỆT` (hoặc `YÊU_CẦU_BỔ_SUNG`, `TỪ_CHỐI`).
-
-* Ghi chú thẩm định: Cán bộ thẩm định ghi lý do nếu trả lại hoặc từ chối hồ sơ.
-
----
-
-### PHÂN HỆ 2: ĐỘNG CƠ TÍNH TOÁN TRỢ CẤP & QUẢN LÝ CHI TRẢ
-
-* **2.1. Động cơ tính trợ cấp tự động (Java Spring Boot Engine):**
-
-* Tự động áp giá mức trợ cấp ưu đãi theo Nghị định hiện hành (Nghị định 75/2021/NĐ-CP hoặc các quy định sửa đổi).
-
-* Công thức tính linh hoạt dựa trên:
-
-* Mức chuẩn trợ cấp ưu đãi $\times$ Hệ số đối tượng.
-
-* Tỷ lệ tổn thương cơ thể (%) đối với Thương binh/Bệnh binh.
-
-* Phụ cấp đặc thù (người phục vụ đối với thương binh nặng >81%, phụ cấp thâm niên,...).
-
-* **2.2. Quản lý Quyết định và Lịch sử Chi trả:**
-
-* Khởi tạo Quyết định hưởng trợ cấp (`quyet_dinh_huong`) kèm mã số quyết định, ngày hiệu lực.
-
-* Lập danh sách chi trả hàng tháng (`lich_su_chi_tra`), hỗ trợ xuất bảng kê thanh toán qua tài khoản ngân hàng hoặc bưu điện.
-
----
-
-### PHÂN HỆ 3: TRỰC QUAN HÓA DỮ LIỆU & PHÂN TÍCH THỐNG KÊ (DATA VISUALIZATION & ANALYTICS)
-
-Phân hệ này đóng vai trò trung tâm chỉ đạo điều hành, giúp lãnh đạo có cái nhìn tức thời, đa chiều về công tác chính sách trên toàn địa bàn.
-
-#### 3.1. Các chỉ số hiệu năng (KPI Cards / Summary Metrics)
-
-* **Tổng số đối tượng NCC đang quản lý:** Thống kê theo thời gian thực, hiển thị độ tăng/giảm so với cùng kỳ năm trước.
-
-* **Tổng kinh phí chi trả tháng hiện tại:** Tổng số tiền giải ngân qua tài khoản ngân hàng và tiền mặt.
-
-* **Tỷ lệ giải quyết hồ sơ đúng hạn:** (Số hồ sơ duyệt đúng hẹn / Tổng hồ sơ tiếp nhận) $\times 100\%$.
-
-* **Chỉ số hài lòng trung bình (CSAT Score):** Đánh giá từ công dân theo thang điểm 5 sao.
-
-#### 3.2. Hệ thống biểu đồ trực quan hóa dữ liệu (Visualization Widgets)
-
-* **Biểu đồ tròn/Donut (Cơ cấu loại đối tượng):** Tỷ lệ phân bổ Thương binh, Thân nhân liệt sĩ, Người có công cách mạng,...
-
-* **Bản đồ nhiệt địa lý (Choropleth Heatmap 14 Phường/Xã):** Thể hiện mật độ đối tượng NCC và khối lượng chi trả theo từng đơn vị hành chính; các phường có lượng hồ sơ lớn (Phú Cường, Phú Hòa, Hiệp Thành,...) hiển thị sắc thái màu đậm hơn.
-
-* **Biểu đồ cột chồng (Stacked Bar Chart - Xu hướng ngân sách theo quý/năm):** Phân rã dòng tiền: Trợ cấp thường xuyên hàng tháng, Trợ cấp một lần, Chế độ điều dưỡng phục hồi sức khỏe, Bảo hiểm y tế.
-
-* **Biểu đồ hình phễu (Funnel Chart - Tiến độ xử lý thủ tục hành chính):** Đo lường tỷ lệ hồ sơ ở từng công đoạn tiếp nhận ➔ thẩm định ➔ lãnh đạo phê duyệt ➔ đã trả kết quả.
-
-#### 3.3. Phân tích dự báo và Báo cáo điều hành
-
-* **Phân tích đối soát chi trả:** Tự động phát hiện bất thường (ví dụ: hồ sơ đã báo tử nhưng vẫn phát sinh chi trả, hồ sơ trùng lặp số CCCD, trùng hưởng nhiều nhóm trợ cấp sai quy định).
-
-* **Báo cáo động (Dynamic Export):** Trích xuất mẫu biểu chuẩn C70a-HD, báo cáo quyết toán kinh phí theo Thông tư của Bộ Tài chính và Bộ LĐ-TB&XH.
-
----
-
-### PHÂN HỆ 4: THU THẬP DỮ LIỆU NGƯỜI DÙNG & ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ (FEEDBACK & EVALUATION SYSTEM)
-
-Phân hệ giải quyết bài toán đo lường mức độ phục vụ công vụ của cơ quan nhà nước theo định hướng lấy người dân làm trung tâm.
-
-#### 4.1. Đa kênh thu thập dữ liệu (Multi-channel Data Collection)
-
-* **Kênh 1: Quét mã QR trên Giấy hẹn trả kết quả:**
-
-* Mỗi biên nhận hồ sơ được in kèm một mã QR động mã hóa `ho_so_id` và `token_danh_gia`.
-
-* Người dân quét mã bằng smartphone để mở trực tiếp trang khảo sát mà không cần đăng nhập.
-
-* **Kênh 2: Thiết bị Kiosk / Tablet tại Bộ phận Tiếp nhận và Trả kết quả (Một cửa):**
-
-* Đặt tại bàn làm việc của cán bộ; sau khi cán bộ hoàn tất thao tác tiếp nhận trên hệ thống, màn hình cảm ứng phụ hướng về phía người dân sẽ kích hoạt giao diện đánh giá nhanh 1 chạm.
-
-* **Kênh 3: Tin nhắn Zalo ZNS / SMS tự động:**
-
-* Khi hồ sơ chuyển trạng thái `ĐÃ_PHÊ_DUYỆT` hoặc `ĐÃ_CHI_TRẢ`, hệ thống tự động gửi tin nhắn cảm ơn kèm đường dẫn liên kết khảo sát trực tuyến.
-
-#### 4.2. Bộ tiêu chí thu thập đánh giá
-
-Khảo sát được thiết kế dựa trên tiêu chuẩn đo lường sự hài lòng của người dân đối với dịch vụ hành chính công (chỉ số SIPAS) bao gồm:
-
-1. **Tiêu chí 1: Thái độ ứng xử của cán bộ** (Nhiệt tình, lịch sự, tôn trọng người có công).
-
-2. **Tiêu chí 2: Thời gian xử lý thủ tục** (Nhanh chóng, đúng hẹn theo phiếu tiếp nhận).
-
-3. **Tiêu chí 3: Sự rõ ràng, minh bạch về thành phần hồ sơ** (Không yêu cầu bổ sung giấy tờ ngoài quy định).
-
-4. **Tiêu chí 4: Tiện ích không gian làm việc và tiếp cận** (Cơ sở vật chất, bảng biểu hướng dẫn).
-
-5. **Ý kiến góp ý tự do (Text Input):** Hòm thư điện tử tiếp nhận phản ánh, khiếu nại, kiến nghị giải pháp.
-
-#### 4.3. Phân tích và Xử lý dữ liệu phản hồi
-
-* **Tính toán chỉ số hài lòng:**
-
-$$\text{CSAT} = \frac{\text{Số lượt đánh giá Hài lòng / Rất hài lòng}}{\text{Tổng số lượt khảo sát}} \times 100\%$$
-
-* **Phân loại cảm xúc văn bản tự động (Sentiment Tagging):** Tự động lọc từ khóa tiêu cực ("chậm trễ", "hách dịch", "khó khăn", "phiền hà") để gắn cờ `CẢNH_BÁO` cho Lãnh đạo phòng xử lý.
-
-* **Xếp hạng đơn vị:** Bảng xếp hạng mức độ hài lòng của công dân giữa các phường/xã và từng cán bộ tiếp nhận.
-
----
-
-# PHẦN 3. THIẾT KẾ CHI TIẾT CẤU TRÚC GIAO DIỆN NGƯỜI DÙNG (UI/UX SPECIFICATION)
-
-### Giao diện 1: Bảng Điều khiển Tổng quan (Executive Data Dashboard)
-
-* **Bố cục (Layout):** Header cố định (thanh tìm kiếm toàn cục, thông báo, thông tin tài khoản) + Sidebar điều hướng bên trái + Vùng làm việc chính gồm lưới thẻ dữ liệu responsive.
-
-* **Mô phỏng bố cục (Wireframe):**
-
-```
-
-+---------------------------------------------------------------------------------------------------------+
-
-| [LOGO] HỆ THỐNG QUẢN LÝ HỒ SƠ NGƯỜI CÓ CÔNG       [🔍 Tìm CCCD/Mã HS...]  [🔔 3] [👤 Hứa Trọng Duy]     |
-
-+-------------------+-------------------------------------------------------------------------------------+
-
-| 📊 Tổng quan      | [ KPI 1: 12,480 ]   [ KPI 2: 24.6 Tỷ VNĐ ]   [ KPI 3: 98.4% ]   [ KPI 4: 4.85 / 5 ★ ]   |
-
-| 📁 Quản lý Hồ sơ  |   Tổng Hồ sơ NCC        Kinh phí tháng          Duyệt đúng hạn      Mức độ hài lòng     |
-
-| ⚖️ Thẩm định      +--------------------------------------------------+----------------------------------+
-
-| 💵 Chi trả trợ cấp| BIỂU ĐỒ DIỄN BIẾN GIẢI NGÂN THEO THÁNG (LINE/BAR)| CƠ CẤU ĐỐI TƯỢNG NCC (DONUT)    |
-
-| 📈 Phân tích số liệu| [ 2026 v ] [ Tất cả loại đối tượng v ]          |  ■ Thương binh: 42%              |
-
-| ⭐ Đánh giá dịch vụ|  25B|        ___                                 |  ■ Thân nhân Liệt sĩ: 30%        |
-
-| ⚙️ Hệ thống       |  20B|  _/\__/   \                                |  ■ Bệnh binh: 15%                |
-
-|                   |  15B| /      \   \                               |  ■ CĐHH & Khác: 13%              |
-
-|                   |   0B+--T1-T2-T3-T4-T5-T6-T7-T8-------------------+----------------------------------+
-
-|                   | BẢN ĐỒ NHIỆT MẬT ĐỘ HỒ SƠ THEO 14 PHƯỜNG         | CẢNH BÁO HỒ SƠ QUÁ HẠN XỬ LÝ    |
-
-|                   |  [ Bản đồ trực quan: Phường Phú Cường (Đậm)      |  ⚠️ HS-2026-0089: Quá hạn 2 ngày |
-
-|                   |    Phường Định Hòa (Vừa), Tân An (Nhạt)... ]     |  ⚠️ HS-2026-0112: Quá hạn 1 ngày |
-
-|                   |  * Click chọn từng phường để lọc số liệu         |  [ Xem tất cả (5 hồ sơ) ]        |
-
-+-------------------+--------------------------------------------------+----------------------------------+
-
-```
-
----
-
-### Giao diện 2: Màn hình Nhập liệu và Thẩm định Hồ sơ Chi tiết
-
-* **Khu vực 1 (Cột trái - 60%): Thông tin hành chính & chính sách:**
-
-* Khối thông tin định danh: Họ tên (chữ hoa), Số CCCD (12 số, tự động kiểm tra xem đã tồn tại trong bảng `ho_so_ncc` chưa), Giới tính, Ngày sinh.
-
-* Khối địa chỉ: Dropdown phân cấp (Phường/Xã ➔ Khu phố/Ấp ➔ Số nhà/Tên đường).
-
-* Khối nghiệp vụ: Nhóm đối tượng ưu đãi, tỷ lệ tổn thương (%), hồ sơ đính kèm dạng kéo thả (Drag & Drop: PDF, JPG scan).
-
-* **Khu vực 2 (Cột phải - 40%): Xem trước kết quả tính trợ cấp tự động & Phê duyệt:**
-
-* Box màu nổi bật: Bảng tính mức trợ cấp dự kiến được Engine tính toán tức thời (Hiển thị chi tiết: Tiền trợ cấp theo thương tật + Tiền phụ cấp người chăm sóc + Trợ cấp điều dưỡng = Tổng thực nhận).
-
-* Nút tác vụ: `[Lưu nháp]`, `[Trình Lãnh đạo duyệt]`, `[Yêu cầu bổ sung]`, `[Từ chối kèm lý do]`.
-
----
-
-### Giao diện 3: Giao diện Khảo sát Đánh giá của Người dùng (Mobile/Kiosk View)
-
-* **Giao diện thân thiện, cỡ chữ to, độ tương phản cao** phù hợp cho người cao tuổi hoặc thân nhân thương binh:
-
-```
-
-+--------------------------------------------------------------+
-
-|                UBND THÀNH PHỐ THỦ DẦU MỘT                     |
-
-|           KHẢO SÁT CHẤT LƯỢNG PHỤC VỤ DỊCH VỤ CÔNG            |
-
-+--------------------------------------------------------------+
-
-| Mã hồ sơ: TDM-NCC-2026-00412                                 |
-
-| Thủ tục: Hồ sơ đề nghị hưởng trợ cấp Thương binh             |
-
-| Cán bộ tiếp nhận: Nguyễn Văn An - Bộ phận Một cửa            |
-
-+--------------------------------------------------------------+
-
-| 1. Bác/Cô/Chú đánh giá thế nào về sự tiếp đón và hướng dẫn   |
-
-|    của cán bộ công chức?                                     |
-
-|    [ 😡 Rất tệ ]  [ 🙁 Chưa tốt ]  [ 😐 Bình thường ]         |
-
-|    [ 😊 Hài lòng ]                 [ ⭐ RẤT HÀI LÒNG ]         |
-
-+--------------------------------------------------------------+
-
-| 2. Thời gian tiếp nhận và xử lý hồ sơ:                       |
-
-|    ( ) Quá chậm trễ     ( ) Đúng hẹn     ( ) Nhanh chóng    |
-
-+--------------------------------------------------------------+
-
-| 3. Ý kiến đóng góp thêm (nếu có):                            |
-
-|    +----------------------------------------------------+    |
-
-|    | Cán bộ hướng dẫn rất tận tình, giải thích rõ ràng. |    |
-
-|    +----------------------------------------------------+    |
-
-+--------------------------------------------------------------+
-
-|                     [ GỬI ĐÁNH GIÁ ]                         |
-
-+--------------------------------------------------------------+
-
-```
-
----
-
-### Giao diện 4: Dashboard Phân tích Đánh giá Sự hài lòng (Citizen Voice Analytics)
-
-* **Thanh lọc dữ liệu:** Theo mốc thời gian (Từ ngày... Đến ngày...), Theo từng Cán bộ tiếp nhận, Theo từng Phường/Xã.
-
-* **Thành phần giao diện:**
-
-* **Biểu đồ Radar (Spider Chart):** Đánh giá cân bằng giữa 5 tiêu chí: Thái độ cán bộ, Tốc độ phục vụ, Minh bạch giấy tờ, Hạ tầng tiếp đón, Mức độ dễ dàng khi liên hệ.
-
-* **Word Cloud (Đám mây từ khóa):** Trích xuất từ các bình luận: các từ tích cực ("tận tình", "nhanh", "chu đáo") hiển thị cỡ to màu xanh lam; các từ tiêu cực ("chờ lâu", "thiếu chỉ dẫn", "phiền hà") hiển thị màu đỏ để lãnh đạo lưu ý kiểm tra trực tiếp.
-
-* **Bảng chi tiết phản hồi kém (Rating $\le$ 2 sao):** Liệt kê chi tiết mã hồ sơ, người phản ánh, nội dung bức xúc và nút chuyển tiếp `[Tạo phiếu xử lý khiếu nại]`.
-
----
-
-# PHẦN 4. THIẾT KẾ CƠ SỞ DỮ LIỆU BỔ SUNG (CHO PHẦN ANALYTICS & ĐÁNH GIÁ)
-
-Kế thừa và chuẩn hóa mở rộng từ ERD hiện hữu (`sys_users`, `ho_so_ncc`, `quyet_dinh_huong`, `lich_su_chi_tra`), hệ thống được bổ sung 2 bảng để phục vụ module thu thập và phân tích đánh giá:
-
-### 1. Bảng `khao_sat_danh_gia` (Ghi nhận phiên khảo sát)
-
-| Tên trường | Kiểu dữ liệu | Ràng buộc | Diễn giải |
-
-| --- | --- | --- | --- |
-
-| `khao_sat_id` | BIGINT | PK, AUTO_INCREMENT | Khóa chính |
-
-| `ho_so_id` | BIGINT | FK ➔ `ho_so_ncc` | Khóa ngoại nối hồ sơ được đánh giá |
-
-| `kenh_danh_gia` | ENUM | NOT NULL | `KIOSK`, `QR_PHIEU_HEN`, `SMS_ZALO` |
-
-| `diem_csat_chung` | INT | NOT NULL | Điểm đánh giá chung (1 đến 5 sao) |
-
-| `y_kien_dong_gop` | TEXT | NULL | Nội dung nhận xét, góp ý |
-
-| `sentiment_tag` | VARCHAR(20) | DEFAULT 'NEUTRAL' | Gắn nhãn cảm xúc: `POSITIVE`, `NEGATIVE`, `NEUTRAL` |
-
-| `ngay_danh_gia` | DATETIME | DEFAULT CURRENT_TIMESTAMP | Thời điểm người dùng gửi đánh giá |
-
-| `dia_chi_ip` | VARCHAR(45) | NULL | Ghi vết bảo mật, chống spam đánh giá ảo |
-
-### 2. Bảng `chi_tiet_tieu_chi_danh_gia` (Chi tiết điểm từng tiêu chí)
-
-| Tên trường | Kiểu dữ liệu | Ràng buộc | Diễn giải |
-
-| --- | --- | --- | --- |
-
-| `id` | BIGINT | PK, AUTO_INCREMENT | Khóa chính |
-
-| `khao_sat_id` | BIGINT | FK ➔ `khao_sat_danh_gia` | Liên kết đến phiên khảo sát |
-
-| `ma_tieu_chi` | VARCHAR(50) | NOT NULL | `THAI_DO`, `THOI_GIAN`, `MINH_BACH`, `HA_TANG` |
-
-| `diem_so` | INT | NOT NULL | Thang điểm từ 1 - 5 |
-
----
-
-# PHẦN 5. LỢI ÍCH VÀ Ý NGHĨA KHI ÁP DỤNG CÁC TÍNH NĂNG NÀY
-
-1. **Đối với Lãnh đạo Cơ quan:**
-
-* Thay thế việc đọc báo cáo số liệu giấy khô khan bằng các màn hình Dashboard trực quan thời gian thực, giúp đưa ra quyết định dự trù kinh phí an sinh xã hội chính xác theo từng tháng/quý.
-
-* Kịp thời phát hiện các phường có tiến độ tồn đọng hoặc cán bộ bị phản ánh tiêu cực để chấn chỉnh nghiệp vụ.
-
-2. **Đối với Cán bộ Nghiệp vụ:**
-
-* Tự động hóa tính toán phụ cấp/trợ cấp qua Engine Java Spring Boot, loại bỏ triệt để tình trạng tính toán sai lệch hay nhầm lẫn định mức.
-
-* Giảm áp lực tra cứu thủ công nhờ các bộ lọc đa chỉ mục kết hợp trên MySQL.
-
-3. **Đối với Người có công và Xã hội:**
-
-* Tăng tính minh bạch trong thực hiện chính sách đền ơn đáp nghĩa của Đảng và Nhà nước.
-
-* Tiếng nói, sự đánh giá của người dân được ghi nhận trực tiếp và có dữ liệu kiểm chứng, nâng cao chất lượng nền hành chính công phục vụ nhân dân.
-
----
-
-## 🏛️ Đơn Vị Quản Lý & Vận Hành
-
-* **Cơ quan chủ quản**: Sở Lao động – Thương binh và Xã hội tỉnh Bình Dương
-* **Đơn vị phối hợp**: Phòng Văn hóa – Xã hội / UBND TP. Thủ Dầu Một
-* **Nền tảng kỹ thuật**: React 19 + TanStack Router/Start + Vite + Tailwind CSS + MySQL / PostgreSQL
-* **Tiêu chuẩn dữ liệu**: CSDL Quốc gia về Người có công theo Nghị định 131/2021/NĐ-CP & Đề án 06/CP
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+### 3. Khởi chạy máy chủ phát triển (Dev Server):
+```bash
 npm run dev
 ```
+Hệ thống sẽ chạy tại địa chỉ: **`http://localhost:8081`** (hoặc port được cấp tự động).
+
+### 4. Đóng gói cho môi trường Production:
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## 🔑 Tài Khoản Trải Nghiệm Mẫu
+
+Tại trang Đăng nhập (`/login`), bạn có thể bấm trực tiếp nút **1-Click Đăng nhập** hoặc dùng tài khoản sau:
+
+| Cấp độ quản trị | Email công vụ | Mật khẩu | Họ tên cán bộ |
+| :--- | :--- | :--- | :--- |
+| **Admin Cấp Sở** | `admin.so@binhduong.gov.vn` | `admin123` | **TS. Nguyễn Văn Hùng** (Phó Giám đốc Sở) |
+| **Admin Cấp Phòng** | `admin.phong@thudaumot.binhduong.gov.vn` | `admin123` | **Nguyễn Thị Minh Thảo** (Chuyên viên Một cửa) |
+
+---
+
+## 📂 Cấu Trúc Thư Mục Dự Án
+
+```
+filebctt/
+├── database/
+│   └── schema.sql                  # CSDL quan hệ PostgreSQL 8 bảng chuẩn
+├── docs/
+│   ├── TECHNICAL_DESIGN_DOCUMENT.md# Tài liệu đặc tả thiết kế kỹ thuật (TDD)
+│   └── screenshots/                # 12 ảnh chụp màn hình giao diện thực tế
+├── public/
+│   ├── favicon.svg                 # Quốc huy vector cờ đỏ sao vàng
+│   ├── favicon.ico                 # Favicon chuẩn đa kích thước
+│   └── robots.txt
+├── src/
+│   ├── api/                        # Mock API RESTful (profiles, calculator, surveys, analytics)
+│   ├── components/                 # Các component dùng chung (AppShell, GiayHenModal, PhieuChiModal,...)
+│   ├── data/                       # Mock data chuẩn địa bàn 14 phường TP. Thủ Dầu Một
+│   ├── routes/                     # Hệ thống trang giao diện (File-based Routing)
+│   │   ├── index.tsx               # Bảng điều khiển trung tâm
+│   │   ├── login.tsx               # Cổng đăng nhập phân quyền Sở / Phòng (v2.0)
+│   │   ├── ho-so/                  # Quản lý & tra cứu hồ sơ liệt sĩ
+│   │   ├── tham-dinh.tsx           # Quy trình thẩm định 5 bước
+│   │   ├── chi-tra.tsx             # Chi trả trợ cấp & Phiếu chi C70a-HD
+│   │   ├── dieu-duong.tsx          # Quản lý chế độ điều dưỡng Nghị định 131
+│   │   ├── danh-gia.tsx            # Giám sát đánh giá CSAT & Radar SIPAS của cán bộ
+│   │   ├── khao-sat.tsx            # Cổng đánh giá sự hài lòng dành riêng cho công dân
+│   │   ├── phan-tich.tsx           # Bản đồ nhiệt 14 phường & phân tích ngân sách
+│   │   └── he-thong.tsx            # Cấu hình định mức trợ cấp & danh mục
+│   ├── services/                   # Logic tính trợ cấp, phân tích sắc thái ý kiến & app-state
+│   └── styles.css                  # Thiết kế bảng màu và utility classes
+└── package.json
+```
+
+---
+
+## 👤 Tác Giả & Bản Quyền
+
+* **Tác giả phát triển:** **Minh Quân**
+* **Phiên bản:** `Phiên bản 2.0 · Made by MINHQUAN`
+* **Đơn vị phối hợp nghiệp vụ:** Sở Lao động - Thương binh và Xã hội tỉnh Bình Dương & Phòng LĐTBXH TP. Thủ Dầu Một.
+* **Giấy phép:** Phục vụ nghiên cứu, chuyển đổi số hành chính công và quản lý chính sách người có công.
