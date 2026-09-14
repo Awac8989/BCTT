@@ -12,6 +12,7 @@ import {
   YAxis,
 } from "recharts";
 import { AppShell, PageHeader, StatusBadge } from "@/components/AppShell";
+import { CanhBaoSomCard } from "@/components/CanhBaoSomCard";
 import {
   coCauDoiTuong,
   formatNum,
@@ -117,6 +118,11 @@ function Dashboard() {
             <div className={`mt-1 font-sans text-xs font-medium ${k.subColor}`}>{k.sub}</div>
           </div>
         ))}
+      </div>
+
+      {/* TRUNG TÂM CẢNH BÁO SỚM & PHÒNG CHỐNG TRỤC LỢI CHÍNH SÁCH */}
+      <div className="mt-3">
+        <CanhBaoSomCard />
       </div>
 
       <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-3">

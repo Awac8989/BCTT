@@ -81,6 +81,22 @@ export interface HoSo {
     cheDoHuong: string;
     soTien: number;
   }[] | undefined;
+
+  // Trạng thái báo giảm & mai táng phí khi từ trần
+  isTuTran?: boolean | undefined;
+  ngayTuTran?: string | undefined;
+  soTrichLucKhaiTu?: string | undefined;
+  nguoiNhanMaiTangPhi?: string | undefined;
+  soTienMaiTangPhi?: number | undefined;
+  ngayQuyetDinhMaiTang?: string | undefined;
+
+  // Ký số điện tử lãnh đạo
+  kySoLanhDao?: {
+    nguoiKy: string;
+    chucVu: string;
+    ngayKy: string;
+    maXacThuc: string;
+  } | undefined;
 }
 
 export const MUC_CHUAN = 2_055_000;
@@ -863,3 +879,449 @@ export const formatVND = (n: number) =>
   new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 0 }).format(n) + " ₫";
 
 export const formatNum = (n: number) => new Intl.NumberFormat("vi-VN").format(n);
+
+// ==============================================================================
+// 1. QUẢN LÝ CẤP PHƯƠNG TIỆN TRỢ GIÚP & DỤNG CỤ CHỈNH HÌNH (Nghị định 131/2021)
+// ==============================================================================
+export interface DungCuChinhHinhItem {
+  id: string;
+  hoSoId: string;
+  soHoSoTinh: string;
+  hoTen: string;
+  cccd: string;
+  loaiDoiTuong: string;
+  phuong: string;
+  huyen: string;
+  tenDungCu: string;
+  loaiDungCu: "CHÂN_GIẢ" | "TAY_GIẢ" | "XE_LĂN" | "XE_LẮC" | "MÁY_TRỢ_THÍNH" | "KHÁC";
+  nienHanNam: number; // 3 năm hoặc 5 năm
+  namCapGanNhat: number;
+  namDenHanCapMoi: number;
+  dinhMucTien: number;
+  tienBoiDuongPhucHoi: number;
+  trangThai: "ĐÃ_CẤP" | "ĐẾN_HẠN_CẤP_MỚI" | "CHỜ_DUYỆT_CẤP";
+  ngayCapMoi?: string;
+  soQuyetDinhCap?: string;
+  canBoTheoDoi?: string;
+}
+
+export const initialDungCuChinhHinh: DungCuChinhHinhItem[] = [
+  {
+    id: "DC-2026-001",
+    hoSoId: "BD-16705-1",
+    soHoSoTinh: "BD/16705-1",
+    hoTen: "Nguyễn Văn Thành",
+    cccd: "074052007788",
+    loaiDoiTuong: "Thương binh",
+    phuong: "Phú Cường",
+    huyen: "TP. Thủ Dầu Một",
+    tenDungCu: "Chân giả dưới gối (loại tiêu chuẩn)",
+    loaiDungCu: "CHÂN_GIẢ",
+    nienHanNam: 3,
+    namCapGanNhat: 2023,
+    namDenHanCapMoi: 2026,
+    dinhMucTien: 6_500_000,
+    tienBoiDuongPhucHoi: 1_200_000,
+    trangThai: "ĐẾN_HẠN_CẤP_MỚI",
+    ngayCapMoi: "15/04/2023",
+    soQuyetDinhCap: "QĐ-SLĐTBXH/2023-145",
+    canBoTheoDoi: "Nguyễn Thị Minh Thảo",
+  },
+  {
+    id: "DC-2026-002",
+    hoSoId: "BD-16706-1",
+    soHoSoTinh: "BD/16706-1",
+    hoTen: "Trần Minh Châu",
+    cccd: "074050008811",
+    loaiDoiTuong: "Thương binh",
+    phuong: "Phú Hòa",
+    huyen: "TP. Thủ Dầu Một",
+    tenDungCu: "Xe lăn tay tiêu chuẩn có phanh",
+    loaiDungCu: "XE_LĂN",
+    nienHanNam: 5,
+    namCapGanNhat: 2021,
+    namDenHanCapMoi: 2026,
+    dinhMucTien: 4_800_000,
+    tienBoiDuongPhucHoi: 800_000,
+    trangThai: "ĐẾN_HẠN_CẤP_MỚI",
+    ngayCapMoi: "20/06/2021",
+    soQuyetDinhCap: "QĐ-SLĐTBXH/2021-089",
+    canBoTheoDoi: "Nguyễn Thị Minh Thảo",
+  },
+  {
+    id: "DC-2026-003",
+    hoSoId: "BD-16712-1",
+    soHoSoTinh: "BD/16712-1",
+    hoTen: "Đỗ Văn Lượng",
+    cccd: "074044009922",
+    loaiDoiTuong: "Bệnh binh",
+    phuong: "Hiệp Thành",
+    huyen: "TP. Thủ Dầu Một",
+    tenDungCu: "Máy trợ thính kỹ thuật số đeo vành tai",
+    loaiDungCu: "MÁY_TRỢ_THÍNH",
+    nienHanNam: 3,
+    namCapGanNhat: 2024,
+    namDenHanCapMoi: 2027,
+    dinhMucTien: 5_200_000,
+    tienBoiDuongPhucHoi: 600_000,
+    trangThai: "ĐÃ_CẤP",
+    ngayCapMoi: "10/03/2024",
+    soQuyetDinhCap: "QĐ-SLĐTBXH/2024-054",
+    canBoTheoDoi: "Trần Quốc Bảo",
+  },
+  {
+    id: "DC-2026-004",
+    hoSoId: "BD-16718-1",
+    soHoSoTinh: "BD/16718-1",
+    hoTen: "Nguyễn Văn Hạn",
+    cccd: "074048002841",
+    loaiDoiTuong: "Thương binh",
+    phuong: "Bình Mỹ",
+    huyen: "Bắc Tân Uyên",
+    tenDungCu: "Tay giả thẩm mỹ chức năng đơn giản",
+    loaiDungCu: "TAY_GIẢ",
+    nienHanNam: 3,
+    namCapGanNhat: 2023,
+    namDenHanCapMoi: 2026,
+    dinhMucTien: 7_800_000,
+    tienBoiDuongPhucHoi: 1_500_000,
+    trangThai: "CHỜ_DUYỆT_CẤP",
+    canBoTheoDoi: "Hứa Trọng Duy",
+  },
+  {
+    id: "DC-2026-005",
+    hoSoId: "BD-16708-1",
+    soHoSoTinh: "BD/16708-1",
+    hoTen: "Phan Văn Đức",
+    cccd: "074042001133",
+    loaiDoiTuong: "Thương binh",
+    phuong: "Tân An",
+    huyen: "TP. Thủ Dầu Một",
+    tenDungCu: "Xe lắc 3 bánh cho người khuyết tật vận động",
+    loaiDungCu: "XE_LẮC",
+    nienHanNam: 5,
+    namCapGanNhat: 2025,
+    namDenHanCapMoi: 2030,
+    dinhMucTien: 6_200_000,
+    tienBoiDuongPhucHoi: 900_000,
+    trangThai: "ĐÃ_CẤP",
+    ngayCapMoi: "18/07/2025",
+    soQuyetDinhCap: "QĐ-SLĐTBXH/2025-210",
+    canBoTheoDoi: "Nguyễn Thị Minh Thảo",
+  },
+];
+
+// ==============================================================================
+// 2. SỐ HÓA NGHĨA TRANG LIỆT SĨ & BẢN ĐỒ VỊ TRÍ MỘ (GIS)
+// ==============================================================================
+export interface MoLietSiItem {
+  id: string;
+  soMo: string;
+  khu: "Khu A" | "Khu B" | "Khu C" | "Khu D";
+  hang: number;
+  soThuTu: number;
+  hoTen: string;
+  biDanh?: string;
+  namSinh: string;
+  ngayHySinh: string;
+  queQuan: string;
+  truQuan?: string;
+  capBac?: string;
+  chucVu?: string;
+  coQuanKhiHySinh?: string;
+  tinhTrangMo: "ĐÃ_XÁC_ĐỊNH" | "CHƯA_XÁC_ĐỊNH_DANH_TÍNH" | "ĐÃ_CẤT_BỐC";
+  tinhTrangBia: "TỐT" | "CẦN_TRÙNG_TU";
+  luotThapHuong: number;
+  toaDoX?: number; // Tọa độ tương đối trên sơ đồ SVG
+  toaDoY?: number;
+}
+
+export const initialMoLietSiList: MoLietSiItem[] = [
+  {
+    id: "MO-A1-001",
+    soMo: "A1-01",
+    khu: "Khu A",
+    hang: 1,
+    soThuTu: 1,
+    hoTen: "Hồ Văn Lên",
+    biDanh: "Bảy Lên",
+    namSinh: "1926",
+    ngayHySinh: "07/1949",
+    queQuan: "Xã Chánh Hiệp, Châu Thành, Thủ Dầu Một",
+    truQuan: "Chánh Nghĩa, Thủ Dầu Một",
+    chucVu: "Ủy viên Ban tuyên huấn tỉnh",
+    coQuanKhiHySinh: "Ban Tuyên giáo tỉnh Sông Bé",
+    tinhTrangMo: "ĐÃ_XÁC_ĐỊNH",
+    tinhTrangBia: "TỐT",
+    luotThapHuong: 142,
+    toaDoX: 120,
+    toaDoY: 80,
+  },
+  {
+    id: "MO-A1-002",
+    soMo: "A1-02",
+    khu: "Khu A",
+    hang: 1,
+    soThuTu: 2,
+    hoTen: "Nguyễn Văn Tiết",
+    biDanh: "Hai Tiết",
+    namSinh: "1922",
+    ngayHySinh: "1948",
+    queQuan: "Lái Thiêu, Thuận An, Bình Dương",
+    chucVu: "Chủ tịch Ủy ban Kháng chiến Hành chính tỉnh Thủ Dầu Một",
+    tinhTrangMo: "ĐÃ_XÁC_ĐỊNH",
+    tinhTrangBia: "TỐT",
+    luotThapHuong: 389,
+    toaDoX: 180,
+    toaDoY: 80,
+  },
+  {
+    id: "MO-A1-003",
+    soMo: "A1-03",
+    khu: "Khu A",
+    hang: 1,
+    soThuTu: 3,
+    hoTen: "Trần Văn Ơn",
+    namSinh: "1931",
+    ngayHySinh: "09/01/1950",
+    queQuan: "Châu Thành, Bến Tre",
+    chucVu: "Học sinh yêu nước, Liệt sĩ thời kỳ kháng Pháp",
+    tinhTrangMo: "ĐÃ_XÁC_ĐỊNH",
+    tinhTrangBia: "TỐT",
+    luotThapHuong: 520,
+    toaDoX: 240,
+    toaDoY: 80,
+  },
+  {
+    id: "MO-B2-014",
+    soMo: "B2-14",
+    khu: "Khu B",
+    hang: 2,
+    soThuTu: 14,
+    hoTen: "Liệt sĩ chưa xác định danh tính số 14",
+    namSinh: "Không rõ",
+    ngayHySinh: "1968",
+    queQuan: "Quy tập tại Chiến khu Đ, Bình Dương",
+    tinhTrangMo: "CHƯA_XÁC_ĐỊNH_DANH_TÍNH",
+    tinhTrangBia: "TỐT",
+    luotThapHuong: 215,
+    toaDoX: 380,
+    toaDoY: 140,
+  },
+  {
+    id: "MO-B2-015",
+    soMo: "B2-15",
+    khu: "Khu B",
+    hang: 2,
+    soThuTu: 15,
+    hoTen: "Lê Văn Tám",
+    namSinh: "1947",
+    ngayHySinh: "1972",
+    queQuan: "Tân Uyên, Bình Dương",
+    chucVu: "Chiến sĩ Đại đội 1, Tiểu đoàn Phú Lợi",
+    tinhTrangMo: "ĐÃ_XÁC_ĐỊNH",
+    tinhTrangBia: "CẦN_TRÙNG_TU",
+    luotThapHuong: 88,
+    toaDoX: 440,
+    toaDoY: 140,
+  },
+  {
+    id: "MO-C3-008",
+    soMo: "C3-08",
+    khu: "Khu C",
+    hang: 3,
+    soThuTu: 8,
+    hoTen: "Đoàn Thị Liên",
+    biDanh: "Chị Sáu Liên",
+    namSinh: "1944",
+    ngayHySinh: "1966",
+    queQuan: "Chánh Phú Hòa, Bến Cát, Bình Dương",
+    chucVu: "Anh hùng Lực lượng vũ trang nhân dân",
+    tinhTrangMo: "ĐÃ_XÁC_ĐỊNH",
+    tinhTrangBia: "TỐT",
+    luotThapHuong: 610,
+    toaDoX: 200,
+    toaDoY: 220,
+  },
+  {
+    id: "MO-C3-009",
+    soMo: "C3-09",
+    khu: "Khu C",
+    hang: 3,
+    soThuTu: 9,
+    hoTen: "Liệt sĩ chưa xác định danh tính số 89",
+    namSinh: "Không rõ",
+    ngayHySinh: "1975",
+    queQuan: "Mặt trận Dầu Tiếng, Bình Dương",
+    tinhTrangMo: "CHƯA_XÁC_ĐỊNH_DANH_TÍNH",
+    tinhTrangBia: "TỐT",
+    luotThapHuong: 174,
+    toaDoX: 260,
+    toaDoY: 220,
+  },
+  {
+    id: "MO-D4-021",
+    soMo: "D4-21",
+    khu: "Khu D",
+    hang: 4,
+    soThuTu: 21,
+    hoTen: "Phạm Văn Cội",
+    namSinh: "1939",
+    ngayHySinh: "1967",
+    queQuan: "Củ Chi (An táng tại NTLS Bình Dương)",
+    tinhTrangMo: "ĐÃ_CẤT_BỐC",
+    tinhTrangBia: "TỐT",
+    luotThapHuong: 45,
+    toaDoX: 350,
+    toaDoY: 300,
+  },
+];
+
+// ==============================================================================
+// 3. QUẢN LÝ BÁO GIẢM TỪ TRẦN & TRỢ CẤP MAI TÁNG PHÍ (Mẫu số 02 - NĐ 131/2021)
+// ==============================================================================
+export interface BaoGiamItem {
+  id: string;
+  hoSoId: string;
+  soHoSoTinh: string;
+  hoTen: string;
+  cccd: string;
+  loaiDoiTuong: string;
+  phuong: string;
+  huyen: string;
+  ngayTuTran: string;
+  noiTuTran: string;
+  soTrichLucKhaiTu: string;
+  ngayCapKhaiTu: string;
+  noiCapKhaiTu: string;
+  nguoiKhaiBao: string;
+  quanHeVoiNguoiMat: string;
+  soCccdNguoiKhai: string;
+  soDienThoaiNguoiKhai: string;
+  diaChiNguoiKhai: string;
+  soQuyetDinhMaiTang: string;
+  ngayQuyetDinh: string;
+  soTienMaiTangPhi: number; // 20.550.000 VNĐ (10 x Mức chuẩn 2.055.000)
+  troCapMotLan?: number;
+  trangThai: "ĐÃ_BAN_HÀNH_QĐ" | "CHỜ_DUYỆT";
+  daNgungChiTraHangThang: boolean;
+  canBoThuLy: string;
+}
+
+export const initialBaoGiamList: BaoGiamItem[] = [
+  {
+    id: "BG-2026-001",
+    hoSoId: "BD-16701-1",
+    soHoSoTinh: "BD/16701-1",
+    hoTen: "Lê Thị Mai",
+    cccd: "074030008899",
+    loaiDoiTuong: "Mẹ VNAH",
+    phuong: "Định Hòa",
+    huyen: "TP. Thủ Dầu Một",
+    ngayTuTran: "28/08/2026",
+    noiTuTran: "Tại nhà riêng, Phường Định Hòa",
+    soTrichLucKhaiTu: "TLKT-2026/ĐH-18",
+    ngayCapKhaiTu: "29/08/2026",
+    noiCapKhaiTu: "UBND Phường Định Hòa",
+    nguoiKhaiBao: "Nguyễn Văn Quang",
+    quanHeVoiNguoiMat: "Con trai",
+    soCccdNguoiKhai: "074060001234",
+    soDienThoaiNguoiKhai: "0918.456.789",
+    diaChiNguoiKhai: "Khu phố 4, Phường Định Hòa, TP. Thủ Dầu Một",
+    soQuyetDinhMaiTang: "QĐ-UBND/2026-MTP-088",
+    ngayQuyetDinh: "02/09/2026",
+    soTienMaiTangPhi: 20_550_000,
+    troCapMotLan: 6_165_000, // 3 tháng trợ cấp phụng dưỡng
+    trangThai: "ĐÃ_BAN_HÀNH_QĐ",
+    daNgungChiTraHangThang: true,
+    canBoThuLy: "Nguyễn Thị Minh Thảo",
+  },
+];
+
+// ==============================================================================
+// 4. TRUNG TÂM CẢNH BÁO SỚM & PHÒNG NGỪA RỦI RO CHÍNH SÁCH (Fraud & Early Alert)
+// ==============================================================================
+export interface CanhBaoSomItem {
+  id: string;
+  loai: "NGHIÊM_TRỌNG" | "CẢNH_BÁO" | "NHẮC_NHỞ";
+  tieuDe: string;
+  moTa: string;
+  hoSoId?: string;
+  soHoSoTinh?: string;
+  hoTen?: string;
+  huyen?: string;
+  phuong?: string;
+  ngayPhatHien: string;
+  hanXuLy?: string;
+  loaiCanhBao:
+    | "QUA_TUOI_HUONG_TUAT"
+    | "TRUNG_CCCD"
+    | "TRE_HAN_MOT_CUA"
+    | "DEN_HAN_DUNG_CU"
+    | "CHI_TRA_SAU_TU_TRAN";
+  trangThai: "CHƯA_XỬ_LÝ" | "ĐÃ_XỬ_LÝ";
+}
+
+export const initialCanhBaoList: CanhBaoSomItem[] = [
+  {
+    id: "CB-01",
+    loai: "NGHIÊM_TRỌNG",
+    loaiCanhBao: "QUA_TUOI_HUONG_TUAT",
+    tieuDe: "Thân nhân liệt sĩ đủ 18 tuổi cần xác nhận học tập",
+    moTa: "Thân nhân liệt sĩ Hồ Thị Hoa (CCCD: 074080009123) sinh năm 2008 đã tròn 18 tuổi. Cần nộp Giấy xác nhận học sinh/sinh viên hoặc chấm dứt tiền tuất.",
+    hoSoId: "BD-16720-1",
+    soHoSoTinh: "BD/16720-1",
+    hoTen: "Hồ Thị Hoa",
+    huyen: "TP. Thủ Dầu Một",
+    phuong: "Phú Cường",
+    ngayPhatHien: "01/09/2026",
+    hanXuLy: "15/09/2026",
+    trangThai: "CHƯA_XỬ_LÝ",
+  },
+  {
+    id: "CB-02",
+    loai: "NGHIÊM_TRỌNG",
+    loaiCanhBao: "TRUNG_CCCD",
+    tieuDe: "Phát hiện trùng số CCCD giữa 2 hồ sơ",
+    moTa: "CCCD 074052007788 bị trùng lặp giữa hồ sơ Thương binh tại P. Phú Cường và hồ sơ mới nộp tại P. Tân An.",
+    hoSoId: "BD-16705-1",
+    soHoSoTinh: "BD/16705-1",
+    hoTen: "Nguyễn Văn Thành",
+    huyen: "TP. Thủ Dầu Một",
+    phuong: "Phú Cường",
+    ngayPhatHien: "03/09/2026",
+    hanXuLy: "10/09/2026",
+    trangThai: "CHƯA_XỬ_LÝ",
+  },
+  {
+    id: "CB-03",
+    loai: "CẢNH_BÁO",
+    loaiCanhBao: "TRE_HAN_MOT_CUA",
+    tieuDe: "Hồ sơ tiếp nhận Một cửa sắp quá hạn thẩm định",
+    moTa: "Hồ sơ Thương binh BD-16715-1 tiếp nhận từ 20/08/2026, còn 2 ngày nữa hết thời hạn 15 ngày làm việc quy định.",
+    hoSoId: "BD-16715-1",
+    soHoSoTinh: "BD/16715-1",
+    hoTen: "Lê Văn Xiêm",
+    huyen: "Phú Giáo",
+    phuong: "Tam Lập",
+    ngayPhatHien: "04/09/2026",
+    hanXuLy: "08/09/2026",
+    trangThai: "CHƯA_XỬ_LÝ",
+  },
+  {
+    id: "CB-04",
+    loai: "NHẮC_NHỞ",
+    loaiCanhBao: "DEN_HAN_DUNG_CU",
+    tieuDe: "2 Thương binh đến niên hạn cấp mới dụng cụ chỉnh hình",
+    moTa: "Đồng chí Nguyễn Văn Thành và Trần Minh Châu đến hạn cấp lại Chân giả và Xe lăn theo niên hạn 3-5 năm.",
+    hoSoId: "BD-16705-1",
+    soHoSoTinh: "BD/16705-1",
+    hoTen: "Nguyễn Văn Thành & Trần Minh Châu",
+    huyen: "TP. Thủ Dầu Một",
+    phuong: "Phú Cường",
+    ngayPhatHien: "05/09/2026",
+    hanXuLy: "30/09/2026",
+    trangThai: "CHƯA_XỬ_LÝ",
+  },
+];
+

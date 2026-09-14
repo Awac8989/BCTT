@@ -17,6 +17,10 @@ import {
   LogOut,
   Check,
   Shield,
+  Accessibility,
+  Compass,
+  Bell,
+  ExternalLink,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { appStore, useAppState } from "@/services/app-state";
@@ -33,6 +37,8 @@ const PRIMARY_NAV: NavItem[] = [
   { to: "/tham-dinh", label: "Thẩm định hồ sơ", icon: Users },
   { to: "/chi-tra", label: "Chi trả trợ cấp", icon: FileText },
   { to: "/dieu-duong", label: "Điều dưỡng NCC", icon: HeartPulse },
+  { to: "/dung-cu-chinh-hinh", label: "Dụng cụ chỉnh hình", icon: Accessibility },
+  { to: "/nghia-trang", label: "Nghĩa trang liệt sĩ", icon: Compass },
   { to: "/danh-gia", label: "Giám sát CSAT", icon: Star },
   { to: "/phan-tich", label: "Báo cáo thống kê", icon: Folder },
   { to: "/he-thong", label: "Tham số hệ thống", icon: Settings },
@@ -61,6 +67,9 @@ export function AppShell({ children }: { children: ReactNode }) {
     if (pathname.startsWith("/tham-dinh")) return ["Bảng điều khiển", "Quy trình thụ lý", "Thẩm định hồ sơ"];
     if (pathname.startsWith("/chi-tra")) return ["Bảng điều khiển", "Quy trình thụ lý", "Chi trả trợ cấp & Phiếu chi"];
     if (pathname.startsWith("/dieu-duong")) return ["Bảng điều khiển", "Quy trình thụ lý", "Điều dưỡng phục hồi sức khỏe"];
+    if (pathname.startsWith("/dung-cu-chinh-hinh")) return ["Bảng điều khiển", "Quy trình thụ lý", "Dụng cụ chỉnh hình & Niên hạn"];
+    if (pathname.startsWith("/nghia-trang")) return ["Bảng điều khiển", "Đền ơn đáp nghĩa", "Bản đồ số Nghĩa trang Liệt sĩ GIS"];
+    if (pathname.startsWith("/tra-cuu")) return ["Bảng điều khiển", "Cổng dịch vụ công", "Tra cứu hồ sơ công dân"];
     if (pathname.startsWith("/danh-gia")) return ["Bảng điều khiển", "Giám sát dịch vụ", "Chỉ số CSAT & Tiếng nói người dân"];
     if (pathname.startsWith("/phan-tich")) return ["Bảng điều khiển", "Báo cáo thống kê", "Phân tích số liệu điều hành"];
     if (pathname.startsWith("/he-thong")) return ["Bảng điều khiển", "Tham số hệ thống", "Cấu hình quy chuẩn"];
@@ -134,8 +143,28 @@ export function AppShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
 
-          {/* User info bên phải với Badge phân cấp Cấp Sở / Cấp Phòng & Dropdown thao tác */}
-          <div className="relative">
+          {/* Nhóm nút liên kết nhanh sang cổng công dân & User info */}
+          <div className="flex items-center gap-2.5">
+            <Link
+              to="/tra-cuu"
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded text-xs font-bold shadow-xs transition-colors"
+              title="Xem giao diện Cổng Tra cứu Dịch vụ công dành cho Nhân dân & Thân nhân"
+            >
+              <ExternalLink className="size-3 text-amber-700" />
+              <span>Cổng Tra cứu Công dân</span>
+            </Link>
+
+            <Link
+              to="/khao-sat"
+              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-300 rounded text-xs font-bold shadow-xs transition-colors"
+              title="Xem giao diện Đánh giá CSAT / Kiosk dành cho người dân"
+            >
+              <Star className="size-3 text-sky-700" />
+              <span>Kiosk CSAT</span>
+            </Link>
+
+            {/* User info bên phải với Badge phân cấp Cấp Sở / Cấp Phòng & Dropdown thao tác */}
+            <div className="relative">
             <button
               type="button"
               onClick={() => setUserMenuOpen(!userMenuOpen)}
@@ -276,7 +305,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             )}
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
       <div className="flex-1 flex pt-[53px]">
         {/* 3. Left Sidebar (Nền Slate tối #222d32 chuẩn phong cách ảnh mẫu) */}

@@ -127,9 +127,10 @@ function ThamDinhPage() {
       appStore.updateProfileStatus(h.id, "CHỜ_PHÊ_DUYỆT", "Đã hoàn tất giám định và tính toán chế độ, trình Lãnh đạo Sở phê duyệt.");
       toast.success(`Hồ sơ ${h.id} đã hoàn tất thẩm định, đang trình Lãnh đạo phê duyệt`);
     } else if (h.trangThai === "CHỜ_PHÊ_DUYỆT") {
-      const res = appStore.approveProfile(h.id, "Hứa Trọng Duy (Lãnh đạo Phòng)");
+      const res = appStore.approveProfile(h.id, "TS. Nguyễn Văn Hùng (Lãnh đạo Sở)");
       if (res.success) {
-        toast.success(res.message);
+        appStore.kySoHoSo(h.id);
+        toast.success(`${res.message} và đã hoàn tất ký số điện tử SmartCA!`);
       } else {
         toast.error(res.message);
       }

@@ -277,3 +277,95 @@ INSERT INTO than_nhan_liet_si (than_nhan_id, liet_sy_id, ho_ten, quan_he, nam_si
 INSERT INTO ke_hoach_dieu_duong (ke_hoach_id, nam_ke_hoach, ten_ke_hoach, chi_tieu_tong, chi_tieu_1_nam, chi_tieu_2_nam, dinh_muc_tap_trung, dinh_muc_tai_nha, trang_thai) VALUES
 (1, 2026, 'Kế hoạch điều dưỡng phục hồi sức khỏe Người có công tỉnh Bình Dương năm 2026', 1250, 420, 830, 3699000, 1849500, 'DANG_THUC_HIEN');
 
+-- ==============================================================================
+-- 13. BẢNG BÁO GIẢM TỪ TRẦN & QUYẾT ĐỊNH MAI TÁNG PHÍ (Mẫu 02 - NĐ 131/2021/NĐ-CP)
+-- ==============================================================================
+CREATE TABLE ho_so_bao_giam_mai_tang (
+    bao_giam_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ho_so_id BIGINT NOT NULL,
+    ngay_tu_tran DATE NOT NULL,
+    noi_tu_tran VARCHAR(255) NOT NULL,
+    so_trich_luc_khai_tu VARCHAR(100) NOT NULL,
+    ngay_cap_khai_tu DATE NOT NULL,
+    noi_cap_khai_tu VARCHAR(255) NOT NULL,
+    nguoi_khai_bao VARCHAR(100) NOT NULL,
+    quan_he_voi_nguoi_mat VARCHAR(50) NOT NULL,
+    so_cccd_nguoi_khai VARCHAR(12) NOT NULL,
+    so_dien_thoai_nguoi_khai VARCHAR(20) NULL,
+    dia_chi_nguoi_khai VARCHAR(255) NULL,
+    so_quyet_dinh_mai_tang VARCHAR(100) UNIQUE NOT NULL,
+    ngay_quyet_dinh DATE NOT NULL,
+    so_tien_mai_tang_phi DECIMAL(15,2) DEFAULT 20550000, -- 10 x Mức chuẩn 2.055.000
+    tro_cap_mot_lan DECIMAL(15,2) DEFAULT 0,
+    da_ngung_chi_tra_hang_thang BOOLEAN DEFAULT TRUE,
+    created_by_user BIGINT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_bg_hoso FOREIGN KEY (ho_so_id) REFERENCES ho_so_ncc(ho_so_id),
+    CONSTRAINT fk_bg_user FOREIGN KEY (created_by_user) REFERENCES sys_users(user_id)
+) ENGINE=InnoDB;
+
+-- ==============================================================================
+-- 14. BẢNG QUẢN LÝ CẤP PHƯƠNG TIỆN TRỢ GIÚP & DỤNG CỤ CHỈNH HÌNH
+-- (Điều 90-93 Nghị định 131/2021/NĐ-CP)
+-- ==============================================================================
+CREATE TABLE danh_sach_phuong_tien_chinh_hinh (
+    dung_cu_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ho_so_id BIGINT NOT NULL,
+    ten_dung_cu VARCHAR(255) NOT NULL,
+    loai_dung_cu ENUM('CHÂN_GIẢ', 'TAY_GIẢ', 'XE_LĂN', 'XE_LẮC', 'MÁY_TRỢ_THÍNH', 'KHÁC') NOT NULL,
+    nien_han_nam INT NOT NULL, -- 3 năm hoặc 5 năm
+    nam_cap_gan_nhat INT NOT NULL,
+    nam_den_han_cap_moi INT NOT NULL,
+    dinh_muc_tien DECIMAL(15,2) NOT NULL,
+    tien_boi_duong_phuc_hoi DECIMAL(15,2) DEFAULT 0,
+    trang_thai ENUM('ĐÃ_CẤP', 'ĐẾN_HẠN_CẤP_MỚI', 'CHỜ_DUYỆT_CẤP') DEFAULT 'ĐÃ_CẤP',
+    ngay_cap_moi DATE NULL,
+    so_quyet_dinh_cap VARCHAR(100) NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_dc_hoso FOREIGN KEY (ho_so_id) REFERENCES ho_so_ncc(ho_so_id)
+) ENGINE=InnoDB;
+
+-- ==============================================================================
+-- 15. BẢNG SỐ HÓA NGHĨA TRANG & VỊ TRÍ MỘ LIỆT SĨ (GIS)
+-- ==============================================================================
+CREATE TABLE nghia_trang_mo_liet_si (
+    mo_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    so_mo VARCHAR(50) UNIQUE NOT NULL, -- 'A1-01', 'B2-14'
+    khu_mo VARCHAR(50) NOT NULL,       -- 'Khu A', 'Khu B', 'Khu C', 'Khu D'
+    hang_mo INT NOT NULL,
+    so_thu_tu INT NOT NULL,
+    ho_ten_liet_si VARCHAR(100) NOT NULL,
+    bi_danh VARCHAR(100) NULL,
+    nam_sinh VARCHAR(50) NULL,
+    ngay_hy_sinh VARCHAR(50) NOT NULL,
+    que_quan VARCHAR(255) NOT NULL,
+    tru_quan VARCHAR(255) NULL,
+    chuc_vu VARCHAR(100) NULL,
+    co_quan_khi_hy_sinh VARCHAR(255) NULL,
+    tinh_trang_mo ENUM('ĐÃ_XÁC_ĐỊNH', 'CHƯA_XÁC_ĐỊNH_DANH_TÍNH', 'ĐÃ_CẤT_BỐC') DEFAULT 'ĐÃ_XÁC_ĐỊNH',
+    tinh_trang_bia ENUM('TỐT', 'CẦN_TRÙNG_TU') DEFAULT 'TỐT',
+    luot_thap_huong INT DEFAULT 0,
+    toa_do_x INT NULL,
+    toa_do_y INT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- ==============================================================================
+-- 16. BẢNG ĐỐI SOÁT CHI TRẢ NGÂN HÀNG & BƯU ĐIỆN (Đề án 06)
+-- ==============================================================================
+CREATE TABLE doi_soat_chi_tra_ngan_hang (
+    doi_soat_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ma_giao_dich VARCHAR(100) UNIQUE NOT NULL,
+    chi_tra_id BIGINT NULL,
+    ten_ngan_hang VARCHAR(100) NOT NULL,
+    ten_file_doi_soat VARCHAR(255) NOT NULL,
+    so_cccd VARCHAR(12) NOT NULL,
+    so_tien DECIMAL(15,2) NOT NULL,
+    trang_thai_doi_soat ENUM('THÀNH_CÔNG', 'THẤT_BẠI') NOT NULL,
+    ly_do_that_bai VARCHAR(255) NULL,
+    ngay_doi_soat DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_by_user BIGINT NOT NULL,
+    CONSTRAINT fk_ds_user FOREIGN KEY (created_by_user) REFERENCES sys_users(user_id)
+) ENGINE=InnoDB;
+
+

@@ -12,13 +12,18 @@ import {
   Paperclip,
   ArrowLeft,
   Calendar,
+  UserMinus,
+  ShieldCheck,
+  AlertTriangle,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { GiayHenModal } from "@/components/GiayHenModal";
+import { BaoGiamModal } from "@/components/BaoGiamModal";
+import { DigitalSignatureBadge } from "@/components/DigitalSignatureBadge";
 import { useAppState, appStore } from "@/services/app-state";
 import { calculateAllowance } from "@/services/calculator.service";
-import { HUYEN_LIST, HUYEN_PHUONG_MAP } from "@/data/mock";
+import { formatVND, HUYEN_LIST, HUYEN_PHUONG_MAP } from "@/data/mock";
 
 export const Route = createFileRoute("/ho-so/$id")({
   head: ({ params }) => ({
@@ -98,9 +103,15 @@ function HoSoLietSiDetail() {
   });
 
   const [showGiayHen, setShowGiayHen] = useState(false);
+  const [showBaoGiam, setShowBaoGiam] = useState(false);
 
   const handleSave = () => {
     toast.success(`Đã cập nhật thông tin hồ sơ liệt sĩ ${hoTen} (Số tỉnh: ${soHoSoTinh})`);
+  };
+
+  const handleKySo = () => {
+    appStore.kySoHoSo(hoSo.id);
+    toast.success("Lãnh đạo đã ký số điện tử SmartCA phê duyệt hồ sơ thành công!");
   };
 
   return (
@@ -112,7 +123,7 @@ function HoSoLietSiDetail() {
           <span className="text-sm font-normal text-[#777777] ml-2">Hồ sơ liệt sĩ</span>
         </h1>
 
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex items-center gap-2 text-xs flex-wrap">
           <Link
             to="/ho-so"
             className="flex items-center gap-1 rounded-[3px] border border-[#d2d6de] bg-white px-3 py-1 text-[#555555] hover:bg-gray-50"
@@ -128,6 +139,24 @@ function HoSoLietSiDetail() {
             <Printer className="size-3.5" />
             In Giấy hẹn Một cửa (Kèm QR)
           </button>
+          {!hoSo.isTuTran && (
+            <button
+              type="button"
+              onClick={() => setShowBaoGiam(true)}
+              className="flex items-center gap-1 rounded-[3px] bg-[#dd4b39] hover:bg-[#c82333] px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+            >
+              <UserMinus className="size-3.5" />
+              Báo giảm từ trần
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={handleKySo}
+            className="flex items-center gap-1 rounded-[3px] bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-700 hover:to-amber-700 px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+          >
+            <ShieldCheck className="size-3.5 text-amber-200" />
+            Ký số SmartCA
+          </button>
           <button
             type="button"
             onClick={handleSave}
@@ -138,6 +167,36 @@ function HoSoLietSiDetail() {
           </button>
         </div>
       </div>
+
+      {/* Banner cảnh báo nếu đối tượng đã từ trần */}
+      {hoSo.isTuTran && (
+        <div className="mb-3 p-3 bg-red-50 border border-red-300 rounded text-red-900 text-xs flex items-center justify-between shadow-2xs">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="size-4 text-red-600 shrink-0" />
+            <div>
+              <strong>HỒ SƠ ĐÃ BÁO GIẢM TỪ TRẦN:</strong> Ngày mất:{" "}
+              <strong>{hoSo.ngayTuTran}</strong>. Trích lục khai tử số:{" "}
+              <strong className="font-mono">{hoSo.soTrichLucKhaiTu}</strong>. Quyết định mai táng
+              phí: <strong>{hoSo.ngayQuyetDinhMaiTang || "Đã ban hành"}</strong> ({formatVND(hoSo.soTienMaiTangPhi || 20550000)}).
+            </div>
+          </div>
+          <span className="px-2.5 py-0.5 bg-red-600 text-white text-[10px] font-black rounded uppercase shrink-0">
+            ĐÃ NGỪNG TRỢ CẤP
+          </span>
+        </div>
+      )}
+
+      {/* Con dấu ký số nếu đã ký */}
+      {hoSo.kySoLanhDao && (
+        <div className="mb-3">
+          <DigitalSignatureBadge
+            nguoiKy={hoSo.kySoLanhDao.nguoiKy}
+            chucVu={hoSo.kySoLanhDao.chucVu}
+            ngayKy={hoSo.kySoLanhDao.ngayKy}
+            maXacThuc={hoSo.kySoLanhDao.maXacThuc}
+          />
+        </div>
+      )}
 
       {/* 2. Thanh Tabs chuẩn mẫu ảnh */}
       <div className="flex border-b border-[#d2d6de] text-xs font-medium">
@@ -768,6 +827,15 @@ function HoSoLietSiDetail() {
 
       {/* Modal Giấy tiếp nhận hồ sơ và Hẹn trả kết quả (kèm mã QR) */}
       {showGiayHen && <GiayHenModal hoSo={hoSo} onClose={() => setShowGiayHen(false)} />}
+
+      {/* Modal Báo giảm đối tượng từ trần & Mai táng phí */}
+      {showBaoGiam && (
+        <BaoGiamModal
+          hoSo={hoSo}
+          isOpen={showBaoGiam}
+          onClose={() => setShowBaoGiam(false)}
+        />
+      )}
     </AppShell>
   );
 }

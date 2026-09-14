@@ -11,10 +11,15 @@ import {
   ChevronLeft,
   ChevronRight,
   Printer,
+  Sparkles,
+  UserMinus,
+  AlertTriangle,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { GiayHenModal } from "@/components/GiayHenModal";
+import { BaoGiamModal } from "@/components/BaoGiamModal";
+import { OcrScanModal } from "@/components/OcrScanModal";
 import { HUYEN_LIST, HUYEN_PHUONG_MAP, type HoSo } from "@/data/mock";
 import { useAppState } from "@/services/app-state";
 import { CreateProfileModal } from "@/components/CreateProfileModal";
@@ -102,6 +107,10 @@ function HoSoIndex() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   // Modal in giấy tiếp nhận hồ sơ có QR code
   const [selectedGiayHenHoSo, setSelectedGiayHenHoSo] = useState<HoSo | null>(null);
+  // Modal báo giảm đối tượng từ trần & cấp mai táng phí
+  const [baoGiamHoSo, setBaoGiamHoSo] = useState<HoSo | null>(null);
+  // Modal OCR AI scan tài liệu
+  const [showOcrModal, setShowOcrModal] = useState(false);
 
   // Bộ lọc tìm kiếm nâng cao theo giao diện Sở LĐTBXH Bình Dương
   const [showAdvanced, setShowAdvanced] = useState(true);
@@ -254,6 +263,16 @@ function HoSoIndex() {
         >
           <Plus className="size-3.5" />
           Thêm hồ sơ
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setShowOcrModal(true)}
+          className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors"
+          title="Sử dụng trí tuệ nhân tạo OCR số hóa Bằng Tổ quốc ghi công & Giấy báo tử cũ"
+        >
+          <Sparkles className="size-3.5 text-amber-300" />
+          OCR AI Scan số hóa
         </button>
       </div>
 
@@ -527,13 +546,20 @@ function HoSoIndex() {
 
                     {/* Họ và tên */}
                     <td className="px-3 py-2 text-[#333333] font-normal">
-                      <Link
-                        to="/ho-so/$id"
-                        params={{ id: h.id }}
-                        className="hover:text-[#dd4b39] transition-colors"
-                      >
-                        {h.hoTen}
-                      </Link>
+                      <div className="flex items-center gap-1.5">
+                        <Link
+                          to="/ho-so/$id"
+                          params={{ id: h.id }}
+                          className="hover:text-[#dd4b39] transition-colors font-medium"
+                        >
+                          {h.hoTen}
+                        </Link>
+                        {h.isTuTran && (
+                          <span className="px-1.5 py-0.2 bg-red-100 text-red-700 text-[10px] font-bold rounded border border-red-200 shrink-0">
+                            ĐÃ TỪ TRẦN
+                          </span>
+                        )}
+                      </div>
                     </td>
 
                     {/* Loại hồ sơ */}
@@ -567,7 +593,7 @@ function HoSoIndex() {
                       {h.canBoQuanLy || "admin"}
                     </td>
 
-                    {/* Thao tác: Nút xem, chỉnh sửa & In Giấy hẹn tiếp nhận có mã QR */}
+                    {/* Thao tác: Nút xem, chỉnh sửa, Báo giảm & In Giấy hẹn tiếp nhận có mã QR */}
                     <td className="px-2 py-2 text-center">
                       <div className="flex items-center justify-center gap-1">
                         <button
@@ -586,6 +612,16 @@ function HoSoIndex() {
                         >
                           <FileText className="size-3.5" />
                         </Link>
+                        {!h.isTuTran && (
+                          <button
+                            type="button"
+                            onClick={() => setBaoGiamHoSo(h)}
+                            title="Thủ tục Báo giảm đối tượng từ trần & Cấp Quyết định Mai táng phí"
+                            className="size-6 rounded-[2px] bg-[#dd4b39] hover:bg-[#c82333] text-white flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
+                          >
+                            <UserMinus className="size-3.5" />
+                          </button>
+                        )}
                         <button
                           type="button"
                           onClick={() => toast.info(`Mở cập nhật thông tin hồ sơ ${h.id}`)}
@@ -653,6 +689,26 @@ function HoSoIndex() {
         <GiayHenModal
           hoSo={selectedGiayHenHoSo}
           onClose={() => setSelectedGiayHenHoSo(null)}
+        />
+      )}
+
+      {/* Modal Báo giảm đối tượng từ trần & Cấp Mai táng phí */}
+      {baoGiamHoSo && (
+        <BaoGiamModal
+          hoSo={baoGiamHoSo}
+          isOpen={!!baoGiamHoSo}
+          onClose={() => setBaoGiamHoSo(null)}
+        />
+      )}
+
+      {/* Modal OCR AI scan tài liệu số hóa */}
+      {showOcrModal && (
+        <OcrScanModal
+          isOpen={showOcrModal}
+          onClose={() => setShowOcrModal(false)}
+          onApplyData={() => {
+            setIsCreateOpen(true);
+          }}
         />
       )}
     </AppShell>

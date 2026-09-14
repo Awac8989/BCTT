@@ -14,11 +14,13 @@ import {
   FileCheck,
   Check,
   RotateCcw,
+  UploadCloud,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { useAppState, appStore, type ChiTraItem } from "@/services/app-state";
 import { PhieuChiModal } from "@/components/PhieuChiModal";
+import { DoiSoatBankModal } from "@/components/DoiSoatBankModal";
 import { HUYEN_LIST } from "@/data/mock";
 
 export const Route = createFileRoute("/chi-tra")({
@@ -100,6 +102,7 @@ function ChiTraPage() {
   // Quản lý modal phiếu chi
   const [selectedItemForModal, setSelectedItemForModal] = useState<ChiTraItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDoiSoatModal, setShowDoiSoatModal] = useState(false);
 
   // Chọn dòng để phát tiền hàng loạt
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -223,6 +226,17 @@ function ChiTraPage() {
           >
             <Zap className="size-3.5" />
             Phát tiền Ngân hàng tự động (Đề án 06)
+          </button>
+
+          {/* Nút đối soát tự động ngân hàng */}
+          <button
+            type="button"
+            onClick={() => setShowDoiSoatModal(true)}
+            className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer"
+            title="Khớp nối dữ liệu sao kê đối soát từ ngân hàng và bưu điện"
+          >
+            <UploadCloud className="size-3.5 text-sky-200" />
+            Đối soát tự động Ngân hàng
           </button>
 
           {/* Nút xuất bảng kê Excel C70a-HD */}
@@ -603,6 +617,12 @@ function ChiTraPage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         item={selectedItemForModal}
+      />
+
+      {/* Modal Đối soát tự động Ngân hàng */}
+      <DoiSoatBankModal
+        isOpen={showDoiSoatModal}
+        onClose={() => setShowDoiSoatModal(false)}
       />
     </AppShell>
   );

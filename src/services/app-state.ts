@@ -8,9 +8,18 @@ import {
   hoSoList as initialHoSoList,
   phanHoiList as initialPhanHoiList,
   PHUONG_LIST,
+  MUC_CHUAN,
   type HoSo,
   type PhanHoi,
   type TrangThai,
+  type DungCuChinhHinhItem,
+  type MoLietSiItem,
+  type CanhBaoSomItem,
+  type BaoGiamItem,
+  initialDungCuChinhHinh,
+  initialMoLietSiList,
+  initialCanhBaoList,
+  initialBaoGiamList,
 } from "@/data/mock";
 import { calculateAllowance } from "./calculator.service";
 import { createProfileSchema, type CreateProfileInput } from "./profile.validation";
@@ -132,6 +141,10 @@ interface AppState {
   quyetDinhList: QuyetDinhHuong[];
   phanHoiList: PhanHoi[];
   chiTraList: ChiTraItem[];
+  dungCuChinhHinhList: DungCuChinhHinhItem[];
+  moLietSiList: MoLietSiItem[];
+  baoGiamList: BaoGiamItem[];
+  canhBaoList: CanhBaoSomItem[];
   auditLogs: {
     id: string;
     timestamp: string;
@@ -404,6 +417,10 @@ function getInitialState(): AppState {
         return {
           ...parsed,
           currentUser: parsed.currentUser || MOCK_USERS.ADMIN_PHONG,
+          dungCuChinhHinhList: parsed.dungCuChinhHinhList || initialDungCuChinhHinh,
+          moLietSiList: parsed.moLietSiList || initialMoLietSiList,
+          baoGiamList: parsed.baoGiamList || initialBaoGiamList,
+          canhBaoList: parsed.canhBaoList || initialCanhBaoList,
         };
       }
     } catch (e) {
@@ -433,6 +450,10 @@ function getInitialState(): AppState {
     quyetDinhList: initialQuyetDinh,
     phanHoiList: initialPhanHoiList,
     chiTraList: initialChiTraData,
+    dungCuChinhHinhList: initialDungCuChinhHinh,
+    moLietSiList: initialMoLietSiList,
+    baoGiamList: initialBaoGiamList,
+    canhBaoList: initialCanhBaoList,
     auditLogs: [
       {
         id: "LOG-01",
@@ -860,6 +881,355 @@ export const appStore = {
         ...state.auditLogs,
       ],
     };
+    notify();
+  },
+
+  /**
+   * Báo giảm đối tượng từ trần & Sinh Quyết định Mai táng phí (Mẫu số 02 - NĐ 131/2021)
+   */
+  baoGiamTuTran(input: {
+    hoSoId: string;
+    ngayTuTran: string;
+    noiTuTran: string;
+    soTrichLucKhaiTu: string;
+    ngayCapKhaiTu: string;
+    noiCapKhaiTu: string;
+    nguoiKhaiBao: string;
+    quanHeVoiNguoiMat: string;
+    soCccdNguoiKhai: string;
+    soDienThoaiNguoiKhai: string;
+    diaChiNguoiKhai: string;
+  }) {
+    const hoSo = state.hoSoList.find((h) => h.id === input.hoSoId);
+    if (!hoSo) {
+      throw new Error(`Không tìm thấy hồ sơ với mã ${input.hoSoId}`);
+    }
+
+    const soTienMaiTangPhi = 10 * MUC_CHUAN; // 20.550.000 VNĐ
+    const troCapMotLan = hoSo.mucTroCap * 3; // 3 tháng trợ cấp (nếu có)
+    const now = new Date();
+    const ngayQuyetDinh = now.toLocaleDateString("vi-VN");
+    const soQuyetDinhMaiTang = `QĐ-UBND/${now.getFullYear()}-MTP-${Math.floor(100 + Math.random() * 900)}`;
+
+    // 1. Cập nhật trạng thái hồ sơ
+    const updatedHoSoList = state.hoSoList.map((h) => {
+      if (h.id === input.hoSoId) {
+        return {
+          ...h,
+          isTuTran: true,
+          ngayTuTran: input.ngayTuTran,
+          soTrichLucKhaiTu: input.soTrichLucKhaiTu,
+          nguoiNhanMaiTangPhi: input.nguoiKhaiBao,
+          soTienMaiTangPhi,
+          ngayQuyetDinhMaiTang: ngayQuyetDinh,
+          ghiChuThamDinh: `[ĐÃ BÁO GIẢM TỪ TRẦN] Ngày mất: ${input.ngayTuTran}. Trích lục khai tử: ${input.soTrichLucKhaiTu}`,
+        };
+      }
+      return h;
+    });
+
+    // 2. Thêm vào danh sách báo giảm mai táng phí
+    const newBaoGiamItem: BaoGiamItem = {
+      id: `BG-${now.getFullYear()}-${Math.floor(100 + Math.random() * 900)}`,
+      hoSoId: hoSo.id,
+      soHoSoTinh: hoSo.soHoSoTinh || hoSo.id,
+      hoTen: hoSo.hoTen,
+      cccd: hoSo.cccd,
+      loaiDoiTuong: hoSo.loaiDoiTuong,
+      phuong: hoSo.phuong,
+      huyen: hoSo.huyen || "TP. Thủ Dầu Một",
+      ngayTuTran: input.ngayTuTran,
+      noiTuTran: input.noiTuTran,
+      soTrichLucKhaiTu: input.soTrichLucKhaiTu,
+      ngayCapKhaiTu: input.ngayCapKhaiTu,
+      noiCapKhaiTu: input.noiCapKhaiTu,
+      nguoiKhaiBao: input.nguoiKhaiBao,
+      quanHeVoiNguoiMat: input.quanHeVoiNguoiMat,
+      soCccdNguoiKhai: input.soCccdNguoiKhai,
+      soDienThoaiNguoiKhai: input.soDienThoaiNguoiKhai,
+      diaChiNguoiKhai: input.diaChiNguoiKhai,
+      soQuyetDinhMaiTang,
+      ngayQuyetDinh,
+      soTienMaiTangPhi,
+      troCapMotLan,
+      trangThai: "ĐÃ_BAN_HÀNH_QĐ",
+      daNgungChiTraHangThang: true,
+      canBoThuLy: state.currentUser.fullName,
+    };
+
+    // 3. Tự động chuyển các khoản chi chưa phát sang trạng thái ngừng do từ trần
+    const updatedChiTraList = state.chiTraList.map((c) => {
+      if (c.hoSoId === hoSo.id && c.trangThai === "CHỜ_CHI_TRẢ") {
+        return {
+          ...c,
+          trangThai: "TỒN_ĐỌNG" as const,
+          thongTinChiTra: `${c.thongTinChiTra} (TẠM NGỪNG: Đối tượng đã từ trần ngày ${input.ngayTuTran})`,
+        };
+      }
+      return c;
+    });
+
+    state = {
+      ...state,
+      hoSoList: updatedHoSoList,
+      baoGiamList: [newBaoGiamItem, ...state.baoGiamList],
+      chiTraList: updatedChiTraList,
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: now.toLocaleString("vi-VN"),
+          action: "Báo giảm từ trần & Ban hành QĐ Mai táng phí",
+          details: `Hoàn tất thủ tục báo giảm cho ${hoSo.hoTen} (${hoSo.soHoSoTinh || hoSo.id}), ban hành ${soQuyetDinhMaiTang} chi trả mai táng phí ${soTienMaiTangPhi.toLocaleString("vi-VN")}đ`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+
+    notify();
+    return newBaoGiamItem;
+  },
+
+  /**
+   * Cấp mới hoặc gia hạn phương tiện trợ giúp / Dụng cụ chỉnh hình (NĐ 131/2021)
+   */
+  capDungCuChinhHinh(input: {
+    id?: string;
+    hoSoId: string;
+    soHoSoTinh: string;
+    hoTen: string;
+    cccd: string;
+    loaiDoiTuong: string;
+    phuong: string;
+    huyen: string;
+    tenDungCu: string;
+    loaiDungCu: "CHÂN_GIẢ" | "TAY_GIẢ" | "XE_LĂN" | "XE_LẮC" | "MÁY_TRỢ_THÍNH" | "KHÁC";
+    nienHanNam: number;
+    dinhMucTien: number;
+    tienBoiDuongPhucHoi: number;
+  }) {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const ngayCapMoi = now.toLocaleDateString("vi-VN");
+    const soQuyetDinhCap = `QĐ-SLĐTBXH/${currentYear}-${Math.floor(100 + Math.random() * 900)}`;
+
+    let updatedList: DungCuChinhHinhItem[];
+
+    if (input.id) {
+      updatedList = state.dungCuChinhHinhList.map((item) => {
+        if (item.id === input.id) {
+          return {
+            ...item,
+            ...input,
+            namCapGanNhat: currentYear,
+            namDenHanCapMoi: currentYear + input.nienHanNam,
+            trangThai: "ĐÃ_CẤP" as const,
+            ngayCapMoi,
+            soQuyetDinhCap,
+            canBoTheoDoi: state.currentUser.fullName,
+          };
+        }
+        return item;
+      });
+    } else {
+      const newItem: DungCuChinhHinhItem = {
+        id: `DC-${currentYear}-${Math.floor(100 + Math.random() * 900)}`,
+        ...input,
+        namCapGanNhat: currentYear,
+        namDenHanCapMoi: currentYear + input.nienHanNam,
+        trangThai: "ĐÃ_CẤP",
+        ngayCapMoi,
+        soQuyetDinhCap,
+        canBoTheoDoi: state.currentUser.fullName,
+      };
+      updatedList = [newItem, ...state.dungCuChinhHinhList];
+    }
+
+    state = {
+      ...state,
+      dungCuChinhHinhList: updatedList,
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: now.toLocaleString("vi-VN"),
+          action: "Cấp phương tiện trợ giúp & Dụng cụ chỉnh hình",
+          details: `Cấp ${input.tenDungCu} cho đối tượng ${input.hoTen}, định mức: ${input.dinhMucTien.toLocaleString("vi-VN")}đ, niên hạn: ${input.nienHanNam} năm`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+
+    notify();
+    return true;
+  },
+
+  /**
+   * Đối soát tự động dữ liệu chi trả từ Ngân hàng / Bưu điện
+   */
+  doiSoatGiaoDichNganHang(records: {
+    maGiaoDich: string;
+    soHoSoTinh?: string;
+    cccd?: string;
+    soTien: number;
+    trangThai: "THÀNH_CÔNG" | "THẤT_BẠI";
+    lyDoLoi?: string;
+  }[]) {
+    let successCount = 0;
+    let failCount = 0;
+    let totalSuccessAmount = 0;
+    let totalFailAmount = 0;
+    const now = new Date();
+
+    const updatedChiTraList = state.chiTraList.map((item) => {
+      const matched = records.find(
+        (r) =>
+          (r.soHoSoTinh && r.soHoSoTinh === item.soHoSoTinh) ||
+          (r.cccd && r.cccd === item.cccd) ||
+          (r.maGiaoDich && r.maGiaoDich === item.maGiaoDich)
+      );
+
+      if (matched) {
+        if (matched.trangThai === "THÀNH_CÔNG") {
+          successCount++;
+          totalSuccessAmount += item.soTien;
+          return {
+            ...item,
+            trangThai: "ĐÃ_CHI_TRẢ" as const,
+            ngayChiTra: now.toLocaleDateString("vi-VN"),
+            maGiaoDich: matched.maGiaoDich || item.maGiaoDich || `UNC-${Date.now()}`,
+          };
+        } else {
+          failCount++;
+          totalFailAmount += item.soTien;
+          return {
+            ...item,
+            trangThai: "TỒN_ĐỌNG" as const,
+            thongTinChiTra: `${item.thongTinChiTra} [LỖI ĐỐI SOÁT: ${matched.lyDoLoi || "Tài khoản không hợp lệ"}]`,
+          };
+        }
+      }
+      return item;
+    });
+
+    state = {
+      ...state,
+      chiTraList: updatedChiTraList,
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: now.toLocaleString("vi-VN"),
+          action: "Đối soát tự động Ngân hàng (Bank Reconciliation)",
+          details: `Xử lý ${records.length} giao dịch: ${successCount} thành công (${totalSuccessAmount.toLocaleString("vi-VN")}đ), ${failCount} thất bại/tồn đọng (${totalFailAmount.toLocaleString("vi-VN")}đ)`,
+          status: failCount > 0 ? "WARNING" : "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+
+    notify();
+    return {
+      total: records.length,
+      successCount,
+      failCount,
+      totalSuccessAmount,
+      totalFailAmount,
+    };
+  },
+
+  /**
+   * Thắp nén hương / Dâng hoa tưởng niệm mộ liệt sĩ trên bản đồ số
+   */
+  thapHuongMoLietSi(moId: string) {
+    const updated = state.moLietSiList.map((m) => {
+      if (m.id === moId) {
+        return {
+          ...m,
+          luotThapHuong: m.luotThapHuong + 1,
+        };
+      }
+      return m;
+    });
+    state = {
+      ...state,
+      moLietSiList: updated,
+    };
+    notify();
+  },
+
+  /**
+   * Ký số điện tử lãnh đạo (SmartCA / PKI Token)
+   */
+  kySoHoSo(hoSoId: string, nguoiKy?: string, chucVu?: string) {
+    const signer = nguoiKy || state.currentUser.fullName;
+    const title = chucVu || state.currentUser.title;
+    const now = new Date();
+    const maXacThuc = `SHA256:${Math.random().toString(36).substring(2, 10).toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
+
+    const updated = state.hoSoList.map((h) => {
+      if (h.id === hoSoId) {
+        return {
+          ...h,
+          kySoLanhDao: {
+            nguoiKy: signer,
+            chucVu: title,
+            ngayKy: now.toLocaleString("vi-VN"),
+            maXacThuc,
+          },
+        };
+      }
+      return h;
+    });
+
+    state = {
+      ...state,
+      hoSoList: updated,
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: now.toLocaleString("vi-VN"),
+          action: "Ký số điện tử công vụ (SmartCA)",
+          details: `Lãnh đạo ${signer} ký số điện tử phê duyệt hồ sơ ${hoSoId}. Mã xác thực: ${maXacThuc}`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+
+    notify();
+    return { signer, title, ngayKy: now.toLocaleString("vi-VN"), maXacThuc };
+  },
+
+  /**
+   * Xử lý cảnh báo rủi ro / gian lận chính sách
+   */
+  xuLyCanhBao(canhBaoId: string) {
+    const now = new Date();
+    const updated = state.canhBaoList.map((cb) => {
+      if (cb.id === canhBaoId) {
+        return {
+          ...cb,
+          trangThai: "ĐÃ_XỬ_LÝ" as const,
+        };
+      }
+      return cb;
+    });
+
+    state = {
+      ...state,
+      canhBaoList: updated,
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: now.toLocaleString("vi-VN"),
+          action: "Xử lý cảnh báo rủi ro chính sách",
+          details: `Đã xác nhận xử lý xong cảnh báo mã ${canhBaoId}`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+
     notify();
   },
 
