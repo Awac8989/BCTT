@@ -9,12 +9,17 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+import { nitro } from "nitro/vite";
+
 export default defineConfig({
   plugins: [
     tailwindcss(),
     tsConfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart({
       server: { entry: "server" },
+    }),
+    nitro({
+      preset: process.env.VERCEL || process.env.NITRO_PRESET ? "vercel" : undefined,
     }),
     viteReact(),
   ],
