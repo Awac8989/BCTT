@@ -14,7 +14,6 @@ import {
   Award,
   ChevronRight,
   Sparkles,
-  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell, PageHeader } from "@/components/AppShell";
@@ -379,11 +378,10 @@ function DungCuChinhHinhPage() {
                         </td>
                         <td className="p-3 text-center font-mono">
                           <span
-                            className={`font-bold px-2 py-0.5 rounded text-xs ${
-                              isOverdue
+                            className={`font-bold px-2 py-0.5 rounded text-xs ${isOverdue
                                 ? "bg-red-100 text-red-700 animate-pulse border border-red-300"
                                 : "text-gray-700"
-                            }`}
+                              }`}
                           >
                             {item.namDenHanCapMoi}
                           </span>
