@@ -21,6 +21,7 @@ import {
   Compass,
   Bell,
   ExternalLink,
+  Eye,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { appStore, useAppState } from "@/services/app-state";
@@ -39,7 +40,7 @@ const PRIMARY_NAV: NavItem[] = [
   { to: "/dieu-duong", label: "Điều dưỡng NCC", icon: HeartPulse },
   { to: "/dung-cu-chinh-hinh", label: "Dụng cụ chỉnh hình", icon: Accessibility },
   { to: "/nghia-trang", label: "Nghĩa trang liệt sĩ", icon: Compass },
-  { to: "/danh-gia", label: "Giám sát CSAT", icon: Star },
+  { to: "/danh-gia", label: "Đánh giá cán bộ", icon: Star },
   { to: "/phan-tich", label: "Báo cáo thống kê", icon: Folder },
   { to: "/he-thong", label: "Tham số hệ thống", icon: Settings },
 ];
@@ -70,7 +71,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     if (pathname.startsWith("/dung-cu-chinh-hinh")) return ["Bảng điều khiển", "Quy trình thụ lý", "Dụng cụ chỉnh hình & Niên hạn"];
     if (pathname.startsWith("/nghia-trang")) return ["Bảng điều khiển", "Đền ơn đáp nghĩa", "Bản đồ số Nghĩa trang Liệt sĩ GIS"];
     if (pathname.startsWith("/tra-cuu")) return ["Bảng điều khiển", "Cổng dịch vụ công", "Tra cứu hồ sơ công dân"];
-    if (pathname.startsWith("/danh-gia")) return ["Bảng điều khiển", "Giám sát dịch vụ", "Chỉ số CSAT & Tiếng nói người dân"];
+    if (pathname.startsWith("/danh-gia")) return ["Bảng điều khiển", "Đánh giá cán bộ", "Xem nhận xét & Chỉ số CSAT"];
     if (pathname.startsWith("/phan-tich")) return ["Bảng điều khiển", "Báo cáo thống kê", "Phân tích số liệu điều hành"];
     if (pathname.startsWith("/he-thong")) return ["Bảng điều khiển", "Tham số hệ thống", "Cấu hình quy chuẩn"];
     return ["Bảng điều khiển", "Quản lý hồ sơ", "Tìm kiếm hồ sơ"];
@@ -155,12 +156,12 @@ export function AppShell({ children }: { children: ReactNode }) {
             </Link>
 
             <Link
-              to="/khao-sat"
+              to="/danh-gia"
               className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-300 rounded text-xs font-bold shadow-xs transition-colors"
-              title="Xem giao diện Đánh giá CSAT / Kiosk dành cho người dân"
+              title="Xem sổ theo dõi nhận xét & đánh giá cán bộ từ người dân (Chế độ xem)"
             >
-              <Star className="size-3 text-sky-700" />
-              <span>Kiosk CSAT</span>
+              <Eye className="size-3 text-sky-700" />
+              <span>Xem đánh giá CB</span>
             </Link>
 
             {/* User info bên phải với Badge phân cấp Cấp Sở / Cấp Phòng & Dropdown thao tác */}
@@ -335,17 +336,17 @@ export function AppShell({ children }: { children: ReactNode }) {
               );
             })}
 
-            {/* Cổng Công dân quét QR (Mở tab riêng độc lập) */}
+            {/* Cổng Công dân quét QR (Mô phỏng độc lập khi người dân quét trên điện thoại) */}
             <div className="my-2 border-t border-[#1a2226]/80 pt-2">
               <a
                 href="/khao-sat?maHoSo=BD/NCC-12029&kenh=QR_PHIEU_HEN"
                 target="_blank"
                 rel="noreferrer"
                 className="flex flex-col items-center justify-center py-2.5 px-2 text-center transition-colors border-l-3 border-transparent text-[#00c0ef] hover:bg-[#1e282c] hover:text-white group"
-                title="Mở tab mới: Cổng đánh giá dành riêng cho người dân (Mobile/Kiosk)"
+                title="Mở tab mới: Mô phỏng Cổng đánh giá dành riêng cho người dân quét mã QR trên giấy hẹn"
               >
                 <Tablet className="size-4 mb-0.5 group-hover:scale-110 transition-transform" />
-                {!collapsed && <span className="text-[11px] leading-tight font-medium">Cổng Dân (QR) ↗</span>}
+                {!collapsed && <span className="text-[11px] leading-tight font-medium">Mô phỏng Dân (QR) ↗</span>}
               </a>
             </div>
 
@@ -417,9 +418,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                       target="_blank"
                       rel="noreferrer"
                       className="flex flex-col items-center justify-center py-2.5 px-2 text-center text-[#00c0ef] hover:text-white"
+                      title="Mô phỏng Cổng đánh giá dành riêng cho người dân"
                     >
                       <Tablet className="size-5 mb-1" />
-                      <span className="text-[11px]">Cổng Dân (QR) ↗</span>
+                      <span className="text-[11px]">Mô phỏng Dân (QR) ↗</span>
                     </a>
                   </div>
                 </div>

@@ -240,7 +240,105 @@ export interface PhanHoi {
   } | undefined;
 }
 
+export interface CanBoDanhGiaSummary {
+  id: string;
+  hoTen: string;
+  chucVu: string;
+  donVi: string;
+  quaySo: string;
+  avatarText: string;
+  soLuotDanhGia: number;
+  diemCsat: number;
+  tyLeHaiLong: number;
+  tieuChi: {
+    thaiDo: number;
+    thoiGian: number;
+    minhBach: number;
+    haTang: number;
+  };
+  soKhen: number;
+  soKhacPhuc: number;
+  xepLoai: "Xuất sắc" | "Tốt" | "Đạt" | "Cần khắc phục";
+}
+
+export const danhSachCanBoDanhGia: CanBoDanhGiaSummary[] = [
+  {
+    id: "CB-01",
+    hoTen: "Nguyễn Văn An",
+    chucVu: "Cán bộ Tiếp nhận hồ sơ chính sách NCC",
+    donVi: "Bộ phận Một cửa TP. Thủ Dầu Một",
+    quaySo: "Quầy số 02",
+    avatarText: "AN",
+    soLuotDanhGia: 1420,
+    diemCsat: 4.92,
+    tyLeHaiLong: 98.6,
+    tieuChi: { thaiDo: 4.95, thoiGian: 4.88, minhBach: 4.93, haTang: 4.90 },
+    soKhen: 1390,
+    soKhacPhuc: 2,
+    xepLoai: "Xuất sắc",
+  },
+  {
+    id: "CB-02",
+    hoTen: "Phạm Thị Lệ",
+    chucVu: "Cán bộ Thụ lý & Trả kết quả trợ cấp",
+    donVi: "Bộ phận Một cửa P. Chánh Nghĩa",
+    quaySo: "Quầy số 01",
+    avatarText: "LỆ",
+    soLuotDanhGia: 986,
+    diemCsat: 4.78,
+    tyLeHaiLong: 95.8,
+    tieuChi: { thaiDo: 4.82, thoiGian: 4.65, minhBach: 4.85, haTang: 4.80 },
+    soKhen: 940,
+    soKhacPhuc: 8,
+    xepLoai: "Tốt",
+  },
+  {
+    id: "CB-03",
+    hoTen: "Trần Quốc Bảo",
+    chucVu: "Cán bộ Tiếp nhận & Hướng dẫn TTHC",
+    donVi: "Bộ phận Một cửa P. Phú Cường",
+    quaySo: "Quầy số 03",
+    avatarText: "BẢO",
+    soLuotDanhGia: 864,
+    diemCsat: 4.85,
+    tyLeHaiLong: 96.9,
+    tieuChi: { thaiDo: 4.89, thoiGian: 4.79, minhBach: 4.90, haTang: 4.82 },
+    soKhen: 835,
+    soKhacPhuc: 5,
+    xepLoai: "Xuất sắc",
+  },
+  {
+    id: "CB-04",
+    hoTen: "Lý Thu Vân",
+    chucVu: "Cán bộ Quản lý hồ sơ & Chi trả phụ cấp",
+    donVi: "Bộ phận Một cửa P. Định Hòa",
+    quaySo: "Quầy số 01",
+    avatarText: "VÂN",
+    soLuotDanhGia: 592,
+    diemCsat: 4.62,
+    tyLeHaiLong: 92.4,
+    tieuChi: { thaiDo: 4.70, thoiGian: 4.45, minhBach: 4.75, haTang: 4.60 },
+    soKhen: 542,
+    soKhacPhuc: 14,
+    xepLoai: "Đạt",
+  },
+];
+
 export const phanHoiList: PhanHoi[] = [
+  {
+    id: "KS-2026-0415",
+    hoSoId: "BD/LS-07956",
+    nguoiDanhGia: "Nguyễn Văn Hùng (Thân nhân)",
+    phuong: "Chánh Nghĩa",
+    canBo: "Nguyễn Văn An",
+    kenh: "QR_PHIEU_HEN",
+    diemCsat: 5,
+    yKien: "Cán bộ An giải thích cặn kẽ về hồ sơ tuất liệt sĩ, thái độ rất ân cần và kính trọng người có công.",
+    sentiment: "POSITIVE",
+    ngay: "05/09/2026",
+    daXuLy: true,
+    tieuChi: { thaiDo: 5, thoiGian: 5, minhBach: 5, haTang: 5 },
+  },
   {
     id: "KS-2026-0412",
     hoSoId: "TDM-NCC-2026-00412",
@@ -253,6 +351,7 @@ export const phanHoiList: PhanHoi[] = [
     sentiment: "POSITIVE",
     ngay: "04/09/2026",
     daXuLy: true,
+    tieuChi: { thaiDo: 5, thoiGian: 5, minhBach: 5, haTang: 5 },
   },
   {
     id: "KS-2026-0409",
@@ -262,10 +361,25 @@ export const phanHoiList: PhanHoi[] = [
     canBo: "Phạm Thị Lệ",
     kenh: "KIOSK",
     diemCsat: 2,
-    yKien: "Phải chờ lâu hơn 1 giờ, lại bị yêu cầu bổ sung giấy tờ ngoài quy định.",
+    yKien: "Phải chờ lâu hơn 1 giờ, cán bộ yêu cầu bổ sung giấy tờ chưa giải thích rõ lý do.",
     sentiment: "NEGATIVE",
     ngay: "03/09/2026",
     daXuLy: false,
+    tieuChi: { thaiDo: 3, thoiGian: 2, minhBach: 2, haTang: 4 },
+  },
+  {
+    id: "KS-2026-0407",
+    hoSoId: "BD/TB-01202",
+    nguoiDanhGia: "Phan Văn Đức",
+    phuong: "Chánh Nghĩa",
+    canBo: "Phạm Thị Lệ",
+    kenh: "QR_PHIEU_HEN",
+    diemCsat: 5,
+    yKien: "Cán bộ Lệ thụ lý hồ sơ bảo hiểm y tế rất nhanh, thái độ lễ phép và hòa nhã.",
+    sentiment: "POSITIVE",
+    ngay: "03/09/2026",
+    daXuLy: true,
+    tieuChi: { thaiDo: 5, thoiGian: 5, minhBach: 5, haTang: 4 },
   },
   {
     id: "KS-2026-0405",
@@ -275,10 +389,25 @@ export const phanHoiList: PhanHoi[] = [
     canBo: "Trần Quốc Bảo",
     kenh: "SMS_ZALO",
     diemCsat: 1,
-    yKien: "Thái độ tiếp dân hách dịch, không giải thích khi trả lại hồ sơ.",
+    yKien: "Thái độ tiếp dân chưa hòa nhã, cần giải thích rõ ràng hơn khi hồ sơ chưa đủ điều kiện.",
     sentiment: "NEGATIVE",
     ngay: "02/09/2026",
     daXuLy: false,
+    tieuChi: { thaiDo: 1, thoiGian: 3, minhBach: 2, haTang: 3 },
+  },
+  {
+    id: "KS-2026-0401",
+    hoSoId: "TDM-BB-2026-00109",
+    nguoiDanhGia: "Lâm Thị Mai",
+    phuong: "Phú Cường",
+    canBo: "Trần Quốc Bảo",
+    kenh: "KIOSK",
+    diemCsat: 5,
+    yKien: "Rất cảm ơn cán bộ Bảo đã hỗ trợ làm thủ tục dụng cụ chỉnh hình nhanh chóng cho bác.",
+    sentiment: "POSITIVE",
+    ngay: "02/09/2026",
+    daXuLy: true,
+    tieuChi: { thaiDo: 5, thoiGian: 5, minhBach: 5, haTang: 5 },
   },
   {
     id: "KS-2026-0398",
@@ -288,10 +417,11 @@ export const phanHoiList: PhanHoi[] = [
     canBo: "Nguyễn Văn An",
     kenh: "KIOSK",
     diemCsat: 4,
-    yKien: "Nhìn chung đúng hẹn, chỗ ngồi chờ còn thiếu chỉ dẫn.",
+    yKien: "Nhìn chung đúng hẹn, cán bộ nhiệt tình, phòng chờ trang bị máy lạnh mát mẻ.",
     sentiment: "NEUTRAL",
     ngay: "01/09/2026",
     daXuLy: true,
+    tieuChi: { thaiDo: 5, thoiGian: 4, minhBach: 4, haTang: 4 },
   },
   {
     id: "KS-2026-0391",
@@ -301,10 +431,25 @@ export const phanHoiList: PhanHoi[] = [
     canBo: "Lý Thu Vân",
     kenh: "QR_PHIEU_HEN",
     diemCsat: 2,
-    yKien: "Thủ tục phiền hà, đi lại ba lần mới xong.",
+    yKien: "Thời gian hẹn trả kết quả bị chậm 2 ngày so với giấy hẹn, cần thông báo sớm cho dân.",
     sentiment: "NEGATIVE",
     ngay: "31/08/2026",
     daXuLy: false,
+    tieuChi: { thaiDo: 3, thoiGian: 1, minhBach: 3, haTang: 4 },
+  },
+  {
+    id: "KS-2026-0388",
+    hoSoId: "BD/LS-03418",
+    nguoiDanhGia: "Hoàng Văn Tuấn",
+    phuong: "Định Hòa",
+    canBo: "Lý Thu Vân",
+    kenh: "SMS_ZALO",
+    diemCsat: 5,
+    yKien: "Cán bộ Vân hướng dẫn tận tình chu đáo qua điện thoại, không để gia đình đi lại nhiều lần.",
+    sentiment: "POSITIVE",
+    ngay: "30/08/2026",
+    daXuLy: true,
+    tieuChi: { thaiDo: 5, thoiGian: 5, minhBach: 5, haTang: 4 },
   },
 ];
 

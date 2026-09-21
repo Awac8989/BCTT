@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import {
@@ -147,6 +147,24 @@ function CongDanKhaoSatPage() {
     <div className="min-h-screen bg-gradient-to-b from-red-50 via-white to-gray-50 text-gray-900 font-sans pb-16">
       {/* 1. Thanh chỉ đỏ trên cùng chuẩn Cổng Dịch vụ công */}
       <div className="h-1.5 w-full bg-[#dd4b39]" />
+
+      {/* Thông báo phân định nghiệp vụ: Đây là màn hình mô phỏng công dân */}
+      <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-xs text-amber-900 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <span className="font-bold uppercase tracking-wider bg-amber-200 px-1.5 py-0.5 rounded text-[10px] text-amber-950">
+            MÔ PHỎNG CỔNG DÂN
+          </span>
+          <span>
+            Đây là giao diện mô phỏng dành riêng cho <strong>Người dân quét mã QR trên Giấy hẹn</strong> hoặc tại <strong>Kiosk Một cửa</strong>.
+          </span>
+        </div>
+        <Link
+          to="/danh-gia"
+          className="font-bold text-[#dd4b39] hover:underline flex items-center gap-1 shrink-0"
+        >
+          <span>⬅ Quay lại Phần mềm Cán bộ (Xem Đánh giá Cán bộ)</span>
+        </Link>
+      </div>
 
       {/* 2. Header Quốc Gia Dành Riêng Cho Công Dân (Độc lập, KHÔNG CÓ MENU CÁN BỘ) */}
       <header className="bg-white border-b border-gray-200 py-4 px-4 sm:px-8 shadow-xs">
