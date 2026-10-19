@@ -31,3 +31,22 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Microsoft Word temporary files
+~$*.docx
+
+# Scratch & temporary dump files
+scratch_*.txt
+*_dump.txt
+*_check.txt
+*_diff.txt
+user_*.txt
+p3_xml.xml
+test_*.docx
+test_*.pdf
+scripts/figs_tables_pages.txt
+scripts/word_toc_extracted.txt
