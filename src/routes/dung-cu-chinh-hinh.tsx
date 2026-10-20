@@ -14,6 +14,7 @@ import {
   Award,
   ChevronRight,
   Sparkles,
+  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell, PageHeader } from "@/components/AppShell";

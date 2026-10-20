@@ -30,10 +30,12 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+type LoginRole = "ADMIN_SO" | "ADMIN_PHONG" | "CB_THONG_TIN" | "CB_AN_SINH" | "CB_GIAO_DUC";
+
 function LoginPage() {
   const navigate = useNavigate();
   const state = useAppState();
-  const [activeRole, setActiveRole] = useState<"ADMIN_SO" | "ADMIN_PHONG">("ADMIN_SO");
+  const [activeRole, setActiveRole] = useState<LoginRole>("ADMIN_SO");
   const [username, setUsername] = useState(MOCK_USERS.ADMIN_SO.email);
   const [password, setPassword] = useState("••••••••••••");
   const [showPassword, setShowPassword] = useState(false);
@@ -42,21 +44,24 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   // Chuyển đổi tab vai trò
-  const handleSelectRole = (role: "ADMIN_SO" | "ADMIN_PHONG") => {
+  const handleSelectRole = (role: LoginRole) => {
     setActiveRole(role);
-    setUsername(MOCK_USERS[role].email);
+    const targetUser = MOCK_USERS[role];
+    if (targetUser) {
+      setUsername(targetUser.email);
+    }
     setPassword("••••••••••••");
   };
 
   // Xử lý đăng nhập
-  const handleLogin = (roleToLogin?: "ADMIN_SO" | "ADMIN_PHONG") => {
+  const handleLogin = (roleToLogin?: LoginRole) => {
     const targetRole = roleToLogin || activeRole;
     setLoading(true);
 
     setTimeout(() => {
       appStore.login(targetRole, { username, password });
       setLoading(false);
-      const user = MOCK_USERS[targetRole];
+      const user = MOCK_USERS[targetRole] || MOCK_USERS.ADMIN_SO;
       toast.success(`Đăng nhập thành công với quyền ${user.roleName}!`, {
         description: `Xin chào ${user.fullName} (${user.title})`,
       });
@@ -64,7 +69,7 @@ function LoginPage() {
     }, 450);
   };
 
-  const currentUserConfig = MOCK_USERS[activeRole];
+  const currentUserConfig = MOCK_USERS[activeRole] || MOCK_USERS.ADMIN_SO;
 
   return (
     <div className="min-h-screen bg-[#f4f6f9] flex flex-col justify-between selection:bg-[#dd4b39] selection:text-white font-sans">
@@ -73,7 +78,7 @@ function LoginPage() {
 
       {/* 2. Nội dung trung tâm của Cổng Đăng Nhập */}
       <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8">
-        <div className="w-full max-w-4xl bg-white rounded-lg border border-[#d2d6de] shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+        <div className="w-full max-w-5xl bg-white rounded-lg border border-[#d2d6de] shadow-lg overflow-hidden grid grid-cols-1 lg:grid-cols-12">
           {/* CỘT TRÁI (5 phần): Nhận diện thương hiệu & Thông tin Phân quyền */}
           <div className="lg:col-span-5 bg-gradient-to-b from-[#b91c1c] via-[#991b1b] to-[#7f1d1d] p-6 text-white flex flex-col justify-between relative overflow-hidden">
             {/* Họa tiết chìm trang trọng */}
@@ -98,9 +103,9 @@ function LoginPage() {
 
               {/* Quốc huy / Huy hiệu Sở LĐTBXH */}
               <div className="flex justify-center mt-5">
-                <div className="size-20 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-300 to-amber-500 p-1 shadow-md flex items-center justify-center">
+                <div className="size-16 rounded-full bg-gradient-to-tr from-amber-400 via-yellow-300 to-amber-500 p-1 shadow-md flex items-center justify-center">
                   <div className="size-full rounded-full bg-[#c82333] border-2 border-amber-300 flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" className="size-10 fill-amber-300 drop-shadow-xs" aria-label="Quốc huy">
+                    <svg viewBox="0 0 24 24" className="size-8 fill-amber-300 drop-shadow-xs" aria-label="Quốc huy">
                       <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
                     </svg>
                   </div>
@@ -108,36 +113,39 @@ function LoginPage() {
               </div>
 
               {/* Tiêu đề Cổng */}
-              <div className="text-center mt-4">
-                <div className="text-xs font-bold uppercase tracking-widest text-amber-300">
+              <div className="text-center mt-3">
+                <div className="text-[11px] font-bold uppercase tracking-widest text-amber-300">
                   ỦY BAN NHÂN DÂN TỈNH BÌNH DƯƠNG
                 </div>
-                <h1 className="text-sm font-extrabold uppercase mt-1 leading-snug text-white">
-                  SỞ LAO ĐỘNG - THƯƠNG BINH VÀ XÃ HỘI
+                <h1 className="text-xs font-extrabold uppercase mt-1 leading-snug text-white">
+                  HỆ THỐNG ĐIỀU HÀNH NGHIỆP VỤ &amp; CHUYỂN ĐỔI SỐ CƠ SỞ
                 </h1>
-                <div className="mt-2 text-xs font-medium text-white/90 leading-tight">
-                  HỆ THỐNG QUẢN LÝ HỒ SƠ NGƯỜI CÓ CÔNG & ĐÁNH GIÁ DỊCH VỤ CÔNG
+                <div className="mt-1 text-[11px] font-medium text-white/90 leading-tight">
+                  Quản lý Đa Mảng: Thông tin - An sinh Xã hội - Giáo dục Đào tạo
                 </div>
               </div>
 
               {/* Thẻ mô tả quyền hạn theo tab đang chọn */}
-              <div className="mt-6 rounded-md bg-white/10 p-3.5 border border-white/20 backdrop-blur-xs">
+              <div className="mt-5 rounded-md bg-white/10 p-3.5 border border-white/20 backdrop-blur-xs">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold uppercase tracking-wide text-amber-300">
-                    {activeRole === "ADMIN_SO" ? "Đặc quyền Cấp Sở" : "Đặc quyền Cấp Phòng"}
+                    {currentUserConfig.roleName}
                   </span>
-                  <span className="rounded bg-amber-400/20 px-2 py-0.5 text-[10px] font-bold text-amber-200 border border-amber-300/30">
-                    {activeRole === "ADMIN_SO" ? "CẤP TỈNH" : "CẤP THÀNH PHỐ"}
+                  <span className="rounded bg-amber-400/20 px-2 py-0.5 text-[9px] font-bold text-amber-200 border border-amber-300/30 uppercase">
+                    {currentUserConfig.assignedDomains.join(" · ")}
                   </span>
                 </div>
                 <div className="mt-2 text-xs font-semibold text-white">
                   {currentUserConfig.unit}
                 </div>
-                <ul className="mt-2 space-y-1.5 text-[11px] text-white/90">
+                <div className="text-[11px] text-amber-200/90 mt-0.5 font-medium">
+                  {currentUserConfig.fullName} — {currentUserConfig.title}
+                </div>
+                <ul className="mt-2 space-y-1 text-[11px] text-white/90">
                   {currentUserConfig.permissions.slice(0, 4).map((p, i) => (
                     <li key={i} className="flex items-start gap-1.5">
                       <CheckCircle2 className="size-3.5 text-amber-300 shrink-0 mt-0.5" />
-                      <span>{p}</span>
+                      <span className="line-clamp-2">{p}</span>
                     </li>
                   ))}
                 </ul>
@@ -145,117 +153,143 @@ function LoginPage() {
             </div>
 
             {/* Dưới cột trái: thông tin bảo mật */}
-            <div className="mt-6 pt-4 border-t border-white/20 text-[11px] text-white/80 flex items-center justify-between relative z-10">
+            <div className="mt-4 pt-3 border-t border-white/20 text-[10px] text-white/80 flex items-center justify-between relative z-10">
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="size-4 text-emerald-300" />
+                <ShieldCheck className="size-3.5 text-emerald-300" />
                 Mã hóa đường truyền SSL/TLS
               </span>
-              <span className="font-mono text-[10px]">Cơ yếu CP</span>
+              <span className="font-mono text-[10px]">Phân quyền RBAC</span>
             </div>
           </div>
 
           {/* CỘT PHẢI (7 phần): Form Đăng Nhập & Chuyển Vai Trò */}
-          <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between bg-white">
+          <div className="lg:col-span-7 p-6 flex flex-col justify-between bg-white">
             <div>
               {/* Header form */}
               <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#e5e7eb]">
                 <div>
-                  <h2 className="text-lg font-bold text-gray-900">Xác thực người dùng</h2>
+                  <h2 className="text-base font-bold text-gray-900">Xác thực người dùng</h2>
                   <p className="text-xs text-gray-500 mt-0.5">
-                    Đăng nhập tài khoản công vụ dành cho cán bộ quản trị
+                    Đăng nhập tài khoản công vụ phân quyền riêng từng mảng nghiệp vụ
                   </p>
                 </div>
-                <span className="rounded bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-800 border border-blue-200">
-                  Cổng Nội bộ
+                <span className="rounded bg-emerald-50 px-2 py-0.5 text-xs font-bold text-emerald-800 border border-emerald-200">
+                  5 Tài khoản Mẫu
                 </span>
               </div>
 
-              {/* BỘ CHỌN PHÂN QUYỀN 2 CẤP ĐỘ: CẤP SỞ & CẤP PHÒNG */}
-              <div className="mt-4">
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                  1. Chọn cấp độ quản trị:
+              {/* BỘ CHỌN PHÂN QUYỀN THEO TỪNG MẢNG */}
+              <div className="mt-3">
+                <label className="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-2">
+                  1. Chọn tài khoản cán bộ theo mảng nghiệp vụ:
                 </label>
-                <div className="grid grid-cols-2 gap-2">
-                  {/* Nút chọn Cấp Sở */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {/* 1. Admin Toàn quyền */}
                   <button
                     type="button"
                     onClick={() => handleSelectRole("ADMIN_SO")}
-                    className={`p-3 rounded-md border text-left transition-all relative ${
+                    className={`p-2.5 rounded-md border text-left transition-all ${
                       activeRole === "ADMIN_SO"
-                        ? "border-[#dd4b39] bg-red-50/60 ring-2 ring-[#dd4b39]/20 shadow-xs"
+                        ? "border-[#dd4b39] bg-red-50/80 ring-2 ring-[#dd4b39]/20 shadow-xs"
                         : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span
-                        className={`text-xs font-extrabold ${
-                          activeRole === "ADMIN_SO" ? "text-[#dd4b39]" : "text-gray-800"
-                        }`}
-                      >
-                        ADMIN CẤP SỞ
-                      </span>
-                      {activeRole === "ADMIN_SO" && (
-                        <span className="size-2 rounded-full bg-[#dd4b39]" />
-                      )}
+                      <span className="text-xs font-bold text-[#dd4b39]">ADMIN TOÀN QUYỀN</span>
+                      <span className="text-[9px] bg-red-100 text-red-700 font-bold px-1 rounded">Cấp Sở</span>
                     </div>
-                    <div className="text-[11px] text-gray-600 mt-1 font-medium line-clamp-1">
-                      Sở LĐTBXH Bình Dương
-                    </div>
-                    <div className="text-[10px] text-gray-500 mt-0.5">
-                      TS. Nguyễn Văn Hùng (PGĐ)
-                    </div>
+                    <div className="text-[11px] font-bold text-gray-800 mt-0.5">TS. Nguyễn Văn Hùng</div>
+                    <div className="text-[10px] text-gray-500">Toàn quyền tất cả các mảng</div>
                   </button>
 
-                  {/* Nút chọn Cấp Phòng */}
+                  {/* 2. Admin Cấp Phòng */}
                   <button
                     type="button"
                     onClick={() => handleSelectRole("ADMIN_PHONG")}
-                    className={`p-3 rounded-md border text-left transition-all relative ${
+                    className={`p-2.5 rounded-md border text-left transition-all ${
                       activeRole === "ADMIN_PHONG"
-                        ? "border-[#0073b7] bg-blue-50/60 ring-2 ring-[#0073b7]/20 shadow-xs"
+                        ? "border-[#0073b7] bg-blue-50/80 ring-2 ring-[#0073b7]/20 shadow-xs"
                         : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span
-                        className={`text-xs font-extrabold ${
-                          activeRole === "ADMIN_PHONG" ? "text-[#0073b7]" : "text-gray-800"
-                        }`}
-                      >
-                        ADMIN CẤP PHÒNG
-                      </span>
-                      {activeRole === "ADMIN_PHONG" && (
-                        <span className="size-2 rounded-full bg-[#0073b7]" />
-                      )}
+                      <span className="text-xs font-bold text-[#0073b7]">PHÒNG LĐ-TB&amp;XH</span>
+                      <span className="text-[9px] bg-blue-100 text-blue-700 font-bold px-1 rounded">Cấp Phòng</span>
                     </div>
-                    <div className="text-[11px] text-gray-600 mt-1 font-medium line-clamp-1">
-                      Phòng LĐTBXH Thủ Dầu Một
+                    <div className="text-[11px] font-bold text-gray-800 mt-0.5">Nguyễn Thị Minh Thảo</div>
+                    <div className="text-[10px] text-gray-500">Một cửa &amp; Chính sách TP. TDM</div>
+                  </button>
+
+                  {/* 3. Cán bộ Thông tin & CĐS */}
+                  <button
+                    type="button"
+                    onClick={() => handleSelectRole("CB_THONG_TIN")}
+                    className={`p-2.5 rounded-md border text-left transition-all ${
+                      activeRole === "CB_THONG_TIN"
+                        ? "border-sky-600 bg-sky-50/80 ring-2 ring-sky-600/20 shadow-xs"
+                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-sky-700">MẢNG THÔNG TIN &amp; CĐS</span>
+                      <span className="text-[9px] bg-sky-100 text-sky-700 font-bold px-1 rounded">Cấp Phường</span>
                     </div>
-                    <div className="text-[10px] text-gray-500 mt-0.5">
-                      Nguyễn Thị Minh Thảo (Một cửa)
+                    <div className="text-[11px] font-bold text-gray-800 mt-0.5">Vũ Đình Cường</div>
+                    <div className="text-[10px] text-gray-500">Truyền thanh, LED, Cổ động, Tổ CNS</div>
+                  </button>
+
+                  {/* 4. Cán bộ An sinh Xã hội */}
+                  <button
+                    type="button"
+                    onClick={() => handleSelectRole("CB_AN_SINH")}
+                    className={`p-2.5 rounded-md border text-left transition-all ${
+                      activeRole === "CB_AN_SINH"
+                        ? "border-amber-600 bg-amber-50/80 ring-2 ring-amber-600/20 shadow-xs"
+                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-amber-700">MẢNG AN SINH XÃ HỘI</span>
+                      <span className="text-[9px] bg-amber-100 text-amber-700 font-bold px-1 rounded">Cấp Phường</span>
                     </div>
+                    <div className="text-[11px] font-bold text-gray-800 mt-0.5">Lê Hoàng Nam</div>
+                    <div className="text-[10px] text-gray-500">Bảo trợ, Cứu trợ, Hộ nghèo, Việc làm</div>
+                  </button>
+
+                  {/* 5. Cán bộ Giáo dục & Đào tạo */}
+                  <button
+                    type="button"
+                    onClick={() => handleSelectRole("CB_GIAO_DUC")}
+                    className={`p-2.5 rounded-md border text-left transition-all sm:col-span-2 ${
+                      activeRole === "CB_GIAO_DUC"
+                        ? "border-emerald-600 bg-emerald-50/80 ring-2 ring-emerald-600/20 shadow-xs"
+                        : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-emerald-700">MẢNG GIÁO DỤC &amp; ĐÀO TẠO CƠ SỞ</span>
+                      <span className="text-[9px] bg-emerald-100 text-emerald-700 font-bold px-1 rounded">Cấp Phường</span>
+                    </div>
+                    <div className="text-[11px] font-bold text-gray-800 mt-0.5">ThS. Trần Thị Kim Oanh</div>
+                    <div className="text-[10px] text-gray-500">Mầm non tư thục, Tuyển sinh đầu cấp, Phổ cập GD, Khuyến học</div>
                   </button>
                 </div>
               </div>
 
-              {/* Nút ĐĂNG NHẬP NHANH 1-CLICK cho cán bộ / giám khảo trải nghiệm */}
-              <div className="mt-3 p-2.5 rounded bg-amber-50/80 border border-amber-200 flex flex-wrap items-center justify-between gap-2">
+              {/* Nút ĐĂNG NHẬP NHANH 1-CLICK */}
+              <div className="mt-3 p-2 rounded bg-amber-50/80 border border-amber-200 flex flex-wrap items-center justify-between gap-2">
                 <div className="text-[11px] text-amber-900 font-medium">
-                  <strong>Trải nghiệm nhanh:</strong> Đăng nhập tức thì với quyền{" "}
+                  <strong>Trải nghiệm nhanh:</strong> Đăng nhập tức thì quyền{" "}
                   <span className="font-bold text-[#dd4b39]">
-                    {activeRole === "ADMIN_SO" ? "Admin Cấp Sở" : "Admin Cấp Phòng"}
+                    {currentUserConfig.roleName}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => handleLogin(activeRole)}
-                  className={`px-3 py-1 rounded text-xs font-bold text-white transition-colors shadow-xs flex items-center gap-1 ${
-                    activeRole === "ADMIN_SO"
-                      ? "bg-[#dd4b39] hover:bg-[#c23321]"
-                      : "bg-[#0073b7] hover:bg-[#005f96]"
-                  }`}
+                  className="px-3 py-1.5 rounded text-xs font-bold text-white bg-[#dd4b39] hover:bg-[#c23321] transition-colors shadow-xs flex items-center gap-1.5"
                 >
-                  <span>1-Click Đăng nhập {activeRole === "ADMIN_SO" ? "Cấp Sở" : "Cấp Phòng"}</span>
+                  <span>1-Click Đăng nhập</span>
                   <ArrowRight className="size-3.5" />
                 </button>
               </div>
