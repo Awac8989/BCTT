@@ -1059,9 +1059,9 @@ export const initialMamNonList: CoSoMamNonTuThuc[] = [
     dienTichPhongHocM2: 85,
     coCameraGiamSat: true,
     bepAnMotChieu: false,
-    ketQuaKiemTraCuoi: "NHAC_NHO_KHAC_PHUC",
+    ketQuaKiemTraCuoi: "TAM_DINH_CHI",
     ngayKiemTraCuoi: "04/10/2026",
-    noiDungKiemTra: "Nhắc nhở bố trí lại khu vực sơ chế thực phẩm tách rời khu nấu nướng, bổ sung rào chắn an toàn cầu thang tầng lửng trước ngày 30/10/2026.",
+    noiDungKiemTra: "Tạm đình chỉ 02 tháng theo Quyết định số 89/QĐ-UBND do vi phạm an toàn PCCC (chưa mở lối thoát nạn thứ 2) và chưa hoàn thiện bếp ăn một chiều.",
   },
   {
     id: "MN-04",
@@ -1412,7 +1412,256 @@ export interface HoSoTTHCGiaoDuc {
     noiDungQuyetDinh: string;
     daKySo: boolean;
   };
+  // Phiếu xin lỗi và hẹn lại ngày trả kết quả (Mẫu số 04 - Nghị định 61/2018/NĐ-CP)
+  phieuXinLoi?: {
+    soPhieu: string;
+    ngayLap: string;
+    lyDo: string;
+    ngayHenMoi: string;
+    nguoiKy: string;
+    chucVu: string;
+  };
 }
+
+export interface ThuTucGiaoDucInfo {
+  maThuTuc: string;
+  tenThuTuc: string;
+  thoiHanNgayLamViec: number;
+  thoiHanNgayLich: number;
+  phiLePhi: string;
+  canCuPhapLy: string;
+  placeholderCoSo: string;
+  placeholderNguoiNop: string;
+  standardDocs: ThanhPhanGiayTo[];
+}
+
+export const THU_TUC_GD_CONFIGS: Record<string, ThuTucGiaoDucInfo> = {
+  "TTHC-GD-BGD/01": {
+    maThuTuc: "TTHC-GD-BGD/01",
+    tenThuTuc: "Cho phép thành lập nhóm trẻ độc lập tư thục",
+    thoiHanNgayLamViec: 15,
+    thoiHanNgayLich: 21,
+    phiLePhi: "Miễn phí (Nghị quyết HĐND tỉnh Bình Dương)",
+    canCuPhapLy: "Thông tư 49/2021/TT-BGDĐT & Nghị định 61/2018/NĐ-CP",
+    placeholderCoSo: "VD: Nhóm trẻ tư thục Hoa Hướng Dương Cơ sở 2",
+    placeholderNguoiNop: "VD: Bà Lê Thị Kim Tuyến (Chủ nhóm trẻ)",
+    standardDocs: [
+      {
+        id: "GT-01",
+        tenGiayTo: "Tờ trình / Đơn đề nghị cho phép thành lập nhóm trẻ độc lập tư thục (Mẫu số 01 - TT 49/2021)",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-02",
+        tenGiayTo: "Đề án thành lập nhóm trẻ (Mục tiêu, quy mô số trẻ, định mức phòng học, trang thiết bị đồ chơi)",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-03",
+        tenGiayTo: "Bản sao chứng thực văn bằng chuyên môn sư phạm mầm non người phụ trách (≥ Cao đẳng SPMN)",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-04",
+        tenGiayTo: "Hợp đồng thuê địa điểm tối thiểu 03 năm hoặc Giấy chứng nhận QSDĐ hợp pháp",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-05",
+        tenGiayTo: "Biên bản kiểm tra an toàn PCCC & CNCH của cơ quan Công an có thẩm quyền",
+        batBuoc: true,
+        daNop: false,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+        ghiChu: "Bắt buộc có trước khi ban hành Quyết định",
+      },
+      {
+        id: "GT-06",
+        tenGiayTo: "Bản cam kết vệ sinh an toàn thực phẩm & Giấy khám sức khỏe người nuôi dưỡng",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+    ],
+  },
+  "TTHC-GD-BGD/02": {
+    maThuTuc: "TTHC-GD-BGD/02",
+    tenThuTuc: "Cho phép thành lập lớp mẫu giáo độc lập tư thục",
+    thoiHanNgayLamViec: 15,
+    thoiHanNgayLich: 21,
+    phiLePhi: "Miễn phí",
+    canCuPhapLy: "Thông tư 49/2021/TT-BGDĐT & Điều 10 Nghị định 46/2017/NĐ-CP",
+    placeholderCoSo: "VD: Lớp mẫu giáo độc lập Tuổi Thơ Xanh",
+    placeholderNguoiNop: "VD: Bà Phạm Thu Hằng (Phụ trách chuyên môn)",
+    standardDocs: [
+      {
+        id: "GT-11",
+        tenGiayTo: "Tờ trình / Đơn đề nghị cho phép thành lập lớp mẫu giáo độc lập (Mẫu số 01 - TT 49/2021)",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-12",
+        tenGiayTo: "Đề án tổ chức lớp mẫu giáo độc lập (Chương trình GDMN từ 3-6 tuổi, sân chơi an toàn)",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-13",
+        tenGiayTo: "Bản sao chứng thực văn bằng Cử nhân Sư phạm mầm non của giáo viên đứng lớp",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 2,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-14",
+        tenGiayTo: "Hợp đồng thuê mặt bằng diện tích phòng học ≥ 1.5m²/trẻ, sân chơi an toàn ≥ 0.5m²/trẻ",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-15",
+        tenGiayTo: "Văn bản thẩm duyệt / Biên bản kiểm tra an toàn PCCC cơ sở mẫu giáo tư thục",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-16",
+        tenGiayTo: "Giấy chứng nhận cơ sở đủ điều kiện VSATTP hoặc Hợp đồng cung ứng suất ăn bán trú",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+    ],
+  },
+  "TTHC-GD-BGD/03": {
+    maThuTuc: "TTHC-GD-BGD/03",
+    tenThuTuc: "Chuyển địa điểm và mở rộng quy mô lớp mầm non độc lập",
+    thoiHanNgayLamViec: 10,
+    thoiHanNgayLich: 14,
+    phiLePhi: "Miễn phí",
+    canCuPhapLy: "Thông tư 49/2021/TT-BGDĐT của Bộ GD&ĐT",
+    placeholderCoSo: "VD: Nhóm trẻ mầm non Thỏ Trắng (Chuyển sang cơ sở mới)",
+    placeholderNguoiNop: "VD: Ông Hoàng Đức Minh (Chủ cơ sở)",
+    standardDocs: [
+      {
+        id: "GT-21",
+        tenGiayTo: "Đơn đề nghị chuyển địa điểm / điều chỉnh quy mô nhóm lớp mầm non (Mẫu số 02)",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-22",
+        tenGiayTo: "Bản sao Quyết định cho phép thành lập cơ sở mầm non cũ của UBND Phường",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-23",
+        tenGiayTo: "Hợp đồng thuê địa điểm mới (thời hạn ≥ 03 năm) kèm Giấy tờ nhà đất hợp pháp",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-24",
+        tenGiayTo: "Phương án bảo đảm an toàn tính mạng, sức khỏe cho trẻ trong quá trình chuyển địa điểm",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-25",
+        tenGiayTo: "Biên bản kiểm tra an toàn PCCC & CNCH tại trụ sở địa điểm mới",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+    ],
+  },
+  "TTHC-GD-BGD/04": {
+    maThuTuc: "TTHC-GD-BGD/04",
+    tenThuTuc: "Hỗ trợ tiền ăn trưa cho trẻ em mầm non và chi phí học tập",
+    thoiHanNgayLamViec: 7,
+    thoiHanNgayLich: 10,
+    phiLePhi: "Miễn phí",
+    canCuPhapLy: "Nghị định số 105/2020/NĐ-CP & Nghị định số 81/2021/NĐ-CP",
+    placeholderCoSo: "VD: Trường Mầm non Công lập Hoa Mai / Phụ huynh em Nguyễn Văn An",
+    placeholderNguoiNop: "VD: Bà Đỗ Thị Mai Liên (Hiệu trưởng) hoặc Phụ huynh",
+    standardDocs: [
+      {
+        id: "GT-31",
+        tenGiayTo: "Đơn đề nghị hỗ trợ tiền ăn trưa cho trẻ em mẫu giáo (Mẫu số 01 - Nghị định 105/2020/NĐ-CP)",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-32",
+        tenGiayTo: "Bản sao Giấy khai sinh của trẻ em hoặc trích lục hộ tịch điện tử VNeID",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "DOI_CHIEU_VNEID",
+      },
+      {
+        id: "GT-33",
+        tenGiayTo: "Bản sao Giấy chứng nhận hộ nghèo / hộ cận nghèo có chứng thực còn hiệu lực",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-34",
+        tenGiayTo: "Giấy xác nhận trẻ mồ côi cả cha lẫn mẹ hoặc trẻ khuyết tật (nếu thuộc diện)",
+        batBuoc: false,
+        daNop: false,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-35",
+        tenGiayTo: "Giấy xác nhận trẻ đang theo học tại cơ sở GDMN có xác nhận của Hiệu trưởng",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+    ],
+  },
+};
 
 export const initialHoSoTTHCGiaoDucList: HoSoTTHCGiaoDuc[] = [
   {
@@ -1661,7 +1910,7 @@ export const initialHoSoTTHCGiaoDucList: HoSoTTHCGiaoDuc[] = [
     diaDiemCoSo: "Số 120 đường Bùi Quốc Khánh, Khu phố 4",
     khuPho: "Khu phố 4",
     ngayTiepNhan: "12/10/2026",
-    ngayHenTra: "29/10/2026",
+    ngayHenTra: "23/10/2026",
     hinhThucNop: "TRUC_TIEP_MOT_CUA",
     canBoTiepNhan: "Nguyễn Văn An (Công chức Một cửa)",
     canBoThuLy: "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
@@ -1750,5 +1999,68 @@ export const initialHoSoTTHCGiaoDucList: HoSoTTHCGiaoDuc[] = [
       },
     ],
   },
+  {
+    id: "HSO-GD-006",
+    maHoSo: "HSO-GD-2026-006",
+    tenThuTuc: "Cho phép thành lập nhóm trẻ độc lập tư thục",
+    maThuTuc: "TTHC-GD-BGD/01",
+    nguoiNop: "Bà Đặng Thị Bích Thủy",
+    soDienThoai: "0909.112.334",
+    cccd: "074189004567",
+    diaChiLienHe: "Số 78 đường Cách Mạng Tháng Tám, Khu phố 1",
+    tenCoSoDeNghi: "Nhóm trẻ tư thục Ong Vàng",
+    diaDiemCoSo: "Số 92 đường Cách Mạng Tháng Tám, Khu phố 1",
+    khuPho: "Khu phố 1",
+    ngayTiepNhan: "25/09/2026",
+    ngayHenTra: "16/10/2026",
+    hinhThucNop: "TRUC_TIEP_MOT_CUA",
+    canBoTiepNhan: "Nguyễn Văn An (Công chức Một cửa)",
+    canBoThuLy: "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+    trangThai: "DANG_THAM_DINH",
+    thanhPhanHoSo: [
+      {
+        id: "GT-01",
+        tenGiayTo: "Tờ trình / Đơn đề nghị cho phép thành lập nhóm trẻ độc lập tư thục (Mẫu số 01)",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-02",
+        tenGiayTo: "Đề án thành lập nhóm trẻ",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+      },
+      {
+        id: "GT-03",
+        tenGiayTo: "Bằng Cao đẳng Sư phạm mầm non",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-04",
+        tenGiayTo: "Hợp đồng thuê địa điểm 3 năm",
+        batBuoc: true,
+        daNop: true,
+        soLuong: 1,
+        loaiBan: "BAN_SAO_CONG_CHUNG",
+      },
+      {
+        id: "GT-05",
+        tenGiayTo: "Biên bản kiểm tra an toàn PCCC (đang chờ cấp đổi)",
+        batBuoc: true,
+        daNop: false,
+        soLuong: 1,
+        loaiBan: "BAN_CHINH",
+        ghiChu: "Chờ Công an PCCC phúc tra lại lối thoát hiểm",
+      },
+    ],
+  },
 ];
+
 

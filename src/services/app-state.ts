@@ -1619,6 +1619,46 @@ export const appStore = {
     return { signer, title, ngayKy: now.toLocaleString("vi-VN"), maXacThuc, soQuyetDinh: soQDMoi };
   },
 
+  phatHanhPhieuXinLoi(hoSoId: string, lyDo: string, ngayHenMoi: string) {
+    const now = new Date();
+    const soPhieu = `${Math.floor(10 + Math.random() * 90)}/PXL-UBND`;
+    const updated = state.hoSoTTHCGiaoDucList.map((h) => {
+      if (h.id === hoSoId) {
+        return {
+          ...h,
+          ngayHenTra: ngayHenMoi,
+          phieuXinLoi: {
+            soPhieu,
+            ngayLap: now.toLocaleDateString("vi-VN"),
+            lyDo,
+            ngayHenMoi,
+            nguoiKy: "TS. Nguyễn Văn Hùng",
+            chucVu: "Chủ tịch UBND Phường Phú Cường",
+          },
+        };
+      }
+      return h;
+    });
+
+    state = {
+      ...state,
+      hoSoTTHCGiaoDucList: updated,
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: now.toLocaleString("vi-VN"),
+          action: "Phát hành Phiếu xin lỗi và gia hạn trả kết quả TTHC",
+          details: `Phát hành Mẫu 04 cho hồ sơ ${hoSoId}. Hẹn trả mới: ${ngayHenMoi}. Lý do: ${lyDo}`,
+          status: "WARNING",
+        },
+        ...state.auditLogs,
+      ],
+    };
+
+    notify();
+    return { soPhieu, ngayHenMoi };
+  },
+
   /**
    * Đăng xuất khỏi phiên làm việc an toàn
    */

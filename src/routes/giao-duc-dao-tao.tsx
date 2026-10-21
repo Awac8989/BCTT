@@ -53,6 +53,8 @@ import {
   RefreshCw,
   AlertCircle,
   FileBadge,
+  AlertOctagon,
+  Timer,
 } from "lucide-react";
 import { AppShell, PageHeader } from "@/components/AppShell";
 import { DigitalSignatureBadge } from "@/components/DigitalSignatureBadge";
@@ -67,7 +69,151 @@ import {
   type HoSoTTHCGiaoDuc,
   type TrangThaiHoSoGD,
   type ThanhPhanGiayTo,
+  THU_TUC_GD_CONFIGS,
 } from "@/data/domain-mock";
+
+// Helper chuyển chuỗi ngày dd/mm/yyyy sang đối tượng Date chuẩn
+function parseDateVN(dateStr: string): Date {
+  if (!dateStr) return new Date();
+  const parts = dateStr.split("/");
+  if (parts.length === 3) {
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    return new Date(year, month, day);
+  }
+  return new Date(dateStr);
+}
+
+// Helper tính toán tình trạng thời hạn giải quyết hồ sơ (SLA Tracking) theo Nghị định 61/2018/NĐ-CP
+function calculateSlaStatus(ngayHenTra: string, trangThai: TrangThaiHoSoGD) {
+  if (trangThai === "DA_PHE_DUYET" || trangThai === "DA_TRA_KET_QUA") {
+    return {
+      status: "DA_HOAN_THANH" as const,
+      label: "Đã duyệt đúng hạn",
+      daysLeft: 0,
+      badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-300",
+      dotClass: "bg-emerald-500",
+    };
+  }
+
+  const henDate = parseDateVN(ngayHenTra);
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  henDate.setHours(0, 0, 0, 0);
+
+  const diffTime = henDate.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 0) {
+    return {
+      status: "QUA_HAN" as const,
+      label: `Quá hạn ${Math.abs(diffDays)} ngày`,
+      daysLeft: diffDays,
+      badgeClass: "bg-red-100 text-red-800 border-red-300 font-bold",
+      dotClass: "bg-red-600 animate-ping",
+    };
+  }
+
+  if (diffDays <= 3) {
+    return {
+      status: "SAP_TRE_HAN" as const,
+      label: `Sắp đến hạn (${diffDays} ngày)`,
+      daysLeft: diffDays,
+      badgeClass: "bg-amber-100 text-amber-900 border-amber-300 font-bold",
+      dotClass: "bg-amber-500",
+    };
+  }
+
+  return {
+    status: "CON_HAN" as const,
+    label: `Còn hạn (${diffDays} ngày)`,
+    daysLeft: diffDays,
+    badgeClass: "bg-sky-50 text-sky-800 border-sky-200 font-semibold",
+    dotClass: "bg-sky-500",
+  };
+}
+
+// Helper xuất văn bản hành chính sang tệp Word (.doc) chuẩn Nghị định 30/2020/NĐ-CP
+function exportDocAsWord(filename: string, elementId: string) {
+  const element = document.getElementById(elementId);
+  if (!element) {
+    toast.error("Không tìm thấy nội dung văn bản để xuất Word!");
+    return;
+  }
+
+  const htmlContent = element.innerHTML;
+  const wordHeader = `
+    <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+          xmlns:w='urn:schemas-microsoft-com:office:word' 
+          xmlns='http://www.w3.org/TR/REC-html40'>
+    <head>
+      <meta charset='utf-8'>
+      <title>${filename}</title>
+      <!--[if gte mso 9]>
+      <xml>
+        <w:WordDocument>
+          <w:View>Print</w:View>
+          <w:Zoom>100</w:Zoom>
+          <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+      </xml>
+      <![endif]-->
+      <style>
+        @page {
+          size: 21cm 29.7cm;
+          margin: 2cm 1.5cm 2cm 3cm;
+          mso-page-orientation: portrait;
+        }
+        body {
+          font-family: 'Times New Roman', serif;
+          font-size: 13pt;
+          line-height: 1.25;
+          color: #000000;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 6pt 0;
+        }
+        table, th, td {
+          border: 1px solid #000000;
+          padding: 4pt 6pt;
+          font-family: 'Times New Roman', serif;
+          font-size: 12pt;
+        }
+        .no-border, .no-border td, .no-border th {
+          border: none !important;
+        }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-justify { text-align: justify; }
+        .font-bold { font-weight: bold; }
+        .italic { font-style: italic; }
+        .uppercase { text-transform: uppercase; }
+        .header-line { border-bottom: 1.5pt solid #000; width: 40%; margin: 2pt auto; }
+        .sub-header-line { border-bottom: 1pt solid #000; width: 60%; margin: 2pt auto; }
+      </style>
+    </head>
+    <body>
+      ${htmlContent}
+    </body>
+    </html>
+  `;
+
+  const blob = new Blob(["\ufeff", wordHeader], {
+    type: "application/msword;charset=utf-8",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${filename}.doc`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast.success(`Đã xuất thành công tệp Word: ${filename}.doc`);
+}
 
 export const Route = createFileRoute("/giao-duc-dao-tao")({
   head: () => ({
@@ -108,6 +254,7 @@ function GiaoDucDaoTaoPage() {
   const [searchTTHC, setSearchTTHC] = useState("");
   const [filterTrangThaiTTHC, setFilterTrangThaiTTHC] = useState<string>("ALL");
   const [filterThuTucTTHC, setFilterThuTucTTHC] = useState<string>("ALL");
+  const [filterSlaTTHC, setFilterSlaTTHC] = useState<"ALL" | "CON_HAN" | "SAP_TRE_HAN" | "QUA_HAN">("ALL");
 
   // State Modal Tiếp nhận Hồ sơ Mới
   const [showTiepNhanModal, setShowTiepNhanModal] = useState(false);
@@ -120,13 +267,12 @@ function GiaoDucDaoTaoPage() {
   const [diaDiemCoSoMoi, setDiaDiemCoSoMoi] = useState("");
   const [khuPhoMoi, setKhuPhoMoi] = useState("Khu phố 1");
   const [hinhThucMoi, setHinhThucMoi] = useState<"TRUC_TIEP_MOT_CUA" | "DVC_TRUC_TUYEN_QUOC_GIA">("TRUC_TIEP_MOT_CUA");
-  const [checkedGiayToMoi, setCheckedGiayToMoi] = useState<Record<string, boolean>>({
-    "GT-01": true,
-    "GT-02": true,
-    "GT-03": true,
-    "GT-04": true,
-    "GT-05": false,
-    "GT-06": true,
+  const [checkedGiayToMoi, setCheckedGiayToMoi] = useState<Record<string, boolean>>(() => {
+    const initChecked: Record<string, boolean> = {};
+    THU_TUC_GD_CONFIGS["TTHC-GD-BGD/01"]?.standardDocs.forEach((d) => {
+      initChecked[d.id] = d.daNop;
+    });
+    return initChecked;
   });
 
   // State Modals Giấy tờ Hành chính
@@ -134,6 +280,11 @@ function GiaoDucDaoTaoPage() {
   const [viewingPhieuBoSung, setViewingPhieuBoSung] = useState<HoSoTTHCGiaoDuc | null>(null);
   const [inputLyDoBoSung, setInputLyDoBoSung] = useState("");
   const [inputHanBoSung, setInputHanBoSung] = useState("");
+
+  // State Modal Phiếu xin lỗi và hẹn lại ngày trả kết quả (Mẫu số 04 - NĐ 61/2018/NĐ-CP)
+  const [viewingPhieuXinLoi, setViewingPhieuXinLoi] = useState<HoSoTTHCGiaoDuc | null>(null);
+  const [inputLyDoXinLoi, setInputLyDoXinLoi] = useState("");
+  const [inputNgayHenMoi, setInputNgayHenMoi] = useState("");
 
   const [viewingBienBanThucDia, setViewingBienBanThucDia] = useState<HoSoTTHCGiaoDuc | null>(null);
   const [inputThucDiaTruongDoan, setInputThucDiaTruongDoan] = useState("ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)");
@@ -207,6 +358,7 @@ function GiaoDucDaoTaoPage() {
 
   // State Modal Kế hoạch & Phân tuyến Tuyển sinh Đầu cấp (Tab 2)
   const [showKeHoachTuyenSinhModal, setShowKeHoachTuyenSinhModal] = useState(false);
+  const [showKeHoachAtgtModal, setShowKeHoachAtgtModal] = useState(false);
 
   // State Modal Công nhận Gia đình Học tập & Trao học bổng (Tab 3)
   const [showCongNhanHocTapModal, setShowCongNhanHocTapModal] = useState(false);
@@ -231,7 +383,20 @@ function GiaoDucDaoTaoPage() {
     return matchSearch && matchLoai && matchKetQua;
   });
 
-  // Lọc danh sách hồ sơ TTHC Giáo dục Một cửa
+  // Handler khi thay đổi chọn thủ tục hành chính trong Modal Tiếp nhận
+  const handleSelectThuTuc = (maThuTuc: string) => {
+    setThuTucChon(maThuTuc);
+    const config = THU_TUC_GD_CONFIGS[maThuTuc];
+    if (config) {
+      const newChecked: Record<string, boolean> = {};
+      config.standardDocs.forEach((d) => {
+        newChecked[d.id] = d.daNop;
+      });
+      setCheckedGiayToMoi(newChecked);
+    }
+  };
+
+  // Lọc danh sách hồ sơ TTHC Giáo dục Một cửa (Tìm kiếm, Trạng thái, Thủ tục, SLA Thời hạn)
   const filteredTTHCList = hoSoTTHCGiaoDucList.filter((h) => {
     const matchSearch =
       h.maHoSo.toLowerCase().includes(searchTTHC.toLowerCase()) ||
@@ -241,93 +406,61 @@ function GiaoDucDaoTaoPage() {
       h.soDienThoai.includes(searchTTHC);
     const matchTrangThai = filterTrangThaiTTHC === "ALL" || h.trangThai === filterTrangThaiTTHC;
     const matchThuTuc = filterThuTucTTHC === "ALL" || h.maThuTuc === filterThuTucTTHC;
-    return matchSearch && matchTrangThai && matchThuTuc;
+
+    const sla = calculateSlaStatus(h.ngayHenTra, h.trangThai);
+    const matchSla =
+      filterSlaTTHC === "ALL" ||
+      (filterSlaTTHC === "QUA_HAN" && sla.status === "QUA_HAN") ||
+      (filterSlaTTHC === "SAP_TRE_HAN" && sla.status === "SAP_TRE_HAN") ||
+      (filterSlaTTHC === "CON_HAN" && (sla.status === "CON_HAN" || sla.status === "DA_HOAN_THANH"));
+
+    return matchSearch && matchTrangThai && matchThuTuc && matchSla;
   });
 
-  // Handler Tiếp nhận Hồ sơ TTHC Mới tại quầy Một cửa
+  // Handler Tiếp nhận Hồ sơ TTHC Mới tại quầy Một cửa (Động theo từng thủ tục TTHC-01 -> TTHC-04)
   const handleTiepNhanHoSoMoi = (e: React.FormEvent) => {
     e.preventDefault();
     if (!nguoiNopMoi.trim() || !sdtMoi.trim() || !tenCoSoMoi.trim()) {
-      toast.error("Vui lòng điền đủ tên người nộp, số điện thoại và tên cơ sở đề nghị!");
+      toast.error("Vui lòng điền đủ tên người nộp, số điện thoại và tên cơ sở/trường học đề nghị!");
       return;
     }
 
+    const config = THU_TUC_GD_CONFIGS[thuTucChon] || THU_TUC_GD_CONFIGS["TTHC-GD-BGD/01"];
     const nextIdx = hoSoTTHCGiaoDucList.length + 1;
     const newId = `HSO-GD-00${nextIdx}`;
     const newMaHoSo = `HSO-GD-2026-00${nextIdx}`;
     const now = new Date();
     const ngayTiepNhan = now.toLocaleDateString("vi-VN");
-    // Hạn trả: 15 ngày làm việc (~21 ngày dương lịch)
+
+    // Tính hạn trả kết quả chuẩn theo số ngày quy định của thủ tục
     const henTraDate = new Date();
-    henTraDate.setDate(henTraDate.getDate() + 21);
+    henTraDate.setDate(henTraDate.getDate() + config.thoiHanNgayLich);
     const ngayHenTra = henTraDate.toLocaleDateString("vi-VN");
 
-    let tenThuTucStr = "Cho phép thành lập nhóm trẻ độc lập tư thục";
-    if (thuTucChon === "TTHC-GD-BGD/02") {
-      tenThuTucStr = "Cho phép thành lập lớp mẫu giáo độc lập tư thục";
-    } else if (thuTucChon === "TTHC-GD-BGD/03") {
-      tenThuTucStr = "Chuyển địa điểm và mở rộng quy mô lớp mầm non độc lập";
-    } else if (thuTucChon === "TTHC-GD-BGD/04") {
-      tenThuTucStr = "Hỗ trợ tiền ăn trưa cho trẻ em mầm non & chi phí học tập";
-    }
+    // Lập danh sách giấy tờ theo cấu hình thủ tục và trạng thái tích chọn thực tế
+    const standardDocs: ThanhPhanGiayTo[] = config.standardDocs.map((doc) => ({
+      ...doc,
+      daNop: !!checkedGiayToMoi[doc.id],
+      ghiChu: !checkedGiayToMoi[doc.id] && doc.batBuoc ? "Chưa nộp (Cần bổ sung)" : doc.ghiChu,
+    }));
 
-    const standardDocs: ThanhPhanGiayTo[] = [
-      {
-        id: "GT-01",
-        tenGiayTo: "Tờ trình / Đơn đề nghị cho phép thành lập cơ sở (Mẫu số 01)",
-        batBuoc: true,
-        daNop: !!checkedGiayToMoi["GT-01"],
-        soLuong: 1,
-        loaiBan: "BAN_CHINH",
-      },
-      {
-        id: "GT-02",
-        tenGiayTo: "Đề án thành lập nhóm lớp (Mục tiêu, quy mô, cơ sở vật chất, giáo viên)",
-        batBuoc: true,
-        daNop: !!checkedGiayToMoi["GT-02"],
-        soLuong: 1,
-        loaiBan: "BAN_CHINH",
-      },
-      {
-        id: "GT-03",
-        tenGiayTo: "Bản sao chứng thực văn bằng chuyên môn sư phạm mầm non người phụ trách",
-        batBuoc: true,
-        daNop: !!checkedGiayToMoi["GT-03"],
-        soLuong: 1,
-        loaiBan: "BAN_SAO_CONG_CHUNG",
-      },
-      {
-        id: "GT-04",
-        tenGiayTo: "Hợp đồng thuê địa điểm cơ sở thời hạn tối thiểu 03 năm & Giấy tờ QSDĐ",
-        batBuoc: true,
-        daNop: !!checkedGiayToMoi["GT-04"],
-        soLuong: 1,
-        loaiBan: "BAN_SAO_CONG_CHUNG",
-      },
-      {
-        id: "GT-05",
-        tenGiayTo: "Biên bản kiểm tra an toàn PCCC & Hồ sơ thiết kế PCCC cơ sở",
-        batBuoc: true,
-        daNop: !!checkedGiayToMoi["GT-05"],
-        soLuong: 1,
-        loaiBan: "BAN_CHINH",
-        ghiChu: !checkedGiayToMoi["GT-05"] ? "Chưa nộp (Cần kiểm tra thực tế)" : undefined,
-      },
-      {
-        id: "GT-06",
-        tenGiayTo: "Bản cam kết bảo đảm vệ sinh an toàn thực phẩm & Hợp đồng thực phẩm",
-        batBuoc: true,
-        daNop: !!checkedGiayToMoi["GT-06"],
-        soLuong: 1,
-        loaiBan: "BAN_CHINH",
-      },
-    ];
+    const missingRequiredDocs = standardDocs.filter((d) => d.batBuoc && !d.daNop);
+    const isYeuCauBoSung = missingRequiredDocs.length > 0;
+    const lyDoBoSungMoi = isYeuCauBoSung
+      ? `Công dân cần bổ sung các giấy tờ bắt buộc theo ${config.canCuPhapLy}: ${missingRequiredDocs
+          .map((d) => d.tenGiayTo)
+          .join("; ")}`
+      : undefined;
+
+    const hanBoSungDate = new Date();
+    hanBoSungDate.setDate(hanBoSungDate.getDate() + 7);
+    const hanBoSungMoi = isYeuCauBoSung ? hanBoSungDate.toLocaleDateString("vi-VN") : undefined;
 
     const newHoSo: HoSoTTHCGiaoDuc = {
       id: newId,
       maHoSo: newMaHoSo,
-      tenThuTuc: tenThuTucStr,
-      maThuTuc: thuTucChon,
+      tenThuTuc: config.tenThuTuc,
+      maThuTuc: config.maThuTuc,
       nguoiNop: nguoiNopMoi.trim(),
       soDienThoai: sdtMoi.trim(),
       cccd: cccdMoi.trim() || "0740" + Math.floor(10000000 + Math.random() * 90000000),
@@ -340,19 +473,19 @@ function GiaoDucDaoTaoPage() {
       hinhThucNop: hinhThucMoi,
       canBoTiepNhan: "Nguyễn Văn An (Công chức Một cửa)",
       canBoThuLy: "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
-      trangThai: !checkedGiayToMoi["GT-04"] || !checkedGiayToMoi["GT-05"] ? "YEU_CAU_BO_SUNG" : "DANG_THAM_DINH",
+      trangThai: isYeuCauBoSung ? "YEU_CAU_BO_SUNG" : "DANG_THAM_DINH",
       thanhPhanHoSo: standardDocs,
-      lyDoBoSung: !checkedGiayToMoi["GT-05"] ? "Cần hoàn thiện hồ sơ kiểm tra an toàn PCCC trước khi kiểm tra thực địa" : undefined,
-      hanBoSung: !checkedGiayToMoi["GT-05"] ? "25/10/2026" : undefined,
+      lyDoBoSung: lyDoBoSungMoi,
+      hanBoSung: hanBoSungMoi,
     };
 
     appStore.addHoSoTTHCGiaoDuc(newHoSo);
     toast.success("Tiếp nhận hồ sơ Một cửa thành công!", {
-      description: `Mã hồ sơ: ${newHoSo.maHoSo} · Hẹn trả kết quả: ${newHoSo.ngayHenTra}`,
+      description: `Mã hồ sơ: ${newHoSo.maHoSo} · Hẹn trả: ${newHoSo.ngayHenTra} (${config.thoiHanNgayLamViec} ngày làm việc)`,
     });
 
     setShowTiepNhanModal(false);
-    // Mở ngay Giấy hẹn để công chức in cho công dân
+    // Mở ngay Giấy hẹn Mẫu 01 để công chức in hoặc tải Word cho công dân
     setViewingGiayHen(newHoSo);
     // Reset form
     setNguoiNopMoi("");
@@ -360,6 +493,32 @@ function GiaoDucDaoTaoPage() {
     setCccdMoi("");
     setTenCoSoMoi("");
     setDiaDiemCoSoMoi("");
+  };
+
+  // Handler Phát hành Phiếu xin lỗi và hẹn lại ngày trả kết quả (Mẫu số 04 - Nghị định 61/2018/NĐ-CP)
+  const handlePhatHanhPhieuXinLoi = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!viewingPhieuXinLoi) return;
+    if (!inputLyDoXinLoi.trim()) {
+      toast.error("Vui lòng ghi rõ lý do chậm trễ giải quyết hồ sơ!");
+      return;
+    }
+    if (!inputNgayHenMoi.trim()) {
+      toast.error("Vui lòng ấn định ngày hẹn trả kết quả mới!");
+      return;
+    }
+
+    const res = appStore.phatHanhPhieuXinLoi(viewingPhieuXinLoi.id, inputLyDoXinLoi.trim(), inputNgayHenMoi.trim());
+    toast.warning("Đã phát hành Phiếu xin lỗi và hẹn lại ngày trả kết quả (Mẫu số 04)!", {
+      description: `Số phiếu: ${res.soPhieu} · Ngày hẹn trả mới: ${res.ngayHenMoi}`,
+    });
+
+    const updated = appStore.getState().hoSoTTHCGiaoDucList.find((h) => h.id === viewingPhieuXinLoi.id);
+    if (updated) {
+      setViewingPhieuXinLoi(updated);
+    }
+    setInputLyDoXinLoi("");
+    setInputNgayHenMoi("");
   };
 
   // Handler Phát hành Phiếu yêu cầu bổ sung
@@ -571,8 +730,8 @@ function GiaoDucDaoTaoPage() {
   };
 
   // Handler Phục hồi cơ sở mầm non sau khắc phục
-  const handleBanHanhQDPhucHoi = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleBanHanhQDPhucHoi = (e?: React.FormEvent | React.MouseEvent) => {
+    if (e) e.preventDefault();
     if (!viewingPhucHoiMn) return;
     const noiDung =
       inputNoiDungPhucHoi.trim() ||
@@ -1041,6 +1200,14 @@ function GiaoDucDaoTaoPage() {
                 <FileText className="size-3.5" />
                 <span>Kế hoạch &amp; QĐ Tuyển sinh (Số 104)</span>
               </button>
+              <button
+                onClick={() => setShowKeHoachAtgtModal(true)}
+                className="px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-500 text-xs font-bold text-white border border-amber-400 shadow-xs flex items-center gap-1.5 cursor-pointer transition-colors"
+                title="Xem Kế hoạch Phối hợp Bảo đảm Trật tự ATGT Cổng trường học (Chỉ thị 31/CT-TTg)"
+              >
+                <TrafficCone className="size-3.5" />
+                <span>Kế hoạch ATGT Cổng trường (Chỉ thị 31)</span>
+              </button>
               <span className="px-3 py-1.5 rounded bg-white/10 text-xs font-bold text-sky-100 border border-white/20">
                 100% Tuyển sinh Trực tuyến
               </span>
@@ -1500,6 +1667,30 @@ function GiaoDucDaoTaoPage() {
             </div>
           </div>
 
+          {/* Cảnh báo Kỷ cương Công vụ Một cửa nếu có hồ sơ trễ hạn (Nghị định 61/2018/NĐ-CP) */}
+          {hoSoTTHCGiaoDucList.some((h) => calculateSlaStatus(h.ngayHenTra, h.trangThai).status === "QUA_HAN") && (
+            <div className="bg-red-50 border-l-4 border-red-600 p-3.5 rounded-r-md shadow-xs flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-start gap-2.5">
+                <AlertOctagon className="size-5 text-red-600 shrink-0 mt-0.5 animate-bounce" />
+                <div>
+                  <h4 className="text-xs font-bold text-red-900 uppercase">
+                    Cảnh báo Kỷ cương Công vụ Một cửa (Nghị định 61/2018/NĐ-CP &amp; Nghị định 107/2021/NĐ-CP)
+                  </h4>
+                  <p className="text-xs text-red-700 mt-0.5 leading-relaxed">
+                    Hiện có hồ sơ đã <strong>quá hạn hẹn trả kết quả</strong>. Cán bộ Một cửa và Cán bộ chuyên môn thụ lý có trách nhiệm lập ngay <strong>Phiếu xin lỗi và hẹn lại ngày trả kết quả (Mẫu số 04)</strong> trình Lãnh đạo UBND Phường ký số phát hành cho công dân.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setFilterSlaTTHC("QUA_HAN")}
+                className="shrink-0 px-3 py-1.5 rounded bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-xs cursor-pointer flex items-center gap-1.5 transition-colors"
+              >
+                <Timer className="size-3.5" />
+                <span>Lọc hồ sơ Quá hạn</span>
+              </button>
+            </div>
+          )}
+
           {/* Bộ lọc & Tìm kiếm Hồ sơ TTHC */}
           <div className="bg-white rounded-md border border-gray-200 p-3 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
             <div className="flex flex-wrap items-center gap-2 flex-1 min-w-[280px]">
@@ -1540,20 +1731,32 @@ function GiaoDucDaoTaoPage() {
                 <option value="DA_PHE_DUYET">Đã ký số Quyết định (B5)</option>
                 <option value="DA_TRA_KET_QUA">Đã trả kết quả cho dân (B6)</option>
               </select>
+
+              <select
+                value={filterSlaTTHC}
+                onChange={(e) => setFilterSlaTTHC(e.target.value as any)}
+                className="rounded border border-gray-300 px-2.5 py-1.5 text-xs outline-none bg-white font-semibold text-gray-800"
+              >
+                <option value="ALL">Tất cả tiến độ hạn (SLA)</option>
+                <option value="CON_HAN">Đang còn hạn</option>
+                <option value="SAP_TRE_HAN">⚠️ Sắp đến hạn (≤ 3 ngày)</option>
+                <option value="QUA_HAN">🚨 Quá hạn hẹn trả (Cần lập Mẫu 04)</option>
+              </select>
             </div>
 
             <div className="flex items-center gap-2">
               <span className="text-gray-500 text-[11px]">
                 Tìm thấy <strong>{filteredTTHCList.length}</strong> / {hoSoTTHCGiaoDucList.length} hồ sơ
               </span>
-              {(searchTTHC || filterThuTucTTHC !== "ALL" || filterTrangThaiTTHC !== "ALL") && (
+              {(searchTTHC || filterThuTucTTHC !== "ALL" || filterTrangThaiTTHC !== "ALL" || filterSlaTTHC !== "ALL") && (
                 <button
                   onClick={() => {
                     setSearchTTHC("");
                     setFilterThuTucTTHC("ALL");
                     setFilterTrangThaiTTHC("ALL");
+                    setFilterSlaTTHC("ALL");
                   }}
-                  className="px-2 py-1 text-[11px] rounded bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold"
+                  className="px-2 py-1 text-[11px] rounded bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold cursor-pointer"
                 >
                   Xóa lọc
                 </button>
@@ -1639,13 +1842,24 @@ function GiaoDucDaoTaoPage() {
                       <h3 className="font-extrabold text-sm text-gray-900">{hoSo.tenThuTuc}</h3>
                     </div>
 
-                    <div className="text-right text-xs">
-                      <div className="text-gray-500">
-                        Ngày hẹn trả: <span className="font-bold text-red-600 font-mono">{hoSo.ngayHenTra}</span>
-                      </div>
-                      <div className="text-[11px] text-gray-400 mt-0.5">
-                        Tiếp nhận: {hoSo.ngayTiepNhan} · Thời hạn giải quyết: 15 ngày
-                      </div>
+                    <div className="flex flex-col items-end gap-1 text-right">
+                      {(() => {
+                        const sla = calculateSlaStatus(hoSo.ngayHenTra, hoSo.trangThai);
+                        return (
+                          <>
+                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] border ${sla.badgeClass}`}>
+                              <span className={`size-1.5 rounded-full ${sla.dotClass}`} />
+                              <span>{sla.label}</span>
+                            </span>
+                            <div className="text-gray-600 text-xs">
+                              Hẹn trả: <strong className="font-mono text-gray-900">{hoSo.ngayHenTra}</strong>
+                            </div>
+                            <div className="text-[10px] text-gray-400">
+                              Tiếp nhận: {hoSo.ngayTiepNhan}
+                            </div>
+                          </>
+                        );
+                      })()}
                     </div>
                   </div>
 
@@ -1730,6 +1944,35 @@ function GiaoDucDaoTaoPage() {
                         </div>
                       )}
 
+                      {/* Khối hiển thị Phiếu xin lỗi nếu có (Mẫu 04) */}
+                      {hoSo.phieuXinLoi && (
+                        <div className="p-2.5 rounded bg-amber-50 border border-amber-300 text-amber-900 text-[11px] space-y-1">
+                          <div className="flex items-center justify-between">
+                            <div className="font-bold flex items-center gap-1 text-amber-800">
+                              <AlertOctagon className="size-3.5 text-amber-700" />
+                              <span>Phiếu xin lỗi &amp; Hẹn lại ngày trả ({hoSo.phieuXinLoi.soPhieu}):</span>
+                            </div>
+                            <button
+                              onClick={() => {
+                                setViewingPhieuXinLoi(hoSo);
+                                setInputLyDoXinLoi(hoSo.phieuXinLoi?.lyDo || "");
+                                setInputNgayHenMoi(hoSo.phieuXinLoi?.ngayHenMoi || "");
+                              }}
+                              className="px-2 py-0.5 rounded bg-amber-600 hover:bg-amber-700 text-white font-bold text-[10px] cursor-pointer"
+                            >
+                              Xem Mẫu 04
+                            </button>
+                          </div>
+                          <div className="text-gray-700">Lý do chậm: <em>{hoSo.phieuXinLoi.lyDo}</em></div>
+                          <div className="text-amber-800 font-semibold flex items-center gap-1">
+                            <Calendar className="size-3 text-red-600" />
+                            <span>Hẹn trả lại mới:</span>
+                            <span className="font-mono font-bold text-red-700">{hoSo.phieuXinLoi.ngayHenMoi}</span>
+                            <span className="text-[10px] text-gray-500">({hoSo.phieuXinLoi.nguoiKy})</span>
+                          </div>
+                        </div>
+                      )}
+
                       {/* Khối hiển thị Biên bản thực địa nếu có */}
                       {hoSo.ketQuaThucDia && (
                         <div className="p-2 rounded bg-emerald-50/80 border border-emerald-200 text-emerald-900 text-[11px]">
@@ -1790,6 +2033,46 @@ function GiaoDucDaoTaoPage() {
                         <AlertCircle className="size-3.5 text-red-600" />
                         <span>Phiếu bổ sung (Mẫu 02)</span>
                       </button>
+
+                      {/* Nút Phiếu xin lỗi Mẫu 04 nếu hồ sơ Quá hạn hoặc đã lập */}
+                      {(() => {
+                        const sla = calculateSlaStatus(hoSo.ngayHenTra, hoSo.trangThai);
+                        if (hoSo.phieuXinLoi) {
+                          return (
+                            <button
+                              onClick={() => {
+                                setViewingPhieuXinLoi(hoSo);
+                                setInputLyDoXinLoi(hoSo.phieuXinLoi?.lyDo || "");
+                                setInputNgayHenMoi(hoSo.phieuXinLoi?.ngayHenMoi || "");
+                              }}
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold transition-colors cursor-pointer"
+                              title="Xem Phiếu xin lỗi và hẹn lại ngày trả kết quả (Mẫu số 04 theo Nghị định 61/2018/NĐ-CP)"
+                            >
+                              <AlertOctagon className="size-3.5 text-amber-700" />
+                              <span>Phiếu xin lỗi (Mẫu 04)</span>
+                            </button>
+                          );
+                        }
+                        if (sla.status === "QUA_HAN") {
+                          return (
+                            <button
+                              onClick={() => {
+                                setViewingPhieuXinLoi(hoSo);
+                                setInputLyDoXinLoi("Do quy trình kiểm tra thực địa liên ngành và đối soát hồ sơ phòng cháy chữa cháy cần thêm thời gian xác minh thực tế");
+                                const d = new Date();
+                                d.setDate(d.getDate() + 5);
+                                setInputNgayHenMoi(d.toLocaleDateString("vi-VN"));
+                              }}
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded border border-red-500 bg-red-600 hover:bg-red-700 text-white font-extrabold shadow-xs transition-colors cursor-pointer animate-pulse"
+                              title="Hồ sơ đã quá hạn! Bắt buộc phát hành Phiếu xin lỗi và hẹn lại ngày trả kết quả theo NĐ 61/2018/NĐ-CP"
+                            >
+                              <AlertOctagon className="size-3.5 text-white" />
+                              <span>Lập Phiếu xin lỗi (Mẫu 04)</span>
+                            </button>
+                          );
+                        }
+                        return null;
+                      })()}
 
                       {/* Nút Biên bản thực địa */}
                       <button
@@ -2148,7 +2431,7 @@ function GiaoDucDaoTaoPage() {
               </button>
             </div>
 
-            <div className="p-5 text-xs overflow-y-auto space-y-4 font-serif bg-amber-50/20">
+            <div className="p-5 text-xs overflow-y-auto space-y-4 font-serif bg-amber-50/20" id="quyet-dinh-mn-content">
               {/* Thể thức văn bản hành chính Việt Nam */}
               <div className="flex justify-between items-start border-b border-gray-300 pb-3 text-center font-sans">
                 <div>
@@ -2235,6 +2518,19 @@ function GiaoDucDaoTaoPage() {
             <div className="p-3 bg-gray-100 border-t border-gray-200 flex items-center justify-between shrink-0">
               <span className="text-xs text-gray-500 font-mono">Trích lục từ Cơ sở dữ liệu Cấp phép Mầm non UBND Phường</span>
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    exportDocAsWord(
+                      `Quyet_dinh_thanh_lap_${viewingMn.maCoSo}`,
+                      "quyet-dinh-mn-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  <span>Tải Word (.doc)</span>
+                </button>
                 <button
                   type="button"
                   onClick={() => {
@@ -2425,7 +2721,7 @@ function GiaoDucDaoTaoPage() {
               </button>
             </div>
 
-            <div className="p-5 text-xs overflow-y-auto space-y-4 font-serif bg-purple-50/20">
+            <div className="p-5 text-xs overflow-y-auto space-y-4 font-serif bg-purple-50/20" id="bao-cao-pho-cap-content">
               <div className="flex justify-between items-start border-b border-gray-300 pb-3 text-center font-sans">
                 <div>
                   <div className="font-bold text-[11px] uppercase text-gray-700">BAN CHỈ ĐẠO PCGD - XMC</div>
@@ -2508,11 +2804,24 @@ function GiaoDucDaoTaoPage() {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Bao_cao_18_BC_Ban_chi_dao_pho_cap_giao_duc",
+                      "bao-cao-pho-cap-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  <span>Tải Word (.doc)</span>
+                </button>
+                <button
+                  type="button"
                   onClick={() => {
                     toast.success("Đang gửi lệnh in Báo cáo Tự kiểm tra PCGD-XMC...");
                     window.print();
                   }}
-                  className="px-3 py-1.5 rounded bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs"
+                  className="px-3 py-1.5 rounded bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs cursor-pointer"
                 >
                   <Printer className="size-3.5" />
                   <span>In Báo cáo</span>
@@ -2520,7 +2829,7 @@ function GiaoDucDaoTaoPage() {
                 <button
                   type="button"
                   onClick={() => setShowBaoCaoPhoCapModal(false)}
-                  className="px-3 py-1.5 rounded border border-gray-300 text-gray-700 hover:bg-white font-bold text-xs"
+                  className="px-3 py-1.5 rounded border border-gray-300 text-gray-700 hover:bg-white font-bold text-xs cursor-pointer"
                 >
                   Đóng
                 </button>
@@ -2740,7 +3049,7 @@ function GiaoDucDaoTaoPage() {
                   </label>
                   <select
                     value={thuTucChon}
-                    onChange={(e) => setThuTucChon(e.target.value)}
+                    onChange={(e) => handleSelectThuTuc(e.target.value)}
                     className="w-full rounded border border-gray-300 p-2 text-xs font-semibold bg-white outline-none focus:border-[#dd4b39]"
                   >
                     <option value="TTHC-GD-BGD/01">Cho phép thành lập nhóm trẻ độc lập tư thục (15 ngày)</option>
@@ -2762,6 +3071,27 @@ function GiaoDucDaoTaoPage() {
                   </select>
                 </div>
               </div>
+
+              {/* Thông tin căn cứ pháp lý & thời hạn giải quyết của thủ tục đã chọn */}
+              {(() => {
+                const cfg = THU_TUC_GD_CONFIGS[thuTucChon] || THU_TUC_GD_CONFIGS["TTHC-GD-BGD/01"];
+                return (
+                  <div className="p-3 bg-blue-50/70 border border-blue-200 rounded text-blue-900 grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
+                    <div>
+                      <span className="text-blue-700 font-medium">Căn cứ pháp lý:</span>
+                      <strong className="block text-gray-900 mt-0.5">{cfg.canCuPhapLy}</strong>
+                    </div>
+                    <div>
+                      <span className="text-blue-700 font-medium">Thời hạn giải quyết:</span>
+                      <strong className="block text-gray-900 mt-0.5 font-mono">{cfg.thoiHanNgayLamViec} ngày làm việc ({cfg.thoiHanNgayLich} ngày)</strong>
+                    </div>
+                    <div>
+                      <span className="text-blue-700 font-medium">Lệ phí giải quyết:</span>
+                      <strong className="block text-emerald-700 mt-0.5 font-bold">Miễn phí (0 đồng)</strong>
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Người nộp, Số điện thoại, CCCD */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -2848,87 +3178,55 @@ function GiaoDucDaoTaoPage() {
                 />
               </div>
 
-              {/* Bảng kê thành phần hồ sơ theo Thông tư 49/2021/TT-BGDĐT */}
-              <div>
-                <div className="font-bold text-gray-800 uppercase text-[11px] mb-2 flex items-center justify-between">
-                  <span>Kiểm tra danh mục thành phần hồ sơ tiếp nhận:</span>
-                  <span className="text-[10px] text-gray-500 italic">Tích chọn các giấy tờ công dân nộp</span>
-                </div>
-
-                <div className="border border-gray-200 rounded p-2.5 space-y-2 bg-gray-50/50">
-                  <label className="flex items-start gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={!!checkedGiayToMoi["GT-01"]}
-                      onChange={(e) => setCheckedGiayToMoi({ ...checkedGiayToMoi, "GT-01": e.target.checked })}
-                      className="mt-0.5 rounded text-[#dd4b39]"
-                    />
-                    <div className="text-gray-800">
-                      <strong>1. Tờ trình / Đơn đề nghị thành lập</strong> (Mẫu số 01 - Ban hành kèm Thông tư 49) - <em>Bản chính</em>
+              {/* Bảng kê thành phần hồ sơ động theo thủ tục đã chọn */}
+              {(() => {
+                const cfg = THU_TUC_GD_CONFIGS[thuTucChon] || THU_TUC_GD_CONFIGS["TTHC-GD-BGD/01"];
+                return (
+                  <div>
+                    <div className="font-bold text-gray-800 uppercase text-[11px] mb-2 flex items-center justify-between">
+                      <span>Kiểm tra danh mục thành phần hồ sơ tiếp nhận ({cfg.standardDocs.length} loại giấy tờ):</span>
+                      <span className="text-[10px] text-gray-500 italic">Tích chọn các giấy tờ công dân nộp</span>
                     </div>
-                  </label>
 
-                  <label className="flex items-start gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={!!checkedGiayToMoi["GT-02"]}
-                      onChange={(e) => setCheckedGiayToMoi({ ...checkedGiayToMoi, "GT-02": e.target.checked })}
-                      className="mt-0.5 rounded text-[#dd4b39]"
-                    />
-                    <div className="text-gray-800">
-                      <strong>2. Đề án thành lập nhóm trẻ</strong> (Mục tiêu, quy mô, cơ sở vật chất, đồ chơi, giáo viên) - <em>Bản chính</em>
+                    <div className="border border-gray-200 rounded p-2.5 space-y-2 bg-gray-50/50 max-h-60 overflow-y-auto">
+                      {cfg.standardDocs.map((doc, idx) => (
+                        <label
+                          key={doc.id}
+                          className="flex items-start gap-2.5 p-2 rounded hover:bg-white border border-transparent hover:border-gray-200 transition-colors cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={!!checkedGiayToMoi[doc.id]}
+                            onChange={(e) =>
+                              setCheckedGiayToMoi({ ...checkedGiayToMoi, [doc.id]: e.target.checked })
+                            }
+                            className="mt-0.5 rounded text-[#dd4b39] size-4 shrink-0"
+                          />
+                          <div className="text-gray-800 text-xs">
+                            <div>
+                              <strong>{idx + 1}. {doc.tenGiayTo}</strong>{" "}
+                              {doc.batBuoc ? (
+                                <span className="text-red-600 font-bold text-[10px] uppercase ml-1">
+                                  (*) Bắt buộc
+                                </span>
+                              ) : (
+                                <span className="text-gray-500 font-normal italic text-[10px] ml-1">
+                                  (Nếu có)
+                                </span>
+                              )}
+                            </div>
+                            {doc.ghiChu && (
+                              <div className="text-[11px] text-gray-500 mt-0.5">
+                                Quy cách: {doc.ghiChu} · Số lượng: {doc.soLuong} bản
+                              </div>
+                            )}
+                          </div>
+                        </label>
+                      ))}
                     </div>
-                  </label>
-
-                  <label className="flex items-start gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={!!checkedGiayToMoi["GT-03"]}
-                      onChange={(e) => setCheckedGiayToMoi({ ...checkedGiayToMoi, "GT-03": e.target.checked })}
-                      className="mt-0.5 rounded text-[#dd4b39]"
-                    />
-                    <div className="text-gray-800">
-                      <strong>3. Bản sao văn bằng chuyên môn sư phạm mầm non</strong> của chủ cơ sở &amp; giáo viên (≥ Cao đẳng SP MN) - <em>Công chứng</em>
-                    </div>
-                  </label>
-
-                  <label className="flex items-start gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={!!checkedGiayToMoi["GT-04"]}
-                      onChange={(e) => setCheckedGiayToMoi({ ...checkedGiayToMoi, "GT-04": e.target.checked })}
-                      className="mt-0.5 rounded text-[#dd4b39]"
-                    />
-                    <div className="text-gray-800">
-                      <strong>4. Giấy tờ quyền sử dụng đất hoặc Hợp đồng thuê mặt bằng</strong> thời hạn tối thiểu 03 năm - <em>Công chứng</em>
-                    </div>
-                  </label>
-
-                  <label className="flex items-start gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={!!checkedGiayToMoi["GT-05"]}
-                      onChange={(e) => setCheckedGiayToMoi({ ...checkedGiayToMoi, "GT-05": e.target.checked })}
-                      className="mt-0.5 rounded text-[#dd4b39]"
-                    />
-                    <div className="text-gray-800">
-                      <strong>5. Biên bản kiểm tra an toàn PCCC &amp; CNCH</strong> của cơ quan Công an có thẩm quyền - <em>Bản chính</em>
-                    </div>
-                  </label>
-
-                  <label className="flex items-start gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={!!checkedGiayToMoi["GT-06"]}
-                      onChange={(e) => setCheckedGiayToMoi({ ...checkedGiayToMoi, "GT-06": e.target.checked })}
-                      className="mt-0.5 rounded text-[#dd4b39]"
-                    />
-                    <div className="text-gray-800">
-                      <strong>6. Bản cam kết an toàn thực phẩm &amp; Giấy khám sức khỏe</strong> của nhân viên nuôi dưỡng - <em>Bản chính</em>
-                    </div>
-                  </label>
-                </div>
-              </div>
+                  </div>
+                );
+              })()}
 
               <div className="pt-3 border-t border-gray-200 flex items-center justify-between">
                 <span className="text-[11px] text-gray-500 italic">
@@ -2971,6 +3269,14 @@ function GiaoDucDaoTaoPage() {
                 </h3>
               </div>
               <div className="flex items-center gap-2">
+                <button
+                  onClick={() => exportDocAsWord(`Giay_hen_${viewingGiayHen.maHoSo}`, "giay-hen-content")}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs cursor-pointer transition-colors"
+                  title="Xuất văn bản Giấy hẹn sang tệp Word (.doc) chuẩn thể thức NĐ 30/2020"
+                >
+                  <Download className="size-4" />
+                  Xuất Word (.doc)
+                </button>
                 <button
                   onClick={() => window.print()}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#00a65a] hover:bg-[#008d4c] text-white text-xs font-bold rounded shadow-xs cursor-pointer transition-colors"
@@ -3154,6 +3460,13 @@ function GiaoDucDaoTaoPage() {
               </span>
               <div className="flex items-center gap-2">
                 <button
+                  onClick={() => exportDocAsWord(`Giay_hen_${viewingGiayHen.maHoSo}`, "giay-hen-content")}
+                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-4" />
+                  Tải file Word (.doc)
+                </button>
+                <button
                   onClick={() => window.print()}
                   className="px-4 py-2 bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-bold rounded shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
@@ -3193,7 +3506,7 @@ function GiaoDucDaoTaoPage() {
               </button>
             </div>
 
-            <form onSubmit={handlePhatHanhPhieuBoSung} className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1">
+            <form onSubmit={handlePhatHanhPhieuBoSung} className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1" id="phieu-bo-sung-content">
               <div className="p-3 bg-amber-50 border border-amber-300 rounded text-amber-900">
                 <strong>Nguyên tắc công vụ (Khoản 2 Điều 17 Nghị định 61/2018/NĐ-CP):</strong> Cơ quan giải quyết TTHC chỉ được yêu cầu bổ sung, hoàn thiện hồ sơ <strong>một lần duy nhất</strong> bằng Phiếu yêu cầu Mẫu số 02. Nội dung hướng dẫn phải cụ thể, rõ ràng, nêu rõ căn cứ pháp lý.
               </div>
@@ -3256,14 +3569,29 @@ function GiaoDucDaoTaoPage() {
               </div>
 
               <div className="pt-3 border-t border-gray-200 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-gray-700 font-bold cursor-pointer"
-                >
-                  <Printer className="size-3.5" />
-                  In Phiếu Mẫu 02
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      exportDocAsWord(
+                        `Phieu_yeu_cau_bo_sung_${viewingPhieuBoSung.maHoSo}`,
+                        "phieu-bo-sung-content"
+                      )
+                    }
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-blue-700 font-bold cursor-pointer"
+                  >
+                    <Download className="size-3.5" />
+                    Xuất Word (.doc)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-gray-700 font-bold cursor-pointer"
+                  >
+                    <Printer className="size-3.5" />
+                    In Phiếu Mẫu 02
+                  </button>
+                </div>
                 <div className="flex gap-2">
                   <button
                     type="button"
@@ -3309,7 +3637,7 @@ function GiaoDucDaoTaoPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSaveThucDia} className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1">
+            <form onSubmit={handleSaveThucDia} className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1" id="bien-ban-thuc-dia-content">
               <div className="p-3 bg-teal-50 border border-teal-200 rounded text-teal-900 text-xs">
                 {viewingBienBanThucDia.maThuTuc === "TTHC-GD-BGD/04" ? (
                   <div>
@@ -3454,14 +3782,29 @@ function GiaoDucDaoTaoPage() {
               </div>
 
               <div className="pt-3 border-t border-gray-200 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-gray-700 font-bold cursor-pointer"
-                >
-                  <Printer className="size-3.5" />
-                  In Biên bản liên ngành
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      exportDocAsWord(
+                        `Bien_ban_thuc_dia_${viewingBienBanThucDia.maHoSo}`,
+                        "bien-ban-thuc-dia-content"
+                      )
+                    }
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-blue-700 font-bold cursor-pointer"
+                  >
+                    <Download className="size-3.5" />
+                    Xuất Word (.doc)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-gray-700 font-bold cursor-pointer"
+                  >
+                    <Printer className="size-3.5" />
+                    In Biên bản liên ngành
+                  </button>
+                </div>
                 <div className="flex gap-2">
                   <button
                     type="button"
@@ -3505,7 +3848,7 @@ function GiaoDucDaoTaoPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSaveToTrinh} className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1">
+            <form onSubmit={handleSaveToTrinh} className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1" id="to-trinh-content">
               <div className="p-3 bg-sky-50 border border-sky-200 rounded text-sky-900">
                 <strong>Thể thức Tờ trình hành chính (Nghị định 30/2020/NĐ-CP):</strong> Công chức chuyên môn tham mưu lập Tờ trình trình Lãnh đạo Ủy ban nhân dân Phường xem xét, phê duyệt và ký số ban hành Quyết định thành lập.
               </div>
@@ -3555,14 +3898,29 @@ function GiaoDucDaoTaoPage() {
               </div>
 
               <div className="pt-3 border-t border-gray-200 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-gray-700 font-bold cursor-pointer"
-                >
-                  <Printer className="size-3.5" />
-                  In Tờ trình
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      exportDocAsWord(
+                        `To_trinh_${viewingToTrinh.maHoSo}`,
+                        "to-trinh-content"
+                      )
+                    }
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-blue-700 font-bold cursor-pointer"
+                  >
+                    <Download className="size-3.5" />
+                    Xuất Word (.doc)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 bg-white hover:bg-gray-100 text-gray-700 font-bold cursor-pointer"
+                  >
+                    <Printer className="size-3.5" />
+                    In Tờ trình
+                  </button>
+                </div>
                 <div className="flex gap-2">
                   <button
                     type="button"
@@ -3608,6 +3966,19 @@ function GiaoDucDaoTaoPage() {
                     <span>Tiến hành Ký số điện tử</span>
                   </button>
                 )}
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      `Quyet_dinh_${(viewingQuyetDinh.quyetDinh?.soQuyetDinh || viewingQuyetDinh.maHoSo).replace(/\//g, "_")}`,
+                      "quyet-dinh-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                  title="Xuất Quyết định sang tệp Word (.doc) chuẩn thể thức Nghị định 30/2020/NĐ-CP"
+                >
+                  <Download className="size-3.5" />
+                  <span>Xuất Word (.doc)</span>
+                </button>
                 <button
                   onClick={() => window.print()}
                   className="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
@@ -3834,6 +4205,18 @@ function GiaoDucDaoTaoPage() {
                   </button>
                 )}
                 <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      `Quyet_dinh_${(viewingQuyetDinh.quyetDinh?.soQuyetDinh || viewingQuyetDinh.maHoSo).replace(/\//g, "_")}`,
+                      "quyet-dinh-content"
+                    )
+                  }
+                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-4" />
+                  Tải file Word (.doc)
+                </button>
+                <button
                   onClick={() => window.print()}
                   className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
                 >
@@ -3873,7 +4256,7 @@ function GiaoDucDaoTaoPage() {
               </button>
             </div>
 
-            <div className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1">
+            <div className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1" id="phieu-kiem-soat-content">
               <div className="border border-gray-200 rounded p-3 bg-gray-50/70 space-y-1">
                 <div>
                   <span className="text-gray-500">Mã hồ sơ theo dõi:</span>{" "}
@@ -3985,6 +4368,18 @@ function GiaoDucDaoTaoPage() {
               <span className="text-xs text-gray-500">Mẫu số 05/NĐ-61 · Kiểm soát thời gian giải quyết hồ sơ</span>
               <div className="flex items-center gap-2">
                 <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      `Phieu_kiem_soat_${viewingPhieuKiemSoat.maHoSo}`,
+                      "phieu-kiem-soat-content"
+                    )
+                  }
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  Xuất Word (.doc)
+                </button>
+                <button
                   onClick={() => window.print()}
                   className="px-3 py-1.5 bg-gray-700 hover:bg-gray-800 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
                 >
@@ -4002,6 +4397,335 @@ function GiaoDucDaoTaoPage() {
           </div>
         </div>
       )}
+
+      {/* ========================================================================= */}
+      {/* MODAL 20: PHIẾU XIN LỖI VÀ HẸN LẠI NGÀY TRẢ KẾT QUẢ (MẪU SỐ 04/NĐ-61)   */}
+      {/* ========================================================================= */}
+      {viewingPhieuXinLoi && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="bg-white text-gray-900 rounded-lg shadow-2xl max-w-3xl w-full border border-gray-300 max-h-[92vh] flex flex-col">
+            {/* Topbar No-print */}
+            <div className="flex items-center justify-between px-6 py-3 border-b bg-amber-600 text-white rounded-t-lg no-print shrink-0">
+              <div className="flex items-center gap-2">
+                <AlertOctagon className="size-5" />
+                <h3 className="font-bold text-sm sm:text-base">
+                  Phiếu xin lỗi và Hẹn lại ngày trả kết quả (Mẫu số 04 - Nghị định 61/2018/NĐ-CP)
+                </h3>
+              </div>
+              <div className="flex items-center gap-2">
+                {viewingPhieuXinLoi.phieuXinLoi && (
+                  <>
+                    <button
+                      onClick={() =>
+                        exportDocAsWord(
+                          `Phieu_xin_loi_${viewingPhieuXinLoi.maHoSo}`,
+                          "phieu-xin-loi-content"
+                        )
+                      }
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs cursor-pointer transition-colors"
+                      title="Xuất văn bản Mẫu 04 sang tệp Word (.doc) chuẩn thể thức NĐ 30/2020"
+                    >
+                      <Download className="size-4" />
+                      Xuất Word (.doc)
+                    </button>
+                    <button
+                      onClick={() => window.print()}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded shadow-xs cursor-pointer transition-colors"
+                    >
+                      <Printer className="size-4" />
+                      In Phiếu (Ctrl+P)
+                    </button>
+                  </>
+                )}
+                <button
+                  onClick={() => setViewingPhieuXinLoi(null)}
+                  className="text-white/80 hover:text-white p-1 cursor-pointer"
+                  title="Đóng"
+                >
+                  <X className="size-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Chưa có Phiếu xin lỗi -> Hiển thị form lập */}
+            {!viewingPhieuXinLoi.phieuXinLoi ? (
+              <form onSubmit={handlePhatHanhPhieuXinLoi} className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1">
+                <div className="p-3 bg-red-50 border border-red-200 rounded text-red-900 leading-relaxed">
+                  <strong>Trách nhiệm công vụ (Khoản 3 Điều 17 Nghị định 61/2018/NĐ-CP):</strong> Trường hợp hồ sơ giải quyết quá thời hạn so với Giấy tiếp nhận hồ sơ và hẹn trả kết quả, cơ quan có thẩm quyền phải phát hành <strong>Phiếu xin lỗi và hẹn lại ngày trả kết quả (Mẫu số 04)</strong> cho tổ chức, công dân, nêu rõ lý do quá hạn và thời gian hẹn trả kết quả mới.
+                </div>
+
+                <div className="border border-gray-200 rounded p-3 bg-gray-50/70 space-y-1.5">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <span className="text-gray-500">Mã hồ sơ quá hạn:</span>{" "}
+                      <strong className="font-mono text-red-700">{viewingPhieuXinLoi.maHoSo}</strong>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Hẹn trả ban đầu:</span>{" "}
+                      <strong className="font-mono text-red-600">{viewingPhieuXinLoi.ngayHenTra}</strong>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-gray-500">Người nộp hồ sơ:</span>{" "}
+                    <strong className="text-gray-900 uppercase">{viewingPhieuXinLoi.nguoiNop}</strong> ({viewingPhieuXinLoi.soDienThoai})
+                  </div>
+                  <div>
+                    <span className="text-gray-500">Thủ tục hành chính:</span>{" "}
+                    <strong className="text-gray-900">{viewingPhieuXinLoi.tenThuTuc}</strong>
+                  </div>
+                  <div>
+                    <span className="text-gray-500">Cơ sở đề nghị:</span>{" "}
+                    <strong className="text-emerald-800">{viewingPhieuXinLoi.tenCoSoDeNghi}</strong> ({viewingPhieuXinLoi.diaDiemCoSo})
+                  </div>
+                </div>
+
+                {/* Form nhập lý do và ngày hẹn mới */}
+                <div className="space-y-2">
+                  <label className="block font-bold text-gray-800">
+                    Lý do chậm trễ giải quyết hồ sơ <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    required
+                    rows={4}
+                    value={inputLyDoXinLoi}
+                    onChange={(e) => setInputLyDoXinLoi(e.target.value)}
+                    placeholder="Ghi rõ lý do khách quan/chủ quan dẫn đến quá hạn giải quyết hồ sơ..."
+                    className="w-full rounded border border-gray-300 p-2.5 text-xs outline-none focus:border-amber-600 font-sans"
+                  />
+                  <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-gray-600">
+                    <span className="text-gray-400">Gợi ý lý do chuẩn công vụ:</span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setInputLyDoXinLoi(
+                          "Do quy trình thẩm định thực địa liên ngành cần phối hợp nhiều đơn vị (Phòng GD-ĐT, Trạm Y tế, Công an PCCC) và chờ kết quả kiểm định an toàn kỹ thuật"
+                        )
+                      }
+                      className="px-2 py-0.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer text-[10px]"
+                    >
+                      Thực địa liên ngành phối hợp
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setInputLyDoXinLoi(
+                          "Do cơ sở cần bổ sung hồ sơ điều kiện an toàn phòng cháy chữa cháy và xác minh thêm chứng chỉ sư phạm mầm non của nhân sự phụ trách"
+                        )
+                      }
+                      className="px-2 py-0.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer text-[10px]"
+                    >
+                      Bổ sung điều kiện PCCC &amp; bằng cấp
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setInputLyDoXinLoi(
+                          "Do khối lượng hồ sơ xét duyệt chính sách đầu năm học tăng cao và hệ thống đối soát dữ liệu dân cư đang đồng bộ dữ liệu"
+                        )
+                      }
+                      className="px-2 py-0.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer text-[10px]"
+                    >
+                      Đồng bộ CSDL Dân cư
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-gray-800 mb-1">
+                      Thời gian hẹn trả kết quả mới <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={inputNgayHenMoi}
+                      onChange={(e) => setInputNgayHenMoi(e.target.value)}
+                      placeholder="VD: 28/10/2026"
+                      className="w-full rounded border border-gray-300 p-2 text-xs font-mono font-bold outline-none focus:border-amber-600"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-bold text-gray-800 mb-1">Thẩm quyền ký phát hành</label>
+                    <input
+                      type="text"
+                      readOnly
+                      value="TS. Nguyễn Văn Hùng - Chủ tịch UBND Phường Phú Cường"
+                      className="w-full rounded border border-gray-300 p-2 text-xs bg-gray-100 font-semibold text-gray-700"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-gray-200 flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setViewingPhieuXinLoi(null)}
+                    className="px-3 py-1.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-bold cursor-pointer"
+                  >
+                    Đóng
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-1.5 rounded bg-amber-600 hover:bg-amber-700 text-white font-bold shadow-xs flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Send className="size-3.5" />
+                    <span>Ký số &amp; Phát hành Phiếu xin lỗi (Mẫu số 04)</span>
+                  </button>
+                </div>
+              </form>
+            ) : (
+              /* Đã phát hành Phiếu xin lỗi -> Hiển thị văn bản A4 chuẩn thể thức */
+              <>
+                <div
+                  className="p-8 overflow-y-auto font-serif text-[13px] leading-relaxed select-text flex-1"
+                  id="phieu-xin-loi-content"
+                >
+                  {/* Quốc hiệu & Tiêu ngữ */}
+                  <div className="grid grid-cols-2 text-center pb-4 border-b border-gray-400">
+                    <div>
+                      <div className="font-bold uppercase text-[12px]">UBND THÀNH PHỐ THỦ DẦU MỘT</div>
+                      <div className="font-bold uppercase text-[13px] text-[#b91c1c]">ỦY BAN NHÂN DÂN PHƯỜNG PHÚ CƯỜNG</div>
+                      <div className="text-[11px] font-sans font-medium text-gray-700">Bộ phận Tiếp nhận và Trả kết quả (Một cửa)</div>
+                      <div className="text-[11px] font-sans italic mt-1">
+                        Số: <strong className="font-mono text-black">{viewingPhieuXinLoi.phieuXinLoi.soPhieu}</strong>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold uppercase text-[12px]">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
+                      <div className="font-bold text-[13px]">Độc lập - Tự do - Hạnh phúc</div>
+                      <div className="text-[11px] italic font-sans mt-2">
+                        Phú Cường, ngày {viewingPhieuXinLoi.phieuXinLoi.ngayLap}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tiêu đề */}
+                  <div className="text-center my-6">
+                    <h2 className="text-lg font-bold uppercase tracking-wide text-gray-900">
+                      PHIẾU XIN LỖI VÀ HẸN LẠI NGÀY TRẢ KẾT QUẢ
+                    </h2>
+                    <div className="text-xs italic text-gray-600 font-sans mt-0.5">
+                      (Mẫu số 04 - Ban hành kèm theo Nghị định số 61/2018/NĐ-CP ngày 23/4/2018 của Chính phủ)
+                    </div>
+                  </div>
+
+                  {/* Kính gửi */}
+                  <div className="space-y-3 mb-6 text-[13px]">
+                    <div className="font-medium">
+                      Kính gửi: Ông/Bà <strong className="uppercase text-gray-900">{viewingPhieuXinLoi.nguoiNop}</strong>
+                    </div>
+                    <div>
+                      Đại diện cho: <strong>{viewingPhieuXinLoi.tenCoSoDeNghi}</strong>
+                    </div>
+                    <div>
+                      Địa chỉ liên hệ: {viewingPhieuXinLoi.diaChiLienHe || viewingPhieuXinLoi.diaDiemCoSo}
+                    </div>
+                    <div>
+                      Số điện thoại: <strong className="font-mono">{viewingPhieuXinLoi.soDienThoai}</strong> · Số CCCD: <strong className="font-mono">{viewingPhieuXinLoi.cccd}</strong>
+                    </div>
+                  </div>
+
+                  {/* Nội dung trình bày xin lỗi */}
+                  <div className="space-y-3 text-[13px] text-justify leading-relaxed">
+                    <p>
+                      Ngày {viewingPhieuXinLoi.ngayTiepNhan}, Ủy ban nhân dân Phường Phú Cường đã tiếp nhận giải quyết hồ sơ đề nghị <strong>{viewingPhieuXinLoi.tenThuTuc}</strong> của Ông/Bà; Mã số hồ sơ điện tử: <strong className="font-mono">{viewingPhieuXinLoi.maHoSo}</strong>.
+                    </p>
+                    <p>
+                      Thời gian hẹn trả kết quả giải quyết hồ sơ theo Giấy hẹn Mẫu số 01: <strong>{viewingPhieuXinLoi.ngayHenTra}</strong>.
+                    </p>
+                    <p>
+                      Tuy nhiên, đến nay hồ sơ chưa thể hoàn thành giải quyết và trả kết quả cho Ông/Bà theo đúng thời hạn đã hẹn.
+                    </p>
+                    <div className="p-3 bg-amber-50/80 border-l-4 border-amber-600 rounded-r text-gray-800">
+                      <strong>Lý do chậm trễ giải quyết:</strong> {viewingPhieuXinLoi.phieuXinLoi.lyDo}.
+                    </div>
+                    <p>
+                      Sự chậm trễ này đã làm ảnh hưởng đến thời gian, công việc và hoạt động của Ông/Bà, Ủy ban nhân dân Phường Phú Cường thành thật xin lỗi và xin hẹn lại ngày trả kết quả giải quyết hồ sơ như sau:
+                    </p>
+                    <div className="border border-dashed border-gray-400 p-3 rounded bg-gray-50 text-center font-sans">
+                      <div className="text-xs text-gray-600">Thời gian hẹn trả kết quả giải quyết hồ sơ lần này:</div>
+                      <div className="text-base font-extrabold text-[#b91c1c] mt-0.5">
+                        Ngày {viewingPhieuXinLoi.phieuXinLoi.ngayHenMoi} (Trước 17 giờ 00)
+                      </div>
+                      <div className="text-xs text-gray-600 mt-1">
+                        Địa điểm nhận kết quả: Bộ phận Tiếp nhận và Trả kết quả (Một cửa) - UBND Phường Phú Cường (Số 01 đường Quang Trung, Phường Phú Cường, TP. Thủ Dầu Một).
+                      </div>
+                    </div>
+                    <p>
+                      Rất mong nhận được sự thông cảm và chia sẻ của Ông/Bà./.
+                    </p>
+                  </div>
+
+                  {/* Chữ ký & Con dấu */}
+                  <div className="grid grid-cols-2 text-center pt-8 font-sans">
+                    <div className="text-left text-[11px] text-gray-600 space-y-0.5">
+                      <div className="font-bold uppercase text-gray-800">Nơi nhận:</div>
+                      <div>- Như trên;</div>
+                      <div>- Lãnh đạo UBND Phường;</div>
+                      <div>- Cán bộ thụ lý hồ sơ;</div>
+                      <div>- Lưu: VT, Một cửa.</div>
+                    </div>
+
+                    <div className="text-center">
+                      <div className="font-bold text-xs uppercase text-gray-900">
+                        TM. ỦY BAN NHÂN DÂN
+                      </div>
+                      <div className="font-bold text-xs uppercase text-[#b91c1c]">CHỦ TỊCH</div>
+
+                      {/* Tem ký số SmartCA */}
+                      <div className="py-2 flex justify-center">
+                        <DigitalSignatureBadge
+                          nguoiKy={viewingPhieuXinLoi.phieuXinLoi.nguoiKy}
+                          chucVu="Chủ tịch UBND Phường Phú Cường"
+                          ngayKy={viewingPhieuXinLoi.phieuXinLoi.ngayLap}
+                          maXacThuc={`CA-PXL-${viewingPhieuXinLoi.id}-2026`}
+                        />
+                      </div>
+
+                      <div className="font-bold text-xs text-gray-900 mt-1">
+                        {viewingPhieuXinLoi.phieuXinLoi.nguoiKy}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Modal Document */}
+                <div className="flex items-center justify-between px-6 py-3 border-t bg-gray-50 rounded-b-lg no-print">
+                  <span className="text-xs text-gray-500 font-sans">
+                    Mẫu số 04/NĐ-61 · Bộ phận Tiếp nhận &amp; Trả kết quả UBND Phường Phú Cường
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() =>
+                        exportDocAsWord(
+                          `Phieu_xin_loi_${viewingPhieuXinLoi.maHoSo}`,
+                          "phieu-xin-loi-content"
+                        )
+                      }
+                      className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Download className="size-4" />
+                      Tải file Word (.doc)
+                    </button>
+                    <button
+                      onClick={() => window.print()}
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Printer className="size-4" />
+                      In Phiếu xin lỗi
+                    </button>
+                    <button
+                      onClick={() => setViewingPhieuXinLoi(null)}
+                      className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-semibold rounded cursor-pointer"
+                    >
+                      Đóng
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
       {/* ========================================================================= */}
       {/* MODAL 14: QUYẾT ĐỊNH TẠM ĐÌNH CHỈ HOẠT ĐỘNG CƠ SỞ MẦM NON (ĐIỀU 11 TT 49)  */}
       {/* ========================================================================= */}
@@ -4016,6 +4740,18 @@ function GiaoDucDaoTaoPage() {
                 </h3>
               </div>
               <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      `Quyet_dinh_dinh_chi_${viewingDinhChiMn.maCoSo}`,
+                      "quyet-dinh-dinh-chi-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  <span>Tải Word (.doc)</span>
+                </button>
                 <button
                   onClick={() => window.print()}
                   className="px-3 py-1.5 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
@@ -4160,6 +4896,18 @@ function GiaoDucDaoTaoPage() {
 
               <div className="flex items-center gap-2 shrink-0">
                 <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      `Quyet_dinh_dinh_chi_${viewingDinhChiMn.maCoSo}`,
+                      "quyet-dinh-dinh-chi-content"
+                    )
+                  }
+                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-4" />
+                  Tải file Word (.doc)
+                </button>
+                <button
                   onClick={handleBanHanhQDDinhChi}
                   className="px-4 py-2 bg-[#b91c1c] hover:bg-[#991b1b] text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
                 >
@@ -4179,86 +4927,192 @@ function GiaoDucDaoTaoPage() {
       )}
 
       {/* ========================================================================= */}
-      {/* MODAL 15: PHỤC HỒI HOẠT ĐỘNG CƠ SỞ MẦM NON SAU KHẮC PHỤC                   */}
+      {/* MODAL 15: PHỤC HỒI HOẠT ĐỘNG CƠ SỞ MẦM NON SAU KHẮC PHỤC (ĐIỀU 11 TT 49)    */}
       {/* ========================================================================= */}
       {viewingPhucHoiMn && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
-          <div className="bg-white text-gray-900 rounded-lg shadow-2xl max-w-2xl w-full border border-gray-300 max-h-[92vh] flex flex-col">
-            <div className="bg-emerald-700 text-white px-5 py-3 flex items-center justify-between shrink-0">
+          <div className="bg-white text-gray-900 rounded-lg shadow-2xl max-w-3xl w-full border border-gray-300 max-h-[92vh] flex flex-col">
+            <div className="bg-emerald-700 text-white px-6 py-3 flex items-center justify-between no-print shrink-0">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="size-5" />
                 <h3 className="font-bold text-sm sm:text-base">
-                  Quyết định Cho phép Hoạt động trở lại sau khi khắc phục vi phạm
+                  Quyết định Cho phép Hoạt động trở lại sau khắc phục (Khoản 4 Điều 11 Thông tư 49/2021)
                 </h3>
               </div>
-              <button
-                onClick={() => setViewingPhucHoiMn(null)}
-                className="text-white/80 hover:text-white cursor-pointer"
-              >
-                <X className="size-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      `Quyet_dinh_phuc_hoi_${viewingPhucHoiMn.maCoSo}`,
+                      "quyet-dinh-phuc-hoi-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  <span>Tải Word (.doc)</span>
+                </button>
+                <button
+                  onClick={() => window.print()}
+                  className="px-3 py-1.5 rounded bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Printer className="size-3.5" />
+                  <span>In Quyết định (Ctrl+P)</span>
+                </button>
+                <button
+                  onClick={() => setViewingPhucHoiMn(null)}
+                  className="text-white/80 hover:text-white p-1 cursor-pointer"
+                >
+                  <X className="size-5" />
+                </button>
+              </div>
             </div>
 
-            <form onSubmit={handleBanHanhQDPhucHoi} className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1">
-              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded text-emerald-900">
-                <strong>Thủ tục phục hồi hoạt động giáo dục (Khoản 4 Điều 11 Thông tư 49/2021/TT-BGDĐT):</strong> Sau thời gian tạm đình chỉ, nếu cơ sở đã khắc phục được nguyên nhân dẫn đến việc tạm đình chỉ và được Đoàn kiểm tra liên ngành thẩm định đạt chuẩn an toàn, Chủ tịch UBND Phường ban hành Quyết định cho phép hoạt động trở lại.
+            <div className="p-8 overflow-y-auto font-serif text-[13px] leading-relaxed select-text flex-1" id="quyet-dinh-phuc-hoi-content">
+              {/* Quốc hiệu & Đơn vị ban hành */}
+              <div className="grid grid-cols-2 text-center pb-4 border-b border-gray-400">
+                <div>
+                  <div className="font-bold uppercase text-[12px]">ỦY BAN NHÂN DÂN THÀNH PHỐ THỦ DẦU MỘT</div>
+                  <div className="font-bold uppercase text-[13px] text-emerald-800">ỦY BAN NHÂN DÂN PHƯỜNG PHÚ CƯỜNG</div>
+                  <div className="text-[11px] font-sans mt-1">
+                    Số: <strong className="font-mono text-black">122/QĐ-UBND</strong>
+                  </div>
+                </div>
+                <div>
+                  <div className="font-bold uppercase text-[12px]">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
+                  <div className="font-bold text-[13px]">Độc lập - Tự do - Hạnh phúc</div>
+                  <div className="text-[11px] italic font-sans mt-2">
+                    Phú Cường, ngày {new Date().toLocaleDateString("vi-VN")}
+                  </div>
+                </div>
               </div>
 
-              <div className="border border-gray-200 rounded p-3 bg-gray-50/70 space-y-1">
-                <div>
-                  <span className="text-gray-500">Cơ sở mầm non:</span>{" "}
-                  <strong className="text-gray-900 uppercase">{viewingPhucHoiMn.tenCoSo}</strong>
+              {/* Tiêu đề Quyết định */}
+              <div className="text-center my-6 space-y-1">
+                <h2 className="text-base font-bold uppercase tracking-wide text-gray-900">QUYẾT ĐỊNH</h2>
+                <div className="font-bold text-sm text-gray-800">
+                  Về việc cho phép hoạt động giáo dục trở lại đối với {viewingPhucHoiMn.tenCoSo}
                 </div>
-                <div>
-                  <span className="text-gray-500">Chủ cơ sở:</span>{" "}
-                  <strong className="text-gray-800">{viewingPhucHoiMn.chuCoSo}</strong> · Địa chỉ: {viewingPhucHoiMn.diaChi}
-                </div>
-                <div>
-                  <span className="text-gray-500">Tình trạng đình chỉ trước đó:</span>{" "}
-                  <span className="text-red-700 italic">{viewingPhucHoiMn.noiDungKiemTra}</span>
+                <div className="text-xs uppercase font-extrabold text-emerald-800 tracking-widest pt-1">
+                  CHỦ TỊCH ỦY BAN NHÂN DÂN PHƯỜNG PHÚ CƯỜNG
                 </div>
               </div>
 
-              <div>
-                <label className="block font-bold text-gray-800 mb-1">
-                  Kết quả kiểm tra nghiệm thu thực tế của Đoàn liên ngành <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  rows={4}
-                  required
+              {/* Căn cứ pháp lý */}
+              <div className="space-y-1 text-justify text-xs italic text-gray-700 mb-4 font-serif">
+                <p>Căn cứ Luật Tổ chức chính quyền địa phương ngày 19 tháng 6 năm 2015; Luật sửa đổi, bổ sung một số điều của Luật Tổ chức Chính phủ và Luật Tổ chức chính quyền địa phương ngày 22 tháng 11 năm 2019;</p>
+                <p>Căn cứ Luật Giáo dục ngày 14 tháng 6 năm 2019;</p>
+                <p>Căn cứ Nghị định số 46/2017/NĐ-CP ngày 21 tháng 4 năm 2017 của Chính phủ quy định về điều kiện đầu tư và hoạt động trong lĩnh vực giáo dục; Nghị định số 135/2018/NĐ-CP ngày 04 tháng 10 năm 2018 của Chính phủ sửa đổi, bổ sung một số điều của Nghị định 46/2017/NĐ-CP;</p>
+                <p>Căn cứ Khoản 4 Điều 11 Thông tư số 49/2021/TT-BGDĐT ngày 31 tháng 12 năm 2021 của Bộ Giáo dục và Đào tạo ban hành Quy chế tổ chức và hoạt động của nhóm trẻ độc lập, lớp mẫu giáo độc lập, lớp mầm non độc lập;</p>
+                <p>Căn cứ Quyết định số 89/QĐ-UBND ngày 12 tháng 03 năm 2026 của Chủ tịch UBND Phường Phú Cường về việc tạm đình chỉ hoạt động giáo dục đối với {viewingPhucHoiMn.tenCoSo};</p>
+                <p>Căn cứ Báo cáo khắc phục tồn tại vi phạm của bà/ông {viewingPhucHoiMn.chuCoSo} và Biên bản kiểm tra nghiệm thu số 25/BB-LN ngày {new Date().toLocaleDateString("vi-VN")} của Đoàn kiểm tra liên ngành UBND Phường Phú Cường;</p>
+                <p>Theo đề nghị của Công chức Văn hóa - Xã hội phụ trách Giáo dục.</p>
+              </div>
+
+              <div className="text-center font-bold text-xs uppercase my-2 tracking-wider">QUYẾT ĐỊNH:</div>
+
+              {/* Điều khoản */}
+              <div className="space-y-2.5 text-justify text-xs font-serif leading-relaxed mb-6">
+                <p>
+                  <strong>Điều 1.</strong> Cho phép cơ sở giáo dục mầm non ngoài công lập sau đây được tổ chức hoạt động giáo dục trở lại kể từ ngày ký Quyết định này:
+                </p>
+                <div className="pl-4 space-y-1 font-sans">
+                  <div>- Tên cơ sở: <strong className="text-emerald-800 uppercase">{viewingPhucHoiMn.tenCoSo}</strong> (Mã: {viewingPhucHoiMn.maCoSo})</div>
+                  <div>- Quyết định thành lập số: <strong>{viewingPhucHoiMn.soQuyetDinhCapPhep}</strong></div>
+                  <div>- Chủ cơ sở: <strong className="uppercase">{viewingPhucHoiMn.chuCoSo}</strong> (SĐT: {viewingPhucHoiMn.soDienThoai})</div>
+                  <div>- Địa điểm hoạt động: <strong>{viewingPhucHoiMn.diaChi}, {viewingPhucHoiMn.khuPho}</strong></div>
+                  <div>- Quy mô tiếp nhận: Tối đa <strong>{viewingPhucHoiMn.soTreDangGiu} trẻ em</strong> ({viewingPhucHoiMn.soGiaoVienBaoMau} giáo viên/bảo mẫu)</div>
+                  <div>
+                    - Kết luận nghiệm thu khắc phục vi phạm:{" "}
+                    <strong className="text-emerald-800">
+                      {inputNoiDungPhucHoi.trim() ||
+                        "Đã hoàn thành lắp đặt cửa thoát nạn chịu nhiệt, bổ sung đầy đủ bình chữa cháy MFZ4 và phân chia vách nhôm kính khu vực bếp nấu đạt chuẩn 1 chiều. Đoàn liên ngành kiểm tra nghiệm thu đạt chuẩn an toàn."}
+                    </strong>
+                  </div>
+                </div>
+
+                <p>
+                  <strong>Điều 2.</strong> Trách nhiệm của chủ cơ sở và các cơ quan liên quan:
+                </p>
+                <div className="pl-4 space-y-1 font-sans text-gray-800">
+                  <div>1. Bà/ông <strong>{viewingPhucHoiMn.chuCoSo}</strong> có trách nhiệm thông báo công khai đến toàn thể phụ huynh về thời gian đón nhận trẻ trở lại; nghiêm túc duy trì thường xuyên các điều kiện về PCCC, bếp ăn một chiều, bảo đảm sĩ số theo quy định và an toàn tuyệt đối tính mạng, thể chất cho trẻ.</div>
+                  <div>2. Giao Công chức Văn hóa - Xã hội chủ trì, phối hợp Trạm Y tế và Công an phường tổ chức hậu kiểm định kỳ, kịp thời phát hiện và xử lý nghiêm các trường hợp tái vi phạm.</div>
+                </div>
+
+                <p>
+                  <strong>Điều 3.</strong> Chánh Văn phòng HĐND - UBND phường, Công chức Văn hóa - Xã hội, Trưởng Công an phường, Trưởng Trạm Y tế, Trưởng Ban điều hành {viewingPhucHoiMn.khuPho} và bà/ông {viewingPhucHoiMn.chuCoSo} chịu trách nhiệm thi hành Quyết định này./.
+                </p>
+              </div>
+
+              {/* Nơi nhận & Ký số */}
+              <div className="grid grid-cols-2 pt-4 border-t border-gray-300 font-sans">
+                <div className="text-[11px] text-gray-600 space-y-0.5">
+                  <div className="font-bold text-gray-800">Nơi nhận:</div>
+                  <div>- Như Điều 3;</div>
+                  <div>- Phòng GD&amp;ĐT TP. Thủ Dầu Một (b/c);</div>
+                  <div>- Đảng ủy, HĐND phường;</div>
+                  <div>- Lưu: VT, VHXH.</div>
+                </div>
+
+                <div className="text-center space-y-2">
+                  <div className="font-bold text-xs uppercase text-gray-900">CHỦ TỊCH</div>
+                  <div className="my-2 flex justify-center">
+                    <DigitalSignatureBadge
+                      nguoiKy="TS. Nguyễn Văn Hùng"
+                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      ngayKy={new Date().toLocaleDateString("vi-VN")}
+                      maXacThuc={`CA-PH-${viewingPhucHoiMn.id}-${Date.now().toString().slice(-6)}`}
+                    />
+                  </div>
+                  <div className="font-extrabold text-sm text-gray-900">TS. Nguyễn Văn Hùng</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Form cập nhật kết quả nghiệm thu & Ban hành */}
+            <div className="p-4 border-t bg-gray-50 flex flex-col sm:flex-row items-center justify-between gap-3 no-print">
+              <div className="flex-1 w-full text-xs">
+                <span className="font-bold text-gray-700">Ghi chú kết quả nghiệm thu thực tế của Đoàn liên ngành:</span>
+                <input
+                  type="text"
                   value={inputNoiDungPhucHoi}
                   onChange={(e) => setInputNoiDungPhucHoi(e.target.value)}
-                  placeholder="Ghi nhận các hạng mục đã hoàn thành khắc phục (lối thoát nạn, thiết bị PCCC, bếp một chiều, giấy khám sức khỏe...) và kết luận đủ điều kiện an toàn hoạt động..."
-                  className="w-full rounded border border-gray-300 p-2 text-xs font-sans leading-relaxed"
+                  placeholder="Ghi nhận các hạng mục đã hoàn thành khắc phục (PCCC, bếp 1 chiều, khử khuẩn, camera...)"
+                  className="w-full mt-1 rounded border border-gray-300 px-2 py-1 text-xs"
                 />
               </div>
 
-              <div className="p-3 border border-emerald-200 rounded bg-emerald-50/60 flex items-center justify-between">
-                <span className="font-bold text-emerald-900">
-                  Dự thảo Quyết định số: 122/QĐ-UBND ngày {new Date().toLocaleDateString("vi-VN")}
-                </span>
-                <span className="px-2 py-0.5 rounded bg-emerald-700 text-white font-bold text-[10px]">
-                  ĐẠT CHUẨN AN TOÀN
-                </span>
-              </div>
-
-              <div className="pt-3 border-t border-gray-200 flex items-center justify-end gap-2">
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() =>
+                    exportDocAsWord(
+                      `Quyet_dinh_phuc_hoi_${viewingPhucHoiMn.maCoSo}`,
+                      "quyet-dinh-phuc-hoi-content"
+                    )
+                  }
+                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-4" />
+                  Tải file Word (.doc)
+                </button>
+                <button
+                  type="button"
+                  onClick={handleBanHanhQDPhucHoi}
+                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Stamp className="size-4" />
+                  Ký số ban hành QĐ phục hồi hoạt động
+                </button>
                 <button
                   type="button"
                   onClick={() => setViewingPhucHoiMn(null)}
-                  className="px-3 py-1.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-bold cursor-pointer"
+                  className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-semibold rounded cursor-pointer"
                 >
                   Đóng
                 </button>
-                <button
-                  type="submit"
-                  className="px-4 py-1.5 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-bold shadow-xs flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Stamp className="size-3.5" />
-                  <span>Ký số ban hành Quyết định phục hồi hoạt động</span>
-                </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       )}
@@ -4277,6 +5131,18 @@ function GiaoDucDaoTaoPage() {
                 </h3>
               </div>
               <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Bao_cao_32_Quan_ly_Mam_non_Phu_Cuong",
+                      "bao-cao-mam-non-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  <span>Tải Word (.doc)</span>
+                </button>
                 <button
                   onClick={() => window.print()}
                   className="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
@@ -4458,6 +5324,18 @@ function GiaoDucDaoTaoPage() {
               <span className="text-xs text-gray-500">Báo cáo số 32/BC-UBND · Phường Phú Cường, TP. Thủ Dầu Một</span>
               <div className="flex items-center gap-2">
                 <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Bao_cao_32_Quan_ly_Mam_non_Phu_Cuong",
+                      "bao-cao-mam-non-content"
+                    )
+                  }
+                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-4" />
+                  Tải file Word (.doc)
+                </button>
+                <button
                   onClick={() => window.print()}
                   className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
                 >
@@ -4490,6 +5368,18 @@ function GiaoDucDaoTaoPage() {
                 </h3>
               </div>
               <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Ke_hoach_tuyen_sinh_dau_cap_QD104",
+                      "tuyen-sinh-plan-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  <span>Tải Word (.doc)</span>
+                </button>
                 <button
                   onClick={() => window.print()}
                   className="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
@@ -4650,12 +5540,33 @@ function GiaoDucDaoTaoPage() {
 
             <div className="flex items-center justify-between px-6 py-3 border-t bg-gray-50 rounded-b-lg no-print">
               <span className="text-xs text-gray-500">Quyết định 104/QĐ-UBND · Phân tuyến tuyển sinh 100% qua VNeID</span>
-              <button
-                onClick={() => setShowKeHoachTuyenSinhModal(false)}
-                className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-semibold rounded cursor-pointer"
-              >
-                Đóng
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Ke_hoach_tuyen_sinh_dau_cap_QD104",
+                      "tuyen-sinh-plan-content"
+                    )
+                  }
+                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-4" />
+                  Tải file Word (.doc)
+                </button>
+                <button
+                  onClick={() => window.print()}
+                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Printer className="size-4" />
+                  In Kế hoạch
+                </button>
+                <button
+                  onClick={() => setShowKeHoachTuyenSinhModal(false)}
+                  className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-semibold rounded cursor-pointer"
+                >
+                  Đóng
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -4675,6 +5586,18 @@ function GiaoDucDaoTaoPage() {
                 </h3>
               </div>
               <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Giay_cong_nhan_Gia_dinh_hoc_tap",
+                      "bang-khen-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  <span>Tải Word (.doc)</span>
+                </button>
                 <button
                   onClick={() => window.print()}
                   className="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
@@ -4787,12 +5710,33 @@ function GiaoDucDaoTaoPage() {
 
             <div className="flex items-center justify-between px-6 py-3 border-t bg-gray-50 rounded-b-lg no-print">
               <span className="text-xs text-gray-500">Mẫu Giấy công nhận chuẩn Bộ Giáo dục &amp; Đào tạo</span>
-              <button
-                onClick={() => setShowCongNhanHocTapModal(false)}
-                className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-semibold rounded cursor-pointer"
-              >
-                Đóng
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Giay_cong_nhan_Gia_dinh_hoc_tap",
+                      "bang-khen-content"
+                    )
+                  }
+                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-4" />
+                  Tải file Word (.doc)
+                </button>
+                <button
+                  onClick={() => window.print()}
+                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Printer className="size-4" />
+                  In Bằng khen
+                </button>
+                <button
+                  onClick={() => setShowCongNhanHocTapModal(false)}
+                  className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-semibold rounded cursor-pointer"
+                >
+                  Đóng
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -4912,6 +5856,216 @@ function GiaoDucDaoTaoPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {/* ========================================================================= */}
+      {/* MODAL 21: KẾ HOẠCH BẢO ĐẢM TRẬT TỰ ATGT CỔNG TRƯỜNG HỌC (CHỈ THỊ 31/CT-TTg)*/}
+      {/* ========================================================================= */}
+      {showKeHoachAtgtModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="bg-white text-gray-900 rounded-lg shadow-2xl max-w-4xl w-full border border-gray-300 max-h-[92vh] flex flex-col">
+            <div className="bg-amber-700 text-white px-6 py-3 flex items-center justify-between no-print shrink-0">
+              <div className="flex items-center gap-2">
+                <TrafficCone className="size-5" />
+                <h3 className="font-bold text-sm sm:text-base">
+                  Kế hoạch Phối hợp Bảo đảm Trật tự ATGT Cổng Trường học (Chỉ thị 31/CT-TTg - Số 45/KH-UBND)
+                </h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Ke_hoach_ATGT_cong_truong_Chi_thi_31",
+                      "ke-hoach-atgt-content"
+                    )
+                  }
+                  className="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Download className="size-3.5" />
+                  <span>Tải Word (.doc)</span>
+                </button>
+                <button
+                  onClick={() => window.print()}
+                  className="px-3 py-1.5 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs flex items-center gap-1 cursor-pointer"
+                >
+                  <Printer className="size-3.5" />
+                  <span>In Kế hoạch (Ctrl+P)</span>
+                </button>
+                <button
+                  onClick={() => setShowKeHoachAtgtModal(false)}
+                  className="text-white/80 hover:text-white p-1 cursor-pointer"
+                >
+                  <X className="size-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-8 overflow-y-auto font-serif text-[13px] leading-relaxed select-text flex-1" id="ke-hoach-atgt-content">
+              {/* Quốc hiệu & Đơn vị ban hành */}
+              <div className="grid grid-cols-2 text-center pb-4 border-b border-gray-400">
+                <div>
+                  <div className="font-bold uppercase text-[12px]">ỦY BAN NHÂN DÂN THÀNH PHỐ THỦ DẦU MỘT</div>
+                  <div className="font-bold uppercase text-[13px] text-amber-900">ỦY BAN NHÂN DÂN PHƯỜNG PHÚ CƯỜNG</div>
+                  <div className="text-[11px] font-sans mt-1">
+                    Số: <strong className="font-mono text-black">45/KH-UBND</strong>
+                  </div>
+                </div>
+                <div>
+                  <div className="font-bold uppercase text-[12px]">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
+                  <div className="font-bold text-[13px]">Độc lập - Tự do - Hạnh phúc</div>
+                  <div className="text-[11px] italic font-sans mt-2">
+                    Phú Cường, ngày 05 tháng 09 năm 2026
+                  </div>
+                </div>
+              </div>
+
+              {/* Tiêu đề Kế hoạch */}
+              <div className="text-center my-6 space-y-1">
+                <h2 className="text-base font-bold uppercase tracking-wide text-gray-900">KẾ HOẠCH</h2>
+                <div className="font-bold text-sm text-gray-800">
+                  Phối hợp liên ngành bảo đảm trật tự, an toàn giao thông trước cổng các trường học năm học 2026 - 2027 trên địa bàn Phường Phú Cường
+                </div>
+                <div className="text-xs italic text-gray-600">
+                  (Thực hiện Chỉ thị số 31/CT-TTg ngày 21/12/2023 của Thủ tướng Chính phủ)
+                </div>
+              </div>
+
+              <div className="space-y-3 text-justify text-xs font-serif leading-relaxed">
+                <p>
+                  Thực hiện Chỉ thị số 31/CT-TTg ngày 21/12/2023 của Thủ tướng Chính phủ về tăng cường công tác bảo đảm trật tự, an toàn giao thông cho lứa tuổi học sinh trong tình hình mới; Kế hoạch số 88/KH-UBND của Ủy ban nhân dân Thành phố Thủ Dầu Một;
+                </p>
+                <p>
+                  Nhằm chủ động phòng ngừa, kiềm chế tai nạn giao thông và giải quyết triệt để tình trạng ùn tắc giao thông cục bộ trước cổng các trường học trong giờ cao điểm phụ huynh đưa đón học sinh; Ủy ban nhân dân Phường Phú Cường ban hành Kế hoạch phối hợp triển khai cụ thể như sau:
+                </p>
+
+                <h4 className="font-bold text-sm uppercase text-gray-900 pt-2 font-sans">
+                  I. MỤC ĐÍCH, YÊU CẦU
+                </h4>
+                <div className="pl-4 space-y-1 font-sans text-gray-800">
+                  <div>1. 100% các trường mầm non, tiểu học, trung học cơ sở trên địa bàn phường ký cam kết chấp hành nghiêm Luật Giao thông đường bộ; xây dựng mô hình &ldquo;Cổng trường an toàn giao thông&rdquo;.</div>
+                  <div>2. Tuyệt đối không để xảy ra ùn tắc giao thông kéo dài trước cổng trường, đặc biệt tại tuyến đường Đoàn Trần Nghiệp (cổng Trường TH Phú Cường) và đường Yersin / CMT8 trong hai khung giờ cao điểm: <strong>06:45 - 07:15</strong> sáng và <strong>16:45 - 17:30</strong> chiều.</div>
+                  <div>3. 100% phụ huynh học sinh ký cam kết đội mũ bảo hiểm đạt chuẩn cho trẻ em từ đủ 6 tuổi trở lên khi tham gia giao thông bằng mô tô, xe gắn máy, xe đạp điện; không giao xe cho học sinh chưa đủ điều kiện theo quy định.</div>
+                </div>
+
+                <h4 className="font-bold text-sm uppercase text-gray-900 pt-2 font-sans">
+                  II. BẢNG PHÂN CÔNG LỰC LƯỢNG &amp; KHUNG GIỜ PHÂN LUỒNG TẠI CÁC TRƯỜNG ĐIỂM
+                </h4>
+                <div className="font-sans overflow-x-auto my-2 not-italic">
+                  <table className="w-full text-[11px] border-collapse border border-gray-400">
+                    <thead>
+                      <tr className="bg-amber-50 text-gray-800 font-bold text-center">
+                        <th className="border border-gray-400 p-1.5 text-left">Trường học / Địa điểm</th>
+                        <th className="border border-gray-400 p-1.5 text-left">Tuyến đường cổng trường</th>
+                        <th className="border border-gray-400 p-1.5 text-center">Khung giờ cao điểm</th>
+                        <th className="border border-gray-400 p-1.5 text-left">Lực lượng liên ngành trực tiếp</th>
+                        <th className="border border-gray-400 p-1.5 text-center">Chỉ huy chốt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {truongCongLapList.map((tr) => (
+                        <tr key={tr.id} className="hover:bg-amber-50/30">
+                          <td className="border border-gray-400 p-1.5 font-bold">{tr.tenTruong}</td>
+                          <td className="border border-gray-400 p-1.5">{tr.diaChi}</td>
+                          <td className="border border-gray-400 p-1.5 text-center font-mono font-semibold text-amber-900">
+                            {tr.gioCaoDiemPhanLuong || "06:45 - 07:15 & 16:45 - 17:30"}
+                          </td>
+                          <td className="border border-gray-400 p-1.5">
+                            {tr.lucLuongTrucATGT || "Công an phường + Dân quân tự vệ + Đoàn thanh niên"}
+                          </td>
+                          <td className="border border-gray-400 p-1.5 text-center font-semibold text-gray-700">
+                            Cảnh sát khu vực phụ trách
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <h4 className="font-bold text-sm uppercase text-gray-900 pt-2 font-sans">
+                  III. PHÂN CÔNG NHIỆM VỤ CỤ THỂ
+                </h4>
+                <div className="pl-4 space-y-1.5 font-sans text-gray-800">
+                  <div>
+                    <strong>1. Công an Phường Phú Cường:</strong> Chủ trì bố trí cán bộ, chiến sĩ Cảnh sát trật tự, Cảnh sát khu vực thường xuyên có mặt tại cổng các trường học đúng khung giờ quy định để hướng dẫn, phân luồng; kiên quyết xử lý nghiêm các trường hợp phụ huynh dừng, đỗ xe ô tô, mô tô dưới lòng đường gây cản trở giao thông; phối hợp Đội CSGT Công an Thành phố tuần tra kiểm soát xử lý học sinh điều khiển xe không đúng độ tuổi.
+                  </div>
+                  <div>
+                    <strong>2. Ban Chỉ huy Quân sự Phường (Lực lượng Dân quân):</strong> Huy động lực lượng Dân quân thường trực phối hợp Tổ bảo vệ dân phố các khu phố 1, 2, 3, 5 tham gia điều tiết tại các giao lộ xung quanh cổng trường; hướng dẫn phụ huynh đưa xe vào vị trí dừng đón quy định.
+                  </div>
+                  <div>
+                    <strong>3. Đoàn TNCS Hồ Chí Minh Phường:</strong> Triển khai đội hình tình nguyện viên &ldquo;Cổng trường em an toàn số&rdquo;, hỗ trợ hướng dẫn học sinh qua đường an toàn và tuyên truyền văn hóa giao thông qua bảng quét mã QR Thông điệp ATGT.
+                  </div>
+                  <div>
+                    <strong>4. Hiệu trưởng các trường Mầm non, Tiểu học, THCS:</strong> Mở rộng cổng trường tối đa trước giờ tan học 15 phút để phụ huynh vào sân trường đón học sinh; kẻ vạch sơn phân ô dừng đón xe mô tô trước vỉa hè; đưa nội dung chấp hành ATGT vào tiêu chí thi đua của các lớp học.
+                  </div>
+                </div>
+
+                <h4 className="font-bold text-sm uppercase text-gray-900 pt-2 font-sans">
+                  IV. TỔ CHỨC THỰC HIỆN
+                </h4>
+                <p>
+                  Kinh phí thực hiện trích từ nguồn ngân sách bảo đảm trật tự ATGT của địa phương năm 2026. Định kỳ hằng tháng, Trưởng Công an phường tổng hợp báo cáo tình hình kết quả thực hiện gửi về Thường trực UBND phường để chỉ đạo kịp thời./.
+                </p>
+              </div>
+
+              {/* Nơi nhận & Ký số */}
+              <div className="grid grid-cols-2 pt-6 border-t border-gray-300 font-sans mt-4">
+                <div className="text-[11px] text-gray-600 space-y-0.5">
+                  <div className="font-bold text-gray-800">Nơi nhận:</div>
+                  <div>- UBND TP. Thủ Dầu Một (b/c);</div>
+                  <div>- Công an TP. Thủ Dầu Một (để b/c);</div>
+                  <div>- Phòng GD&amp;ĐT TP (phối hợp);</div>
+                  <div>- Đảng ủy, HĐND phường;</div>
+                  <div>- Ban Chỉ huy Công an, Quân sự phường;</div>
+                  <div>- BGH các trường Mầm non, TH, THCS;</div>
+                  <div>- Lưu: VT, VHXH.</div>
+                </div>
+
+                <div className="text-center space-y-2">
+                  <div className="font-bold text-xs uppercase text-gray-900">CHỦ TỊCH</div>
+                  <div className="my-2 flex justify-center">
+                    <DigitalSignatureBadge
+                      nguoiKy="TS. Nguyễn Văn Hùng"
+                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      ngayKy="05/09/2026"
+                      maXacThuc="CA-KH45-ATGT-2026-PC"
+                    />
+                  </div>
+                  <div className="font-extrabold text-sm text-gray-900">TS. Nguyễn Văn Hùng</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between px-6 py-3 border-t bg-gray-50 rounded-b-lg no-print">
+              <span className="text-xs text-gray-500">Kế hoạch số 45/KH-UBND · Phối hợp liên ngành bảo đảm ATGT Cổng trường học</span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() =>
+                    exportDocAsWord(
+                      "Ke_hoach_ATGT_cong_truong_Chi_thi_31",
+                      "ke-hoach-atgt-content"
+                    )
+                  }
+                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="size-4" />
+                  Tải file Word (.doc)
+                </button>
+                <button
+                  onClick={() => window.print()}
+                  className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded shadow-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Printer className="size-4" />
+                  In Kế hoạch
+                </button>
+                <button
+                  onClick={() => setShowKeHoachAtgtModal(false)}
+                  className="px-4 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-semibold rounded cursor-pointer"
+                >
+                  Đóng
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
