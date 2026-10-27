@@ -45,6 +45,9 @@ import {
   type CoSoInternetBuuChinh,
   type ToCongNgheSoCongDong,
 } from "@/data/domain-mock";
+import { PhanAnh1022Section } from "@/components/thong-tin/PhanAnh1022Section";
+import { DtiCapXaSection } from "@/components/thong-tin/DtiCapXaSection";
+import { CongThongTinVaMangSection } from "@/components/thong-tin/CongThongTinVaMangSection";
 
 export const Route = createFileRoute("/thong-tin-truyen-thong")({
   head: () => ({
@@ -71,9 +74,13 @@ function ThongTinTruyenThongPage() {
     coDongList,
     coSoInternetList,
     toCNSList,
+    phanAnh1022List,
+    dtiCapXaList,
   } = useAppState();
 
-  const [activeTab, setActiveTab] = useState<"TRUYEN_THANH" | "THONG_TIN_DIEN_TU" | "CHUYEN_DOI_SO">("TRUYEN_THANH");
+  const [activeTab, setActiveTab] = useState<
+    "TRUYEN_THANH" | "THONG_TIN_DIEN_TU" | "CHUYEN_DOI_SO" | "PHAN_ANH_1022" | "DTI_CAP_XA" | "CONG_THONG_TIN_MANG"
+  >("TRUYEN_THANH");
   const [searchTerm, setSearchTerm] = useState("");
   const [filterKhuPho, setFilterKhuPho] = useState("ALL");
 
@@ -300,6 +307,51 @@ function ThongTinTruyenThongPage() {
         >
           <Smartphone className="size-4" />
           <span>3. Chuyển đổi số cộng đồng &amp; Tổ CNSCĐ</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("PHAN_ANH_1022")}
+          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors ${
+            activeTab === "PHAN_ANH_1022"
+              ? "border-cyan-600 text-cyan-800"
+              : "border-transparent text-gray-500 hover:text-gray-900"
+          }`}
+        >
+          <Smartphone className="size-4 text-cyan-600" />
+          <span>4. Phản ánh Hiện trường 1022/IOC (SLA 24h)</span>
+          <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-100 text-cyan-800">
+            {(phanAnh1022List || []).length}
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("DTI_CAP_XA")}
+          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors ${
+            activeTab === "DTI_CAP_XA"
+              ? "border-purple-600 text-purple-800"
+              : "border-transparent text-gray-500 hover:text-gray-900"
+          }`}
+        >
+          <Activity className="size-4 text-purple-600" />
+          <span>5. Bộ Chỉ số DTI Cấp Xã (QĐ 922)</span>
+          <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800">
+            Xuất sắc
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("CONG_THONG_TIN_MANG")}
+          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors ${
+            activeTab === "CONG_THONG_TIN_MANG"
+              ? "border-sky-600 text-sky-800"
+              : "border-transparent text-gray-500 hover:text-gray-900"
+          }`}
+        >
+          <Globe className="size-4 text-sky-600" />
+          <span>6. Cổng TTĐT, Zalo OA &amp; Không gian mạng (Lực lượng 35)</span>
+          <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800">
+            NĐ 42 &amp; CT 14
+          </span>
         </button>
       </div>
 
@@ -980,6 +1032,21 @@ function ThongTinTruyenThongPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* TAB 4: PHẢN ÁNH HIỆN TRƯỜNG 1022 / IOC */}
+      {activeTab === "PHAN_ANH_1022" && (
+        <PhanAnh1022Section />
+      )}
+
+      {/* TAB 5: BỘ CHỈ SỐ DTI CẤP XÃ (QĐ 922) */}
+      {activeTab === "DTI_CAP_XA" && (
+        <DtiCapXaSection />
+      )}
+
+      {/* TAB 6: CỔNG TTĐT, ZALO OA & KHÔNG GIAN MẠNG (NĐ 42 & CT 14) */}
+      {activeTab === "CONG_THONG_TIN_MANG" && (
+        <CongThongTinVaMangSection />
       )}
 
       {/* MODAL THÊM BẢN TIN PHÁT THANH */}

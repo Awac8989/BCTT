@@ -25,9 +25,16 @@ import {
   Radio,
   HeartHandshake,
   GraduationCap,
+  Landmark,
+  LayoutDashboard,
+  MessagesSquare,
+  Calendar,
+  Building2,
+  FileSignature,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { appStore, useAppState, hasDomainAccess, MOCK_USERS, type DomainCode } from "@/services/app-state";
+import { GovAiAssistantWidget } from "@/components/ai/GovAiAssistantWidget";
 
 interface NavItem {
   to: string;
@@ -39,6 +46,12 @@ interface NavItem {
 
 const PRIMARY_NAV: NavItem[] = [
   { to: "/", label: "Bảng điều khiển", icon: Home },
+  { to: "/dieu-hanh", label: "Điều hành & Giao việc", icon: LayoutDashboard, badge: "Sếp" },
+  { to: "/van-ban", label: "Văn bản & e-Office", icon: FileSignature, badge: "NĐ 30" },
+  { to: "/mot-cua", label: "Một cửa & DVCQG", icon: Building2, badge: "NĐ 61" },
+  { to: "/lich-tuan", label: "Lịch tuần & Tiếp dân", icon: Calendar },
+  { to: "/hop-truc-tuyen", label: "Họp số & Chat nội bộ", icon: MessagesSquare },
+  { to: "/van-hoa-xa-hoi", label: "Văn hóa & Thể thao", icon: Landmark, domain: "VH_TT_DL" },
   { to: "/thong-tin-truyen-thong", label: "Thông tin & CĐS", icon: Radio, domain: "TT_CDS" },
   { to: "/an-sinh-xa-hoi", label: "An sinh xã hội", icon: HeartHandshake, domain: "LDTBXH_AN_SINH" },
   { to: "/giao-duc-dao-tao", label: "Giáo dục & ĐT", icon: GraduationCap, domain: "GD_DT" },
@@ -69,6 +82,24 @@ export function AppShell({ children }: { children: ReactNode }) {
   // Breadcrumb chuẩn theo quy trình xử lý của Cán bộ
   const getBreadcrumbs = () => {
     if (pathname === "/") return ["Bảng điều khiển"];
+    if (pathname.startsWith("/dieu-hanh")) {
+      return ["Bảng điều khiển", "Trung tâm Điều hành Lãnh đạo", "Giám sát KPI & Check-in Sản phẩm"];
+    }
+    if (pathname.startsWith("/van-ban")) {
+      return ["Bảng điều khiển", "Văn phòng Điện tử (e-Office)", "Quản lý Văn bản Đến, Đi & Trục VDXP"];
+    }
+    if (pathname.startsWith("/mot-cua")) {
+      return ["Bảng điều khiển", "Cơ chế Một cửa Quốc gia", "Giải quyết TTHC & 4 Mẫu biểu chuẩn NĐ 61"];
+    }
+    if (pathname.startsWith("/lich-tuan")) {
+      return ["Bảng điều khiển", "Lịch công vụ", "Lịch tuần Lãnh đạo & Sổ Tiếp công dân định kỳ"];
+    }
+    if (pathname.startsWith("/hop-truc-tuyen")) {
+      return ["Bảng điều khiển", "Tác nghiệp số", "Trao đổi Nội bộ & Phòng họp trực tuyến"];
+    }
+    if (pathname.startsWith("/van-hoa-xa-hoi")) {
+      return ["Bảng điều khiển", "Văn hóa, Thể thao & Du lịch", "Nếp sống văn minh đô thị & Gia đình văn hóa"];
+    }
     if (pathname.startsWith("/thong-tin-truyen-thong")) {
       return ["Bảng điều khiển", "Thông tin, Truyền thông & CĐS", "Đài truyền thanh & Chuyển đổi số"];
     }
@@ -114,6 +145,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         return { label: "An sinh XH", cls: "bg-emerald-100 text-emerald-700 border border-emerald-200" };
       case "GD_DT":
         return { label: "Giáo dục & ĐT", cls: "bg-amber-100 text-amber-800 border border-amber-200" };
+      case "VH_TT_DL":
+        return { label: "Văn hóa & TT", cls: "bg-purple-100 text-purple-700 border border-purple-200" };
       default:
         return { label: d, cls: "bg-gray-100 text-gray-700" };
     }
@@ -515,6 +548,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           </footer>
         </main>
       </div>
+
+      {/* Trợ lý Ảo AI Công chức & Điều hành Toàn hệ thống */}
+      <GovAiAssistantWidget />
     </div>
   );
 }

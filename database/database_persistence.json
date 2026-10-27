@@ -1,0 +1,3113 @@
+{
+  "dm_phuong": [
+    {
+      "ward_id": 1,
+      "ward_name": "Phường Phú Cường",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 2,
+      "ward_name": "Phường Phú Hòa",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 3,
+      "ward_name": "Phường Hiệp Thành",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 4,
+      "ward_name": "Phường Định Hòa",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 5,
+      "ward_name": "Phường Phú Lợi",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 6,
+      "ward_name": "Phường Chánh Nghĩa",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 7,
+      "ward_name": "Phường Phú Thọ",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 8,
+      "ward_name": "Phường Phú Mỹ",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 9,
+      "ward_name": "Phường Hiệp An",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 10,
+      "ward_name": "Phường Tương Bình Hiệp",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 11,
+      "ward_name": "Phường Chánh Mỹ",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 12,
+      "ward_name": "Phường Tân An",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 13,
+      "ward_name": "Phường Thới Hòa",
+      "district_name": "TP. Thủ Dầu Một"
+    },
+    {
+      "ward_id": 14,
+      "ward_name": "Phường Hòa Phú",
+      "district_name": "TP. Thủ Dầu Một"
+    }
+  ],
+  "dm_loai_doi_tuong": [
+    {
+      "ma_loai_dt": "THUONG_BINH",
+      "ten_loai_dt": "Thương binh",
+      "nhom_uu_dai": "TRỢ CẤP HÀNG THÁNG",
+      "mo_ta": "Người bị thương trong chiến đấu hoặc làm nhiệm vụ quốc phòng an ninh"
+    },
+    {
+      "ma_loai_dt": "BENH_BINH",
+      "ten_loai_dt": "Bệnh binh",
+      "nhom_uu_dai": "TRỢ CẤP HÀNG THÁNG",
+      "mo_ta": "Quân nhân, CAND bị mắc bệnh khi làm nhiệm vụ"
+    },
+    {
+      "ma_loai_dt": "ME_VNAH",
+      "ten_loai_dt": "Bà mẹ Việt Nam Anh hùng",
+      "nhom_uu_dai": "TRỢ CẤP & PHỤ CẤP",
+      "mo_ta": "Bà mẹ có nhiều con hoặc con duy nhất là liệt sĩ"
+    },
+    {
+      "ma_loai_dt": "LIET_SI",
+      "ten_loai_dt": "Thân nhân Liệt sĩ",
+      "nhom_uu_dai": "TRỢ CẤP HÀNG THÁNG",
+      "mo_ta": "Cha mẹ, vợ/chồng, con liệt sĩ được hưởng định mức chuẩn"
+    },
+    {
+      "ma_loai_dt": "CHAT_DOC_HOA_HOC",
+      "ten_loai_dt": "Nhiễm chất độc hóa học",
+      "nhom_uu_dai": "TRỢ CẤP HÀNG THÁNG",
+      "mo_ta": "Người hoạt động kháng chiến bị nhiễm dioxin"
+    },
+    {
+      "ma_loai_dt": "TIEN_KHOI_NGHIA",
+      "ten_loai_dt": "Cán bộ tiền khởi nghĩa",
+      "nhom_uu_dai": "TRỢ CẤP ƯU ĐÃI",
+      "mo_ta": "Cán bộ tham gia cách mạng trước ngày 01/01/1945"
+    }
+  ],
+  "sys_roles": [
+    {
+      "role_id": 1,
+      "role_name": "ADMIN_SO",
+      "description": "Lãnh đạo Sở Lao động - Thương binh và Xã hội"
+    },
+    {
+      "role_id": 2,
+      "role_name": "ADMIN_PHONG",
+      "description": "Lãnh đạo Phòng LĐTBXH TP. Thủ Dầu Một"
+    },
+    {
+      "role_id": 3,
+      "role_name": "LANH_DAO_UBND",
+      "description": "Chủ tịch / Phó Chủ tịch UBND Phường"
+    },
+    {
+      "role_id": 4,
+      "role_name": "CAN_BO_CHUYEN_TRACH",
+      "description": "Công chức Văn hóa - Xã hội"
+    }
+  ],
+  "sys_users": [
+    {
+      "email": "admin.so@binhduong.gov.vn",
+      "role": "ADMIN_SO",
+      "tenCanBo": "TS. Nguyễn Văn Hùng",
+      "chucVu": "Phó Giám đốc Sở LĐTBXH tỉnh Bình Dương",
+      "donVi": "Sở Lao động - Thương binh và Xã hội tỉnh Bình Dương",
+      "phamVi": "Toàn tỉnh Bình Dương (9 huyện/thị/thành phố)",
+      "password_hash": "$2b$10$Ep99kFq7K32U8Dk75hV1..VlO6W7q2V4N8YtYx.7s/i58QpQ6X0/K",
+      "is_active": true
+    },
+    {
+      "email": "admin.phong@thudaumot.binhduong.gov.vn",
+      "role": "ADMIN_PHONG",
+      "tenCanBo": "Nguyễn Thị Minh Thảo",
+      "chucVu": "Chuyên viên Một cửa & CSXH",
+      "donVi": "Phòng LĐTBXH TP. Thủ Dầu Một",
+      "phamVi": "Địa bàn 14 phường thuộc TP. Thủ Dầu Một",
+      "password_hash": "$2b$10$Ep99kFq7K32U8Dk75hV1..VlO6W7q2V4N8YtYx.7s/i58QpQ6X0/K",
+      "is_active": true
+    },
+    {
+      "email": "canbo.giaoduc@phucuong.binhduong.gov.vn",
+      "role": "CB_GIAO_DUC",
+      "tenCanBo": "ThS. Trần Thị Kim Oanh",
+      "chucVu": "Công chức Văn hóa - Xã hội phụ trách Giáo dục",
+      "donVi": "UBND Phường Phú Cường",
+      "phamVi": "Phường Phú Cường, TP. Thủ Dầu Một",
+      "password_hash": "$2b$10$Ep99kFq7K32U8Dk75hV1..VlO6W7q2V4N8YtYx.7s/i58QpQ6X0/K",
+      "is_active": true
+    }
+  ],
+  "ho_so_ncc": [
+    {
+      "id": "12029",
+      "soHoSoTinh": "04878",
+      "soHoSoBo": "BD/LS-07956",
+      "hoTen": "Hồ Văn Lên",
+      "cccd": "074026001202",
+      "ngaySinh": "1926",
+      "namSinh": 1926,
+      "sinhNgayChiTiet": {
+        "ngay": "",
+        "thang": "",
+        "nam": "1926"
+      },
+      "gioiTinh": "Nam",
+      "huyen": "Thủ Dầu Một",
+      "phuong": "Chánh Nghĩa",
+      "khuPho": "Khu phố 2",
+      "diaChiTiepNhan": "Chánh Nghĩa - Thủ Dầu Một",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420120291",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "10/05/2018",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công",
+        "Giấy báo tử",
+        "Trích lục hồ sơ liệt sĩ"
+      ],
+      "queQuan": "Xã Chánh Hiệp, Châu Thành, Thị xã Thủ Dầu Một, tỉnh Sông Bé",
+      "truQuan": "Chánh Nghĩa, Thủ Dầu Một",
+      "ngayNhapNguChiTiet": {
+        "ngay": "",
+        "thang": "08",
+        "nam": "1945"
+      },
+      "capBac": "",
+      "chucVu": "Ủy viên Ban tuyên huấn tỉnh",
+      "coQuanDonViKhiHySinh": "Ban Tuyên giáo tỉnh Sông Bé",
+      "hySinhNgayChiTiet": {
+        "ngay": "",
+        "thang": "07",
+        "nam": "1949"
+      },
+      "thoiKy": "Kháng Pháp (từ 19/08/1945 - 20/07/1954)",
+      "truongHopHySinh": "Trên đường đi công tác về đơn vị bị địch càn quét bắn đồng chí hy sinh",
+      "noiHySinh": "An Mỹ, Châu Thành",
+      "noiMaiTang": "An Mỹ, Châu Thành",
+      "giayBaoTu": "239/07",
+      "baoTuNgayChiTiet": {
+        "ngay": "13",
+        "thang": "06",
+        "nam": "1977"
+      },
+      "donViCapGiayBaoTu": "Ban Tuyên giáo tỉnh Sông Bé",
+      "soBangToQuocGhiCong": "GC887K",
+      "qdCapBangSo": "1312TTga",
+      "qdCapBangNgayChiTiet": {
+        "ngay": "26",
+        "thang": "10",
+        "nam": "1977"
+      },
+      "thuocDoiTuong": "Dân Chính",
+      "viTriLuuHoSo": "Kho lưu trữ Sở LĐTBXH Bình Dương - Kệ A3, Hộp 12",
+      "isAnhHung": false,
+      "thanNhanLietSi": [
+        {
+          "hoTen": "Hồ Thị Mai",
+          "quanHe": "Con đẻ",
+          "namSinh": 1948,
+          "diaChi": "Phường Chánh Nghĩa, TP. Thủ Dầu Một",
+          "cheDoHuong": "Người thờ cúng liệt sĩ",
+          "soTien": 1400000
+        }
+      ]
+    },
+    {
+      "id": "BD-16720-1",
+      "soHoSoTinh": "BD/16720-1",
+      "soHoSoBo": "BD/LS-09812",
+      "hoTen": "Phạm Ngọc Dưỡng",
+      "cccd": "074045001923",
+      "ngaySinh": "15/03/1945",
+      "namSinh": 1945,
+      "gioiTinh": "Nam",
+      "huyen": "TP. Dĩ An",
+      "phuong": "Bình An",
+      "khuPho": "Khu phố Nội Hóa 1",
+      "diaChiTiepNhan": "Bình An - Dĩ An",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420185921",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "12/04/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công",
+        "Giấy chứng nhận gia đình liệt sĩ"
+      ]
+    },
+    {
+      "id": "BD-16718-1",
+      "soHoSoTinh": "BD/16718-1",
+      "hoTen": "Nguyễn Văn Hạn",
+      "cccd": "074048002841",
+      "ngaySinh": "08/11/1948",
+      "namSinh": 1948,
+      "gioiTinh": "Nam",
+      "huyen": "Bắc Tân Uyên",
+      "phuong": "Bình Mỹ",
+      "khuPho": "Ấp Bình Cơ",
+      "diaChiTiepNhan": "Bình Mỹ - Bắc Tân Uyên",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420199120",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "18/06/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "BD-16723-1",
+      "soHoSoTinh": "BD/16723-1",
+      "hoTen": "Nguyễn Văn Lý",
+      "cccd": "074052003344",
+      "ngaySinh": "20/05/1952",
+      "namSinh": 1952,
+      "gioiTinh": "Nam",
+      "huyen": "TP. Dĩ An",
+      "phuong": "Dĩ An",
+      "khuPho": "Khu phố Thống Nhất 1",
+      "diaChiTiepNhan": "Dĩ An - Dĩ An",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420211550",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "05/05/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "BD-16715-1",
+      "soHoSoTinh": "BD/16715-1",
+      "hoTen": "Lê Văn Xiêm",
+      "cccd": "074050004455",
+      "ngaySinh": "10/10/1950",
+      "namSinh": 1950,
+      "gioiTinh": "Nam",
+      "huyen": "Phú Giáo",
+      "phuong": "Tam Lập",
+      "khuPho": "Ấp Gia Biện",
+      "diaChiTiepNhan": "Tam Lập - Phú Giáo",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420177890",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "19/04/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "BD-16717-1",
+      "soHoSoTinh": "BD/16717-1",
+      "hoTen": "Nguyễn Văn Quýnh",
+      "cccd": "074047005566",
+      "ngaySinh": "02/09/1947",
+      "namSinh": 1947,
+      "gioiTinh": "Nam",
+      "huyen": "Phú Giáo",
+      "phuong": "Vĩnh Hòa",
+      "khuPho": "Ấp Vĩnh Tiến",
+      "diaChiTiepNhan": "Vĩnh Hòa - Phú Giáo",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420166540",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "15/04/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "BD-16711-1",
+      "soHoSoTinh": "BD/16711-1",
+      "hoTen": "Nguyễn Đình Việt",
+      "cccd": "074053006677",
+      "ngaySinh": "14/01/1953",
+      "namSinh": 1953,
+      "gioiTinh": "Nam",
+      "huyen": "Bến Cát",
+      "phuong": "Tân Định",
+      "khuPho": "Khu phố 1",
+      "diaChiTiepNhan": "Tân Định - Bến Cát",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420155430",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "09/04/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "BD-18719-1",
+      "soHoSoTinh": "BD/18719-1",
+      "hoTen": "Đỗ Xuân Mai",
+      "cccd": "074049007788",
+      "ngaySinh": "25/12/1949",
+      "namSinh": 1949,
+      "gioiTinh": "Nam",
+      "huyen": "TP. Thuận An",
+      "phuong": "Vĩnh Phú",
+      "khuPho": "Khu phố Đông",
+      "diaChiTiepNhan": "Vĩnh Phú - Thuận An",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420144320",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "22/06/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "BD-16716-1",
+      "soHoSoTinh": "BD/16716-1",
+      "hoTen": "Đinh Ngọc Tảo",
+      "cccd": "074046008899",
+      "ngaySinh": "04/07/1946",
+      "namSinh": 1946,
+      "gioiTinh": "Nam",
+      "huyen": "TP. Dĩ An",
+      "phuong": "Dĩ An",
+      "khuPho": "Khu phố Nhị Đồng 2",
+      "diaChiTiepNhan": "Dĩ An - Dĩ An",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420133210",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "16/04/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "BD-16713-1",
+      "soHoSoTinh": "BD/16713-1",
+      "hoTen": "Vũ Đình Nho",
+      "cccd": "074051009911",
+      "ngaySinh": "19/08/1951",
+      "namSinh": 1951,
+      "gioiTinh": "Nam",
+      "huyen": "Phú Giáo",
+      "phuong": "Tân Hiệp",
+      "khuPho": "Ấp 1",
+      "diaChiTiepNhan": "Tân Hiệp - Phú Giáo",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420122100",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "12/04/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "BD-16726-1",
+      "soHoSoTinh": "BD/16726-1",
+      "hoTen": "Nguyễn Văn An",
+      "cccd": "074054001122",
+      "ngaySinh": "30/03/1954",
+      "namSinh": 1954,
+      "gioiTinh": "Nam",
+      "huyen": "Bến Cát",
+      "phuong": "An Tây",
+      "khuPho": "Ấp Lộ 7A",
+      "diaChiTiepNhan": "An Tây - Bến Cát",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "HT2747420111000",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "04/05/2021",
+      "hanXuLy": "Hoàn thành",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "admin",
+      "canBoQuanLy": "admin",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Tổ quốc ghi công"
+      ]
+    },
+    {
+      "id": "TDM-NCC-2026-00412",
+      "soHoSoTinh": "BD/20260-1",
+      "hoTen": "TRẦN VĂN SÁU",
+      "cccd": "074056001234",
+      "ngaySinh": "12/04/1949",
+      "namSinh": 1949,
+      "gioiTinh": "Nam",
+      "huyen": "TP. Thủ Dầu Một",
+      "phuong": "Phú Cường",
+      "khuPho": "Khu phố 3",
+      "diaChiTiepNhan": "Phú Cường - TP. Thủ Dầu Một",
+      "loaiDoiTuong": "Thương binh",
+      "banSaoBanGoc": "Bản gốc",
+      "soBhyt": "CN3747420185921",
+      "danToc": "Kinh",
+      "tyLeTonThuong": 61,
+      "trangThai": "CHỜ_PHÊ_DUYỆT",
+      "ngayTiepNhan": "20/08/2026",
+      "hanXuLy": "10/09/2026",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "Nguyễn Văn An",
+      "canBoQuanLy": "Nguyễn Văn An",
+      "mucTroCap": 3082500,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Biên bản giám định 61%",
+        "Giấy ra viện",
+        "Quyết định phục viên"
+      ]
+    },
+    {
+      "id": "TDM-NCC-2026-00396",
+      "hoTen": "LÊ THỊ TÁM",
+      "cccd": "074156004521",
+      "ngaySinh": "03/11/1938",
+      "gioiTinh": "Nữ",
+      "phuong": "Tân An",
+      "khuPho": "Ấp 2",
+      "loaiDoiTuong": "Mẹ VNAH",
+      "tyLeTonThuong": 0,
+      "trangThai": "ĐÃ_DUYỆT",
+      "ngayTiepNhan": "02/08/2026",
+      "hanXuLy": "25/08/2026",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "Phạm Thị Lệ",
+      "mucTroCap": 4110000,
+      "phuCapPhucVu": 2055000,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Bằng Mẹ VNAH",
+        "Giấy chứng nhận thân nhân liệt sĩ"
+      ]
+    },
+    {
+      "id": "HS-2026-0089",
+      "hoTen": "NGUYỄN VĂN CHÍN",
+      "cccd": "074056007788",
+      "ngaySinh": "28/02/1953",
+      "gioiTinh": "Nam",
+      "phuong": "Phú Cường",
+      "khuPho": "Khu phố 1",
+      "loaiDoiTuong": "Bệnh binh",
+      "tyLeTonThuong": 45,
+      "trangThai": "ĐANG_THẨM_ĐỊNH",
+      "ngayTiepNhan": "10/08/2026",
+      "hanXuLy": "02/09/2026",
+      "quaHanNgay": 2,
+      "canBoTiepNhan": "Trần Quốc Bảo",
+      "mucTroCap": 2260500,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 0,
+      "taiLieu": [
+        "Biên bản giám định 45%",
+        "Giấy ra viện"
+      ]
+    },
+    {
+      "id": "HS-2026-0112",
+      "hoTen": "PHẠM THỊ MƯỜI",
+      "cccd": "074156009900",
+      "ngaySinh": "17/07/1961",
+      "gioiTinh": "Nữ",
+      "phuong": "Định Hòa",
+      "khuPho": "Khu phố 5",
+      "loaiDoiTuong": "Thân nhân liệt sĩ",
+      "tyLeTonThuong": 0,
+      "trangThai": "CHỜ_PHÊ_DUYỆT",
+      "ngayTiepNhan": "12/08/2026",
+      "hanXuLy": "03/09/2026",
+      "quaHanNgay": 1,
+      "canBoTiepNhan": "Lý Thu Vân",
+      "mucTroCap": 2055000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Giấy chứng nhận thân nhân liệt sĩ"
+      ]
+    },
+    {
+      "id": "HS-2026-0147",
+      "hoTen": "VÕ VĂN BỐN",
+      "cccd": "074056003311",
+      "ngaySinh": "09/09/1957",
+      "gioiTinh": "Nam",
+      "phuong": "Hiệp Thành",
+      "khuPho": "Khu phố 2",
+      "loaiDoiTuong": "Nhiễm chất độc hóa học",
+      "tyLeTonThuong": 81,
+      "trangThai": "YÊU_CẦU_BỔ_SUNG",
+      "ngayTiepNhan": "05/08/2026",
+      "hanXuLy": "28/08/2026",
+      "quaHanNgay": 4,
+      "canBoTiepNhan": "Nguyễn Văn An",
+      "mucTroCap": 4069000,
+      "phuCapPhucVu": 2055000,
+      "troCapDieuDuong": 1027500,
+      "taiLieu": [
+        "Biên bản giám định 81%"
+      ],
+      "ghiChuThamDinh": "Thiếu bản sao công chứng quyết định phục viên, đề nghị bổ sung trong 10 ngày."
+    },
+    {
+      "id": "HS-2026-0151",
+      "hoTen": "HUỲNH VĂN HAI",
+      "cccd": "074056005566",
+      "ngaySinh": "22/01/1966",
+      "gioiTinh": "Nam",
+      "phuong": "Phú Hòa",
+      "khuPho": "Khu phố 4",
+      "loaiDoiTuong": "Thương binh",
+      "tyLeTonThuong": 25,
+      "trangThai": "MỚI_TIẾP_NHẬN",
+      "ngayTiepNhan": "01/09/2026",
+      "hanXuLy": "22/09/2026",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "Phạm Thị Lệ",
+      "mucTroCap": 1233000,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 0,
+      "taiLieu": [
+        "Biên bản giám định 25%",
+        "Huân chương Chiến sĩ vẻ vang"
+      ]
+    },
+    {
+      "id": "HS-2026-0158",
+      "hoTen": "TRƯƠNG THỊ BA",
+      "cccd": "074156002244",
+      "ngaySinh": "14/06/1944",
+      "gioiTinh": "Nữ",
+      "phuong": "Chánh Nghĩa",
+      "khuPho": "Khu phố 1",
+      "loaiDoiTuong": "Cán bộ tiền khởi nghĩa",
+      "tyLeTonThuong": 0,
+      "trangThai": "TỪ_CHỐI",
+      "ngayTiepNhan": "18/07/2026",
+      "hanXuLy": "08/08/2026",
+      "quaHanNgay": 0,
+      "canBoTiepNhan": "Trần Quốc Bảo",
+      "mucTroCap": 0,
+      "phuCapPhucVu": 0,
+      "troCapDieuDuong": 0,
+      "taiLieu": [
+        "Đơn đề nghị"
+      ],
+      "ghiChuThamDinh": "Không đủ căn cứ pháp lý xác nhận thời gian hoạt động trước 01/01/1945."
+    }
+  ],
+  "ho_so_liet_sy": [
+    {
+      "liet_sy_id": 1,
+      "ho_so_id": 12029,
+      "so_ho_so_bo": "BD/LS-07956",
+      "ngay_hy_sinh": "Tháng 07 Năm 1949",
+      "thoi_ky": "Chống Pháp (từ 19/08/1945 - 20/07/1954)",
+      "noi_mai_tang": "An Mỹ, Châu Thành",
+      "so_bang_to_quoc_ghi_cong": "GC887K"
+    }
+  ],
+  "than_nhan_liet_si": [
+    {
+      "than_nhan_id": 1,
+      "ho_ten": "Hồ Thị Mai",
+      "quan_he": "Con gái",
+      "nam_sinh": 1948,
+      "is_nguoi_tho_cung": true,
+      "che_do_huong": "Trợ cấp thờ cúng liệt sĩ 1.400.000đ/năm"
+    }
+  ],
+  "ke_hoach_dieu_duong": [
+    {
+      "ke_hoach_id": 1,
+      "nam_ke_hoach": 2026,
+      "ten_ke_hoach": "Kế hoạch điều dưỡng phục hồi sức khỏe NCC năm 2026",
+      "chi_tieu_tong": 1250,
+      "dinh_muc_tap_trung": 3699000,
+      "dinh_muc_tai_nha": 1849500
+    }
+  ],
+  "lich_su_chi_tra": [
+    {
+      "id": "CT-2026-03-01",
+      "hoSoId": 101,
+      "kyChiTra": "Tháng 03/2026",
+      "soTien": 5410000,
+      "phuongThuc": "NGAN_HANG",
+      "trangThai": "DA_CHI_TRA",
+      "ngayChiTra": "2026-03-05 09:30:00"
+    }
+  ],
+  "ho_so_bao_giam_mai_tang": [
+    {
+      "id": "BG-2026-001",
+      "hoSoId": "BD-16701-1",
+      "soHoSoTinh": "BD/16701-1",
+      "hoTen": "Lê Thị Mai",
+      "cccd": "074030008899",
+      "loaiDoiTuong": "Mẹ VNAH",
+      "phuong": "Định Hòa",
+      "huyen": "TP. Thủ Dầu Một",
+      "ngayTuTran": "28/08/2026",
+      "noiTuTran": "Tại nhà riêng, Phường Định Hòa",
+      "soTrichLucKhaiTu": "TLKT-2026/ĐH-18",
+      "ngayCapKhaiTu": "29/08/2026",
+      "noiCapKhaiTu": "UBND Phường Định Hòa",
+      "nguoiKhaiBao": "Nguyễn Văn Quang",
+      "quanHeVoiNguoiMat": "Con trai",
+      "soCccdNguoiKhai": "074060001234",
+      "soDienThoaiNguoiKhai": "0918.456.789",
+      "diaChiNguoiKhai": "Khu phố 4, Phường Định Hòa, TP. Thủ Dầu Một",
+      "soQuyetDinhMaiTang": "QĐ-UBND/2026-MTP-088",
+      "ngayQuyetDinh": "02/09/2026",
+      "soTienMaiTangPhi": 20550000,
+      "troCapMotLan": 6165000,
+      "trangThai": "ĐÃ_BAN_HÀNH_QĐ",
+      "daNgungChiTraHangThang": true,
+      "canBoThuLy": "Nguyễn Thị Minh Thảo"
+    }
+  ],
+  "danh_sach_phuong_tien_chinh_hinh": [
+    {
+      "id": "DC-2026-001",
+      "hoSoId": "BD-16705-1",
+      "soHoSoTinh": "BD/16705-1",
+      "hoTen": "Nguyễn Văn Thành",
+      "cccd": "074052007788",
+      "loaiDoiTuong": "Thương binh",
+      "phuong": "Phú Cường",
+      "huyen": "TP. Thủ Dầu Một",
+      "tenDungCu": "Chân giả dưới gối (loại tiêu chuẩn)",
+      "loaiDungCu": "CHÂN_GIẢ",
+      "nienHanNam": 3,
+      "namCapGanNhat": 2023,
+      "namDenHanCapMoi": 2026,
+      "dinhMucTien": 6500000,
+      "tienBoiDuongPhucHoi": 1200000,
+      "trangThai": "ĐẾN_HẠN_CẤP_MỚI",
+      "ngayCapMoi": "15/04/2023",
+      "soQuyetDinhCap": "QĐ-SLĐTBXH/2023-145",
+      "canBoTheoDoi": "Nguyễn Thị Minh Thảo"
+    },
+    {
+      "id": "DC-2026-002",
+      "hoSoId": "BD-16706-1",
+      "soHoSoTinh": "BD/16706-1",
+      "hoTen": "Trần Minh Châu",
+      "cccd": "074050008811",
+      "loaiDoiTuong": "Thương binh",
+      "phuong": "Phú Hòa",
+      "huyen": "TP. Thủ Dầu Một",
+      "tenDungCu": "Xe lăn tay tiêu chuẩn có phanh",
+      "loaiDungCu": "XE_LĂN",
+      "nienHanNam": 5,
+      "namCapGanNhat": 2021,
+      "namDenHanCapMoi": 2026,
+      "dinhMucTien": 4800000,
+      "tienBoiDuongPhucHoi": 800000,
+      "trangThai": "ĐẾN_HẠN_CẤP_MỚI",
+      "ngayCapMoi": "20/06/2021",
+      "soQuyetDinhCap": "QĐ-SLĐTBXH/2021-089",
+      "canBoTheoDoi": "Nguyễn Thị Minh Thảo"
+    },
+    {
+      "id": "DC-2026-003",
+      "hoSoId": "BD-16712-1",
+      "soHoSoTinh": "BD/16712-1",
+      "hoTen": "Đỗ Văn Lượng",
+      "cccd": "074044009922",
+      "loaiDoiTuong": "Bệnh binh",
+      "phuong": "Hiệp Thành",
+      "huyen": "TP. Thủ Dầu Một",
+      "tenDungCu": "Máy trợ thính kỹ thuật số đeo vành tai",
+      "loaiDungCu": "MÁY_TRỢ_THÍNH",
+      "nienHanNam": 3,
+      "namCapGanNhat": 2024,
+      "namDenHanCapMoi": 2027,
+      "dinhMucTien": 5200000,
+      "tienBoiDuongPhucHoi": 600000,
+      "trangThai": "ĐÃ_CẤP",
+      "ngayCapMoi": "10/03/2024",
+      "soQuyetDinhCap": "QĐ-SLĐTBXH/2024-054",
+      "canBoTheoDoi": "Trần Quốc Bảo"
+    },
+    {
+      "id": "DC-2026-004",
+      "hoSoId": "BD-16718-1",
+      "soHoSoTinh": "BD/16718-1",
+      "hoTen": "Nguyễn Văn Hạn",
+      "cccd": "074048002841",
+      "loaiDoiTuong": "Thương binh",
+      "phuong": "Bình Mỹ",
+      "huyen": "Bắc Tân Uyên",
+      "tenDungCu": "Tay giả thẩm mỹ chức năng đơn giản",
+      "loaiDungCu": "TAY_GIẢ",
+      "nienHanNam": 3,
+      "namCapGanNhat": 2023,
+      "namDenHanCapMoi": 2026,
+      "dinhMucTien": 7800000,
+      "tienBoiDuongPhucHoi": 1500000,
+      "trangThai": "CHỜ_DUYỆT_CẤP",
+      "canBoTheoDoi": "Hứa Trọng Duy"
+    },
+    {
+      "id": "DC-2026-005",
+      "hoSoId": "BD-16708-1",
+      "soHoSoTinh": "BD/16708-1",
+      "hoTen": "Phan Văn Đức",
+      "cccd": "074042001133",
+      "loaiDoiTuong": "Thương binh",
+      "phuong": "Tân An",
+      "huyen": "TP. Thủ Dầu Một",
+      "tenDungCu": "Xe lắc 3 bánh cho người khuyết tật vận động",
+      "loaiDungCu": "XE_LẮC",
+      "nienHanNam": 5,
+      "namCapGanNhat": 2025,
+      "namDenHanCapMoi": 2030,
+      "dinhMucTien": 6200000,
+      "tienBoiDuongPhucHoi": 900000,
+      "trangThai": "ĐÃ_CẤP",
+      "ngayCapMoi": "18/07/2025",
+      "soQuyetDinhCap": "QĐ-SLĐTBXH/2025-210",
+      "canBoTheoDoi": "Nguyễn Thị Minh Thảo"
+    }
+  ],
+  "nghia_trang_mo_liet_si": [
+    {
+      "id": "MO-A1-001",
+      "soMo": "A1-01",
+      "khu": "Khu A",
+      "hang": 1,
+      "soThuTu": 1,
+      "hoTen": "Hồ Văn Lên",
+      "biDanh": "Bảy Lên",
+      "namSinh": "1926",
+      "ngayHySinh": "07/1949",
+      "queQuan": "Xã Chánh Hiệp, Châu Thành, Thủ Dầu Một",
+      "truQuan": "Chánh Nghĩa, Thủ Dầu Một",
+      "chucVu": "Ủy viên Ban tuyên huấn tỉnh",
+      "coQuanKhiHySinh": "Ban Tuyên giáo tỉnh Sông Bé",
+      "tinhTrangMo": "ĐÃ_XÁC_ĐỊNH",
+      "tinhTrangBia": "TỐT",
+      "luotThapHuong": 142,
+      "toaDoX": 120,
+      "toaDoY": 80
+    },
+    {
+      "id": "MO-A1-002",
+      "soMo": "A1-02",
+      "khu": "Khu A",
+      "hang": 1,
+      "soThuTu": 2,
+      "hoTen": "Nguyễn Văn Tiết",
+      "biDanh": "Hai Tiết",
+      "namSinh": "1922",
+      "ngayHySinh": "1948",
+      "queQuan": "Lái Thiêu, Thuận An, Bình Dương",
+      "chucVu": "Chủ tịch Ủy ban Kháng chiến Hành chính tỉnh Thủ Dầu Một",
+      "tinhTrangMo": "ĐÃ_XÁC_ĐỊNH",
+      "tinhTrangBia": "TỐT",
+      "luotThapHuong": 389,
+      "toaDoX": 180,
+      "toaDoY": 80
+    },
+    {
+      "id": "MO-A1-003",
+      "soMo": "A1-03",
+      "khu": "Khu A",
+      "hang": 1,
+      "soThuTu": 3,
+      "hoTen": "Trần Văn Ơn",
+      "namSinh": "1931",
+      "ngayHySinh": "09/01/1950",
+      "queQuan": "Châu Thành, Bến Tre",
+      "chucVu": "Học sinh yêu nước, Liệt sĩ thời kỳ kháng Pháp",
+      "tinhTrangMo": "ĐÃ_XÁC_ĐỊNH",
+      "tinhTrangBia": "TỐT",
+      "luotThapHuong": 520,
+      "toaDoX": 240,
+      "toaDoY": 80
+    },
+    {
+      "id": "MO-B2-014",
+      "soMo": "B2-14",
+      "khu": "Khu B",
+      "hang": 2,
+      "soThuTu": 14,
+      "hoTen": "Liệt sĩ chưa xác định danh tính số 14",
+      "namSinh": "Không rõ",
+      "ngayHySinh": "1968",
+      "queQuan": "Quy tập tại Chiến khu Đ, Bình Dương",
+      "tinhTrangMo": "CHƯA_XÁC_ĐỊNH_DANH_TÍNH",
+      "tinhTrangBia": "TỐT",
+      "luotThapHuong": 215,
+      "toaDoX": 380,
+      "toaDoY": 140
+    },
+    {
+      "id": "MO-B2-015",
+      "soMo": "B2-15",
+      "khu": "Khu B",
+      "hang": 2,
+      "soThuTu": 15,
+      "hoTen": "Lê Văn Tám",
+      "namSinh": "1947",
+      "ngayHySinh": "1972",
+      "queQuan": "Tân Uyên, Bình Dương",
+      "chucVu": "Chiến sĩ Đại đội 1, Tiểu đoàn Phú Lợi",
+      "tinhTrangMo": "ĐÃ_XÁC_ĐỊNH",
+      "tinhTrangBia": "CẦN_TRÙNG_TU",
+      "luotThapHuong": 88,
+      "toaDoX": 440,
+      "toaDoY": 140
+    },
+    {
+      "id": "MO-C3-008",
+      "soMo": "C3-08",
+      "khu": "Khu C",
+      "hang": 3,
+      "soThuTu": 8,
+      "hoTen": "Đoàn Thị Liên",
+      "biDanh": "Chị Sáu Liên",
+      "namSinh": "1944",
+      "ngayHySinh": "1966",
+      "queQuan": "Chánh Phú Hòa, Bến Cát, Bình Dương",
+      "chucVu": "Anh hùng Lực lượng vũ trang nhân dân",
+      "tinhTrangMo": "ĐÃ_XÁC_ĐỊNH",
+      "tinhTrangBia": "TỐT",
+      "luotThapHuong": 610,
+      "toaDoX": 200,
+      "toaDoY": 220
+    },
+    {
+      "id": "MO-C3-009",
+      "soMo": "C3-09",
+      "khu": "Khu C",
+      "hang": 3,
+      "soThuTu": 9,
+      "hoTen": "Liệt sĩ chưa xác định danh tính số 89",
+      "namSinh": "Không rõ",
+      "ngayHySinh": "1975",
+      "queQuan": "Mặt trận Dầu Tiếng, Bình Dương",
+      "tinhTrangMo": "CHƯA_XÁC_ĐỊNH_DANH_TÍNH",
+      "tinhTrangBia": "TỐT",
+      "luotThapHuong": 174,
+      "toaDoX": 260,
+      "toaDoY": 220
+    },
+    {
+      "id": "MO-D4-021",
+      "soMo": "D4-21",
+      "khu": "Khu D",
+      "hang": 4,
+      "soThuTu": 21,
+      "hoTen": "Phạm Văn Cội",
+      "namSinh": "1939",
+      "ngayHySinh": "1967",
+      "queQuan": "Củ Chi (An táng tại NTLS Bình Dương)",
+      "tinhTrangMo": "ĐÃ_CẤT_BỐC",
+      "tinhTrangBia": "TỐT",
+      "luotThapHuong": 45,
+      "toaDoX": 350,
+      "toaDoY": 300
+    }
+  ],
+  "khao_sat_danh_gia": [
+    {
+      "id": "KS-2026-0415",
+      "hoSoId": "BD/LS-07956",
+      "nguoiDanhGia": "Nguyễn Văn Hùng (Thân nhân)",
+      "phuong": "Chánh Nghĩa",
+      "canBo": "Nguyễn Văn An",
+      "kenh": "QR_PHIEU_HEN",
+      "diemCsat": 5,
+      "yKien": "Cán bộ An giải thích cặn kẽ về hồ sơ tuất liệt sĩ, thái độ rất ân cần và kính trọng người có công.",
+      "sentiment": "POSITIVE",
+      "ngay": "05/09/2026",
+      "daXuLy": true,
+      "tieuChi": {
+        "thaiDo": 5,
+        "thoiGian": 5,
+        "minhBach": 5,
+        "haTang": 5
+      }
+    },
+    {
+      "id": "KS-2026-0412",
+      "hoSoId": "TDM-NCC-2026-00412",
+      "nguoiDanhGia": "Trần Thị Bảy",
+      "phuong": "Phú Cường",
+      "canBo": "Nguyễn Văn An",
+      "kenh": "QR_PHIEU_HEN",
+      "diemCsat": 5,
+      "yKien": "Cán bộ hướng dẫn rất tận tình, giải thích rõ ràng từng loại giấy tờ.",
+      "sentiment": "POSITIVE",
+      "ngay": "04/09/2026",
+      "daXuLy": true,
+      "tieuChi": {
+        "thaiDo": 5,
+        "thoiGian": 5,
+        "minhBach": 5,
+        "haTang": 5
+      }
+    },
+    {
+      "id": "KS-2026-0409",
+      "hoSoId": "TDM-NCC-2026-00396",
+      "nguoiDanhGia": "Lê Văn Hùng",
+      "phuong": "Tân An",
+      "canBo": "Phạm Thị Lệ",
+      "kenh": "KIOSK",
+      "diemCsat": 2,
+      "yKien": "Phải chờ lâu hơn 1 giờ, cán bộ yêu cầu bổ sung giấy tờ chưa giải thích rõ lý do.",
+      "sentiment": "NEGATIVE",
+      "ngay": "03/09/2026",
+      "daXuLy": false,
+      "tieuChi": {
+        "thaiDo": 3,
+        "thoiGian": 2,
+        "minhBach": 2,
+        "haTang": 4
+      }
+    },
+    {
+      "id": "KS-2026-0407",
+      "hoSoId": "BD/TB-01202",
+      "nguoiDanhGia": "Phan Văn Đức",
+      "phuong": "Chánh Nghĩa",
+      "canBo": "Phạm Thị Lệ",
+      "kenh": "QR_PHIEU_HEN",
+      "diemCsat": 5,
+      "yKien": "Cán bộ Lệ thụ lý hồ sơ bảo hiểm y tế rất nhanh, thái độ lễ phép và hòa nhã.",
+      "sentiment": "POSITIVE",
+      "ngay": "03/09/2026",
+      "daXuLy": true,
+      "tieuChi": {
+        "thaiDo": 5,
+        "thoiGian": 5,
+        "minhBach": 5,
+        "haTang": 4
+      }
+    },
+    {
+      "id": "KS-2026-0405",
+      "hoSoId": "TDM-NCC-2026-00381",
+      "nguoiDanhGia": "Nguyễn Thị Kim",
+      "phuong": "Định Hòa",
+      "canBo": "Trần Quốc Bảo",
+      "kenh": "SMS_ZALO",
+      "diemCsat": 1,
+      "yKien": "Thái độ tiếp dân chưa hòa nhã, cần giải thích rõ ràng hơn khi hồ sơ chưa đủ điều kiện.",
+      "sentiment": "NEGATIVE",
+      "ngay": "02/09/2026",
+      "daXuLy": false,
+      "tieuChi": {
+        "thaiDo": 1,
+        "thoiGian": 3,
+        "minhBach": 2,
+        "haTang": 3
+      }
+    },
+    {
+      "id": "KS-2026-0401",
+      "hoSoId": "TDM-BB-2026-00109",
+      "nguoiDanhGia": "Lâm Thị Mai",
+      "phuong": "Phú Cường",
+      "canBo": "Trần Quốc Bảo",
+      "kenh": "KIOSK",
+      "diemCsat": 5,
+      "yKien": "Rất cảm ơn cán bộ Bảo đã hỗ trợ làm thủ tục dụng cụ chỉnh hình nhanh chóng cho bác.",
+      "sentiment": "POSITIVE",
+      "ngay": "02/09/2026",
+      "daXuLy": true,
+      "tieuChi": {
+        "thaiDo": 5,
+        "thoiGian": 5,
+        "minhBach": 5,
+        "haTang": 5
+      }
+    },
+    {
+      "id": "KS-2026-0398",
+      "hoSoId": "TDM-NCC-2026-00370",
+      "nguoiDanhGia": "Võ Văn Tám",
+      "phuong": "Hiệp Thành",
+      "canBo": "Nguyễn Văn An",
+      "kenh": "KIOSK",
+      "diemCsat": 4,
+      "yKien": "Nhìn chung đúng hẹn, cán bộ nhiệt tình, phòng chờ trang bị máy lạnh mát mẻ.",
+      "sentiment": "NEUTRAL",
+      "ngay": "01/09/2026",
+      "daXuLy": true,
+      "tieuChi": {
+        "thaiDo": 5,
+        "thoiGian": 4,
+        "minhBach": 4,
+        "haTang": 4
+      }
+    },
+    {
+      "id": "KS-2026-0391",
+      "hoSoId": "TDM-NCC-2026-00355",
+      "nguoiDanhGia": "Đặng Thị Hoa",
+      "phuong": "Phú Hòa",
+      "canBo": "Lý Thu Vân",
+      "kenh": "QR_PHIEU_HEN",
+      "diemCsat": 2,
+      "yKien": "Thời gian hẹn trả kết quả bị chậm 2 ngày so với giấy hẹn, cần thông báo sớm cho dân.",
+      "sentiment": "NEGATIVE",
+      "ngay": "31/08/2026",
+      "daXuLy": false,
+      "tieuChi": {
+        "thaiDo": 3,
+        "thoiGian": 1,
+        "minhBach": 3,
+        "haTang": 4
+      }
+    },
+    {
+      "id": "KS-2026-0388",
+      "hoSoId": "BD/LS-03418",
+      "nguoiDanhGia": "Hoàng Văn Tuấn",
+      "phuong": "Định Hòa",
+      "canBo": "Lý Thu Vân",
+      "kenh": "SMS_ZALO",
+      "diemCsat": 5,
+      "yKien": "Cán bộ Vân hướng dẫn tận tình chu đáo qua điện thoại, không để gia đình đi lại nhiều lần.",
+      "sentiment": "POSITIVE",
+      "ngay": "30/08/2026",
+      "daXuLy": true,
+      "tieuChi": {
+        "thaiDo": 5,
+        "thoiGian": 5,
+        "minhBach": 5,
+        "haTang": 4
+      }
+    }
+  ],
+  "ho_so_tthc_giao_duc": [
+    {
+      "id": "HSO-GD-001",
+      "maHoSo": "HSO-GD-2026-001",
+      "tenThuTuc": "Cho phép thành lập nhóm trẻ độc lập tư thục",
+      "maThuTuc": "TTHC-GD-BGD/01",
+      "nguoiNop": "Bà Lê Thị Kim Tuyến",
+      "soDienThoai": "0903.887.665",
+      "cccd": "074182005432",
+      "diaChiLienHe": "Số 34/6 đường CMT8, Phường Phú Cường, TP. Thủ Dầu Một",
+      "tenCoSoDeNghi": "Nhóm trẻ Ban Mai Xanh Cơ sở 2",
+      "diaDiemCoSo": "Số 52 đường Đoàn Trần Nghiệp, Khu phố 3, Phường Phú Cường",
+      "khuPho": "Khu phố 3",
+      "ngayTiepNhan": "02/10/2026",
+      "ngayHenTra": "20/10/2026",
+      "hinhThucNop": "TRUC_TIEP_MOT_CUA",
+      "canBoTiepNhan": "Nguyễn Văn An (Công chức Một cửa)",
+      "canBoThuLy": "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+      "trangThai": "DA_PHE_DUYET",
+      "thanhPhanHoSo": [
+        {
+          "id": "GT-01",
+          "tenGiayTo": "Tờ trình / Đơn đề nghị cho phép thành lập nhóm trẻ độc lập (Mẫu số 01)",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-02",
+          "tenGiayTo": "Đề án thành lập nhóm trẻ (Mục tiêu, quy mô, cơ sở vật chất, giáo viên)",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-03",
+          "tenGiayTo": "Bản sao chứng thực văn bằng chuyên môn của người phụ trách & giáo viên mầm non",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 4,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        },
+        {
+          "id": "GT-04",
+          "tenGiayTo": "Hợp đồng thuê địa điểm cơ sở thời hạn tối thiểu 03 năm & Giấy tờ QSDĐ",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        },
+        {
+          "id": "GT-05",
+          "tenGiayTo": "Biên bản kiểm tra điều kiện an toàn Phòng cháy chữa cháy & Cứu nạn cứu hộ",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-06",
+          "tenGiayTo": "Bản cam kết bảo đảm vệ sinh an toàn thực phẩm & Hợp đồng cung ứng thực phẩm sạch",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        }
+      ],
+      "ketQuaThucDia": {
+        "ngayKiemTra": "10/10/2026",
+        "truongDoan": "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+        "daiDienYTe": "BS. Nguyễn Văn Hào (Trưởng Trạm Y tế)",
+        "daiDienCongAnPCCC": "Đại úy Phạm Quốc Tuấn (Công an phường)",
+        "ketLuan": "DAT_YEU_CAU",
+        "bienBanSo": "08/BB-LN/2026",
+        "noiDungKiemTra": "Diện tích phòng nuôi giữ trẻ đạt 120m2 (bình quân 4.2m2/trẻ), có 4 camera phụ huynh xem trực tiếp, bếp ăn một chiều có tủ sấy tiệt trùng, bình bọt chữa cháy đầy đủ."
+      },
+      "toTrinh": {
+        "soToTrinh": "14/TTr-VHXH",
+        "ngayTrinh": "14/10/2026",
+        "nguoiTrinh": "ThS. Trần Thị Kim Oanh",
+        "chucVu": "Công chức Văn hóa - Xã hội phụ trách Giáo dục",
+        "noiDungTrinh": "Đề nghị Chủ tịch UBND Phường ban hành Quyết định cho phép thành lập Nhóm trẻ tư thục Ban Mai Xanh 2 do đủ điều kiện theo Thông tư 49/2021/TT-BGDĐT."
+      },
+      "quyetDinh": {
+        "soQuyetDinh": "168/QĐ-UBND",
+        "ngayBanHanh": "18/10/2026",
+        "nguoiKy": "TS. Nguyễn Văn Hùng",
+        "chucVu": "Chủ tịch UBND Phường Phú Cường",
+        "maXacThucKySo": "SHA256:88AF2C11-UBND-2026-PC",
+        "noiDungQuyetDinh": "Cho phép thành lập Nhóm trẻ độc lập Ban Mai Xanh Cơ sở 2 tại 52 Đoàn Trần Nghiệp, Khu phố 3, do bà Lê Thị Kim Tuyến làm chủ cơ sở.",
+        "daKySo": true
+      }
+    },
+    {
+      "id": "HSO-GD-002",
+      "maHoSo": "HSO-GD-2026-002",
+      "tenThuTuc": "Cho phép thành lập lớp mẫu giáo độc lập tư thục",
+      "maThuTuc": "TTHC-GD-BGD/02",
+      "nguoiNop": "Bà Phạm Thu Hằng",
+      "soDienThoai": "0918.455.789",
+      "cccd": "074185002134",
+      "diaChiLienHe": "Số 89 đường Bùi Quốc Khánh, Khu phố 4",
+      "tenCoSoDeNghi": "Lớp mẫu giáo độc lập Sen Vàng",
+      "diaDiemCoSo": "Số 104 đường Yersin, Khu phố 2, Phường Phú Cường",
+      "khuPho": "Khu phố 2",
+      "ngayTiepNhan": "08/10/2026",
+      "ngayHenTra": "26/10/2026",
+      "hinhThucNop": "TRUC_TIEP_MOT_CUA",
+      "canBoTiepNhan": "Nguyễn Văn An (Công chức Một cửa)",
+      "canBoThuLy": "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+      "trangThai": "CHO_PHE_DUYET",
+      "thanhPhanHoSo": [
+        {
+          "id": "GT-11",
+          "tenGiayTo": "Đơn đề nghị thành lập lớp mẫu giáo độc lập tư thục",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-12",
+          "tenGiayTo": "Đề án chi tiết tổ chức hoạt động và chương trình giáo dục mầm non",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-13",
+          "tenGiayTo": "Bản sao bằng tốt nghiệp Cử nhân Sư phạm mầm non người phụ trách",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        },
+        {
+          "id": "GT-14",
+          "tenGiayTo": "Hợp đồng thuê nhà 05 năm & Bản vẽ mặt bằng phòng học 180m2",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        },
+        {
+          "id": "GT-15",
+          "tenGiayTo": "Giấy thẩm duyệt PCCC và trang thiết bị PCCC cơ sở",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        }
+      ],
+      "ketQuaThucDia": {
+        "ngayKiemTra": "15/10/2026",
+        "truongDoan": "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+        "daiDienYTe": "BS. Hoàng Minh Tuấn (Trạm Y tế)",
+        "daiDienCongAnPCCC": "Thiếu tá Lê Hồng Sơn (Công an phường)",
+        "ketLuan": "DAT_YEU_CAU",
+        "bienBanSo": "11/BB-LN/2026",
+        "noiDungKiemTra": "Phòng học thông thoáng, đồ chơi an toàn đạt chuẩn TT 32/2012, cầu thang có rào chắn inox chắc chắn, hồ sơ kiểm tra sức khỏe 100% bảo mẫu hợp lệ."
+      },
+      "toTrinh": {
+        "soToTrinh": "21/TTr-VHXH",
+        "ngayTrinh": "19/10/2026",
+        "nguoiTrinh": "ThS. Trần Thị Kim Oanh",
+        "chucVu": "Công chức Văn hóa - Xã hội phụ trách Giáo dục",
+        "noiDungTrinh": "Kính trình Chủ tịch UBND Phường xem xét, ký số ban hành Quyết định cho phép thành lập Lớp mẫu giáo độc lập Sen Vàng (Quy mô 40 trẻ, 5 giáo viên)."
+      },
+      "quyetDinh": {
+        "soQuyetDinh": "172/QĐ-UBND",
+        "ngayBanHanh": "20/10/2026",
+        "nguoiKy": "TS. Nguyễn Văn Hùng",
+        "chucVu": "Chủ tịch UBND Phường Phú Cường",
+        "maXacThucKySo": "SHA256:99B81A-UBND-2026",
+        "noiDungQuyetDinh": "Cho phép thành lập Lớp mẫu giáo độc lập Sen Vàng tại 104 Yersin, Khu phố 2, do bà Phạm Thu Hằng làm chủ cơ sở.",
+        "daKySo": false
+      }
+    },
+    {
+      "id": "HSO-GD-003",
+      "maHoSo": "HSO-GD-2026-003",
+      "tenThuTuc": "Cho phép thành lập nhóm trẻ độc lập tư thục",
+      "maThuTuc": "TTHC-GD-BGD/01",
+      "nguoiNop": "Bà Vũ Mai Hoa",
+      "soDienThoai": "0908.332.112",
+      "cccd": "074190003456",
+      "diaChiLienHe": "Số 15/4 đường Ngô Quyền, Khu phố 5",
+      "tenCoSoDeNghi": "Nhóm trẻ tư thục Nụ Cười Xinh",
+      "diaDiemCoSo": "Số 68 đường Đoàn Trần Nghiệp, Khu phố 3",
+      "khuPho": "Khu phố 3",
+      "ngayTiepNhan": "14/10/2026",
+      "ngayHenTra": "31/10/2026",
+      "hinhThucNop": "DVC_TRUC_TUYEN_QUOC_GIA",
+      "canBoTiepNhan": "Hệ thống Cổng Dịch vụ công Quốc gia",
+      "canBoThuLy": "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+      "trangThai": "KIEM_TRA_THUC_DIA",
+      "thanhPhanHoSo": [
+        {
+          "id": "GT-21",
+          "tenGiayTo": "Đơn đề nghị thành lập nhóm trẻ độc lập (nộp trực tuyến)",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-22",
+          "tenGiayTo": "Đề án cơ sở vật chất và danh sách bảo mẫu dự kiến",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-23",
+          "tenGiayTo": "Bằng Cao đẳng Sư phạm mầm non của chủ cơ sở",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        },
+        {
+          "id": "GT-24",
+          "tenGiayTo": "Hồ sơ thiết kế PCCC cơ sở hộ kinh doanh cá thể",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        }
+      ]
+    },
+    {
+      "id": "HSO-GD-004",
+      "maHoSo": "HSO-GD-2026-004",
+      "tenThuTuc": "Chuyển địa điểm và mở rộng quy mô lớp mầm non độc lập",
+      "maThuTuc": "TTHC-GD-BGD/03",
+      "nguoiNop": "Ông Hoàng Đức Minh",
+      "soDienThoai": "0913.778.990",
+      "cccd": "074088001222",
+      "diaChiLienHe": "Số 45 đường Bùi Quốc Khánh, Khu phố 4",
+      "tenCoSoDeNghi": "Lớp mầm non độc lập Thỏ Trắng",
+      "diaDiemCoSo": "Số 120 đường Bùi Quốc Khánh, Khu phố 4",
+      "khuPho": "Khu phố 4",
+      "ngayTiepNhan": "12/10/2026",
+      "ngayHenTra": "23/10/2026",
+      "hinhThucNop": "TRUC_TIEP_MOT_CUA",
+      "canBoTiepNhan": "Nguyễn Văn An (Công chức Một cửa)",
+      "canBoThuLy": "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+      "trangThai": "YEU_CAU_BO_SUNG",
+      "lyDoBoSung": "1) Hợp đồng thuê mặt bằng mới chỉ có thời hạn 1 năm (quy định tối thiểu 3 năm); 2) Bổ sung Giấy khám sức khỏe định kỳ và Chứng nhận tập huấn VSATTP của 02 nhân viên cấp dưỡng mới tuyển.",
+      "hanBoSung": "25/10/2026",
+      "thanhPhanHoSo": [
+        {
+          "id": "GT-31",
+          "tenGiayTo": "Đơn xin thay đổi địa điểm và quy mô hoạt động nhóm lớp",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-32",
+          "tenGiayTo": "Quyết định thành lập cũ số 88/QĐ-UBND",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        },
+        {
+          "id": "GT-33",
+          "tenGiayTo": "Hợp đồng thuê mặt bằng mới (chưa đủ thời hạn tối thiểu 3 năm)",
+          "batBuoc": true,
+          "daNop": false,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG",
+          "ghiChu": "Cần công chứng phụ lục gia hạn ≥ 3 năm"
+        },
+        {
+          "id": "GT-34",
+          "tenGiayTo": "Chứng nhận tập huấn an toàn thực phẩm nhân viên cấp dưỡng",
+          "batBuoc": true,
+          "daNop": false,
+          "soLuong": 2,
+          "loaiBan": "BAN_SAO_CONG_CHUNG",
+          "ghiChu": "Thiếu chứng nhận cấp dưỡng mới"
+        }
+      ]
+    },
+    {
+      "id": "HSO-GD-005",
+      "maHoSo": "HSO-GD-2026-005",
+      "tenThuTuc": "Hỗ trợ tiền ăn trưa cho trẻ em mầm non và hỗ trợ chi phí học tập (Nghị định 81 & 105)",
+      "maThuTuc": "TTHC-GD-BGD/04",
+      "nguoiNop": "Trường Mầm non Hoa Mai (Đại diện: Cô Đỗ Thị Mai Liên)",
+      "soDienThoai": "0274.3822.450",
+      "cccd": "074175004321",
+      "diaChiLienHe": "Số 10 đường Quang Trung, Khu phố 1",
+      "tenCoSoDeNghi": "Trường Mầm non Công lập Hoa Mai",
+      "diaDiemCoSo": "Số 10 đường Quang Trung, Khu phố 1",
+      "khuPho": "Khu phố 1",
+      "ngayTiepNhan": "16/10/2026",
+      "ngayHenTra": "28/10/2026",
+      "hinhThucNop": "DVC_TRUC_TUYEN_QUOC_GIA",
+      "canBoTiepNhan": "Cổng DVC Tỉnh Bình Dương",
+      "canBoThuLy": "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+      "trangThai": "MOI_TIEP_NHAN",
+      "thanhPhanHoSo": [
+        {
+          "id": "GT-41",
+          "tenGiayTo": "Danh sách tổng hợp 12 trẻ em thuộc diện hộ nghèo, cận nghèo đề nghị hỗ trợ tiền ăn trưa học kỳ I",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-42",
+          "tenGiayTo": "Bản sao Sổ hộ nghèo/cận nghèo và trích lục CCCD/VNeID của phụ huynh",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 12,
+          "loaiBan": "DOI_CHIEU_VNEID"
+        },
+        {
+          "id": "GT-43",
+          "tenGiayTo": "Đơn xin hỗ trợ chi phí học tập của cha mẹ trẻ có xác nhận của UBND xã/phường",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 12,
+          "loaiBan": "BAN_CHINH"
+        }
+      ]
+    },
+    {
+      "id": "HSO-GD-006",
+      "maHoSo": "HSO-GD-2026-006",
+      "tenThuTuc": "Cho phép thành lập nhóm trẻ độc lập tư thục",
+      "maThuTuc": "TTHC-GD-BGD/01",
+      "nguoiNop": "Bà Đặng Thị Bích Thủy",
+      "soDienThoai": "0909.112.334",
+      "cccd": "074189004567",
+      "diaChiLienHe": "Số 78 đường Cách Mạng Tháng Tám, Khu phố 1",
+      "tenCoSoDeNghi": "Nhóm trẻ tư thục Ong Vàng",
+      "diaDiemCoSo": "Số 92 đường Cách Mạng Tháng Tám, Khu phố 1",
+      "khuPho": "Khu phố 1",
+      "ngayTiepNhan": "25/09/2026",
+      "ngayHenTra": "16/10/2026",
+      "hinhThucNop": "TRUC_TIEP_MOT_CUA",
+      "canBoTiepNhan": "Nguyễn Văn An (Công chức Một cửa)",
+      "canBoThuLy": "ThS. Trần Thị Kim Oanh (Công chức GD-ĐT)",
+      "trangThai": "DANG_THAM_DINH",
+      "thanhPhanHoSo": [
+        {
+          "id": "GT-01",
+          "tenGiayTo": "Tờ trình / Đơn đề nghị cho phép thành lập nhóm trẻ độc lập tư thục (Mẫu số 01)",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-02",
+          "tenGiayTo": "Đề án thành lập nhóm trẻ",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH"
+        },
+        {
+          "id": "GT-03",
+          "tenGiayTo": "Bằng Cao đẳng Sư phạm mầm non",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        },
+        {
+          "id": "GT-04",
+          "tenGiayTo": "Hợp đồng thuê địa điểm 3 năm",
+          "batBuoc": true,
+          "daNop": true,
+          "soLuong": 1,
+          "loaiBan": "BAN_SAO_CONG_CHUNG"
+        },
+        {
+          "id": "GT-05",
+          "tenGiayTo": "Biên bản kiểm tra an toàn PCCC (đang chờ cấp đổi)",
+          "batBuoc": true,
+          "daNop": false,
+          "soLuong": 1,
+          "loaiBan": "BAN_CHINH",
+          "ghiChu": "Chờ Công an PCCC phúc tra lại lối thoát hiểm"
+        }
+      ]
+    }
+  ],
+  "co_so_mam_non_tu_thuc": [
+    {
+      "id": "MN-01",
+      "maCoSo": "MN-TT-001",
+      "tenCoSo": "Nhóm trẻ Ban Mai Xanh",
+      "loaiHinh": "NHOM_TRE_DOC_LAP",
+      "chuCoSo": "Bà Lê Thị Kim Tuyến",
+      "nguoiPhuTrachChuyenMon": "Lê Thị Kim Tuyến (ĐH Sư phạm Mầm non)",
+      "diaChi": "34/6 Đường CMT8",
+      "khuPho": "Khu phố 1",
+      "soDienThoai": "0903.887.665",
+      "soQuyetDinhCapPhep": "QĐ-UBND-89/2023",
+      "ngayCapPhep": "12/04/2023",
+      "soTreDangGiu": 28,
+      "soGiaoVienBaoMau": 4,
+      "dienTichPhongHocM2": 120,
+      "coCameraGiamSat": true,
+      "bepAnMotChieu": true,
+      "ketQuaKiemTraCuoi": "DAT_CHUAN_AN_TOAN",
+      "ngayKiemTraCuoi": "15/09/2026",
+      "noiDungKiemTra": "Kiểm tra liên ngành đầu năm học: Đảm bảo tỷ lệ 1 giáo viên/7 trẻ, thực đơn dinh dưỡng niêm yết công khai, lưu mẫu thức ăn 24h đúng quy định, hệ thống camera phụ huynh xem trực tuyến hoạt động tốt."
+    },
+    {
+      "id": "MN-02",
+      "maCoSo": "MN-TT-002",
+      "tenCoSo": "Lớp mẫu giáo độc lập Tuổi Thơ Vàng",
+      "loaiHinh": "LOP_MAU_GIAO_DOC_LAP",
+      "chuCoSo": "Ông Trần Đình Trọng",
+      "nguoiPhuTrachChuyenMon": "Nguyễn Thị Phương Thảo (Cử nhân Mầm non)",
+      "diaChi": "112 Đường Yersin",
+      "khuPho": "Khu phố 2",
+      "soDienThoai": "0918.445.566",
+      "soQuyetDinhCapPhep": "QĐ-UBND-115/2024",
+      "ngayCapPhep": "20/06/2024",
+      "soTreDangGiu": 45,
+      "soGiaoVienBaoMau": 6,
+      "dienTichPhongHocM2": 210,
+      "coCameraGiamSat": true,
+      "bepAnMotChieu": true,
+      "ketQuaKiemTraCuoi": "DAT_CHUAN_AN_TOAN",
+      "ngayKiemTraCuoi": "22/09/2026",
+      "noiDungKiemTra": "Đồ chơi mầm non an toàn không độc hại, trang bị bình chữa cháy và tiêu lệnh PCCC đúng vị trí, kiểm tra định kỳ sức khỏe trẻ em quý 3."
+    },
+    {
+      "id": "MN-03",
+      "maCoSo": "MN-TT-003",
+      "tenCoSo": "Nhóm trẻ gia đình Họa Mi Nhỏ",
+      "loaiHinh": "NHOM_TRE_DOC_LAP",
+      "chuCoSo": "Bà Đặng Thu Thủy",
+      "nguoiPhuTrachChuyenMon": "Đặng Thu Thủy (Cao đẳng SP Mầm non)",
+      "diaChi": "67/3 Đường Bùi Quốc Khánh",
+      "khuPho": "Khu phố 4",
+      "soDienThoai": "0976.223.311",
+      "soQuyetDinhCapPhep": "QĐ-UBND-201/2022",
+      "ngayCapPhep": "08/11/2022",
+      "soTreDangGiu": 18,
+      "soGiaoVienBaoMau": 3,
+      "dienTichPhongHocM2": 85,
+      "coCameraGiamSat": true,
+      "bepAnMotChieu": false,
+      "ketQuaKiemTraCuoi": "TAM_DINH_CHI",
+      "ngayKiemTraCuoi": "04/10/2026",
+      "noiDungKiemTra": "Tạm đình chỉ 02 tháng theo Quyết định số 89/QĐ-UBND do vi phạm an toàn PCCC (chưa mở lối thoát nạn thứ 2) và chưa hoàn thiện bếp ăn một chiều."
+    },
+    {
+      "id": "MN-04",
+      "maCoSo": "MN-TT-004",
+      "tenCoSo": "Lớp mầm non độc lập Búp Sen Hồng",
+      "loaiHinh": "LOP_MAU_GIAO_DOC_LAP",
+      "chuCoSo": "Bà Hoàng Thị Minh Nguyệt",
+      "nguoiPhuTrachChuyenMon": "Hoàng Thị Minh Nguyệt (ĐHSP Mầm non TP.HCM)",
+      "diaChi": "88 Đường Đoàn Trần Nghiệp",
+      "khuPho": "Khu phố 3",
+      "soDienThoai": "0938.112.443",
+      "soQuyetDinhCapPhep": "QĐ-UBND-52/2025",
+      "ngayCapPhep": "15/03/2025",
+      "soTreDangGiu": 36,
+      "soGiaoVienBaoMau": 5,
+      "dienTichPhongHocM2": 165,
+      "coCameraGiamSat": true,
+      "bepAnMotChieu": true,
+      "ketQuaKiemTraCuoi": "DAT_CHUAN_AN_TOAN",
+      "ngayKiemTraCuoi": "28/09/2026",
+      "noiDungKiemTra": "Cơ sở vật chất khang trang, sân chơi có mái che và thảm chống trượt, 100% giáo viên có chứng nhận tập huấn kỹ năng sơ cấp cứu ban đầu."
+    },
+    {
+      "id": "MN-05",
+      "maCoSo": "MN-TT-005",
+      "tenCoSo": "Nhóm trẻ tư thục Ngôi Sao Nhỏ",
+      "loaiHinh": "NHOM_TRE_DOC_LAP",
+      "chuCoSo": "Ông Vũ Quang Huy",
+      "nguoiPhuTrachChuyenMon": "Nguyễn Bích Loan (Cử nhân Giáo dục Mầm non)",
+      "diaChi": "14/2B Đường Ngô Quyền",
+      "khuPho": "Khu phố 5",
+      "soDienThoai": "0908.776.554",
+      "soQuyetDinhCapPhep": "QĐ-UBND-140/2024",
+      "ngayCapPhep": "18/08/2024",
+      "soTreDangGiu": 24,
+      "soGiaoVienBaoMau": 3,
+      "dienTichPhongHocM2": 105,
+      "coCameraGiamSat": true,
+      "bepAnMotChieu": true,
+      "ketQuaKiemTraCuoi": "DAT_CHUAN_AN_TOAN",
+      "ngayKiemTraCuoi": "01/10/2026",
+      "noiDungKiemTra": "Hợp đồng thực phẩm rau sạch và thịt gia súc có nguồn gốc kiểm dịch rõ ràng, bình chữa cháy còn hạn sử dụng, camera 4 mắt kết nối ổn định."
+    }
+  ],
+  "truong_hoc_cong_lap": [
+    {
+      "id": "TR-01",
+      "tenTruong": "Trường Mầm non Công lập Hoa Mai",
+      "capHoc": "MAM_NON",
+      "diaChi": "Số 10 Đường Quang Trung, Khu phố 1",
+      "hieuTruong": "Cô Đỗ Thị Mai Liên",
+      "soDienThoai": "0274.3822.450",
+      "tongSoHocSinh": 480,
+      "tongSoLop": 14,
+      "chiTieuTuyenSinhDauCap": 150,
+      "daTuyenDauCap": 150,
+      "tuyenKhuPho": [
+        "Khu phố 1",
+        "Khu phố 2",
+        "Khu phố 5"
+      ],
+      "tyLeDangKyTrucTuyenVNeID": 98.6,
+      "gioCaoDiemPhanLuong": "07:00 - 07:30 & 16:30 - 17:15",
+      "lucLuongTrucATGT": "Dân quân tự vệ (2 đ/c) + Đoàn thanh niên",
+      "anNinhCongTruong": "AN_TOAN_TOT",
+      "moHinhCongTruongATGT": true
+    },
+    {
+      "id": "TR-02",
+      "tenTruong": "Trường Tiểu học Lê Hồng Phong",
+      "capHoc": "TIEU_HOC",
+      "diaChi": "Số 25 Đường Yersin, Khu phố 2",
+      "hieuTruong": "Thầy Nguyễn Hữu Dũng",
+      "soDienThoai": "0274.3824.112",
+      "tongSoHocSinh": 1250,
+      "tongSoLop": 32,
+      "chiTieuTuyenSinhDauCap": 280,
+      "daTuyenDauCap": 280,
+      "tuyenKhuPho": [
+        "Khu phố 2",
+        "Khu phố 3"
+      ],
+      "tyLeDangKyTrucTuyenVNeID": 99.2,
+      "gioCaoDiemPhanLuong": "06:45 - 07:15 & 16:45 - 17:30",
+      "lucLuongTrucATGT": "Công an phường (1 đ/c) + Trật tự đô thị + Bảo vệ dân phố",
+      "anNinhCongTruong": "AN_TOAN_TOT",
+      "moHinhCongTruongATGT": true
+    },
+    {
+      "id": "TR-03",
+      "tenTruong": "Trường Tiểu học Phú Cường",
+      "capHoc": "TIEU_HOC",
+      "diaChi": "Số 42 Đường CMT8, Khu phố 1",
+      "hieuTruong": "Cô Vũ Thị Hải Yến",
+      "soDienThoai": "0274.3825.990",
+      "tongSoHocSinh": 980,
+      "tongSoLop": 26,
+      "chiTieuTuyenSinhDauCap": 210,
+      "daTuyenDauCap": 210,
+      "tuyenKhuPho": [
+        "Khu phố 1",
+        "Khu phố 4"
+      ],
+      "tyLeDangKyTrucTuyenVNeID": 97.8,
+      "gioCaoDiemPhanLuong": "06:45 - 07:15 & 16:45 - 17:30",
+      "lucLuongTrucATGT": "Tổ tự quản khu phố 1 + Đoàn thanh niên phường",
+      "anNinhCongTruong": "AN_TOAN_TOT",
+      "moHinhCongTruongATGT": true
+    },
+    {
+      "id": "TR-04",
+      "tenTruong": "Trường THCS Chu Văn An",
+      "capHoc": "THCS",
+      "diaChi": "Số 56 Đường Đoàn Trần Nghiệp, Khu phố 3",
+      "hieuTruong": "Cô Phạm Thị Thu Hà",
+      "soDienThoai": "0274.3831.556",
+      "tongSoHocSinh": 1420,
+      "tongSoLop": 34,
+      "chiTieuTuyenSinhDauCap": 360,
+      "daTuyenDauCap": 360,
+      "tuyenKhuPho": [
+        "Khu phố 1",
+        "Khu phố 2",
+        "Khu phố 3",
+        "Khu phố 4",
+        "Khu phố 5"
+      ],
+      "tyLeDangKyTrucTuyenVNeID": 99.5,
+      "gioCaoDiemPhanLuong": "06:30 - 07:00 & 17:00 - 17:45",
+      "lucLuongTrucATGT": "Công an phường + Dân quân cơ động phân luồng xe buýt",
+      "anNinhCongTruong": "AN_TOAN_TOT",
+      "moHinhCongTruongATGT": true
+    }
+  ],
+  "dieu_tra_pho_cap_gd": [
+    {
+      "id": "PC-01",
+      "khuPho": "Khu phố 1",
+      "bacHoc": "MAM_NON_5T",
+      "doTuoiDieuTra": "Trẻ 5 tuổi (sinh năm 2021)",
+      "tongSoTre": 245,
+      "soTreDiHoc": 245,
+      "soTreBoHoc": 0,
+      "soTreNguyCoBoHoc": 0,
+      "tyLeHuyDongPercent": 100,
+      "mucDoDatChuan": "Đạt chuẩn phổ cập trẻ 5 tuổi",
+      "namDieuTra": 2026,
+      "canBoPhuTrach": "Nguyễn Thị Mai (Hiệu trưởng MN Hướng Dương)",
+      "bienPhapVanDong": "100% trẻ 5 tuổi ra lớp mầm non, duy trì ăn bán trú."
+    },
+    {
+      "id": "PC-02",
+      "khuPho": "Khu phố 2",
+      "bacHoc": "TIEU_HOC",
+      "doTuoiDieuTra": "Độ tuổi 6 - 11 tuổi (sinh 2015 - 2020)",
+      "tongSoTre": 412,
+      "soTreDiHoc": 411,
+      "soTreBoHoc": 0,
+      "soTreNguyCoBoHoc": 1,
+      "tyLeHuyDongPercent": 99.76,
+      "mucDoDatChuan": "Đạt chuẩn PCGD Tiểu học Mức độ 3",
+      "namDieuTra": 2026,
+      "canBoPhuTrach": "Lê Văn Hùng (Cán bộ Văn hóa - Xã hội)",
+      "bienPhapVanDong": "Vận động gia đình cháu Bùi Hoàng M. (tạm trú nhà trọ) tiếp tục đến trường, hỗ trợ sách giáo khoa và học bổng khuyến học."
+    },
+    {
+      "id": "PC-03",
+      "khuPho": "Khu phố 3",
+      "bacHoc": "THCS",
+      "doTuoiDieuTra": "Độ tuổi 11 - 15 tuổi (sinh 2011 - 2015)",
+      "tongSoTre": 388,
+      "soTreDiHoc": 385,
+      "soTreBoHoc": 1,
+      "soTreNguyCoBoHoc": 2,
+      "tyLeHuyDongPercent": 99.23,
+      "mucDoDatChuan": "Đạt chuẩn PCGD THCS Mức độ 3",
+      "namDieuTra": 2026,
+      "canBoPhuTrach": "Trần Anh Tuấn (Phó Hiệu trưởng THCS)",
+      "bienPhapVanDong": "Tổ chức kèm đạo học sinh yếu kém sau giờ học; phân luồng học nghề sớm đối với học sinh hoàn cảnh khó khăn."
+    },
+    {
+      "id": "PC-04",
+      "khuPho": "Khu phố 4",
+      "bacHoc": "XOA_MU_CHU",
+      "doTuoiDieuTra": "Độ tuổi 15 - 60 tuổi",
+      "tongSoTre": 3200,
+      "soTreDiHoc": 3198,
+      "soTreBoHoc": 0,
+      "soTreNguyCoBoHoc": 2,
+      "tyLeHuyDongPercent": 99.94,
+      "mucDoDatChuan": "Đạt chuẩn Xóa mù chữ Mức độ 2",
+      "namDieuTra": 2026,
+      "canBoPhuTrach": "Lê Văn Hùng (Cán bộ VH-XH)",
+      "bienPhapVanDong": "Tổ chức lớp học chuyên đề xóa tái mù và nâng cao tin học văn phòng tại Trung tâm Học tập cộng đồng."
+    }
+  ],
+  "danh_gia_cong_dong_hoc_tap": [
+    {
+      "id": "CDHT-01",
+      "nhomTieuChi": "I. Sự lãnh đạo, chỉ đạo của cấp ủy Đảng, chính quyền",
+      "tenTieuChi": "Có Nghị quyết, kế hoạch hàng năm và bố trí kinh phí hoạt động cho TTHTCĐ",
+      "diemToiDa": 10,
+      "diemTuDanhGia": 10,
+      "diemDoanKiemTra": 10,
+      "minhChungKetQua": "Nghị quyết HĐND và Quyết định số 48/QĐ-UBND phê duyệt kinh phí 120 triệu đồng cho TTHTCĐ năm 2026."
+    },
+    {
+      "id": "CDHT-02",
+      "nhomTieuChi": "II. Kết quả hoạt động của TTHTCĐ & Các phong trào học tập",
+      "tenTieuChi": "Huy động các tầng lớp nhân dân tham gia học tập các lớp chuyên đề KHKT, kỹ năng sống",
+      "diemToiDa": 25,
+      "diemTuDanhGia": 24,
+      "diemDoanKiemTra": 24,
+      "minhChungKetQua": "Tổ chức 14 lớp chuyên đề với 1.150 lượt người dân tham gia (tin học, bảo hiểm, an toàn thực phẩm)."
+    },
+    {
+      "id": "CDHT-03",
+      "nhomTieuChi": "III. Xây dựng Gia đình học tập, Dòng họ học tập, Cộng đồng học tập",
+      "tenTieuChi": "Tỷ lệ gia đình đạt danh hiệu 'Gia đình học tập' đạt trên 85%",
+      "diemToiDa": 30,
+      "diemTuDanhGia": 28,
+      "diemDoanKiemTra": 28,
+      "minhChungKetQua": "91.4% số hộ gia đình đăng ký và đạt chuẩn Gia đình học tập; 100% dòng họ duy trì quỹ khuyến học khuyến tài."
+    },
+    {
+      "id": "CDHT-04",
+      "nhomTieuChi": "IV. Tác động của học tập đến phát triển KT-XH địa phương",
+      "tenTieuChi": "Giảm tỷ lệ hộ nghèo, nâng cao năng suất lao động, giảm thiểu tệ nạn xã hội",
+      "diemToiDa": 25,
+      "diemTuDanhGia": 24,
+      "diemDoanKiemTra": 24,
+      "minhChungKetQua": "100% người sau học nghề có việc làm ổn định tại các cụm công nghiệp địa phương; an ninh trật tự giữ vững."
+    },
+    {
+      "id": "CDHT-05",
+      "nhomTieuChi": "V. Ứng dụng công nghệ thông tin và chuyển đổi số trong học tập",
+      "tenTieuChi": "Phổ cập kỹ năng số cộng đồng, tra cứu học liệu số trên nền tảng trực tuyến",
+      "diemToiDa": 10,
+      "diemTuDanhGia": 9,
+      "diemDoanKiemTra": 9,
+      "minhChungKetQua": "Thư viện điện tử phường kết nối Cổng học liệu mở; 100% người dân được hướng dẫn nộp DVC trực tuyến."
+    }
+  ],
+  "ho_so_bao_tro_xa_hoi": [
+    {
+      "id": "BTXH-001",
+      "hoTen": "Cụ bà Huỳnh Thị Lành",
+      "cccd": "074038001122",
+      "ngaySinh": "10/05/1942",
+      "gioiTinh": "Nữ",
+      "khuPho": "Khu phố 1",
+      "diaChi": "14/2 đường Quang Trung",
+      "loaiDoiTuong": "NGUOI_CAO_TUOI_80",
+      "tenLoaiDoiTuong": "Người cao tuổi đủ 80 tuổi không có lương hưu (NĐ 20/2021)",
+      "heSoHuong": 1,
+      "mucTroCapHangThang": 540000,
+      "hinhThucNhan": "NGAN_HANG",
+      "thongTinChiTra": "Vietcombank - 0121000998877",
+      "soQuyetDinh": "QĐ-UBND-145/2022",
+      "ngayHieuLuc": "01/06/2022",
+      "trangThai": "DANG_HUONG"
+    },
+    {
+      "id": "BTXH-002",
+      "hoTen": "Trần Văn Bình",
+      "cccd": "074092004455",
+      "ngaySinh": "15/08/1992",
+      "gioiTinh": "Nam",
+      "khuPho": "Khu phố 2",
+      "diaChi": "88 đường Yersin",
+      "loaiDoiTuong": "KHUYET_TAT_DAC_BIET_NANG",
+      "tenLoaiDoiTuong": "Người khuyết tật đặc biệt nặng dạng vận động (Có người chăm sóc)",
+      "heSoHuong": 2.5,
+      "mucTroCapHangThang": 1350000,
+      "hinhThucNhan": "BUU_DIEN",
+      "thongTinChiTra": "Điểm Bưu cục Chợ Thủ Dầu Một",
+      "soQuyetDinh": "QĐ-UBND-210/2023",
+      "ngayHieuLuc": "01/09/2023",
+      "trangThai": "DANG_HUONG"
+    },
+    {
+      "id": "BTXH-003",
+      "hoTen": "Nguyễn Thị Ngọc Mai",
+      "cccd": "074088009911",
+      "ngaySinh": "20/12/1988",
+      "gioiTinh": "Nữ",
+      "khuPho": "Khu phố 3",
+      "diaChi": "56/3 đường Cách Mạng Tháng Tám",
+      "loaiDoiTuong": "DON_THAN_NUOI_CON_NGHEO",
+      "tenLoaiDoiTuong": "Người đơn thân nuôi 02 con nhỏ thuộc diện hộ nghèo",
+      "heSoHuong": 2,
+      "mucTroCapHangThang": 1080000,
+      "hinhThucNhan": "NGAN_HANG",
+      "thongTinChiTra": "Agribank TDM - 5590205199221",
+      "soQuyetDinh": "QĐ-UBND-098/2024",
+      "ngayHieuLuc": "01/03/2024",
+      "trangThai": "DANG_HUONG"
+    },
+    {
+      "id": "BTXH-004",
+      "hoTen": "Lê Quốc Bảo (Trẻ em)",
+      "cccd": "074214008899",
+      "ngaySinh": "04/06/2014",
+      "gioiTinh": "Nam",
+      "khuPho": "Khu phố 4",
+      "diaChi": "102 đường Bùi Quốc Khánh",
+      "loaiDoiTuong": "TRE_MO_COI",
+      "tenLoaiDoiTuong": "Trẻ mồ côi cả cha lẫn mẹ sống cùng bà ngoại",
+      "heSoHuong": 2.5,
+      "mucTroCapHangThang": 1350000,
+      "hinhThucNhan": "NGAN_HANG",
+      "thongTinChiTra": "BIDV Nam Bình Dương - 6501000887711 (Người giám hộ)",
+      "soQuyetDinh": "QĐ-UBND-312/2021",
+      "ngayHieuLuc": "01/10/2021",
+      "trangThai": "DANG_HUONG"
+    }
+  ],
+  "ho_ngheo_can_ngheo": [
+    {
+      "id": "HG-01",
+      "maHo": "TDM-HN-001",
+      "hoTenChuHo": "Võ Văn Kiệt",
+      "cccdChuHo": "074065003322",
+      "khuPho": "Khu phố 1",
+      "soNhanKhau": 4,
+      "phanLoai": "HO_NGHEO",
+      "chieuThieuHut": [
+        "Thu nhập bình quân < 2.000.000đ/tháng",
+        "Bảo hiểm y tế",
+        "Chất lượng nhà ở"
+      ],
+      "chinhSachDaNhan": [
+        "Cấp thẻ BHYT miễn phí 100%",
+        "Miễn học phí cho 02 con nhỏ",
+        "Vay vốn NHCSXH"
+      ],
+      "soTienVayCSXHVND": 50000000,
+      "tinhTrangNhaO": "NHA_KAP_4_XUNG_CAP",
+      "mucTieuThoatNgheoNam": 2027
+    },
+    {
+      "id": "HG-02",
+      "maHo": "TDM-HCN-002",
+      "hoTenChuHo": "Phan Thị Lan",
+      "cccdChuHo": "074072008844",
+      "khuPho": "Khu phố 2",
+      "soNhanKhau": 3,
+      "phanLoai": "HO_CAN_NGHEO",
+      "chieuThieuHut": [
+        "Nước sạch sinh hoạt",
+        "Đào tạo nghề việc làm"
+      ],
+      "chinhSachDaNhan": [
+        "Hỗ trợ 70% BHYT (UBND phường hỗ trợ 30% còn lại)",
+        "Học nghề may công nghiệp"
+      ],
+      "soTienVayCSXHVND": 40000000,
+      "tinhTrangNhaO": "DA_XAY_DAI_DOAN_KET",
+      "mucTieuThoatNgheoNam": 2026
+    },
+    {
+      "id": "HG-03",
+      "maHo": "TDM-MSTB-003",
+      "hoTenChuHo": "Đặng Văn Hậu",
+      "cccdChuHo": "074080007711",
+      "khuPho": "Khu phố 5",
+      "soNhanKhau": 5,
+      "phanLoai": "MUC_SONG_TRUNG_BINH",
+      "chieuThieuHut": [
+        "Thu nhập nông nghiệp bấp bênh"
+      ],
+      "chinhSachDaNhan": [
+        "Hỗ trợ 30% mức đóng BHYT theo chuẩn tỉnh Bình Dương"
+      ],
+      "soTienVayCSXHVND": 0,
+      "tinhTrangNhaO": "KIEN_CO",
+      "mucTieuThoatNgheoNam": 2026
+    }
+  ],
+  "cung_cau_lao_dong": [
+    {
+      "id": "LD-01",
+      "hoTen": "Nguyễn Tuấn Kiệt",
+      "cccd": "074202001999",
+      "namSinh": 2002,
+      "khuPho": "Khu phố 1",
+      "trinhDoHocVan": "12/12",
+      "chuyenMon": "Sửa chữa ô tô / Lái xe B2",
+      "doiTuongUuTien": "BO_DOI_XUAT_NGU",
+      "tinhTrangViecLam": "DA_KET_NOI_VIEC_LAM",
+      "doanhNghiepTuyenDung": "Công ty Cổ phần Vận tải & Logistics Becamex",
+      "mucLuongKyVong": "9.000.000 - 12.000.000đ",
+      "ngayCapNhat": "14/10/2026"
+    },
+    {
+      "id": "LD-02",
+      "hoTen": "Trần Hữu Danh",
+      "cccd": "074198007722",
+      "namSinh": 1998,
+      "khuPho": "Khu phố 3",
+      "trinhDoHocVan": "9/12",
+      "chuyenMon": "Hàn cơ khí / Sơn tĩnh điện",
+      "doiTuongUuTien": "MAN_HAN_TU_HOAN_LUONG",
+      "tinhTrangViecLam": "DA_KET_NOI_VIEC_LAM",
+      "doanhNghiepTuyenDung": "Xưởng Cơ khí Tân Thành Đạt (Tổ dân phố bảo lãnh)",
+      "mucLuongKyVong": "8.500.000đ",
+      "ngayCapNhat": "02/10/2026"
+    },
+    {
+      "id": "LD-03",
+      "hoTen": "Lê Hoàng Phúc",
+      "cccd": "074205004411",
+      "namSinh": 2005,
+      "khuPho": "Khu phố 4",
+      "trinhDoHocVan": "Trung cấp Điện công nghiệp",
+      "chuyenMon": "Kỹ thuật điện xí nghiệp",
+      "doiTuongUuTien": "THANH_NIEN_THAT_NGHIEP",
+      "tinhTrangViecLam": "CHUA_CO_VIEC_LAM",
+      "mucLuongKyVong": "8.000.000 - 10.000.000đ",
+      "ngayCapNhat": "18/10/2026"
+    }
+  ],
+  "tre_em_hoan_canh_dac_biet": [
+    {
+      "id": "TE-01",
+      "hoTen": "Nguyễn Mai Anh",
+      "ngaySinh": "15/09/2012",
+      "gioiTinh": "Nữ",
+      "khuPho": "Khu phố 1",
+      "diaChi": "28/4 Quang Trung",
+      "hoTenNguoiGiamHo": "Nguyễn Văn Tuấn",
+      "quanHe": "Bác ruột",
+      "sdtNguoiGiamHo": "0908.223.344",
+      "loaiHoanCanh": "TRE_MO_COI",
+      "chinhSachTroCap": "Trợ cấp bảo trợ xã hội hàng tháng 1.350.000đ + Thẻ BHYT miễn phí",
+      "daDuocTangHocBong": true,
+      "daHocBoiPhongDuoiNuoc": true,
+      "ghiChuTheoDoi": "Đang học Lớp 9 trường THCS Chu Văn An, học lực Giỏi, nhận đỡ đầu học bổng 2.000.000đ/năm."
+    },
+    {
+      "id": "TE-02",
+      "hoTen": "Lê Quốc Thái",
+      "ngaySinh": "20/03/2016",
+      "gioiTinh": "Nam",
+      "khuPho": "Khu phố 3",
+      "diaChi": "92/1 Yersin",
+      "hoTenNguoiGiamHo": "Lê Thị Hồng",
+      "quanHe": "Mẹ đơn thân",
+      "sdtNguoiGiamHo": "0934.556.677",
+      "loaiHoanCanh": "HO_NGHEO_KHO_KHAN",
+      "chinhSachTroCap": "Hỗ trợ chi phí học tập theo NĐ 81/2021",
+      "daDuocTangHocBong": true,
+      "daHocBoiPhongDuoiNuoc": true,
+      "ghiChuTheoDoi": "Được Đoàn Thanh niên phường tặng xe đạp đến trường trong Tháng hành động vì trẻ em 2026."
+    }
+  ],
+  "ho_so_tho_cung_liet_si": [
+    {
+      "id": "TCLS-01",
+      "maHoSo": "TCLS/2026/001",
+      "hoTenLietSi": "Nguyễn Văn Hùng",
+      "namSinh": 1948,
+      "namHySinh": 1972,
+      "queQuan": "Phường Phú Cường, TP. Thủ Dầu Một, Bình Dương",
+      "hoTenNguoiThoCung": "Nguyễn Văn Dũng",
+      "quanHeVoiLietSi": "Em ruột (Người thờ cúng được ủy quyền)",
+      "cccdNguoiThoCung": "074088001234",
+      "diaChiNguoiThoCung": "Số 45 đường Đoàn Trần Nghiệp, KP1",
+      "khuPho": "Khu phố 1",
+      "soVanBanUyQuyen": "Văn bản ủy quyền Mẫu 04 số 12/UQ-UBND",
+      "dinhMucNamVND": 1400000,
+      "namChiTra": 2026,
+      "trangThaiChiTra": "DA_CHI_TRA",
+      "ngayChiTra": "20/07/2026",
+      "hinhThucNhan": "CHUYEN_KHOAN_ATM"
+    },
+    {
+      "id": "TCLS-02",
+      "maHoSo": "TCLS/2026/002",
+      "hoTenLietSi": "Lê Hoàng Minh",
+      "namSinh": 1952,
+      "namHySinh": 1974,
+      "queQuan": "Phường Phú Cường, TP. Thủ Dầu Một",
+      "hoTenNguoiThoCung": "Lê Thị Bích Liên",
+      "quanHeVoiLietSi": "Con gái ruột",
+      "cccdNguoiThoCung": "074190005678",
+      "diaChiNguoiThoCung": "Số 112 đường Bạch Đằng, KP2",
+      "khuPho": "Khu phố 2",
+      "soVanBanUyQuyen": "Văn bản thỏa thuận gia đình số 08/TT-GD",
+      "dinhMucNamVND": 1400000,
+      "namChiTra": 2026,
+      "trangThaiChiTra": "CHO_CHI_TRA",
+      "hinhThucNhan": "TIEN_MAT"
+    },
+    {
+      "id": "TCLS-03",
+      "maHoSo": "TCLS/2026/003",
+      "hoTenLietSi": "Trần Quốc Toản",
+      "namSinh": 1950,
+      "namHySinh": 1969,
+      "queQuan": "Phường Phú Cường, TP. Thủ Dầu Một",
+      "hoTenNguoiThoCung": "Trần Văn Bình",
+      "quanHeVoiLietSi": "Cháu đích tôn",
+      "cccdNguoiThoCung": "074095009876",
+      "diaChiNguoiThoCung": "Hẻm 18 đường Ngô Quyền, KP3",
+      "khuPho": "Khu phố 3",
+      "soVanBanUyQuyen": "Biên bản ủy quyền gia tộc số 22/BB-GT",
+      "dinhMucNamVND": 1400000,
+      "namChiTra": 2026,
+      "trangThaiChiTra": "DA_CHI_TRA",
+      "ngayChiTra": "22/07/2026",
+      "hinhThucNhan": "CHUYEN_KHOAN_ATM"
+    }
+  ],
+  "hoi_dong_xac_dinh_khuyet_tat": [
+    {
+      "id": "HDKT-01",
+      "maHoSo": "HDKT/2026/01",
+      "hoTen": "Phạm Văn Thành",
+      "ngaySinh": "15/03/1982",
+      "gioiTinh": "NAM",
+      "cccd": "074082001122",
+      "diaChi": "Số 67 đường Cách Mạng Tháng Tám, KP1",
+      "khuPho": "Khu phố 1",
+      "dangTat": "VAN_DONG",
+      "mucDoKhuyetTat": "DAC_BIET_NANG",
+      "ngayHopHoiDong": "15/02/2026",
+      "thanhVienHoiDong": "Chủ tịch Hội đồng: PCT UBND Phường; Phó Chủ tịch: Trạm trưởng Y tế; Thư ký: Cán bộ LĐTBXH; Thành viên: Hội Người khuyết tật",
+      "ketLuan": "Liệt hoàn toàn 2 chi dưới do di chứng tai nạn lao động, mất hoàn toàn khả năng tự phục vụ sinh hoạt cá nhân.",
+      "soGiayXacNhan": "GCN-KT/2026/045",
+      "trangThaiCapGiay": "DA_CAP_GIAY"
+    },
+    {
+      "id": "HDKT-02",
+      "maHoSo": "HDKT/2026/02",
+      "hoTen": "Trần Thị Cẩm Tú",
+      "ngaySinh": "20/08/2005",
+      "gioiTinh": "NU",
+      "cccd": "074105004455",
+      "diaChi": "Số 234 đường Yersin, KP2",
+      "khuPho": "Khu phố 2",
+      "dangTat": "TRI_TUE",
+      "mucDoKhuyetTat": "NANG",
+      "ngayHopHoiDong": "15/03/2026",
+      "thanhVienHoiDong": "Hội đồng xác định mức độ khuyết tật UBND Phường Phú Cường",
+      "ketLuan": "Chậm phát triển trí tuệ bẩm sinh mức độ nặng, suy giảm khả năng nhận thức và lao động.",
+      "soGiayXacNhan": "GCN-KT/2026/078",
+      "trangThaiCapGiay": "DA_CAP_GIAY"
+    },
+    {
+      "id": "HDKT-03",
+      "maHoSo": "HDKT/2026/03",
+      "hoTen": "Võ Hoàng Nam",
+      "ngaySinh": "10/11/1976",
+      "gioiTinh": "NAM",
+      "cccd": "074076008899",
+      "diaChi": "Hẻm 45 đường Phú Lợi, KP4",
+      "khuPho": "Khu phố 4",
+      "dangTat": "NHIN",
+      "mucDoKhuyetTat": "NANG",
+      "ngayHopHoiDong": "25/10/2026",
+      "thanhVienHoiDong": "Hội đồng xét duyệt khuyết tật cấp phường đợt 4/2026",
+      "ketLuan": "Suy giảm thị lực cả hai mắt trên 81% sau phẫu thuật võng mạc, cần người trợ giúp khi đi lại ngoài đường.",
+      "soGiayXacNhan": "GCN-KT/2026/102",
+      "trangThaiCapGiay": "CHO_XET_DUYET"
+    }
+  ],
+  "so_quy_den_on_dap_nghia": [
+    {
+      "id": "QDO-00",
+      "loaiGiaoDich": "THU_QUY",
+      "noiDung": "Số dư kết dư Quỹ Đền ơn đáp nghĩa năm 2025 chuyển sang năm 2026",
+      "donViCaNhan": "Kho bạc Nhà nước Thủ Dầu Một",
+      "soTienVND": 185000000,
+      "ngayThucHien": "01/01/2026",
+      "nguoiThuNhan": "Ban Quản lý Quỹ ĐƠĐN",
+      "chungTuSo": "SD-QDO/2026/01"
+    },
+    {
+      "id": "QDO-01",
+      "loaiGiaoDich": "THU_QUY",
+      "noiDung": "Cán bộ công chức và người lao động UBND Phường ủng hộ 01 ngày lương Quỹ Đền ơn đáp nghĩa năm 2026",
+      "donViCaNhan": "Công đoàn Cơ sở UBND Phường Phú Cường",
+      "soTienVND": 38500000,
+      "ngayThucHien": "10/07/2026",
+      "nguoiThuNhan": "Thủ quỹ Ban Quản lý Quỹ ĐƠĐN",
+      "chungTuSo": "PT-QDO/2026/01"
+    },
+    {
+      "id": "QDO-02",
+      "loaiGiaoDich": "THU_QUY",
+      "noiDung": "Doanh nghiệp trên địa bàn ủng hộ Quỹ nhân dịp Kỷ niệm 79 năm ngày Thương binh - Liệt sĩ 27/7",
+      "donViCaNhan": "Công ty Cổ phần Thương mại & Dịch vụ Bình Dương",
+      "soTienVND": 50000000,
+      "ngayThucHien": "15/07/2026",
+      "nguoiThuNhan": "Ban Vận động Quỹ",
+      "chungTuSo": "PT-QDO/2026/04"
+    },
+    {
+      "id": "QDO-03",
+      "loaiGiaoDich": "CHI_HO_TRO",
+      "noiDung": "Hỗ trợ kinh phí xây mới Nhà Tình nghĩa cho thân nhân Liệt sĩ có hoàn cảnh khó khăn về nhà ở",
+      "donViCaNhan": "Hộ bà Nguyễn Thị Lành (vợ Liệt sĩ)",
+      "khuPho": "Khu phố 3",
+      "soTienVND": 80000000,
+      "ngayThucHien": "25/07/2026",
+      "nguoiThuNhan": "Bà Nguyễn Thị Lành",
+      "chungTuSo": "PC-QDO/2026/02",
+      "mucDichChi": "Xây mới Nhà Tình nghĩa theo Quyết định số 92/QĐ-UBND"
+    },
+    {
+      "id": "QDO-04",
+      "loaiGiaoDich": "CHI_HO_TRO",
+      "noiDung": "Hỗ trợ sửa chữa, chống dột Nhà Tình nghĩa cho Thương binh hạng 3/4",
+      "donViCaNhan": "Ông Lê Văn Tư (Thương binh 3/4)",
+      "khuPho": "Khu phố 1",
+      "soTienVND": 40000000,
+      "ngayThucHien": "10/08/2026",
+      "nguoiThuNhan": "Ông Lê Văn Tư",
+      "chungTuSo": "PC-QDO/2026/05",
+      "mucDichChi": "Nâng cấp mái tôn, nền nhà chống ngập theo biên bản khảo sát liên ngành"
+    }
+  ],
+  "nha_tinh_nghia_nguoi_co_cong": [
+    {
+      "id": "NTN-01",
+      "maHoSo": "NTN/2026/01",
+      "hoTenChuHo": "Bà Nguyễn Thị Lành",
+      "dienDoiTuong": "THAN_NHAN_LIET_SI",
+      "khuPho": "Khu phố 3",
+      "diaChi": "Số 89 đường Phan Đình Phùng, KP3",
+      "loaiHinhHoTro": "XAY_MOI",
+      "kinhPhiHoTroVND": 80000000,
+      "kinhPhiGiaDinhVND": 35000000,
+      "tongDuToanVND": 115000000,
+      "tienDoThiCongPercent": 100,
+      "ngayKhoiCong": "01/08/2026",
+      "ngayNghiemThuDuKien": "25/09/2026",
+      "trangThai": "DA_BAN_GIAO"
+    },
+    {
+      "id": "NTN-02",
+      "maHoSo": "NTN/2026/02",
+      "hoTenChuHo": "Ông Lê Văn Tư",
+      "dienDoiTuong": "THUONG_BENH_BINH",
+      "khuPho": "Khu phố 1",
+      "diaChi": "Hẻm 12 đường Đoàn Trần Nghiệp, KP1",
+      "loaiHinhHoTro": "SUA_CHUA_CHONG_DOT",
+      "kinhPhiHoTroVND": 40000000,
+      "kinhPhiGiaDinhVND": 15000000,
+      "tongDuToanVND": 55000000,
+      "tienDoThiCongPercent": 85,
+      "ngayKhoiCong": "15/09/2026",
+      "ngayNghiemThuDuKien": "15/11/2026",
+      "trangThai": "DANG_THI_CONG"
+    }
+  ],
+  "ho_so_gia_dinh_van_hoa": [
+    {
+      "id": "GDVH-001",
+      "maHo": "HGD-PC-01-089",
+      "chuHo": "Ông Nguyễn Văn Hùng",
+      "cccd": "074060001234",
+      "diaChi": "Số 15/4 đường Đoàn Trần Nghiệp",
+      "khuPho": "Khu phố 1",
+      "soThanhVien": 4,
+      "namDanhGia": 2026,
+      "diemGuongMau": 30,
+      "diemKinhTe": 29,
+      "diemHoaThuan": 39,
+      "tongDiem": 98,
+      "ketQua": "DAT_CHUAN",
+      "namDatLienTuc": 5,
+      "deNghiKhenThuong": true,
+      "nguoiChamDiem": "Tổ trưởng TDP & Ban CTMT Khu phố 1",
+      "ngayCham": "15/10/2026",
+      "ghiChu": "Gia đình mẫu mực, con cháu hiếu thảo, tích cực ủng hộ Quỹ Khuyến học"
+    },
+    {
+      "id": "GDVH-002",
+      "maHo": "HGD-PC-02-142",
+      "chuHo": "Bà Lê Thị Hồng Thắm",
+      "cccd": "074165005678",
+      "diaChi": "Số 42 đường Thích Quảng Đức",
+      "khuPho": "Khu phố 2",
+      "soThanhVien": 3,
+      "namDanhGia": 2026,
+      "diemGuongMau": 28,
+      "diemKinhTe": 28,
+      "diemHoaThuan": 38,
+      "tongDiem": 94,
+      "ketQua": "DAT_CHUAN",
+      "namDatLienTuc": 3,
+      "deNghiKhenThuong": false,
+      "nguoiChamDiem": "Ban điều hành Khu phố 2",
+      "ngayCham": "16/10/2026"
+    },
+    {
+      "id": "GDVH-003",
+      "maHo": "HGD-PC-03-021",
+      "chuHo": "Ông Trần Quốc Toản",
+      "cccd": "074070009911",
+      "diaChi": "Số 89 đường Bạch Đằng",
+      "khuPho": "Khu phố 3",
+      "soThanhVien": 5,
+      "namDanhGia": 2026,
+      "diemGuongMau": 22,
+      "diemKinhTe": 24,
+      "diemHoaThuan": 25,
+      "tongDiem": 71,
+      "ketQua": "CHUA_DAT",
+      "namDatLienTuc": 0,
+      "deNghiKhenThuong": false,
+      "nguoiChamDiem": "Ban điều hành Khu phố 3",
+      "ngayCham": "18/10/2026",
+      "ghiChu": "Còn để rác thải sinh hoạt lấn chiếm lề đường, có phản ánh mâu thuẫn gia đình"
+    },
+    {
+      "id": "GDVH-004",
+      "maHo": "HGD-PC-04-055",
+      "chuHo": "Bà Phạm Thị Mỹ Lệ",
+      "cccd": "074158003322",
+      "diaChi": "Số 104 đường Yersin",
+      "khuPho": "Khu phố 4",
+      "soThanhVien": 4,
+      "namDanhGia": 2026,
+      "diemGuongMau": 30,
+      "diemKinhTe": 30,
+      "diemHoaThuan": 38,
+      "tongDiem": 98,
+      "ketQua": "DAT_CHUAN",
+      "namDatLienTuc": 7,
+      "deNghiKhenThuong": true,
+      "nguoiChamDiem": "Ban điều hành Khu phố 4",
+      "ngayCham": "19/10/2026",
+      "ghiChu": "Gia đình văn hóa tiêu biểu cấp Thành phố năm 2025"
+    }
+  ],
+  "khu_pho_van_hoa": [
+    {
+      "id": "KPVH-01",
+      "tenKhuPho": "Khu phố 1, Phường Phú Cường",
+      "truongKhuPho": "Ông Đỗ Thanh Hải",
+      "sdt": "0913.882.112",
+      "tongSoHo": 540,
+      "soHoDatGiaDinhVanHoa": 528,
+      "tyLeDatPercent": 97.8,
+      "danhHieu": "KHU_PHO_VAN_HOA_XUAT_SAC",
+      "tuyenDuongVanMinh": "Tuyến đường Cách Mạng Tháng Tám (Đoạn qua KP1)",
+      "tieuChiDoThiVanMinh": {
+        "khongRac": true,
+        "khongLanChiemLongLeDuong": true,
+        "tuyenPhoCoHoa": true,
+        "anNinhTratTu": true
+      }
+    },
+    {
+      "id": "KPVH-02",
+      "tenKhuPho": "Khu phố 2, Phường Phú Cường",
+      "truongKhuPho": "Bà Vũ Thị Tuyết",
+      "sdt": "0908.445.667",
+      "tongSoHo": 620,
+      "soHoDatGiaDinhVanHoa": 598,
+      "tyLeDatPercent": 96.5,
+      "danhHieu": "KHU_PHO_VAN_HOA",
+      "tuyenDuongVanMinh": "Tuyến đường Thích Quảng Đức",
+      "tieuChiDoThiVanMinh": {
+        "khongRac": true,
+        "khongLanChiemLongLeDuong": false,
+        "tuyenPhoCoHoa": true,
+        "anNinhTratTu": true
+      }
+    },
+    {
+      "id": "KPVH-03",
+      "tenKhuPho": "Khu phố 3, Phường Phú Cường",
+      "truongKhuPho": "Ông Nguyễn Văn Nhơn",
+      "sdt": "0918.776.554",
+      "tongSoHo": 480,
+      "soHoDatGiaDinhVanHoa": 462,
+      "tyLeDatPercent": 96.3,
+      "danhHieu": "KHU_PHO_VAN_HOA",
+      "tuyenDuongVanMinh": "Tuyến phố đi bộ ven sông Bạch Đằng",
+      "tieuChiDoThiVanMinh": {
+        "khongRac": true,
+        "khongLanChiemLongLeDuong": true,
+        "tuyenPhoCoHoa": true,
+        "anNinhTratTu": true
+      }
+    },
+    {
+      "id": "KPVH-04",
+      "tenKhuPho": "Khu phố 4, Phường Phú Cường",
+      "truongKhuPho": "Ông Hoàng Văn Thái",
+      "sdt": "0983.221.998",
+      "tongSoHo": 510,
+      "soHoDatGiaDinhVanHoa": 489,
+      "tyLeDatPercent": 95.9,
+      "danhHieu": "KHU_PHO_VAN_HOA",
+      "tuyenDuongVanMinh": "Tuyến đường Yersin (Đoạn chợ hoa)",
+      "tieuChiDoThiVanMinh": {
+        "khongRac": true,
+        "khongLanChiemLongLeDuong": true,
+        "tuyenPhoCoHoa": false,
+        "anNinhTratTu": true
+      }
+    }
+  ],
+  "nghe_nhan_di_san_van_hoa": [
+    {
+      "id": "NN-01",
+      "hoTen": "Trương Văn Cang",
+      "namSinh": 1954,
+      "danhHieu": "NGHE_NHAN_UU_TU",
+      "loaiHinhDiSan": "Nghệ thuật Đờn ca tài tử Nam Bộ & Hát bội",
+      "namPhongTang": 2019,
+      "khuPho": "Khu phố 2",
+      "tinhTrangSucKhoe": "Tốt, minh mẫn, nhiệt tình truyền dạy",
+      "mucTroCapThangVND": 1800000,
+      "clbSinhHoat": "CLB Đờn ca tài tử Trung tâm Văn hóa Phường Phú Cường",
+      "thanhTichTruyenDay": "Đã đào tạo trên 60 học viên ngón đàn kìm, đàn tranh và nghệ thuật ca vọng cổ truyền thống."
+    },
+    {
+      "id": "NN-02",
+      "hoTen": "Nguyễn Thanh Sơn",
+      "namSinh": 1960,
+      "danhHieu": "NGHE_NHAN_UU_TU",
+      "loaiHinhDiSan": "Nghề thủ công truyền thống Sơn mài Tương Bình Hiệp",
+      "namPhongTang": 2022,
+      "khuPho": "Khu phố 4",
+      "tinhTrangSucKhoe": "Bình thường",
+      "mucTroCapThangVND": 1800000,
+      "clbSinhHoat": "Hiệp hội Sơn mài Điêu khắc Bình Dương",
+      "thanhTichTruyenDay": "Chủ trì phục dựng kỹ thuật sơn mài cẩn vỏ trứng và cẩn ốc xà cừ cổ truyền Nam Bộ."
+    },
+    {
+      "id": "NN-03",
+      "hoTen": "Lê Thị Hồng Vân",
+      "namSinh": 1968,
+      "danhHieu": "NGHE_NHAN_DAN_GIAN",
+      "loaiHinhDiSan": "Ẩm thực dân gian (Bánh bèo bì chợ Búng & Món ngon Bình Dương)",
+      "namPhongTang": 2024,
+      "khuPho": "Khu phố 1",
+      "tinhTrangSucKhoe": "Tốt",
+      "mucTroCapThangVND": 1000000,
+      "clbSinhHoat": "Chi hội Phụ nữ & Ẩm thực truyền thống phường",
+      "thanhTichTruyenDay": "Truyền dạy bí quyết chế biến nước mắm tỏi ớt gia truyền và bánh bèo bì phục vụ du khách Lễ hội Chùa Bà."
+    }
+  ],
+  "co_so_the_thao_ho_boi": [
+    {
+      "id": "TT-01",
+      "tenCoSo": "Hồ bơi Thiếu nhi Hoa Phượng",
+      "loaiHinh": "BE_BOI",
+      "diaChi": "Số 88 đường Bạch Đằng, KP1",
+      "chuCoSo": "Lê Minh Tuấn",
+      "sdt": "0903.882.331",
+      "giayPhepKinhDoanh": "GPKD-TT/2023/12",
+      "soNhanVienCuuHo": 3,
+      "chungChiChuyenMon": true,
+      "tinhTrangPCCC": "DAT",
+      "ketQuaKiemTra": "DAT_CHUAN",
+      "ngayKiemTraGanNhat": "14/09/2026",
+      "ghiChu": "Đầy đủ 10 phao cứu sinh, 2 sào cứu hộ, kiểm nghiệm chất lượng nước định kỳ 2 tuần/lần, có bảng nội quy phòng chống đuối nước rõ ràng."
+    },
+    {
+      "id": "TT-02",
+      "tenCoSo": "CLB Gym & Fitness Olympic Center",
+      "loaiHinh": "PHONG_GYM_FITNESS",
+      "diaChi": "Số 154 đường Cách Mạng Tháng Tám, KP3",
+      "chuCoSo": "Phạm Quốc Hưng",
+      "sdt": "0918.445.678",
+      "giayPhepKinhDoanh": "GPKD-TT/2024/45",
+      "soNhanVienCuuHo": 0,
+      "chungChiChuyenMon": true,
+      "tinhTrangPCCC": "DAT",
+      "ketQuaKiemTra": "DAT_CHUAN",
+      "ngayKiemTraGanNhat": "08/10/2026",
+      "ghiChu": "Huấn luyện viên có bằng cử nhân TDTT, trang bị máy tập đạt chuẩn an toàn, khoảng cách máy hợp lý."
+    },
+    {
+      "id": "TT-03",
+      "tenCoSo": "Sân bóng đá cỏ nhân tạo Phú Cường Sport",
+      "loaiHinh": "SAN_BONG_DA",
+      "diaChi": "Khu phố 4, P. Phú Cường",
+      "chuCoSo": "Nguyễn Văn Đức",
+      "sdt": "0977.992.114",
+      "giayPhepKinhDoanh": "GPKD-TT/2022/88",
+      "soNhanVienCuuHo": 0,
+      "chungChiChuyenMon": true,
+      "tinhTrangPCCC": "DAT",
+      "ketQuaKiemTra": "CAN_KHAC_PHUC",
+      "ngayKiemTraGanNhat": "18/10/2026",
+      "ghiChu": "Hệ thống chiếu sáng đèn LED ban đêm đáp ứng tốt, yêu cầu bổ sung tủ thuốc sơ cấp cứu chấn thương thể thao trước ngày 05/11/2026."
+    }
+  ],
+  "phan_anh_hien_truong_1022": [
+    {
+      "id": "PA-01",
+      "maPhanAnh": "PA1022-2026-1025",
+      "nguoiPhanAnh": "Nguyễn Văn Tuấn",
+      "soDienThoai": "0918.345.xxx",
+      "ngayTiepNhan": "26/10/2026",
+      "gioTiepNhan": "08:15",
+      "linhVuc": "MOI_TRUONG_RAC",
+      "diaChiSuCo": "Đầu hẻm 42 Đường Nguyễn Tri Phương, Khu phố 1",
+      "khuPho": "Khu phố 1",
+      "noiDung": "Bãi rác tự phát đổ trộm phế thải xây dựng và cành cây che khuất cống thoát nước gây ứ đọng nước mưa",
+      "mucDoUuTien": "HOA_TOC_24H",
+      "canBoThuLy": "Nguyễn Thanh Tùng",
+      "chucVuCanBo": "Công chức Văn hóa - Xã hội phối hợp Đội TTĐT",
+      "hanXuLy": "27/10/2026 08:15",
+      "ketQuaXuLy": "Đã điều xe công ích thu gom 1.5 tấn phế thải, đặt biển cấm đổ rác và gắn camera giám sát phạt nguội",
+      "ngayHoanThanh": "26/10/2026 16:30",
+      "trangThai": "DA_XU_LY",
+      "danhGiaCuaDan": "RAT_HAI_LONG"
+    },
+    {
+      "id": "PA-02",
+      "maPhanAnh": "PA1022-2026-1026",
+      "nguoiPhanAnh": "Bà Lê Thị Hồng (Hộ dân KP3)",
+      "soDienThoai": "0903.882.xxx",
+      "ngayTiepNhan": "26/10/2026",
+      "gioTiepNhan": "21:30",
+      "linhVuc": "TIENG_ON",
+      "diaChiSuCo": "Quán nhậu vỉa hè Bờ Kè, Khu phố 3",
+      "khuPho": "Khu phố 3",
+      "noiDung": "Hát loa kẹo kéo công suất lớn quá 22h đêm gây mất giấc ngủ người già và trẻ nhỏ chuẩn bị thi học kỳ",
+      "mucDoUuTien": "HOA_TOC_24H",
+      "canBoThuLy": "Nguyễn Thanh Tùng",
+      "chucVuCanBo": "Đội Kiểm tra liên ngành 814 & Công an Phường",
+      "hanXuLy": "27/10/2026 21:30",
+      "ketQuaXuLy": "Công an Phường và Đội 814 xuống hiện trường lúc 22h00, lập biên bản tạm giữ 01 loa kéo và nhắc nhở chủ quán",
+      "ngayHoanThanh": "26/10/2026 22:30",
+      "trangThai": "DA_XU_LY",
+      "danhGiaCuaDan": "RAT_HAI_LONG"
+    },
+    {
+      "id": "PA-03",
+      "maPhanAnh": "PA1022-2026-1027",
+      "nguoiPhanAnh": "Trần Minh Trí",
+      "soDienThoai": "0977.112.xxx",
+      "ngayTiepNhan": "27/10/2026",
+      "gioTiepNhan": "09:00",
+      "linhVuc": "QUANG_CAO_RAO",
+      "diaChiSuCo": "Dọc cột điện tuyến đường Huỳnh Văn Lũy, Khu phố 4",
+      "khuPho": "Khu phố 4",
+      "noiDung": "Dán tờ rơi quảng cáo cho vay tiền nhanh tín dụng đen và khoan cắt bê tông làm mất mỹ quan đô thị",
+      "mucDoUuTien": "THUONG_48H",
+      "canBoThuLy": "Vũ Đình Cường",
+      "chucVuCanBo": "Chuyên viên TT-CĐS & Đoàn Thanh niên",
+      "hanXuLy": "29/10/2026 09:00",
+      "trangThai": "DANG_XU_LY"
+    }
+  ],
+  "bo_chi_so_dti_cap_xa": [
+    {
+      "id": "DTI-01",
+      "truCot": "CHINH_QUYEN_SO",
+      "tenChiSo": "Tỷ lệ hồ sơ TTHC tiếp nhận và giải quyết trực tuyến toàn trình",
+      "chiTieuGiao": 80,
+      "thucTeDat": 91.5,
+      "donViTinh": "%",
+      "danhGia": "VUOT_CHI_TIEU",
+      "moTaHienTrang": "100% TTHC đủ điều kiện đã cung cấp DVC trực tuyến toàn trình trên Cổng DVCQG"
+    },
+    {
+      "id": "DTI-02",
+      "truCot": "CHINH_QUYEN_SO",
+      "tenChiSo": "Tỷ lệ hồ sơ công việc xử lý trên môi trường mạng và ký số SmartCA",
+      "chiTieuGiao": 90,
+      "thucTeDat": 98.2,
+      "donViTinh": "%",
+      "danhGia": "VUOT_CHI_TIEU",
+      "moTaHienTrang": "100% văn bản chỉ đạo của UBND Phường sử dụng chữ ký số cá nhân và con dấu cơ quan điện tử"
+    },
+    {
+      "id": "DTI-03",
+      "truCot": "KINH_TE_SO",
+      "tenChiSo": "Tỷ lệ hộ kinh doanh, tiểu thương áp dụng thanh toán không dùng tiền mặt (VietQR)",
+      "chiTieuGiao": 75,
+      "thucTeDat": 88,
+      "donViTinh": "%",
+      "danhGia": "VUOT_CHI_TIEU",
+      "moTaHienTrang": "Tuyến phố thanh toán không dùng tiền mặt đạt 100% cơ sở kinh doanh có bảng QR"
+    },
+    {
+      "id": "DTI-04",
+      "truCot": "XA_HOI_SO",
+      "tenChiSo": "Tỷ lệ người dân trưởng thành có tài khoản định danh điện tử VNeID mức 2",
+      "chiTieuGiao": 85,
+      "thucTeDat": 94.6,
+      "donViTinh": "%",
+      "danhGia": "VUOT_CHI_TIEU",
+      "moTaHienTrang": "4 Tổ công nghệ số cộng đồng đi từng ngõ, gõ từng nhà kích hoạt VNeID"
+    },
+    {
+      "id": "DTI-05",
+      "truCot": "XA_HOI_SO",
+      "tenChiSo": "Tỷ lệ người dân trưởng thành có chữ ký số cá nhân để nộp DVC",
+      "chiTieuGiao": 30,
+      "thucTeDat": 42.5,
+      "donViTinh": "%",
+      "danhGia": "VUOT_CHI_TIEU",
+      "moTaHienTrang": "Phối hợp VNPT SmartCA và Viettel CA cấp miễn phí chữ ký số tại Bộ phận Một cửa"
+    }
+  ],
+  "tin_bai_cong_thong_tin": [
+    {
+      "id": "TB-01",
+      "tieuDe": "UBND Phường Phú Cường phát động Tháng hành động vì Bình đẳng giới và phòng ngừa bạo lực năm 2026",
+      "chuyenMuc": "VAN_HOA_XA_HOI",
+      "tacGia": "Vũ Đình Cường (Chuyên viên TT-CĐS)",
+      "ngayGui": "20/10/2026",
+      "trangThai": "DA_XUAT_BAN",
+      "nguoiDuyet": "Nguyễn Văn An (Chủ tịch UBND Phường)",
+      "ngayXuatBan": "21/10/2026 08:30",
+      "luotXem": 2840,
+      "dongBoZaloOA": true,
+      "luotGuiBroadcast": 12500
+    },
+    {
+      "id": "TB-02",
+      "tieuDe": "Hướng dẫn cài đặt và sử dụng tính năng 'Ví giấy tờ số' trên VNeID mức 2 khi thực hiện TTHC",
+      "chuyenMuc": "DVC_CHUYEN_DOI_SO",
+      "tacGia": "Tổ Công nghệ số cộng đồng",
+      "ngayGui": "24/10/2026",
+      "trangThai": "DA_XUAT_BAN",
+      "nguoiDuyet": "Trần Thị Mai (PCT UBND Phường)",
+      "ngayXuatBan": "25/10/2026 09:15",
+      "luotXem": 4120,
+      "dongBoZaloOA": true,
+      "luotGuiBroadcast": 15200
+    },
+    {
+      "id": "TB-03",
+      "tieuDe": "Kế hoạch tổ chức Lễ hội Đền Bà Thiên Hậu Rằm tháng Giêng năm Đinh Mùi 2027 bảo đảm an toàn PCCC",
+      "chuyenMuc": "CHI_DAO_DIEU_HANH",
+      "tacGia": "Lê Văn Hùng (Cán bộ Văn hóa - Xã hội)",
+      "ngayGui": "26/10/2026",
+      "trangThai": "CHO_DUYET",
+      "luotXem": 0,
+      "dongBoZaloOA": false,
+      "luotGuiBroadcast": 0
+    }
+  ],
+  "giam_sat_khong_gian_mang": [
+    {
+      "id": "KGM-01",
+      "maTin": "KGM/2026/01",
+      "kenhPhatHien": "FACEBOOK",
+      "tieuDeNoiDung": "Tài khoản ẩn danh đăng tin giả vỡ đê sông Sài Gòn gây ngập lụt trung tâm phường Phú Cường",
+      "duongDanLink": "https://facebook.com/groups/thudaumot.tintuc/posts/991823",
+      "mucDoNguyHiem": "NGHIEM_TRONG",
+      "ngayPhatHien": "12/09/2026 19:30",
+      "bienPhapXuLy": "DA_XU_LY_XONG",
+      "ketQuaXuLy": "UBND Phường phát thanh hỏa tốc trên 12 cụm loa thông minh và đăng bài đính chính trên Zalo OA trong 20 phút; Công an Thành phố triệu tập chủ tài khoản xử phạt 7.5 triệu đồng theo NĐ 15/2020.",
+      "canBoTheoDoi": "Tổ Tác chiến không gian mạng (Lực lượng 35) & Công an Phường"
+    },
+    {
+      "id": "KGM-02",
+      "maTin": "KGM/2026/02",
+      "kenhPhatHien": "ZALO_GROUP",
+      "tieuDeNoiDung": "Nhóm cư dân chia sẻ link giả mạo cổng dịch vụ công yêu cầu nhập thông tin OTP ngân hàng để nhận hỗ trợ tiền điện",
+      "duongDanLink": "zalo.me/g/nhom-dan-cu-kp2",
+      "mucDoNguyHiem": "TRUNG_BINH",
+      "ngayPhatHien": "18/10/2026 14:15",
+      "bienPhapXuLy": "DA_XU_LY_XONG",
+      "ketQuaXuLy": "Tổ CNS cộng đồng Khu phố 2 đăng cảnh báo lừa đảo trực tiếp vào nhóm, quản trị viên xóa link lừa đảo và chặn đối tượng tán phát tin nhắn rác.",
+      "canBoTheoDoi": "Vũ Đình Cường (Tổ CNS cộng đồng)"
+    }
+  ],
+  "bang_danh_gia_kpi_can_bo": [
+    {
+      "id": "KPI-2026-10-01",
+      "maPhieuDanhGia": "KPI-T10-NTT-01",
+      "canBoId": "CB_VAN_HOA",
+      "canBoName": "Nguyễn Thanh Tùng",
+      "chucVu": "Công chức Văn hóa - Xã hội (Văn hóa, Thể thao, Du lịch & Gia đình)",
+      "phongBan": "Bộ phận Văn hóa - Xã hội UBND Phường",
+      "domain": "VH_TT_DL",
+      "avatarText": "NTT",
+      "kyDanhGia": "Tháng 10/2026",
+      "namDanhGia": 2026,
+      "tieuChi1_NhiemVuChuyenMon": {
+        "diemToiDa": 40,
+        "diemTuCham": 39,
+        "diemHeThongAuto": 38.5,
+        "diemLanhDaoCham": 39,
+        "canCuDanhGia": "Hoàn thành 5/5 sản phẩm check-in: Tờ trình bình xét 528 hộ GĐVH KP1 (97.8%), Biên bản kiểm tra 814, Hồ sơ địa chỉ tin cậy"
+      },
+      "tieuChi2_MotCuaDvcQd766": {
+        "diemToiDa": 25,
+        "diemTuCham": 24.5,
+        "diemHeThongAuto": 24,
+        "diemLanhDaoCham": 24,
+        "canCuDanhGia": "100% hồ sơ TTHC giải quyết đúng và trước hạn (12/12 hồ sơ), 100% kết quả số hóa ký số SmartCA"
+      },
+      "tieuChi3_CsatHaiLongDan": {
+        "diemToiDa": 15,
+        "diemTuCham": 14.5,
+        "diemHeThongAuto": 14.5,
+        "diemLanhDaoCham": 14.5,
+        "canCuDanhGia": "Điểm CSAT đánh giá Kiosk & QR đạt 4.86/5.0 sao. 0 phản ánh tiêu cực về thái độ công vụ"
+      },
+      "tieuChi4_KyLuatVanHoaCongSo": {
+        "diemToiDa": 10,
+        "diemTuCham": 10,
+        "diemHeThongAuto": 10,
+        "diemLanhDaoCham": 10,
+        "canCuDanhGia": "Chấp hành nghiêm giờ giấc công sở, trang phục lịch sự, tham gia đầy đủ 100% cuộc họp giao ban"
+      },
+      "tieuChi5_SangKienChuyenDoiSo": {
+        "diemToiDa": 10,
+        "diemTuCham": 9,
+        "diemHeThongAuto": 8.5,
+        "diemLanhDaoCham": 8.5,
+        "canCuDanhGia": "Ứng dụng mã QR Audio Guide cho 6 điểm di tích và số hóa bản đồ di sản số Phú Cường"
+      },
+      "danhSachThuongPhat": [
+        {
+          "id": "TP-01",
+          "loai": "THUONG",
+          "soDiem": 3,
+          "maLoiHoacSangKien": "SK-2026-VH-02",
+          "lyDo": "Có sáng kiến gắn mã QR Audio Guide thuyết minh đa ngữ tại Di tích Chùa Bà Thiên Hậu phục vụ du khách",
+          "ngayGhiNhan": "20/10/2026",
+          "nguoiQuyetDinh": "TS. Nguyễn Văn Hùng",
+          "chungTuLienQuan": "QĐ-UBND-2026/SK-08"
+        },
+        {
+          "id": "TP-02",
+          "loai": "THUONG",
+          "soDiem": 2,
+          "maLoiHoacSangKien": "TRUOC_HAN_40",
+          "lyDo": "Tỷ lệ hồ sơ Một cửa trả trước hạn đạt trên 50% tổng số hồ sơ tiếp nhận trong tháng",
+          "ngayGhiNhan": "25/10/2026",
+          "nguoiQuyetDinh": "Bộ phận Một cửa",
+          "chungTuLienQuan": "Báo cáo QĐ 766 Tháng 10"
+        }
+      ],
+      "tongDiemThuong": 5,
+      "tongDiemTru": 0,
+      "diemTuChamTong": 97,
+      "diemHeThongAutoTong": 95.5,
+      "diemLanhDaoTong": 96,
+      "diemTongKetCuoiCung": 100,
+      "xepLoai": "HOAN_THANH_XUAT_SAC",
+      "trangThai": "DA_PHE_DUYET",
+      "lanhDaoThamDinh": {
+        "nguoiDuyet": "TS. Nguyễn Văn Hùng",
+        "chucVu": "Lãnh đạo UBND Phường",
+        "ngayDuyet": "27/10/2026",
+        "nhanXetButPhe": "Đồng chí Tùng chủ động, năng động, hoàn thành xuất sắc các chỉ tiêu công vụ tháng 10. Đề nghị khen thưởng đột xuất khối VH-XH.",
+        "deXuatKhenThuong": "Đề nghị Chủ tịch UBND Phường tặng Giấy khen Công chức Xuất sắc Tháng 10",
+        "maKySoSmartCA": "SHA256:7e8a9b21f09c...nvhung"
+      },
+      "heThongMetrics": {
+        "tyLeDungHanMotCua": 100,
+        "soLuongHoSoDaXuLy": 12,
+        "soSanPhamCheckInHoanThanh": 5,
+        "diemCsatTrungBinh": 4.86,
+        "soPhanHoiTieuCuc": 0
+      }
+    },
+    {
+      "id": "KPI-2026-10-02",
+      "maPhieuDanhGia": "KPI-T10-TKO-02",
+      "canBoId": "CB_GIAO_DUC",
+      "canBoName": "ThS. Trần Thị Kim Oanh",
+      "chucVu": "Công chức phụ trách Giáo dục - Đào tạo cơ sở & Khuyến học",
+      "phongBan": "Bộ phận Giáo dục & Đào tạo UBND Phường",
+      "domain": "GD_DT",
+      "avatarText": "TKO",
+      "kyDanhGia": "Tháng 10/2026",
+      "namDanhGia": 2026,
+      "tieuChi1_NhiemVuChuyenMon": {
+        "diemToiDa": 40,
+        "diemTuCham": 40,
+        "diemHeThongAuto": 39.5,
+        "diemLanhDaoCham": 40,
+        "canCuDanhGia": "Hoàn thành 100% kế hoạch phổ cập GDMN 5 tuổi (99.8%), quản lý tốt 14 nhóm trẻ tư thục đảm bảo VSATTP"
+      },
+      "tieuChi2_MotCuaDvcQd766": {
+        "diemToiDa": 25,
+        "diemTuCham": 25,
+        "diemHeThongAuto": 24.5,
+        "diemLanhDaoCham": 24.5,
+        "canCuDanhGia": "100% hồ sơ cấp phép và trợ cấp trẻ mầm non xử lý trước hạn trên Cổng DVCQG"
+      },
+      "tieuChi3_CsatHaiLongDan": {
+        "diemToiDa": 15,
+        "diemTuCham": 15,
+        "diemHeThongAuto": 15,
+        "diemLanhDaoCham": 15,
+        "canCuDanhGia": "Điểm CSAT phụ huynh học sinh đạt tuyệt đối 5.0/5.0 sao, giải đáp ân cần chu đáo"
+      },
+      "tieuChi4_KyLuatVanHoaCongSo": {
+        "diemToiDa": 10,
+        "diemTuCham": 10,
+        "diemHeThongAuto": 10,
+        "diemLanhDaoCham": 10,
+        "canCuDanhGia": "Gương mẫu, tác phong chuẩn mực nhà giáo, thực hiện tốt quy chế văn hóa công sở"
+      },
+      "tieuChi5_SangKienChuyenDoiSo": {
+        "diemToiDa": 10,
+        "diemTuCham": 9,
+        "diemHeThongAuto": 9.2,
+        "diemLanhDaoCham": 9.5,
+        "canCuDanhGia": "Xây dựng cổng tra cứu bản đồ số trường học và cơ sở mầm non ngoài công lập trên địa bàn"
+      },
+      "danhSachThuongPhat": [
+        {
+          "id": "TP-03",
+          "loai": "THUONG",
+          "soDiem": 3,
+          "maLoiHoacSangKien": "PHO_CAP_99",
+          "lyDo": "Đạt chỉ tiêu phổ cập giáo dục mầm non 5 tuổi và xóa mù chữ vượt kế hoạch thành phố giao",
+          "ngayGhiNhan": "22/10/2026",
+          "nguoiQuyetDinh": "TS. Nguyễn Văn Hùng",
+          "chungTuLienQuan": "Báo cáo Ban Chỉ đạo Phổ cập"
+        }
+      ],
+      "tongDiemThuong": 3,
+      "tongDiemTru": 0,
+      "diemTuChamTong": 99,
+      "diemHeThongAutoTong": 98.2,
+      "diemLanhDaoTong": 99,
+      "diemTongKetCuoiCung": 100,
+      "xepLoai": "HOAN_THANH_XUAT_SAC",
+      "trangThai": "DA_PHE_DUYET",
+      "lanhDaoThamDinh": {
+        "nguoiDuyet": "TS. Nguyễn Văn Hùng",
+        "chucVu": "Lãnh đạo UBND Phường",
+        "ngayDuyet": "27/10/2026",
+        "nhanXetButPhe": "Đồng chí Oanh có năng lực chuyên môn vững vàng, tinh thần trách nhiệm cao. Đề xuất biểu dương gương sáng công vụ.",
+        "deXuatKhenThuong": "Đề nghị Giám đốc Sở GD-ĐT tặng Giấy khen chuyên đề",
+        "maKySoSmartCA": "SHA256:4b2c1d99e0...nvhung"
+      },
+      "heThongMetrics": {
+        "tyLeDungHanMotCua": 100,
+        "soLuongHoSoDaXuLy": 18,
+        "soSanPhamCheckInHoanThanh": 6,
+        "diemCsatTrungBinh": 5,
+        "soPhanHoiTieuCuc": 0
+      }
+    },
+    {
+      "id": "KPI-2026-10-03",
+      "maPhieuDanhGia": "KPI-T10-LHN-03",
+      "canBoId": "CB_LD_TBXH",
+      "canBoName": "Lê Hoàng Nam",
+      "chucVu": "Công chức Lao động, Việc làm & An sinh xã hội",
+      "phongBan": "Bộ phận Lao động - Thương binh & Xã hội",
+      "domain": "LDTBXH_AN_SINH",
+      "avatarText": "LHN",
+      "kyDanhGia": "Tháng 10/2026",
+      "namDanhGia": 2026,
+      "tieuChi1_NhiemVuChuyenMon": {
+        "diemToiDa": 40,
+        "diemTuCham": 37,
+        "diemHeThongAuto": 36.5,
+        "diemLanhDaoCham": 37,
+        "canCuDanhGia": "Chi trả đúng kỳ trợ cấp cho 1.240 đối tượng BTXH, rà soát giảm 4 hộ nghèo, thẩm định 28 hồ sơ mai táng phí"
+      },
+      "tieuChi2_MotCuaDvcQd766": {
+        "diemToiDa": 25,
+        "diemTuCham": 23,
+        "diemHeThongAuto": 22.8,
+        "diemLanhDaoCham": 23,
+        "canCuDanhGia": "Giải quyết 26/27 hồ sơ đúng hạn. Có 1 hồ sơ xác nhận mức độ khuyết tật trễ hẹn 1 ngày do chờ kết quả giám định y khoa"
+      },
+      "tieuChi3_CsatHaiLongDan": {
+        "diemToiDa": 15,
+        "diemTuCham": 14,
+        "diemHeThongAuto": 13.5,
+        "diemLanhDaoCham": 13.5,
+        "canCuDanhGia": "Điểm CSAT đạt 4.72/5.0 sao. Có 1 phản ánh đề nghị hướng dẫn thêm thủ tục cấp thẻ BHYT"
+      },
+      "tieuChi4_KyLuatVanHoaCongSo": {
+        "diemToiDa": 10,
+        "diemTuCham": 10,
+        "diemHeThongAuto": 10,
+        "diemLanhDaoCham": 10,
+        "canCuDanhGia": "Chấp hành tốt kỷ luật lao động, tinh thần vì nhân dân phục vụ"
+      },
+      "tieuChi5_SangKienChuyenDoiSo": {
+        "diemToiDa": 10,
+        "diemTuCham": 8,
+        "diemHeThongAuto": 8,
+        "diemLanhDaoCham": 8,
+        "canCuDanhGia": "Triển khai hiệu quả mô hình chi trả an sinh xã hội không dùng tiền mặt đạt 98.6% qua thẻ ATM Vietcombank"
+      },
+      "danhSachThuongPhat": [
+        {
+          "id": "TP-04",
+          "loai": "THUONG",
+          "soDiem": 3,
+          "maLoiHoacSangKien": "CHI_TRA_ATM_98",
+          "lyDo": "Tỷ lệ chi trả an sinh xã hội không dùng tiền mặt đạt 98.6%, vượt chỉ tiêu UBND Thành phố giao (chỉ tiêu 90%)",
+          "ngayGhiNhan": "24/10/2026",
+          "nguoiQuyetDinh": "TS. Nguyễn Văn Hùng",
+          "chungTuLienQuan": "Báo cáo chi trả Sở LĐTBXH"
+        },
+        {
+          "id": "TP-05",
+          "loai": "PHAT",
+          "soDiem": 3,
+          "maLoiHoacSangKien": "TRE_HEN_MOT_CUA",
+          "lyDo": "Để 01 hồ sơ xác định khuyết tật trễ hạn 01 ngày (Mã HS: BTXH-2026-088) do không kịp thời gửi thư xin lỗi công dân",
+          "ngayGhiNhan": "26/10/2026",
+          "nguoiQuyetDinh": "Bộ phận Một cửa UBND Phường",
+          "chungTuLienQuan": "Biên bản kiểm tra giải quyết TTHC"
+        }
+      ],
+      "tongDiemThuong": 3,
+      "tongDiemTru": 3,
+      "diemTuChamTong": 92,
+      "diemHeThongAutoTong": 90.8,
+      "diemLanhDaoTong": 91.5,
+      "diemTongKetCuoiCung": 91.5,
+      "xepLoai": "HOAN_THANH_XUAT_SAC",
+      "trangThai": "DA_PHE_DUYET",
+      "lanhDaoThamDinh": {
+        "nguoiDuyet": "TS. Nguyễn Văn Hùng",
+        "chucVu": "Lãnh đạo UBND Phường",
+        "ngayDuyet": "27/10/2026",
+        "nhanXetButPhe": "Đồng chí Nam làm tốt khâu an sinh xã hội và chi trả ATM. Cần rút kinh nghiệm khâu theo dõi hạn TTHC để không phát sinh trễ hẹn.",
+        "maKySoSmartCA": "SHA256:3a1b7e88c0...nvhung"
+      },
+      "heThongMetrics": {
+        "tyLeDungHanMotCua": 96.3,
+        "soLuongHoSoDaXuLy": 27,
+        "soSanPhamCheckInHoanThanh": 4,
+        "diemCsatTrungBinh": 4.72,
+        "soPhanHoiTieuCuc": 1
+      }
+    },
+    {
+      "id": "KPI-2026-10-04",
+      "maPhieuDanhGia": "KPI-T10-VDC-04",
+      "canBoId": "CB_THONG_TIN",
+      "canBoName": "Vũ Đình Cường",
+      "chucVu": "Chuyên viên Văn hóa - Thông tin & Chuyển đổi số cơ sở",
+      "phongBan": "Bộ phận CNTT & Truyền thông Phường",
+      "domain": "TT_CDS",
+      "avatarText": "VDC",
+      "kyDanhGia": "Tháng 10/2026",
+      "namDanhGia": 2026,
+      "tieuChi1_NhiemVuChuyenMon": {
+        "diemToiDa": 40,
+        "diemTuCham": 36,
+        "diemHeThongAuto": 35,
+        "diemLanhDaoCham": 35,
+        "canCuDanhGia": "Vận hành hệ thống 16 cụm loa thông minh IP/4G, phát thanh 62 bản tin an ninh trật tự và PCCC"
+      },
+      "tieuChi2_MotCuaDvcQd766": {
+        "diemToiDa": 25,
+        "diemTuCham": 23,
+        "diemHeThongAuto": 22.5,
+        "diemLanhDaoCham": 22.5,
+        "canCuDanhGia": "Hỗ trợ 100% công chức Một cửa vận hành ký số SmartCA và liên thông dữ liệu DVCQG"
+      },
+      "tieuChi3_CsatHaiLongDan": {
+        "diemToiDa": 15,
+        "diemTuCham": 13,
+        "diemHeThongAuto": 13,
+        "diemLanhDaoCham": 13,
+        "canCuDanhGia": "Khảo sát ý kiến người dân về thời lượng và âm lượng loa truyền thanh đạt 91% hài lòng"
+      },
+      "tieuChi4_KyLuatVanHoaCongSo": {
+        "diemToiDa": 10,
+        "diemTuCham": 9,
+        "diemHeThongAuto": 8,
+        "diemLanhDaoCham": 8,
+        "canCuDanhGia": "Chậm nộp Báo cáo an toàn thông tin cơ sở quý III/2026 quá 2 ngày so với quy định"
+      },
+      "tieuChi5_SangKienChuyenDoiSo": {
+        "diemToiDa": 10,
+        "diemTuCham": 8,
+        "diemHeThongAuto": 10,
+        "diemLanhDaoCham": 9.5,
+        "canCuDanhGia": "Triển khai hiệu quả 4 Tổ công nghệ số cộng đồng hướng dẫn người dân định danh VNeID mức 2"
+      },
+      "danhSachThuongPhat": [
+        {
+          "id": "TP-06",
+          "loai": "THUONG",
+          "soDiem": 3,
+          "maLoiHoacSangKien": "TO_CNS_CONG_DONG",
+          "lyDo": "Kích hoạt 100% tài khoản VNeID mức 2 cho nhân dân 4 Khu phố vượt chỉ tiêu Công an Thành phố",
+          "ngayGhiNhan": "21/10/2026",
+          "nguoiQuyetDinh": "TS. Nguyễn Văn Hùng",
+          "chungTuLienQuan": "Báo cáo Đề án 06 Tháng 10"
+        },
+        {
+          "id": "TP-07",
+          "loai": "PHAT",
+          "soDiem": 2,
+          "maLoiHoacSangKien": "CHAM_NOP_BAO_CAO",
+          "lyDo": "Chậm nộp Báo cáo đánh giá an toàn thông tin mạng cấp xã/phường quý III về Sở TT&TT quá 02 ngày",
+          "ngayGhiNhan": "15/10/2026",
+          "nguoiQuyetDinh": "Văn phòng UBND Phường",
+          "chungTuLienQuan": "Phiếu đôn đốc số 12/PĐĐ-UBND"
+        }
+      ],
+      "tongDiemThuong": 3,
+      "tongDiemTru": 2,
+      "diemTuChamTong": 89,
+      "diemHeThongAutoTong": 88.5,
+      "diemLanhDaoTong": 88,
+      "diemTongKetCuoiCung": 89,
+      "xepLoai": "HOAN_THANH_TOT",
+      "trangThai": "DA_PHE_DUYET",
+      "lanhDaoThamDinh": {
+        "nguoiDuyet": "TS. Nguyễn Văn Hùng",
+        "chucVu": "Lãnh đạo UBND Phường",
+        "ngayDuyet": "27/10/2026",
+        "nhanXetButPhe": "Đồng chí Cường có chuyên môn công nghệ tốt, nhiệt tình với Tổ CNS cộng đồng. Chú ý tính kịp thời trong các báo cáo hành chính định kỳ.",
+        "maKySoSmartCA": "SHA256:9c8d7e66a1...nvhung"
+      },
+      "heThongMetrics": {
+        "tyLeDungHanMotCua": 100,
+        "soLuongHoSoDaXuLy": 15,
+        "soSanPhamCheckInHoanThanh": 4,
+        "diemCsatTrungBinh": 4.65,
+        "soPhanHoiTieuCuc": 0
+      }
+    }
+  ],
+  "sys_audit_logs": [
+    {
+      "id": "LOG-INIT-01",
+      "hanhDong": "KHỞI TẠO CSDL 3NF",
+      "thoiGian": "16:42:59 27/10/2026",
+      "canBo": "Hệ thống Tự động",
+      "chiTiet": "Đã nạp toàn bộ 49 bảng quan hệ vào Database Engine"
+    }
+  ]
+}

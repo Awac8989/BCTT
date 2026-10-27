@@ -50,3 +50,5 @@ test_*.docx
 test_*.pdf
 scripts/figs_tables_pages.txt
 scripts/word_toc_extracted.txt
+key_exact.png
+scratch_key.png

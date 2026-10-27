@@ -33,6 +33,21 @@ export const analyticsApi = {
    * GET /api/v1/analytics/dashboard
    */
   async getDashboardAnalytics(params?: { year?: number; ward_id?: string }): Promise<DashboardAnalyticsResponse> {
+    if (typeof window !== "undefined") {
+      try {
+        const query = new URLSearchParams();
+        if (params?.year) query.set("year", String(params.year));
+        if (params?.ward_id) query.set("ward_id", params.ward_id);
+        const res = await fetch(`/api/v1/analytics/dashboard?${query.toString()}`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data) return json;
+        }
+      } catch {
+        // Fallback below
+      }
+    }
+
     await new Promise((r) => setTimeout(r, 100));
 
     const state = appStore.getState();

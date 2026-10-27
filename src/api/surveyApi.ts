@@ -30,6 +30,34 @@ export const surveyApi = {
    * POST /api/v1/surveys/submit
    */
   async submitSurvey(payload: SurveyApiRequest): Promise<SurveyApiResponse> {
+    if (typeof window !== "undefined") {
+      try {
+        const res = await fetch("/api/v1/surveys/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          const json = await res.json();
+          // Đồng bộ appStore
+          const thaiDo = payload.tieu_chi?.find((t) => t.ma_tieu_chi === "THAI_DO")?.diem_so ?? payload.diem_csat_chung;
+          const thoiGian = payload.tieu_chi?.find((t) => t.ma_tieu_chi === "THOI_GIAN")?.diem_so ?? payload.diem_csat_chung;
+          const minhBach = payload.tieu_chi?.find((t) => t.ma_tieu_chi === "MINH_BACH")?.diem_so ?? payload.diem_csat_chung;
+          const haTang = payload.tieu_chi?.find((t) => t.ma_tieu_chi === "HA_TANG")?.diem_so ?? payload.diem_csat_chung;
+          appStore.submitSurvey({
+            hoSoId: String(payload.ho_so_id || "TDM-NCC-2026-00412"),
+            kenhDanhGia: payload.kenh_danh_gia,
+            diemCsatChung: payload.diem_csat_chung,
+            yKienDongGop: payload.y_kien_dong_gop || "",
+            tieuChi: { thaiDo, thoiGian, minhBach, haTang },
+          });
+          return json;
+        }
+      } catch {
+        // Fallback below
+      }
+    }
+
     await new Promise((r) => setTimeout(r, 120));
 
     // Chuyển đổi mảng tiêu chí sang map
@@ -60,6 +88,17 @@ export const surveyApi = {
    * GET /api/v1/surveys
    */
   async getSurveys() {
+    if (typeof window !== "undefined") {
+      try {
+        const res = await fetch("/api/v1/surveys");
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data?.items) return json.data.items;
+        }
+      } catch {
+        // Fallback
+      }
+    }
     return appStore.getState().phanHoiList;
   },
 };

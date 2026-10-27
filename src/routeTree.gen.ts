@@ -14,16 +14,22 @@ import { Route as AnSinhXaHoiRouteImport } from './routes/an-sinh-xa-hoi'
 import { Route as ChiTraRouteImport } from './routes/chi-tra'
 import { Route as DanhGiaRouteImport } from './routes/danh-gia'
 import { Route as DieuDuongRouteImport } from './routes/dieu-duong'
+import { Route as DieuHanhRouteImport } from './routes/dieu-hanh'
 import { Route as DungCuChinhHinhRouteImport } from './routes/dung-cu-chinh-hinh'
 import { Route as GiaoDucDaoTaoRouteImport } from './routes/giao-duc-dao-tao'
 import { Route as HeThongRouteImport } from './routes/he-thong'
+import { Route as HopTrucTuyenRouteImport } from './routes/hop-truc-tuyen'
 import { Route as KhaoSatRouteImport } from './routes/khao-sat'
+import { Route as LichTuanRouteImport } from './routes/lich-tuan'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MotCuaRouteImport } from './routes/mot-cua'
 import { Route as NghiaTrangRouteImport } from './routes/nghia-trang'
 import { Route as PhanTichRouteImport } from './routes/phan-tich'
 import { Route as ThamDinhRouteImport } from './routes/tham-dinh'
 import { Route as ThongTinTruyenThongRouteImport } from './routes/thong-tin-truyen-thong'
 import { Route as TraCuuRouteImport } from './routes/tra-cuu'
+import { Route as VanBanRouteImport } from './routes/van-ban'
+import { Route as VanHoaXaHoiRouteImport } from './routes/van-hoa-xa-hoi'
 import { Route as HoSoIndexRouteImport } from './routes/ho-so/index'
 import { Route as HoSoIdRouteImport } from './routes/ho-so/$id'
 
@@ -52,6 +58,11 @@ const DieuDuongRoute = DieuDuongRouteImport.update({
   path: '/dieu-duong',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DieuHanhRoute = DieuHanhRouteImport.update({
+  id: '/dieu-hanh',
+  path: '/dieu-hanh',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DungCuChinhHinhRoute = DungCuChinhHinhRouteImport.update({
   id: '/dung-cu-chinh-hinh',
   path: '/dung-cu-chinh-hinh',
@@ -67,14 +78,29 @@ const HeThongRoute = HeThongRouteImport.update({
   path: '/he-thong',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HopTrucTuyenRoute = HopTrucTuyenRouteImport.update({
+  id: '/hop-truc-tuyen',
+  path: '/hop-truc-tuyen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KhaoSatRoute = KhaoSatRouteImport.update({
   id: '/khao-sat',
   path: '/khao-sat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LichTuanRoute = LichTuanRouteImport.update({
+  id: '/lich-tuan',
+  path: '/lich-tuan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MotCuaRoute = MotCuaRouteImport.update({
+  id: '/mot-cua',
+  path: '/mot-cua',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NghiaTrangRoute = NghiaTrangRouteImport.update({
@@ -102,6 +128,16 @@ const TraCuuRoute = TraCuuRouteImport.update({
   path: '/tra-cuu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VanBanRoute = VanBanRouteImport.update({
+  id: '/van-ban',
+  path: '/van-ban',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VanHoaXaHoiRoute = VanHoaXaHoiRouteImport.update({
+  id: '/van-hoa-xa-hoi',
+  path: '/van-hoa-xa-hoi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HoSoIndexRoute = HoSoIndexRouteImport.update({
   id: '/ho-so/',
   path: '/ho-so/',
@@ -119,16 +155,22 @@ export interface FileRoutesByFullPath {
   '/chi-tra': typeof ChiTraRoute
   '/danh-gia': typeof DanhGiaRoute
   '/dieu-duong': typeof DieuDuongRoute
+  '/dieu-hanh': typeof DieuHanhRoute
   '/dung-cu-chinh-hinh': typeof DungCuChinhHinhRoute
   '/giao-duc-dao-tao': typeof GiaoDucDaoTaoRoute
   '/he-thong': typeof HeThongRoute
+  '/hop-truc-tuyen': typeof HopTrucTuyenRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/lich-tuan': typeof LichTuanRoute
   '/login': typeof LoginRoute
+  '/mot-cua': typeof MotCuaRoute
   '/nghia-trang': typeof NghiaTrangRoute
   '/phan-tich': typeof PhanTichRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/thong-tin-truyen-thong': typeof ThongTinTruyenThongRoute
   '/tra-cuu': typeof TraCuuRoute
+  '/van-ban': typeof VanBanRoute
+  '/van-hoa-xa-hoi': typeof VanHoaXaHoiRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so/': typeof HoSoIndexRoute
 }
@@ -138,16 +180,22 @@ export interface FileRoutesByTo {
   '/chi-tra': typeof ChiTraRoute
   '/danh-gia': typeof DanhGiaRoute
   '/dieu-duong': typeof DieuDuongRoute
+  '/dieu-hanh': typeof DieuHanhRoute
   '/dung-cu-chinh-hinh': typeof DungCuChinhHinhRoute
   '/giao-duc-dao-tao': typeof GiaoDucDaoTaoRoute
   '/he-thong': typeof HeThongRoute
+  '/hop-truc-tuyen': typeof HopTrucTuyenRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/lich-tuan': typeof LichTuanRoute
   '/login': typeof LoginRoute
+  '/mot-cua': typeof MotCuaRoute
   '/nghia-trang': typeof NghiaTrangRoute
   '/phan-tich': typeof PhanTichRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/thong-tin-truyen-thong': typeof ThongTinTruyenThongRoute
   '/tra-cuu': typeof TraCuuRoute
+  '/van-ban': typeof VanBanRoute
+  '/van-hoa-xa-hoi': typeof VanHoaXaHoiRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so': typeof HoSoIndexRoute
 }
@@ -158,16 +206,22 @@ export interface FileRoutesById {
   '/chi-tra': typeof ChiTraRoute
   '/danh-gia': typeof DanhGiaRoute
   '/dieu-duong': typeof DieuDuongRoute
+  '/dieu-hanh': typeof DieuHanhRoute
   '/dung-cu-chinh-hinh': typeof DungCuChinhHinhRoute
   '/giao-duc-dao-tao': typeof GiaoDucDaoTaoRoute
   '/he-thong': typeof HeThongRoute
+  '/hop-truc-tuyen': typeof HopTrucTuyenRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/lich-tuan': typeof LichTuanRoute
   '/login': typeof LoginRoute
+  '/mot-cua': typeof MotCuaRoute
   '/nghia-trang': typeof NghiaTrangRoute
   '/phan-tich': typeof PhanTichRoute
   '/tham-dinh': typeof ThamDinhRoute
   '/thong-tin-truyen-thong': typeof ThongTinTruyenThongRoute
   '/tra-cuu': typeof TraCuuRoute
+  '/van-ban': typeof VanBanRoute
+  '/van-hoa-xa-hoi': typeof VanHoaXaHoiRoute
   '/ho-so/$id': typeof HoSoIdRoute
   '/ho-so/': typeof HoSoIndexRoute
 }
@@ -179,16 +233,22 @@ export interface FileRouteTypes {
     | '/chi-tra'
     | '/danh-gia'
     | '/dieu-duong'
+    | '/dieu-hanh'
     | '/dung-cu-chinh-hinh'
     | '/giao-duc-dao-tao'
     | '/he-thong'
+    | '/hop-truc-tuyen'
     | '/khao-sat'
+    | '/lich-tuan'
     | '/login'
+    | '/mot-cua'
     | '/nghia-trang'
     | '/phan-tich'
     | '/tham-dinh'
     | '/thong-tin-truyen-thong'
     | '/tra-cuu'
+    | '/van-ban'
+    | '/van-hoa-xa-hoi'
     | '/ho-so/$id'
     | '/ho-so/'
   fileRoutesByTo: FileRoutesByTo
@@ -198,16 +258,22 @@ export interface FileRouteTypes {
     | '/chi-tra'
     | '/danh-gia'
     | '/dieu-duong'
+    | '/dieu-hanh'
     | '/dung-cu-chinh-hinh'
     | '/giao-duc-dao-tao'
     | '/he-thong'
+    | '/hop-truc-tuyen'
     | '/khao-sat'
+    | '/lich-tuan'
     | '/login'
+    | '/mot-cua'
     | '/nghia-trang'
     | '/phan-tich'
     | '/tham-dinh'
     | '/thong-tin-truyen-thong'
     | '/tra-cuu'
+    | '/van-ban'
+    | '/van-hoa-xa-hoi'
     | '/ho-so/$id'
     | '/ho-so'
   id:
@@ -217,16 +283,22 @@ export interface FileRouteTypes {
     | '/chi-tra'
     | '/danh-gia'
     | '/dieu-duong'
+    | '/dieu-hanh'
     | '/dung-cu-chinh-hinh'
     | '/giao-duc-dao-tao'
     | '/he-thong'
+    | '/hop-truc-tuyen'
     | '/khao-sat'
+    | '/lich-tuan'
     | '/login'
+    | '/mot-cua'
     | '/nghia-trang'
     | '/phan-tich'
     | '/tham-dinh'
     | '/thong-tin-truyen-thong'
     | '/tra-cuu'
+    | '/van-ban'
+    | '/van-hoa-xa-hoi'
     | '/ho-so/$id'
     | '/ho-so/'
   fileRoutesById: FileRoutesById
@@ -237,16 +309,22 @@ export interface RootRouteChildren {
   ChiTraRoute: typeof ChiTraRoute
   DanhGiaRoute: typeof DanhGiaRoute
   DieuDuongRoute: typeof DieuDuongRoute
+  DieuHanhRoute: typeof DieuHanhRoute
   DungCuChinhHinhRoute: typeof DungCuChinhHinhRoute
   GiaoDucDaoTaoRoute: typeof GiaoDucDaoTaoRoute
   HeThongRoute: typeof HeThongRoute
+  HopTrucTuyenRoute: typeof HopTrucTuyenRoute
   KhaoSatRoute: typeof KhaoSatRoute
+  LichTuanRoute: typeof LichTuanRoute
   LoginRoute: typeof LoginRoute
+  MotCuaRoute: typeof MotCuaRoute
   NghiaTrangRoute: typeof NghiaTrangRoute
   PhanTichRoute: typeof PhanTichRoute
   ThamDinhRoute: typeof ThamDinhRoute
   ThongTinTruyenThongRoute: typeof ThongTinTruyenThongRoute
   TraCuuRoute: typeof TraCuuRoute
+  VanBanRoute: typeof VanBanRoute
+  VanHoaXaHoiRoute: typeof VanHoaXaHoiRoute
   HoSoIdRoute: typeof HoSoIdRoute
   HoSoIndexRoute: typeof HoSoIndexRoute
 }
@@ -288,6 +366,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DieuDuongRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dieu-hanh': {
+      id: '/dieu-hanh'
+      path: '/dieu-hanh'
+      fullPath: '/dieu-hanh'
+      preLoaderRoute: typeof DieuHanhRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dung-cu-chinh-hinh': {
       id: '/dung-cu-chinh-hinh'
       path: '/dung-cu-chinh-hinh'
@@ -309,6 +394,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HeThongRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hop-truc-tuyen': {
+      id: '/hop-truc-tuyen'
+      path: '/hop-truc-tuyen'
+      fullPath: '/hop-truc-tuyen'
+      preLoaderRoute: typeof HopTrucTuyenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/khao-sat': {
       id: '/khao-sat'
       path: '/khao-sat'
@@ -316,11 +408,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KhaoSatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lich-tuan': {
+      id: '/lich-tuan'
+      path: '/lich-tuan'
+      fullPath: '/lich-tuan'
+      preLoaderRoute: typeof LichTuanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mot-cua': {
+      id: '/mot-cua'
+      path: '/mot-cua'
+      fullPath: '/mot-cua'
+      preLoaderRoute: typeof MotCuaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nghia-trang': {
@@ -358,6 +464,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TraCuuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/van-ban': {
+      id: '/van-ban'
+      path: '/van-ban'
+      fullPath: '/van-ban'
+      preLoaderRoute: typeof VanBanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/van-hoa-xa-hoi': {
+      id: '/van-hoa-xa-hoi'
+      path: '/van-hoa-xa-hoi'
+      fullPath: '/van-hoa-xa-hoi'
+      preLoaderRoute: typeof VanHoaXaHoiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ho-so/': {
       id: '/ho-so/'
       path: '/ho-so'
@@ -381,16 +501,22 @@ const rootRouteChildren: RootRouteChildren = {
   ChiTraRoute: ChiTraRoute,
   DanhGiaRoute: DanhGiaRoute,
   DieuDuongRoute: DieuDuongRoute,
+  DieuHanhRoute: DieuHanhRoute,
   DungCuChinhHinhRoute: DungCuChinhHinhRoute,
   GiaoDucDaoTaoRoute: GiaoDucDaoTaoRoute,
   HeThongRoute: HeThongRoute,
+  HopTrucTuyenRoute: HopTrucTuyenRoute,
   KhaoSatRoute: KhaoSatRoute,
+  LichTuanRoute: LichTuanRoute,
   LoginRoute: LoginRoute,
+  MotCuaRoute: MotCuaRoute,
   NghiaTrangRoute: NghiaTrangRoute,
   PhanTichRoute: PhanTichRoute,
   ThamDinhRoute: ThamDinhRoute,
   ThongTinTruyenThongRoute: ThongTinTruyenThongRoute,
   TraCuuRoute: TraCuuRoute,
+  VanBanRoute: VanBanRoute,
+  VanHoaXaHoiRoute: VanHoaXaHoiRoute,
   HoSoIdRoute: HoSoIdRoute,
   HoSoIndexRoute: HoSoIndexRoute,
 }

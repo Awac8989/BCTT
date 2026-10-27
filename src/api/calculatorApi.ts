@@ -25,6 +25,24 @@ export const calculatorApi = {
    * POST /api/v1/calculator/allowance
    */
   async calculateAllowance(payload: AllowanceApiRequest): Promise<AllowanceApiResponse> {
+    if (typeof window !== "undefined") {
+      try {
+        const res = await fetch("/api/v1/calculator/allowance", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data) {
+            return json.data;
+          }
+        }
+      } catch {
+        // Fallback to local service
+      }
+    }
+
     await new Promise((r) => setTimeout(r, 80));
 
     const res = calculateAllowance({

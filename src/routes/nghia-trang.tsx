@@ -14,11 +14,15 @@ import {
   Building,
   Flag,
   Share2,
+  Map as MapIcon,
+  LayoutGrid,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell, PageHeader } from "@/components/AppShell";
 import { useAppState, appStore } from "@/services/app-state";
 import { type MoLietSiItem } from "@/data/mock";
+import { QuanLyMoLietSiKhuPho } from "@/components/nghia-trang/QuanLyMoLietSiKhuPho";
+import { MapTilerGisView, type GisMarkerItem } from "@/components/map/MapTilerGisView";
 
 export const Route = createFileRoute("/nghia-trang")({
   head: () => ({
@@ -40,6 +44,8 @@ export const Route = createFileRoute("/nghia-trang")({
 function NghiaTrangPage() {
   const { moLietSiList } = useAppState();
 
+  const [viewMode, setViewMode] = useState<"KHU_PHO_CHO_THO" | "GIS_NGHIA_TRANG">("KHU_PHO_CHO_THO");
+  const [subGisMode, setSubGisMode] = useState<"BAN_DO_GIS" | "SO_DO_PHAN_LO">("BAN_DO_GIS");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedKhu, setSelectedKhu] = useState<string>("ALL");
   const [selectedTinhTrang, setSelectedTinhTrang] = useState<string>("ALL");
@@ -73,6 +79,99 @@ function NghiaTrangPage() {
     });
   }, [moLietSiList, selectedKhu, selectedTinhTrang, searchQuery]);
 
+  // Dữ liệu hiển thị bản đồ số GIS
+  const gisMapMarkers: GisMarkerItem[] = useMemo(() => {
+    const markers: GisMarkerItem[] = [
+      {
+        id: "NT-TINH",
+        lat: 10.9450,
+        lng: 106.7210,
+        title: "Nghĩa trang Liệt sĩ Tỉnh Bình Dương",
+        category: "NGHIA_TRANG",
+        categoryLabel: "Nghĩa trang Liệt sĩ Tỉnh (5.420 mộ)",
+        address: "Phường An Phú, TP. Thuận An, Tỉnh Bình Dương",
+        description: "Quy mô 5.420 phần mộ liệt sĩ, Tượng đài Tổ quốc ghi công và Nhà bia tưởng niệm trung tâm.",
+        badge: "5.420 phần mộ",
+      },
+      {
+        id: "NT-TP",
+        lat: 11.0350,
+        lng: 106.6710,
+        title: "Nghĩa trang Liệt sĩ TP. Thủ Dầu Một",
+        category: "NGHIA_TRANG",
+        categoryLabel: "Nghĩa trang Liệt sĩ TP",
+        address: "Phường Định Hòa, TP. Thủ Dầu Một, Bình Dương",
+        description: "Nơi an nghỉ của các liệt sĩ anh hùng LLVT Đất Thủ.",
+        badge: "850 phần mộ",
+      },
+      {
+        id: "NB-KP1",
+        lat: 10.9818,
+        lng: 106.6540,
+        title: "Nhà bia ghi danh Liệt sĩ Khu phố 1",
+        category: "NHA_BIA_KHU_PHO",
+        categoryLabel: "Chỗ thờ Khu phố 1",
+        address: "Số 12 đường Ngô Quyền, Phường Phú Cường",
+        description: "Ghi danh 42 liệt sĩ quê hương Khu phố 1.",
+        badge: "42 liệt sĩ",
+      },
+      {
+        id: "NB-KP2",
+        lat: 10.9785,
+        lng: 106.6510,
+        title: "Đền tưởng niệm Liệt sĩ Khu phố 2",
+        category: "NHA_BIA_KHU_PHO",
+        categoryLabel: "Chỗ thờ Khu phố 2",
+        address: "Đường Bạch Đằng ven sông, Phường Phú Cường",
+        description: "Ghi danh 38 liệt sĩ Bến đò Phú Cường.",
+        badge: "38 liệt sĩ",
+      },
+      {
+        id: "NB-KP3",
+        lat: 10.9760,
+        lng: 106.6575,
+        title: "Nhà bia tưởng niệm Liệt sĩ Khu phố 3",
+        category: "NHA_BIA_KHU_PHO",
+        categoryLabel: "Chỗ thờ Khu phố 3",
+        address: "Đường Yersin giao Đoàn Trần Nghiệp, Phú Cường",
+        description: "Ghi danh 51 liệt sĩ Ngã ba Lò Chén.",
+        badge: "51 liệt sĩ",
+      },
+      {
+        id: "NB-KP4",
+        lat: 10.9845,
+        lng: 106.6495,
+        title: "Nhà bia ghi danh Liệt sĩ Khu phố 4",
+        category: "NHA_BIA_KHU_PHO",
+        categoryLabel: "Chỗ thờ Khu phố 4",
+        address: "Đường Cách Mạng Tháng 8, Phường Phú Cường",
+        description: "Ghi danh 47 liệt sĩ khu vực Chợ Thủ.",
+        badge: "47 liệt sĩ",
+      },
+    ];
+
+    filteredList.slice(0, 30).forEach((m, idx) => {
+      const khuOffsetLat = m.khu === "Khu A" ? 0.002 : m.khu === "Khu B" ? 0.001 : m.khu === "Khu C" ? -0.001 : -0.002;
+      const khuOffsetLng = m.khu === "Khu A" ? -0.0015 : m.khu === "Khu B" ? 0.0015 : m.khu === "Khu C" ? -0.0015 : 0.0015;
+      const graveOffsetLat = ((idx % 5) - 2) * 0.0003;
+      const graveOffsetLng = (Math.floor(idx / 5) - 2) * 0.0003;
+
+      markers.push({
+        id: m.id,
+        lat: 10.9450 + khuOffsetLat + graveOffsetLat,
+        lng: 106.7210 + khuOffsetLng + graveOffsetLng,
+        title: `Mộ: ${m.hoTen} (${m.soMo})`,
+        category: "MO_LIET_SI",
+        categoryLabel: `${m.khu} · Hàng ${m.hang}`,
+        address: `Nghĩa trang Liệt sĩ Tỉnh · ${m.khu}, Hàng ${m.hang}, Mộ ${m.soMo}`,
+        description: `Quê quán: ${m.queQuan}. Năm sinh: ${m.namSinh}. Năm hy sinh: ${m.namHySinh}. Đơn vị: ${m.donVi}.`,
+        badge: m.tinhTrangMo === "ĐÃ_XÁC_ĐỊNH" ? "Đã xác định" : "Chưa rõ danh tính",
+      });
+    });
+
+    return markers;
+  }, [filteredList]);
+
   const handleSelectMo = (mo: MoLietSiItem) => {
     setSelectedMo(mo);
   };
@@ -94,18 +193,55 @@ function NghiaTrangPage() {
     <AppShell>
       <PageHeader
         eyebrow="Phân hệ Đền ơn đáp nghĩa & Chuyển đổi số Di tích lịch sử"
-        title="Bản đồ số nghĩa trang & Tra cứu vị trí mộ liệt sĩ (GIS)"
+        title={
+          viewMode === "KHU_PHO_CHO_THO"
+            ? "Quản lý Chỗ thờ Liệt sĩ Khu phố & Xử lý Phần mộ (NĐ 131/2021/NĐ-CP)"
+            : "Bản đồ số nghĩa trang & Tra cứu vị trí mộ liệt sĩ (GIS)"
+        }
         right={
-          <div className="flex items-center gap-2">
-            <span className="px-3 py-1 bg-amber-50 text-amber-900 border border-amber-300 rounded font-semibold text-xs flex items-center gap-1.5 shadow-xs">
-              <Flame className="size-3.5 text-amber-600" />
-              Tổng lượt thắp hương tri ân: <strong>{stats.tongLuotVieng.toLocaleString("vi-VN")}</strong>
-            </span>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-flex rounded-md shadow-xs bg-gray-100 p-0.5 border border-gray-300">
+              <button
+                type="button"
+                onClick={() => setViewMode("KHU_PHO_CHO_THO")}
+                className={`px-3 py-1.5 text-xs font-bold rounded transition-colors flex items-center gap-1.5 ${
+                  viewMode === "KHU_PHO_CHO_THO"
+                    ? "bg-[#3c8dbc] text-white shadow-xs"
+                    : "text-gray-700 hover:text-gray-900 hover:bg-gray-200"
+                }`}
+              >
+                <Building className="size-3.5" />
+                Chỗ Thờ & Mộ 4 Khu Phố (NĐ 131)
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("GIS_NGHIA_TRANG")}
+                className={`px-3 py-1.5 text-xs font-bold rounded transition-colors flex items-center gap-1.5 ${
+                  viewMode === "GIS_NGHIA_TRANG"
+                    ? "bg-[#3c8dbc] text-white shadow-xs"
+                    : "text-gray-700 hover:text-gray-900 hover:bg-gray-200"
+                }`}
+              >
+                <Compass className="size-3.5" />
+                Bản Đồ Số GIS Nghĩa Trang
+              </button>
+            </div>
+            {viewMode === "GIS_NGHIA_TRANG" && (
+              <span className="px-3 py-1 bg-amber-50 text-amber-900 border border-amber-300 rounded font-semibold text-xs flex items-center gap-1.5 shadow-xs">
+                <Flame className="size-3.5 text-amber-600" />
+                Tổng lượt thắp hương tri ân: <strong>{stats.tongLuotVieng.toLocaleString("vi-VN")}</strong>
+              </span>
+            )}
           </div>
         }
       />
 
-      <div className="p-4 sm:p-6 space-y-6">
+      {viewMode === "KHU_PHO_CHO_THO" ? (
+        <div className="p-4 sm:p-6">
+          <QuanLyMoLietSiKhuPho moLietSiList={moLietSiList} />
+        </div>
+      ) : (
+        <div className="p-4 sm:p-6 space-y-6">
         {/* KPI Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-xs flex items-center justify-between">
@@ -210,13 +346,42 @@ function NghiaTrangPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Cột 1 & 2: Sơ đồ tương tác Nghĩa trang */}
           <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200 shadow-xs p-5 space-y-4">
-            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+            <div className="flex flex-wrap items-center justify-between border-b border-gray-100 pb-3 gap-3">
               <div className="flex items-center gap-2">
                 <Flag className="size-4 text-red-600" />
                 <h3 className="font-bold text-xs uppercase text-gray-800">
-                  Sơ Đồ Phân Lô Thực Địa Nghĩa Trang Liệt Sĩ Tỉnh Bình Dương
+                  Bản Đồ Số GIS & Sơ Đồ Thực Địa Nghĩa Trang Liệt Sĩ
                 </h3>
               </div>
+
+              {/* Toggle giữa Bản đồ số GIS MapTiler và Sơ đồ phân lô */}
+              <div className="inline-flex rounded-md shadow-2xs bg-gray-100 p-0.5 border border-gray-300">
+                <button
+                  type="button"
+                  onClick={() => setSubGisMode("BAN_DO_GIS")}
+                  className={`px-3 py-1 text-xs font-semibold rounded flex items-center gap-1.5 transition ${
+                    subGisMode === "BAN_DO_GIS"
+                      ? "bg-[#3c8dbc] text-white shadow-xs"
+                      : "text-gray-700 hover:text-gray-900"
+                  }`}
+                >
+                  <MapIcon className="size-3.5" />
+                  Bản Đồ GIS MapTiler
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSubGisMode("SO_DO_PHAN_LO")}
+                  className={`px-3 py-1 text-xs font-semibold rounded flex items-center gap-1.5 transition ${
+                    subGisMode === "SO_DO_PHAN_LO"
+                      ? "bg-[#3c8dbc] text-white shadow-xs"
+                      : "text-gray-700 hover:text-gray-900"
+                  }`}
+                >
+                  <LayoutGrid className="size-3.5" />
+                  Sơ Đồ Phân Lô Thực Địa
+                </button>
+              </div>
+
               <div className="flex items-center gap-3 text-[11px] text-gray-500">
                 <span className="flex items-center gap-1">
                   <span className="size-2.5 rounded-full bg-red-600 inline-block" /> Khu A
@@ -233,16 +398,31 @@ function NghiaTrangPage() {
               </div>
             </div>
 
-            {/* Sơ đồ trực quan (Interactive SVG Map) */}
-            <div className="relative border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gradient-to-b from-amber-50/20 via-emerald-50/10 to-gray-50 min-h-[420px] overflow-hidden select-none">
-              {/* Tượng đài Tổ quốc ghi công ở đỉnh */}
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 text-center z-10">
-                <div className="px-3 py-1.5 bg-[#c82333] text-white rounded-md shadow-md text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 border border-amber-400">
-                  <Sparkles className="size-3 text-amber-300" />
-                  Tượng Đài Tổ Quốc Ghi Công
+            {subGisMode === "BAN_DO_GIS" ? (
+              <MapTilerGisView
+                center={[10.9450, 106.7210]}
+                zoom={14}
+                height="530px"
+                markers={gisMapMarkers}
+                selectedMarkerId={selectedMo?.id}
+                onSelectMarker={(marker) => {
+                  const found = moLietSiList.find((m) => m.id === marker.id);
+                  if (found) setSelectedMo(found);
+                }}
+                title="Bản Đồ Số GIS Định Vị Nghĩa Trang & Vị Trí Mộ Liệt Sĩ"
+                subtitle="Dữ liệu vệ tinh GPS MapTiler Cloud · Nghĩa trang Tỉnh, Nghĩa trang TP và 4 Nhà bia tưởng niệm Khu phố"
+              />
+            ) : (
+              /* Sơ đồ trực quan (Interactive SVG Map) */
+              <div className="relative border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gradient-to-b from-amber-50/20 via-emerald-50/10 to-gray-50 min-h-[420px] overflow-hidden select-none">
+                {/* Tượng đài Tổ quốc ghi công ở đỉnh */}
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 text-center z-10">
+                  <div className="px-3 py-1.5 bg-[#c82333] text-white rounded-md shadow-md text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 border border-amber-400">
+                    <Sparkles className="size-3 text-amber-300" />
+                    Tượng Đài Tổ Quốc Ghi Công
+                  </div>
+                  <div className="w-1 h-6 bg-red-700 mx-auto" />
                 </div>
-                <div className="w-1 h-6 bg-red-700 mx-auto" />
-              </div>
 
               {/* Nhà bia tưởng niệm */}
               <div className="absolute top-20 left-1/2 -translate-x-1/2 text-center z-10">
@@ -378,14 +558,15 @@ function NghiaTrangPage() {
                 </div>
               </div>
 
-              {/* Cổng chính nghĩa trang ở đáy */}
-              <div className="mt-6 text-center">
-                <div className="w-1 h-4 bg-gray-400 mx-auto" />
-                <div className="inline-block px-4 py-1 bg-gray-800 text-white rounded text-[10px] font-bold uppercase tracking-wider shadow">
-                  Cổng Chính · Nghĩa Trang Liệt Sĩ Tỉnh Bình Dương (Quốc lộ 13)
+                {/* Cổng chính nghĩa trang ở đáy */}
+                <div className="mt-6 text-center">
+                  <div className="w-1 h-4 bg-gray-400 mx-auto" />
+                  <div className="inline-block px-4 py-1 bg-gray-800 text-white rounded text-[10px] font-bold uppercase tracking-wider shadow">
+                    Cổng Chính · Nghĩa Trang Liệt Sĩ Tỉnh Bình Dương (Quốc lộ 13)
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             <div className="p-3 bg-amber-50/60 rounded border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
               <Info className="size-4 text-amber-600 shrink-0" />
@@ -520,6 +701,7 @@ function NghiaTrangPage() {
           </div>
         </div>
       </div>
-    </AppShell>
-  );
+    )}
+  </AppShell>
+);
 }
