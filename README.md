@@ -10,28 +10,132 @@
 [![Backend Tests](https://img.shields.io/badge/Backend_Tests-222%20PASSED-brightgreen.svg)](#-kiểm-thử-tự-động-backend-222-test-cases)
 [![Database](https://img.shields.io/badge/CSDL_3NF-42%20Bảng%20InnoDB-purple.svg)](#-kiến-trúc-cơ-sở-dữ-liệu-quan-hệ-3nf-42-bảng)
 [![Vercel Deployment](https://img.shields.io/badge/Deploy-Vercel%20Ready-black.svg)](#-hướng-dẫn-triển-khai-lên-vercel-deployment-guide)
+[![Tài liệu Kiến trúc](https://img.shields.io/badge/Tài_liệu-Kiến_trúc_Hệ_thống_Chi_tiết-emerald.svg)](docs/KIEN_TRUC_HE_THONG.md)
+
+---
+
+## 📑 MỤC LỤC TỔNG QUAN
+1. [Giới Thiệu Tổng Quan Hệ Thống](#-giới-thiệu-tổng-quan-hệ-thống)
+2. [Kiến Trúc Hệ Thống Toàn Diện (System Architecture Specification)](#-kiến-trúc-hệ-thống-toàn-diện-system-architecture-specification)
+3. [Thiết Kế UX/UI Chuẩn Mực Chính Quyền Số (UI/UX Design System)](#-thiết-kế-uxui-chuẩn-mực-chính-quyền-số-uiux-design-system)
+4. [Danh Mục 15 Phân Hệ Nghiệp Vụ Cốt Lõi](#-danh-mục-15-phân-hệ-nghiệp-vụ-cốt-lõi)
+5. [Bộ Sưu Tập Hình Ảnh Giao Diện Thực Tế (Visual Showcase - 31 Màn Hình)](#-bộ-sưu-tập-hình-ảnh-giao-diện-thực-tế-visual-showcase---31-màn-hình)
+6. [Kiến Trúc Cơ Sở Dữ Liệu Quan Hệ 3NF (42 Bảng)](#-kiến-trúc-cơ-sở-dữ-liệu-quan-hệ-3nf-42-bảng)
+7. [Kiểm Thử Tự Động Backend (222 Test Cases Passed)](#-kiểm-thử-tự-động-backend-222-test-cases)
+8. [Hướng Dẫn Cài Đặt & Chạy Local](#-hướng-dẫn-cài-đặt--chạy-local-local-setup)
+9. [Hướng Dẫn Triển Khai Lên Vercel (Deployment Guide)](#-hướng-dẫn-triển-khai-lên-vercel-deployment-guide)
+10. [Tác Giả & Thông Tin Dự Án](#-tác-giả--thông-tin-dự-án)
 
 ---
 
 ## 📖 GIỚI THIỆU TỔNG QUAN HỆ THỐNG
 
-**Hệ thống Quản lý Nghiệp vụ Chuyên môn & Đánh giá Dịch vụ công Cấp Xã/Phường (Phiên bản 2.5 Enterprise)** là nền tảng chuyển đổi số toàn diện được nghiên cứu, thiết kế và phát triển bài bản nhằm hiện đại hóa toàn bộ hoạt động chỉ đạo điều hành, quản trị công vụ và giải quyết thủ tục hành chính cho chính quyền cơ sở (UBND Phường Phú Cường, TP. Thủ Dầu Một, tỉnh Bình Dương).
+**Hệ thống Quản lý Nghiệp vụ Chuyên môn & Đánh giá Dịch vụ công Cấp Xã/Phường (Phiên bản 2.5 Enterprise Pro)** là nền tảng số hóa quản trị công vụ cấp cơ sở tiên phong, được thiết kế chuyên biệt cho Ủy ban nhân dân Phường Phú Cường, Phòng Lao động - Thương binh và Xã hội TP. Thủ Dầu Một và Sở Lao động - Thương binh và Xã hội tỉnh Bình Dương.
 
-Hệ thống tích hợp liền mạch giữa **15 phân hệ chuyên môn sâu rộng**, tuân thủ 100% hệ thống văn bản quy phạm pháp luật hiện hành của Nhà nước:
-- **Quản lý Hồ sơ Người có công & Chi trả trợ cấp:** Pháp lệnh 02/2020/UBTVQH14, Nghị định 131/2021/NĐ-CP, Nghị định 75/2021/NĐ-CP.
-- **Cơ chế Một cửa & Dịch vụ công trực tuyến:** Nghị định 61/2018/NĐ-CP, Nghị định 107/2021/NĐ-CP, Quyết định 766/QĐ-TTg.
-- **Văn phòng Điện tử & Thể thức văn bản hành chính:** Nghị định 30/2020/NĐ-CP, Trục liên thông văn bản quốc gia VDXP.
-- **Lao động, An sinh xã hội & Giảm nghèo đa chiều:** Nghị định 20/2021/NĐ-CP, Quyết định 24/2021/QĐ-TTg, Thông tư 01/2022/TT-BLĐTBXH, Luật Trẻ em 2016, Nghị định 116/2021/NĐ-CP.
-- **Giáo dục & Đào tạo cơ sở:** Thông tư 49/2021/TT-BGDĐT, Nghị định 20/2014/NĐ-CP, Thông tư 07/2016/TT-BGDĐT, Thông tư 44/2014/TT-BGDĐT, Quyết định 1246/QĐ-BYT.
-- **Văn hóa, Gia đình, Thể thao & Du lịch:** Nghị định 86/2023/NĐ-CP, Quyết định 04/2022/QĐ-TTg, Chỉ thị 814/TTg, Nghị định 109/2015/NĐ-CP, Nghị định 36/2019/NĐ-CP & Thông tư 04/2018/TT-BVHTTDL.
-- **Thông tin, Truyền thông & Chuyển đổi số:** Nghị định 42/2022/NĐ-CP, Bộ chỉ số DTI cấp xã, Chỉ thị 14/CT-TTg & QĐ 830/QĐ-TTg (Lực lượng 35 tác chiến không gian mạng cơ sở).
-- **Đánh giá KPI & Thi đua công vụ:** Nghị định 90/2020/NĐ-CP & Nghị định 48/2023/NĐ-CP, Quyết định 06/QĐ-TTg (Đề án 06).
+Hệ thống tích hợp liền mạch giữa **15 phân hệ chuyên môn sâu rộng**, giải quyết toàn diện bài toán liên thông công tác điều hành, giải quyết thủ tục hành chính một cửa, quản lý an sinh xã hội, giáo dục, văn hóa thể thao, truyền thông chuyển đổi số và đo lường mức độ hài lòng của nhân dân (CSAT/SIPAS), tuân thủ 100% các văn bản quy phạm pháp luật hiện hành:
+- **Người có công & Đền ơn đáp nghĩa:** Pháp lệnh số 02/2020/UBTVQH14, Nghị định số 131/2021/NĐ-CP, Nghị định số 75/2021/NĐ-CP (mức chuẩn 2.055.000đ).
+- **Cơ chế Một cửa Quốc gia & DVC:** Nghị định số 61/2018/NĐ-CP, Nghị định số 107/2021/NĐ-CP, Quyết định số 766/QĐ-TTg.
+- **Văn phòng Điện tử & Thể thức văn bản:** Nghị định số 30/2020/NĐ-CP, Trục liên thông văn bản quốc gia VDXP và ký số SmartCA.
+- **Bảo trợ Xã hội & Giảm nghèo đa chiều:** Nghị định số 20/2021/NĐ-CP, Quyết định số 24/2021/QĐ-TTg, Thông tư số 01/2022/TT-BLĐTBXH, Luật Trẻ em 2016, Thông tư số 01/2019/TT-BLĐTBXH, Nghị định số 45/2017/NĐ-CP.
+- **Giáo dục & Đào tạo cơ sở:** Thông tư số 49/2021/TT-BGDĐT, Nghị định số 20/2014/NĐ-CP, Thông tư số 07/2016/TT-BGDĐT, Thông tư số 44/2014/TT-BGDĐT, Quyết định số 1246/QĐ-BYT (Kiểm thực ATTP 3 bước).
+- **Văn hóa, Thể thao & Du lịch:** Nghị định số 86/2023/NĐ-CP, Quyết định số 04/2022/QĐ-TTg, Chỉ thị số 814/TTg, Nghị định số 109/2015/NĐ-CP, Nghị định số 36/2019/NĐ-CP & Thông tư số 04/2018/TT-BVHTTDL.
+- **Thông tin, Truyền thông & Chuyển đổi số:** Nghị định số 42/2022/NĐ-CP, Bộ chỉ số DTI cấp xã, Chỉ thị số 14/CT-TTg & Quyết định số 830/QĐ-TTg (Lực lượng 35).
+- **Đánh giá KPI & Thi đua công vụ:** Nghị định số 90/2020/NĐ-CP & Nghị định số 48/2023/NĐ-CP, Quyết định số 06/QĐ-TTg (Đề án 06).
 
 ---
 
-## 🎨 THIẾT KẾ UX/UI CHUẨN MỰC CHÍNH QUYỀN SỐ (UI/UX DESIGN SYSTEM & ARCHITECTURE)
+## 🏗️ KIẾN TRÚC HỆ THỐNG TOÀN DIỆN (SYSTEM ARCHITECTURE SPECIFICATION)
 
-Một trong những ưu điểm nổi trội nhất của hệ thống là **Trải nghiệm Người dùng (UX)** và **Giao diện Người dùng (UI)** được thiết kế chuyên biệt, đạt đến độ hoàn mỹ theo chuẩn mực quốc tế kết hợp cùng bản sắc công quyền Việt Nam.
+> Chi tiết kỹ thuật chuyên sâu được đặc tả tại [docs/KIEN_TRUC_HE_THONG.md](file:///q:/CODE_visual/filebctt/docs/KIEN_TRUC_HE_THONG.md).
+
+### 1. Sơ Đồ Kiến Trúc Đa Tầng (High-Level Architecture)
+Hệ thống vận hành theo kiến trúc 4 tầng hiện đại, phân tách độc lập giữa Giao diện (Presentation), Cổng an ninh mạng (Gateway), Động cơ dịch vụ vi mô (Services Engine) và Tầng dữ liệu quan hệ 3NF (Persistence):
+
+```mermaid
+graph TD
+    subgraph TIER1["1. TẦNG TRẢI NGHIỆM ĐA THIẾT BỊ (CLIENT APPLICATION LAYER)"]
+        UI1["🖥️ Web Cán bộ & Lãnh đạo<br/>(React 19 + TanStack Router)"]
+        UI2["📱 Kênh Công dân Mobile/Tablet<br/>(Tra cứu QR Code, CSAT Emoji)"]
+        UI3["📟 Kiosk Cảm ứng Một cửa<br/>(Màn hình chuyên dụng tiếp dân)"]
+    end
+
+    subgraph TIER2["2. TẦNG ĐIỀU PHỐI BIÊN & BẢO MẬT (GATEWAY & EDGE SECURITY)"]
+        EDGE["🛡️ Vercel Edge / Cloudflare Network<br/>(TLS 1.3, DDoS Mitigation, Edge Caching)"]
+        GW["🌐 Nitro API Gateway & Dispatcher<br/>(JWT Interceptor, Rate Limiting, RBAC Enforcer)"]
+    end
+
+    subgraph TIER3["3. TẦNG DỊCH VỤ & ĐỘNG CƠ TÍNH TOÁN (SERVICES & LOGIC ENGINE)"]
+        S1["🔐 Auth & Multi-Domain RBAC Service"]
+        S2["🧮 Financial Engine (NĐ 75/2021)"]
+        S3["📑 Profile & One-Stop Lifecycle Engine"]
+        S4["📊 Analytics & KPI Scoring Engine"]
+        S5["💬 AI NLP Sentiment Analysis"]
+        S6["🗺️ GIS Cemetery & Mapping Engine"]
+        S7["🗄️ Database Studio & SQL Console Engine"]
+    end
+
+    subgraph TIER4["4. TẦNG LƯU TRỮ QUAN HỆ 3NF & GIAO DỊCH (DATA STORAGE LAYER)"]
+        DB[("🗄️ Relational 3NF Database<br/>(42 Tables InnoDB, PK/FK Constraints)")]
+        TX[("💾 ACID Transaction Log (WAL)")]
+        FILE[("📦 Persistence File Storage<br/>(database_persistence.json)")]
+        EXT[("🔗 Tích hợp Trục LGSP / SmartCA / VDXP / Đề án 06")]
+    end
+
+    UI1 --> EDGE
+    UI2 --> EDGE
+    UI3 --> EDGE
+    EDGE --> GW
+    GW --> S1
+    GW --> S2
+    GW --> S3
+    GW --> S4
+    GW --> S5
+    GW --> S6
+    GW --> S7
+    S1 --> DB
+    S2 --> DB
+    S3 --> DB
+    S4 --> DB
+    S5 --> DB
+    S6 --> DB
+    S7 --> DB
+    DB --- TX
+    DB --- FILE
+    S3 -.-> EXT
+```
+
+### 2. Mô Hình Phân Quyền Đa Mảng (Multi-Domain RBAC)
+Hệ thống quản lý phân quyền ma trận 2 chiều (Cấp bậc hành chính $\times$ Mảng chuyên môn phụ trách):
+```
++---------------------------------------------------------------------------------------------------------+
+|                                    MA TRẬN PHÂN QUYỀN ĐA MẢNG (RBAC)                                     |
++---------------------------------------------------------------------------------------------------------+
+|  VAI TRÒ / NHÓM TÀI KHOẢN   | PHẠM VI DỮ LIỆU  | KÝ SỐ SMARTCA | CÁC PHÂN HỆ QUYỀN HẠN TRUY CẬP         |
++-----------------------------+------------------+---------------+----------------------------------------+
+| 👑 Lãnh đạo Sở LĐTBXH       | Toàn tỉnh BD     | Phê chuẩn vĩ mô| Toàn bộ 15 phân hệ, Radar SIPAS Tỉnh  |
+| 🏢 Lãnh đạo Phòng LĐTBXH    | TP. Thủ Dầu Một  | Duyệt chi C70a| Hồ sơ NCC, Chi trả, Đối soát, CSDL 3NF |
+| 🏛️ Lãnh đạo UBND Phường     | Địa bàn Phường   | Ký số Thẩm định| Điều hành, e-Office, Một cửa, Đội 814  |
+| 🔴 Cán bộ Khối Chính sách   | Phường Phú Cường | Thụ lý NCC    | Hồ sơ NCC, Mai táng, Chỉnh hình, GIS   |
+| 🟡 Cán bộ Khối An sinh XH   | Phường Phú Cường | Thụ lý BTXH   | Hộ nghèo, Trẻ em, Quỹ Đền ơn đáp nghĩa |
+| 🟢 Cán bộ Khối Giáo dục     | Phường Phú Cường | Thẩm định MN  | Mầm non ngoài CL, Phổ cập, ATTP bán trú|
+| 🔵 Cán bộ Khối Thông tin CS | Phường Phú Cường | Thụ lý 1022   | Phản ánh hiện trường, DTI, Lực lượng 35|
+| 👥 Công dân & Doanh nghiệp  | Theo Mã hồ sơ QR | Không áp dụng | Khảo sát CSAT, Tra cứu, Dâng hương GIS |
++---------------------------------------------------------------------------------------------------------+
+```
+
+### 3. Quy Trình Vòng Đời Thụ Lý Hồ Sơ Điện Tử 6 Bước
+Mọi thủ tục hành chính Một cửa đều trải qua quy trình chuẩn hóa:
+```
+[1. Tiếp nhận & Quét AI OCR] ➔ [2. Kiểm tra Trùng CCCD] ➔ [3. Thẩm định Nghiệp vụ]
+                             ➔ [4. Ký số SmartCA Lãnh đạo] ➔ [5. Xuất Kết quả & C70a-HD]
+                             ➔ [6. Đo lường CSAT SIPAS Công dân]
+```
+
+---
+
+## 🎨 THIẾT KẾ UX/UI CHUẨN MỰC CHÍNH QUYỀN SỐ (UI/UX DESIGN SYSTEM)
+
+Trải nghiệm người dùng (UX) và giao diện trực quan (UI) được chế tác tỉ mỉ theo tiêu chuẩn quốc tế kết hợp cùng hồn cốt cơ quan hành chính nhà nước:
 
 ```
 +-------------------------------------------------------------------------------------------------------+
@@ -50,118 +154,176 @@ Một trong những ưu điểm nổi trội nhất của hệ thống là **Tr�
 +-------------------------------------------------------------------------------------------------------+
 ```
 
-### 1. Triết Lý Thiết Kế Trực Quan & Nhận Diện Thương Hiệu Công Quyền
-- **Sắc Đỏ Công Quyền (`#dd4b39` / `#c23321`):** Sử dụng làm màu chủ đạo (Primary Brand), gợi nhớ màu cờ Tổ quốc, Quốc huy Việt Nam và dấu mộc đỏ hành chính nhà nước. Sắc đỏ được cân bằng tinh tế với nền trắng ngọc trai (`#f8fafc`) và viền xám titan (`#e2e8f0`), mang lại cảm giác trang nghiêm nhưng hiện đại.
-- **Phân Tầng Màu Sắc Theo 4 Khối Chuyên Môn:**
-  * 🔴 **Khối Người có công & Đền ơn đáp nghĩa (`rose`/`red`):** Biểu tượng hoa sen và ngọn lửa tri ân.
-  * 🟡 **Khối Lao động, Việc làm & An sinh xã hội (`amber`/`orange`):** Biểu tượng bàn tay đùm bọc, nâng đỡ người yếu thế.
-  * 🟢 **Khối Giáo dục & Đào tạo cơ sở (`emerald`/`green`):** Biểu tượng mầm non tri thức, trường lớp và sự phát triển tương lai.
-  * 🔵 **Khối Thông tin, Truyền thông & Chuyển đổi số (`sky`/`blue`):** Biểu tượng sóng phát thanh, vệ tinh và chính quyền số.
-- **Typography Chuẩn Thể Thức Hành Chính:** Sử dụng phông chữ không chân hiện đại (*Inter / Roboto*), phân định cấp bậc rõ ràng (H1 tiêu đề lớn đậm nét, nhãn tiêu chí chữ hoa nhỏ tinh tế, số liệu tài chính định dạng font monospaced dễ dò tìm sai sót).
+### 1. Hệ Màu Nhận Diện & Phân Tầng Chuyên Môn
+- **Màu Đỏ Công Quyền (`#dd4b39` / `#c23321`):** Tượng trưng cho màu cờ sắc áo Tổ quốc, Quốc huy và dấu mộc đỏ công quyền.
+- **Màu Xanh Cổ Điển (`#1a202c`):** Tạo nền tảng uy nghiêm, tinh tế, độ tương phản cao với chữ trắng ngọc trai.
+- **Hệ Thống Màu Sắc 4 Khối Nghiệp Vụ:**
+  * 🔴 **Khối Người có công (`rose-600`):** Biểu tượng hoa sen và ngọn lửa tri ân liệt sĩ.
+  * 🟡 **Khối An sinh xã hội (`amber-600`):** Biểu tượng bàn tay nhân ái nâng đỡ hộ nghèo, người yếu thế.
+  * 🟢 **Khối Giáo dục đào tạo (`emerald-600`):** Biểu tượng mầm non tri thức và học tập suốt đời.
+  * 🔵 **Khối Thông tin truyền thông (`sky-600`):** Biểu tượng sóng truyền thanh và chuyển đổi số địa phương.
 
 ### 2. Thiết Kế Trực Quan Hóa Số Liệu Đỉnh Cao (Data Visualization)
-Hệ thống loại bỏ hoàn toàn các bảng số thô cứng, thay thế bằng các widget đồ họa tương tác cao:
-- **Biểu Đồ Radar 4 Trụ Cột SIPAS (`Recharts Radar`):** Thể hiện trực quan 4 tiêu chí đánh giá mức độ hài lòng của nhân dân (Thái độ phục vụ, Thời gian thụ lý, Tính công khai minh bạch, Cơ sở hạ tầng).
-- **Bản Đồ Nhiệt 14 Phường Phân Tầng Ngân Sách:**
-  * 🟢 **Xanh Lá Emerald (`#00a65a`):** Ngân sách cao ($\ge 2.5$ tỷ VNĐ/tháng).
-  * 🩵 **Xanh Ngọc Cyan (`#00c0ef`):** Ngân sách trung bình ($1.5 - 2.5$ tỷ VNĐ/tháng).
-  * 🔵 **Xanh Lam Royal Blue (`#3c8dbc`):** Ngân sách dưới $1.5$ tỷ VNĐ/tháng.
-- **Biểu Đồ Donut & Progress Bar:** Thể hiện tiến độ hoàn thành chỉ tiêu DTI, tỷ lệ giải quyết hồ sơ đúng hạn SLA 24h, và cơ cấu gia đình văn hóa.
+- **Biểu Đồ Radar 4 Trụ Cột SIPAS (`Recharts Radar`):** Giám sát 4 chỉ số cốt lõi: Tiếp cận dịch vụ, Thủ tục hành chính, Công chức phục vụ và Kết quả dịch vụ.
+- **Bản Đồ Nhiệt Phân Bổ Ngân Sách 14 Phường:** Phân dải màu trực quan từ Xanh Emerald ($\ge 2.5$ tỷ/tháng), Xanh Ngọc Cyan ($1.5 - 2.5$ tỷ/tháng) đến Xanh Lam ($< 1.5$ tỷ/tháng).
+- **Bản Đồ Không Gian Địa Lý Nghĩa Trang Liệt Sĩ (Interactive GIS):** Hiển thị sơ đồ phân lô Khu A, B, C, D, định vị từng phần mộ và tích hợp tính năng dâng hoa, thắp hương tưởng niệm trực tuyến.
 
-### 3. Bản Đồ Số Không Gian Địa Lý (Interactive GIS Map)
-- Tích hợp công nghệ bản đồ tương tác tại phân hệ **Nghĩa trang Liệt sĩ (`/nghia-trang`)**:
-  * Chia lưới phân lô tọa độ trực quan 4 phân khu **Khu A, Khu B, Khu C, Khu D**.
-  * Nhấp chuột vào từng ngôi mộ để xem: Họ tên liệt sĩ, năm sinh, ngày hy sinh, đơn vị chiến đấu, vị trí an táng, tình trạng bia mộ.
-  * **Trải nghiệm Dâng Hoa & Thắp Nén Hương Tri Ân 3D:** Hiệu ứng hạt khói hương nghi ngút và vòng hoa kính cẩn, giúp đồng bào cả nước viếng thăm liệt sĩ từ xa.
-
-### 4. Tách Bạch Kênh Đánh Giá CSAT Dành Riêng Cho Người Dân
-- Giao diện khảo sát (`/khao-sat`) được thiết kế theo chuẩn Kiosk công cộng và Mobile Web:
-  * Không có thanh điều hướng menu của cán bộ, tránh làm xao nhãng người dân.
-  * Nút bấm biểu tượng cảm xúc (Emoji 1-5 sao) kích thước lớn, tương phản cao, chạm nhẹ là phản hồi tức thì.
-  * Tích hợp thuật toán **AI Sentiment Analysis (NLP)** tự động phân loại ý kiến góp ý của người dân thành **Tích Cực (Positive)**, **Trung Lập (Neutral)**, hoặc **Tiêu Cực (Negative)** để cảnh báo cho Ban Giám đốc Sở.
-
-### 5. Chuẩn Hóa In Ấn Hành Chính (Print-Ready CSS Engine)
-- Hệ thống xây dựng lớp CSS `@media print` đạt chuẩn thể thức văn bản **Nghị định 30/2020/NĐ-CP**:
-  * Khi nhấn nút **In văn bản**, toàn bộ thanh menu điều hướng, nút bấm, header website tự động ẩn.
-  * Căn lề chuẩn A4 (Trên 20-25mm, Dưới 20-25mm, Trái 30-35mm, Phải 15-20mm).
-  * Xuất bản sắc nét: **Giấy hẹn Mẫu 01 tích hợp Mã QR Code lớn**, **Phiếu chi C70a-HD có Barcode Code 128**, **Giấy chứng nhận khuyết tật Mẫu 03**, và **Biên bản kiểm tra ATTP bán trú**.
+### 3. Chuẩn Hóa In Ấn Hành Chính (Print-Ready CSS Engine)
+- Thiết lập chuyên biệt `@media print` đạt chuẩn **Nghị định số 30/2020/NĐ-CP**:
+  * Tự động ẩn thanh Header điều hướng, Sidebar, nút thao tác và viền thừa.
+  * Căn lề khổ giấy A4 chuẩn xác: Lề trên 20mm, lề dưới 20mm, lề trái 30mm, lề phải 15mm.
+  * Xuất bản sắc nét: Giấy tiếp nhận hồ sơ Mẫu 01 tích hợp mã QR Code lớn, Phiếu chi trợ cấp C70a-HD tích hợp Barcode Code 128 và Giấy chứng nhận khuyết tật Mẫu 03.
 
 ---
 
 ## 🏛️ DANH MỤC 15 PHÂN HỆ NGHIỆP VỤ CỐT LÕI
 
-| STT | Tuyến Đường (Route) | Tên Phân Hệ Nghiệp Vụ | Căn Cứ Pháp Lý & Đặc Điểm Cốt Lõi |
+| STT | Phân Hệ Nghiệp Vụ | Đường Dẫn (Route) | Căn Cứ Pháp Lý & Chức Năng Cốt Lõi |
 | :---: | :--- | :--- | :--- |
-| **01** | `/dieu-hanh` | **Trung tâm Điều hành Lãnh đạo & Check-in KPI** | Giám sát KPI các khối công chức, thẩm định phê chuẩn sản phẩm check-in, giao việc số hóa và giao ban công vụ. |
-| **02** | `/van-ban` | **Văn phòng Điện tử & e-Office** | Quản lý Văn bản Đến, Văn bản Đi theo [Nghị định 30/2020/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/van-ban.tsx), tích hợp Trục VDXP và ký số SmartCA. |
-| **03** | `/mot-cua` | **Cơ chế Một cửa Quốc gia & DVC** | Giải quyết TTHC cấp xã theo [Nghị định 61/2018/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/mot-cua.tsx) và [Nghị định 107/2021/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/mot-cua.tsx), xuất 4 mẫu biểu chuẩn. |
-| **04** | `/lich-tuan` | **Lịch tuần Lãnh đạo & Sổ Tiếp công dân** | Lịch công tác tuần của Thường trực Đảng ủy - HĐND - UBND, Sổ nhật ký tiếp công dân định kỳ và xử lý đơn thư khiếu nại tố cáo. |
-| **05** | `/hop-truc-tuyen` | **Họp Trực tuyến & Chat Nội bộ Mã hóa** | Phòng họp số e-Cabinet cơ sở, chia sẻ tài liệu số, trao đổi công vụ tức thời giữa các khối công chức. |
-| **06** | `/van-hoa-xa-hoi` | **Văn hóa, Gia đình, Di sản & Thể thao** | Xét duyệt Gia đình VH [Nghị định 86/2023/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/van-hoa-xa-hoi.tsx), Tiêu chí Khu phố VH, Kiểm tra Đội 814, Đô thị văn minh [Quyết định 04/2022/QĐ-TTg](file:///q:/CODE_visual/filebctt/src/routes/van-hoa-xa-hoi.tsx), Nghệ nhân Di sản [Nghị định 109/2015/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/van-hoa-xa-hoi.tsx), Cơ sở thể thao & Bể bơi phòng đuối nước [Nghị định 36/2019/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/van-hoa-xa-hoi.tsx) & [Thông tư 04/2018/TT-BVHTTDL](file:///q:/CODE_visual/filebctt/src/routes/van-hoa-xa-hoi.tsx). |
-| **07** | `/thong-tin-truyen-thong`| **Thông tin, Truyền thông & Chuyển đổi số** | Tiếp nhận phản ánh hiện trường 1022 (SLA 24h), Đánh giá chỉ số DTI cấp xã, Cổng TTĐT Phường & Zalo OA Broadcast [Nghị định 42/2022/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/thong-tin-truyen-thong.tsx), Giám sát an ninh mạng Lực lượng 35 [Chỉ thị 14/CT-TTg](file:///q:/CODE_visual/filebctt/src/routes/thong-tin-truyen-thong.tsx). |
-| **08** | `/an-sinh-xa-hoi` | **Lao động, Việc làm & An sinh Xã hội** | Trợ cấp BTXH [Nghị định 20/2021/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/an-sinh-xa-hoi.tsx), Rà soát hộ nghèo đa chiều [Quyết định 24/2021/QĐ-TTg](file:///q:/CODE_visual/filebctt/src/routes/an-sinh-xa-hoi.tsx), Cung cầu lao động quân nhân xuất ngũ [Thông tư 01/2022/TT-BLĐTBXH](file:///q:/CODE_visual/filebctt/src/routes/an-sinh-xa-hoi.tsx), Bảo vệ trẻ em Luật Trẻ em 2016, Trợ cấp Thờ cúng Liệt sĩ Mẫu 04 [Nghị định 131/2021/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/an-sinh-xa-hoi.tsx), Hội đồng khuyết tật [Thông tư 01/2019/TT-BLĐTBXH](file:///q:/CODE_visual/filebctt/src/routes/an-sinh-xa-hoi.tsx), Quỹ Đền ơn đáp nghĩa [Nghị định 45/2017/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/an-sinh-xa-hoi.tsx), Nhà Tình nghĩa. |
-| **09** | `/giao-duc-dao-tao` | **Giáo dục & Đào tạo cơ sở** | Quản lý Mầm non tư thục [Thông tư 49/2021/TT-BGDĐT](file:///q:/CODE_visual/filebctt/src/routes/giao-duc-dao-tao.tsx), Mạng lưới trường học công lập, Phổ cập GD-XMC [Nghị định 20/2014/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/giao-duc-dao-tao.tsx) & [Thông tư 07/2016/TT-BGDĐT](file:///q:/CODE_visual/filebctt/src/routes/giao-duc-dao-tao.tsx), Đánh giá Cộng đồng học tập [Thông tư 44/2014/TT-BGDĐT](file:///q:/CODE_visual/filebctt/src/routes/giao-duc-dao-tao.tsx), Kiểm thực 3 bước ATTP bán trú [Quyết định 1246/QĐ-BYT](file:///q:/CODE_visual/filebctt/src/routes/giao-duc-dao-tao.tsx). |
-| **10** | `/ho-so`, `/tham-dinh` | **Quản lý Hồ sơ Người có công** | Vòng đời thụ lý hồ sơ 6 bước, tính toán trợ cấp tự động theo [Nghị định 75/2021/NĐ-CP](file:///q:/CODE_visual/filebctt/src/routes/ho-so.tsx), thẩm định số hóa và ký số điện tử SmartCA. |
-| **11** | `/chi-tra` | **Chi trả Trợ cấp & Đối soát Ngân hàng** | Lập danh sách chi trả ATM & Bưu điện, xuất phiếu chi Mẫu C70a-HD có barcode, khớp lệnh sao kê ngân hàng tự động. |
-| **12** | `/dieu-duong`, `/dung-cu-chinh-hinh` | **Điều dưỡng & Dụng cụ Chỉnh hình** | Quản lý kế hoạch điều dưỡng tập trung (1.8x) & tại nhà (0.9x), theo dõi niên hạn 3-5 năm phương tiện chỉnh hình xe lăn, chân tay giả. |
-| **13** | `/nghia-trang` | **Bản đồ số Nghĩa trang Liệt sĩ GIS** | Số hóa sơ đồ phân lô Khu A, B, C, D; định vị phần mộ liệt sĩ; dâng hoa và thắp hương trực tuyến. |
-| **14** | `/danh-gia`, `/khao-sat` | **Khảo sát CSAT & Đo lường SIPAS** | Kênh đánh giá độc lập cho người dân qua QR Code/Kiosk; Radar Chart SIPAS và bảng xếp hạng 14 phường cho cán bộ. |
-| **15** | `/he-thong` | **Phân quyền Đa Mảng & SQL Studio 3NF** | Quản trị RBAC, cấu hình mức chuẩn, Kiểm thử Engine Studio và Duyệt Cơ sở Dữ liệu 42 bảng quan hệ. |
+| **01** | **Điều Hành Lãnh Đạo & Check-in KPI** | [`/dieu-hanh`](file:///q:/CODE_visual/filebctt/src/routes/dieu-hanh.tsx) | Giám sát KPI các khối công chức, thẩm định phê chuẩn sản phẩm check-in, giao ban công vụ. |
+| **02** | **Văn Phòng Điện Tử & e-Office** | [`/van-ban`](file:///q:/CODE_visual/filebctt/src/routes/van-ban.tsx) | Quản lý Văn bản Đến/Đi theo NĐ 30/2020/NĐ-CP, tích hợp Trục VDXP và ký số SmartCA. |
+| **03** | **Cơ Chế Một Cửa Quốc Gia & DVC** | [`/mot-cua`](file:///q:/CODE_visual/filebctt/src/routes/mot-cua.tsx) | Giải quyết TTHC cấp xã theo NĐ 61/2018/NĐ-CP & NĐ 107/2021/NĐ-CP, cấp Giấy hẹn Mẫu 01 có QR. |
+| **04** | **Lịch Tuần & Sổ Tiếp Công Dân** | [`/lich-tuan`](file:///q:/CODE_visual/filebctt/src/routes/lich-tuan.tsx) | Lịch công tác Thường trực Đảng ủy - HĐND - UBND, Sổ tiếp công dân định kỳ, xử lý khiếu nại tố cáo. |
+| **05** | **Họp Trực Tuyến & Chat Nội Bộ** | [`/hop-truc-tuyen`](file:///q:/CODE_visual/filebctt/src/routes/hop-truc-tuyen.tsx) | Phòng họp số e-Cabinet cơ sở, chia sẻ tài liệu số, trao đổi công vụ tức thời mã hóa. |
+| **06** | **Văn Hóa, Gia Đình & Thể Thao** | [`/van-hoa-xa-hoi`](file:///q:/CODE_visual/filebctt/src/routes/van-hoa-xa-hoi.tsx) | Bình xét Gia đình VH (NĐ 86/2023), Đô thị văn minh (QĐ 04/2022), Kiểm tra Đội 814, Di sản (NĐ 109), Thể thao (NĐ 36). |
+| **07** | **Thông Tin, TT & Chuyển Đổi Số**| [`/thong-tin-truyen-thong`](file:///q:/CODE_visual/filebctt/src/routes/thong-tin-truyen-thong.tsx) | Phản ánh hiện trường 1022 (SLA 24h), Đánh giá chỉ số DTI cấp xã, Cổng TTĐT (NĐ 42/2022), An ninh mạng Lực lượng 35. |
+| **08** | **Lao Động & An Sinh Xã Hội** | [`/an-sinh-xa-hoi`](file:///q:/CODE_visual/filebctt/src/routes/an-sinh-xa-hoi.tsx) | Trợ cấp BTXH (NĐ 20/2021), Hộ nghèo đa chiều (QĐ 24/2021), Lao động xuất ngũ (TT 01/2022), Quỹ Đền ơn đáp nghĩa, Nhà Tình nghĩa. |
+| **09** | **Giáo Dục & Đào Tạo Cơ Sở** | [`/giao-duc-dao-tao`](file:///q:/CODE_visual/filebctt/src/routes/giao-duc-dao-tao.tsx) | Cấp phép Mầm non tư thục (TT 49/2021), Mạng lưới trường học, Phổ cập GD-XMC (NĐ 20/2014), Cộng đồng học tập (TT 44), ATTP bán trú (QĐ 1246). |
+| **10** | **Quản Lý Hồ Sơ Người Có Công** | [`/ho-so`](file:///q:/CODE_visual/filebctt/src/routes/ho-so.tsx), [`/tham-dinh`](file:///q:/CODE_visual/filebctt/src/routes/tham-dinh.tsx) | Vòng đời thụ lý hồ sơ 6 bước, tính trợ cấp tự động theo NĐ 75/2021/NĐ-CP, thẩm định số hóa. |
+| **11** | **Chi Trả Trợ Cấp & Khớp Lệnh** | [`/chi-tra`](file:///q:/CODE_visual/filebctt/src/routes/chi-tra.tsx) | Lập danh sách chi trả ATM & Bưu điện, xuất phiếu chi Mẫu C70a-HD có barcode, khớp lệnh sao kê ngân hàng. |
+| **12** | **Điều Dưỡng & Chỉnh Hình** | [`/dieu-duong`](file:///q:/CODE_visual/filebctt/src/routes/dieu-duong.tsx), [`/dung-cu-chinh-hinh`](file:///q:/CODE_visual/filebctt/src/routes/dung-cu-chinh-hinh.tsx) | Quản lý điều dưỡng tập trung (1.8x) & tại nhà (0.9x), theo dõi niên hạn 3-5 năm phương tiện chỉnh hình xe lăn, chân tay giả. |
+| **13** | **Bản Đồ Số Nghĩa Trang GIS** | [`/nghia-trang`](file:///q:/CODE_visual/filebctt/src/routes/nghia-trang.tsx) | Số hóa sơ đồ phân lô Khu A, B, C, D; định vị phần mộ liệt sĩ; dâng hoa và thắp hương trực tuyến. |
+| **14** | **Khảo Sát CSAT & Đo Lường SIPAS** | [`/danh-gia`](file:///q:/CODE_visual/filebctt/src/routes/danh-gia.tsx), [`/khao-sat`](file:///q:/CODE_visual/filebctt/src/routes/khao-sat.tsx) | Kênh đánh giá độc lập cho người dân qua QR Code/Kiosk; Radar Chart SIPAS và bảng xếp hạng 14 phường cho cán bộ. |
+| **15** | **Quản Trị Hệ Thống & SQL Studio**| [`/he-thong`](file:///q:/CODE_visual/filebctt/src/routes/he-thong.tsx) | Quản trị RBAC, cấu hình mức chuẩn, Kiểm thử Engine Studio và Duyệt Cơ sở Dữ liệu 42 bảng quan hệ. |
 
 ---
 
-## 📸 BỘ SƯU TẬP HÌNH ẢNH GIAO DIỆN THỰC TẾ (VISUAL SHOWCASE)
+## 📸 BỘ SƯU TẬP HÌNH ẢNH GIAO DIỆN THỰC TẾ (VISUAL SHOWCASE - 31 MÀN HÌNH)
 
-### 1. Trung Tâm Điều Hành Lãnh Đạo & Check-in Sản Phẩm KPI (`/dieu-hanh`)
-Bảng điều khiển tối cao dành cho Thường trực Đảng ủy và Lãnh đạo UBND Phường: giám sát trực tiếp tiến độ hoàn thành chỉ tiêu của 4 khối chuyên môn, phê duyệt kết quả check-in và ký số điện tử.
+Toàn bộ 31 màn hình chức năng và modal nghiệp vụ của hệ thống được chụp thực tế với độ phân giải cao (Retina 2x):
 
+### 1. Xác Thực Bảo Mật & Chuyển Đổi Vai Trò Cán Bộ (RBAC)
 <p align="center">
-  <img src="docs/screenshots/03_dashboard_tong_quan.png" alt="Bảng điều khiển trung tâm" width="95%" />
+  <img src="docs/screenshots/01_login_cap_so.png" alt="Đăng nhập Cấp Sở" width="49%" />
+  <img src="docs/screenshots/02_login_cap_phong.png" alt="Đăng nhập Cấp Phòng" width="49%" />
 </p>
+<p align="center">
+  <img src="docs/screenshots/05_chuyen_doi_vai_tro.png" alt="Bảng Chuyển đổi Vai trò Đa Mảng" width="98%" />
+</p>
+
+*Màn hình đăng nhập phân quyền đa cấp (Cấp Sở LĐTBXH, Cấp Phòng, Lãnh đạo Phường và Chuyên viên các khối) cùng cơ chế chuyển đổi vai trò kiểm thử tức thời.*
 
 ---
 
-### 2. Phân Hệ Đánh Giá CSAT & Kiosk Cảm Ứng Công Dân (`/khao-sat` & `/danh-gia`)
-Giao diện công dân được tối giản tối đa với chữ lớn, nút bấm cảm ứng trực quan 5 sao, kết nối thời gian thực với Màn hình Giám sát Radar 4 trụ cột SIPAS của Lãnh đạo.
-
+### 2. Trung Tâm Điều Hành Lãnh Đạo & Báo Cáo Phân Tích Số Liệu
 <p align="center">
-  <img src="docs/screenshots/07_cong_dan_danh_gia_csat.png" alt="Kiosk Đánh giá Công dân" width="48%" />
-  <img src="docs/screenshots/08_giam_sat_csat_can_bo.png" alt="Giám sát CSAT SIPAS Cán bộ" width="48%" />
+  <img src="docs/screenshots/22_dieu_hanh_lanh_dao.png" alt="Trung tâm Điều hành Lãnh đạo Phường" width="98%" />
 </p>
+<p align="center">
+  <img src="docs/screenshots/03_dashboard_tong_quan.png" alt="Dashboard Tổng quan Quản lý" width="49%" />
+  <img src="docs/screenshots/04_bieu_do_kinh_phi.png" alt="Biểu đồ Phân bổ Kinh phí" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/12_ban_do_nhiet_phan_tich.png" alt="Bản đồ Nhiệt 14 Phường" width="98%" />
+</p>
+
+*Bảng điều khiển tối cao dành cho Thường trực Đảng ủy và Lãnh đạo UBND Phường: giám sát trực tiếp tiến độ hoàn thành chỉ tiêu của 4 khối chuyên môn, phê duyệt kết quả check-in và bản đồ nhiệt phân bổ ngân sách 14 phường.*
 
 ---
 
-### 3. Xuất Biểu Mẫu Hành Chính Chuẩn Có Mã QR Code & Barcode
-Tự động xuất in pixel-perfect Giấy tiếp nhận hồ sơ và Hẹn trả kết quả (Mẫu 01 - NĐ 61/2018) và Phiếu chi trả trợ cấp C70a-HD có mã vạch xác thực.
-
+### 3. Văn Phòng Điện Tử e-Office, Lịch Tuần & Phòng Họp Trực Tuyến
 <p align="center">
-  <img src="docs/screenshots/06_giay_hen_mot_cua_qr.png" alt="Giấy hẹn Một cửa có Mã QR" width="48%" />
-  <img src="docs/screenshots/09_phieu_chi_c70a_hd.png" alt="Phiếu chi trả C70a-HD có Barcode" width="48%" />
+  <img src="docs/screenshots/23_van_ban_eoffice.png" alt="Văn phòng Điện tử e-Office" width="98%" />
 </p>
+<p align="center">
+  <img src="docs/screenshots/25_lich_tuan_tiep_dan.png" alt="Lịch tuần Lãnh đạo & Sổ Tiếp công dân" width="49%" />
+  <img src="docs/screenshots/26_hop_truc_tuyen_chat.png" alt="Phòng họp số e-Cabinet & Chat nội bộ" width="49%" />
+</p>
+
+*Quản lý Văn bản Đến/Đi theo chuẩn Nghị định 30/2020/NĐ-CP, Lịch công tác tuần của Thường trực Đảng ủy - HĐND - UBND, Sổ tiếp công dân định kỳ và Phòng họp số e-Cabinet chia sẻ tài liệu mật.*
 
 ---
 
-### 4. Bản Đồ Số Nghĩa Trang Liệt Sĩ GIS & Dâng Hương Online (`/nghia-trang`)
-Bản đồ phân lô tương tác Khu A, B, C, D với tọa độ địa lý, kết hợp nghi thức dâng hoa và thắp nén hương tưởng niệm liệt sĩ trực tuyến.
-
+### 4. Cơ Chế Một Cửa Quốc Gia, Tiếp Nhận Hồ Sơ & AI OCR
 <p align="center">
-  <img src="docs/screenshots/14_ban_do_nghia_trang_gis.png" alt="Bản đồ số Nghĩa trang GIS" width="95%" />
+  <img src="docs/screenshots/24_mot_cua_quoc_gia.png" alt="Bộ phận Một cửa Tiếp nhận DVC Quốc gia" width="98%" />
 </p>
+<p align="center">
+  <img src="docs/screenshots/20_tiep_nhan_ho_so_moi_modal.png" alt="Modal Tiếp nhận Hồ sơ Mới" width="49%" />
+  <img src="docs/screenshots/21_ai_ocr_so_hoa_modal.png" alt="Modal AI OCR Bóc tách Giấy tờ" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/06_giay_hen_mot_cua_qr.png" alt="Giấy Tiếp nhận & Hẹn trả kết quả Mẫu 01" width="98%" />
+</p>
+
+*Quy trình thụ lý Một cửa chuẩn Nghị định 61/2018 & 107/2021: Tiếp nhận hồ sơ, bóc tách dữ liệu thông minh bằng AI OCR, và tự động xuất Giấy hẹn Mẫu 01 tích hợp mã QR Code tra cứu.*
 
 ---
 
-### 5. Cơ Sở Dữ Liệu Quan Hệ 3NF & SQL Studio Console (`/he-thong`)
-Bộ duyệt 42 bảng 3NF với Metadata cột, khóa chính 🔑, khóa ngoại, bộ lọc phân hệ, bàn điều khiển SQL Console trực tiếp và xuất file SQL Dump 1-click.
-
+### 5. Quản Lý Hồ Sơ Người Có Công, Thẩm Định Số Hóa & Chi Trả C70a-HD
 <p align="center">
-  <img src="docs/screenshots/19_cau_hinh_he_thong.png" alt="Quản trị Hệ thống & SQL Studio" width="95%" />
+  <img src="docs/screenshots/10_chi_tiet_ho_so_liet_si.png" alt="Chi tiết Hồ sơ Liệt sĩ" width="49%" />
+  <img src="docs/screenshots/18_quy_trinh_tham_dinh_so_hoa.png" alt="Quy trình Thẩm định Số hóa" width="49%" />
 </p>
+<p align="center">
+  <img src="docs/screenshots/09_phieu_chi_c70a_hd.png" alt="Phiếu chi trả Trợ cấp C70a-HD có Barcode" width="49%" />
+  <img src="docs/screenshots/17_chi_tra_doi_soat_ngan_hang.png" alt="Chi trả & Khớp lệnh Ngân hàng" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/16_danh_sach_ho_so_bao_giam.png" alt="Danh sách Báo giảm Từ trần & Mai táng phí" width="98%" />
+</p>
+
+*Vòng đời quản lý Người có công toàn diện: Thẩm định hồ sơ số hóa, tính trợ cấp chuẩn Nghị định 75/2021, xuất Phiếu chi C70a-HD có Barcode Code 128, đối soát ngân hàng theo Đề án 06 và thủ tục mai táng phí Mẫu 02.*
+
+---
+
+### 6. Quản Lý Điều Dưỡng, Dụng Cụ Chỉnh Hình & Bản Đồ Số Nghĩa Trang GIS
+<p align="center">
+  <img src="docs/screenshots/11_quan_ly_dieu_duong.png" alt="Quản lý Chế độ Điều dưỡng NCC" width="49%" />
+  <img src="docs/screenshots/13_dung_cu_chinh_hinh.png" alt="Cấp phát Phương tiện Chỉnh hình" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/14_ban_do_nghia_trang_gis.png" alt="Bản đồ số Nghĩa trang Liệt sĩ GIS & Dâng hương" width="98%" />
+</p>
+
+*Theo dõi chu kỳ điều dưỡng 2 năm/lần (Tập trung 1.8x, Tại nhà 0.9x), niên hạn cấp phát xe lăn 3-5 năm và Bản đồ số phân lô Khu A, B, C, D Nghĩa trang Liệt sĩ kết hợp Dâng hoa - Thắp hương tri ân trực tuyến.*
+
+---
+
+### 7. Các Khối Nghiệp Vụ Chuyên Môn Cấp Phường Mở Rộng
+<p align="center">
+  <img src="docs/screenshots/29_an_sinh_xa_hoi.png" alt="Lao động, An sinh Xã hội & Giảm nghèo" width="49%" />
+  <img src="docs/screenshots/30_giao_duc_dao_tao.png" alt="Giáo dục & Đào tạo Cơ sở" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/27_van_hoa_the_thao.png" alt="Văn hóa, Thể thao & Đội 814" width="49%" />
+  <img src="docs/screenshots/28_thong_tin_chuyen_doi_so.png" alt="Thông tin, Truyền thông & Phản ánh 1022" width="49%" />
+</p>
+
+*Bốn khối nghiệp vụ chuyên môn sâu sắc: An sinh xã hội & Giảm nghèo đa chiều (QĐ 24); Mầm non tư thục & Phổ cập giáo dục (TT 49); Gia đình văn hóa & Đội kiểm tra 814 (NĐ 86); Phản ánh hiện trường 1022 (SLA 24h) & Giám sát an ninh mạng Lực lượng 35.*
+
+---
+
+### 8. Đo Lường CSAT SIPAS, Cổng Tra Cứu & Cơ Sở Dữ Liệu 3NF SQL Studio
+<p align="center">
+  <img src="docs/screenshots/07_cong_dan_danh_gia_csat.png" alt="Kiosk Cảm ứng Đánh giá CSAT Công dân" width="49%" />
+  <img src="docs/screenshots/08_giam_sat_csat_can_bo.png" alt="Màn hình Radar Giám sát CSAT SIPAS Cán bộ" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/15_cong_tra_cuu_cong_dan.png" alt="Cổng Tra cứu Thông tin Công dân" width="49%" />
+  <img src="docs/screenshots/19_cau_hinh_he_thong.png" alt="Quản trị Tham số & Phân quyền Hệ thống" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/31_csdl_3nf_sql_studio.png" alt="Cơ sở Dữ liệu 3NF & SQL Studio Console" width="98%" />
+</p>
+
+*Trải nghiệm Kiosk cảm ứng độc lập cho người dân đánh giá 5 sao tích hợp AI Sentiment Analysis; Radar SIPAS 4 trục; Cổng tra cứu tiến độ hồ sơ; và Bàn điều khiển CSDL 42 bảng quan hệ 3NF trực tiếp.*
 
 ---
 
 ## 🗄️ KIẾN TRÚC CƠ SỞ DỮ LIỆU QUAN HỆ 3NF (42 BẢNG)
 
-Hệ thống được thiết kế theo chuẩn hóa dữ liệu dạng chuẩn 3 (3NF), InnoDB engine, hỗ trợ đầy đủ giao dịch ACID (`beginTransaction`, `commit`, `rollback`) và lưu trữ bền vững:
+Hệ thống được thiết kế theo chuẩn hóa dữ liệu dạng chuẩn 3 (3NF), engine InnoDB, hỗ trợ đầy đủ giao dịch ACID (`beginTransaction`, `commit`, `rollback`) và lưu trữ bền vững tại `database/database_persistence.json`:
 
 ```
 +---------------------------------------------------------------------------------------------------------+
@@ -201,6 +363,12 @@ Hệ thống được thiết kế theo chuẩn hóa dữ liệu dạng chuẩn 
 |    - sys_audit_logs (Lịch sử truy vết)   - Các Views: v_tong_hop_an_sinh, v_can_doi_quy                 |
 +---------------------------------------------------------------------------------------------------------+
 ```
+
+### Các Tính Năng Độc Đáo Của Động Cơ Database:
+- **ACID Transaction API:** `database.beginTransaction()`, `database.commit()`, `database.rollback()`.
+- **SQL Console Trực Quan:** Chạy câu lệnh SQL `SELECT`, `UPDATE`, `INSERT` trực tiếp tại tab **Hệ Thống -> Cơ sở Dữ liệu Quan hệ 3NF**.
+- **Snapshot Backup & Restore:** Tạo bản sao lưu toàn bộ dữ liệu 1-click và khôi phục ngay khi cần.
+- **Export SQL Dump:** Xuất trọn gói cấu trúc DDL và dữ liệu DML thành tệp `.sql` tương thích MySQL / MariaDB.
 
 ---
 
@@ -255,13 +423,16 @@ cd BCTT
 # 2. Cài đặt các gói phụ thuộc
 npm install
 
-# 3. Chạy kiểm thử tự động toàn diện
+# 3. Chạy kiểm thử tự động toàn diện backend
 npm run test:backend
 
-# 4. Khởi chạy máy chủ phát triển (Development Server)
+# 4. Chụp tự động bộ 31 màn hình hệ thống (tùy chọn)
+node scripts/capture_all_screens.mjs
+
+# 5. Khởi chạy máy chủ phát triển (Development Server)
 npm run dev
 
-# 5. Truy cập hệ thống tại trình duyệt:
+# 6. Truy cập hệ thống tại trình duyệt:
 # http://localhost:8081
 ```
 
@@ -279,13 +450,13 @@ Dự án đã được cấu hình sẵn sàng 100% cho nền tảng **Vercel** 
    - **Framework Preset:** `Vite` (hoặc `Other`).
    - **Build Command:** `npm run build`.
    - **Output Directory:** Tự động theo Nitro output.
-5. Thêm Environment Variable (nếu cần):
-   - `DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS=1` (đã có sẵn trong `vercel.json`).
+5. Biến môi trường (Environment Variable):
+   - `DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS=1` (đã khai báo trong `vercel.json`).
 6. Nhấn **"Deploy"** và đợi khoảng 1 - 2 phút để nhận đường link Production hoạt động 24/7!
 
 ### Cách 2: Triển Khai Qua Vercel CLI (Dòng Lệnh)
 ```bash
-# Cài đặt Vercel CLI toàn cục
+# Cài đặt Vercel CLI
 npm install -g vercel
 
 # Đăng nhập vào tài khoản Vercel
@@ -306,4 +477,4 @@ vercel --prod
 - **Kho lưu trữ chính thức:** [https://github.com/Awac8989/BCTT](https://github.com/Awac8989/BCTT)
 
 ---
-*Bản quyền © 2026 Đoàn Minh Quân · Nghiên cứu và phát triển vì nền hành chính công hiện đại và nhân văn.*
+*Bản quyền © 2026 Đoàn Minh Quân · Nghiên cứu và phát triển vì nền hành chính công hiện đại, minh bạch và nhân văn.*

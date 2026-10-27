@@ -237,6 +237,71 @@ async function run() {
     await sleep(500);
   }
 
+  // 22. Trung tâm Điều hành Lãnh đạo
+  console.log("\n22. Chụp Trung tâm Điều hành Lãnh đạo & Check-in KPI...");
+  await page.goto(`${BASE_URL}/dieu-hanh`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("22_dieu_hanh_lanh_dao.png", "Trung tâm Điều hành Lãnh đạo & Check-in Sản phẩm KPI");
+
+  // 23. Văn phòng Điện tử e-Office
+  console.log("\n23. Chụp Văn phòng Điện tử & Quản lý Văn bản...");
+  await page.goto(`${BASE_URL}/van-ban`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("23_van_ban_eoffice.png", "Văn phòng Điện tử & Quản lý Văn bản Điều hành NĐ 30");
+
+  // 24. Cơ chế Một cửa Quốc gia
+  console.log("\n24. Chụp Một cửa & DVCQG...");
+  await page.goto(`${BASE_URL}/mot-cua`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("24_mot_cua_quoc_gia.png", "Cơ chế Một cửa Quốc gia & Giải quyết TTHC NĐ 61");
+
+  // 25. Lịch tuần Lãnh đạo & Tiếp dân
+  console.log("\n25. Chụp Lịch tuần & Sổ Tiếp công dân...");
+  await page.goto(`${BASE_URL}/lich-tuan`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("25_lich_tuan_tiep_dan.png", "Lịch tuần Lãnh đạo & Sổ Tiếp công dân định kỳ");
+
+  // 26. Họp trực tuyến & Chat nội bộ
+  console.log("\n26. Chụp Họp trực tuyến & Chat nội bộ...");
+  await page.goto(`${BASE_URL}/hop-truc-tuyen`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("26_hop_truc_tuyen_chat.png", "Họp trực tuyến & Trao đổi công vụ nội bộ mã hóa");
+
+  // 27. Văn hóa, Thể thao & Du lịch
+  console.log("\n27. Chụp Văn hóa, Thể thao & Du lịch cơ sở...");
+  await page.goto(`${BASE_URL}/van-hoa-xa-hoi`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("27_van_hoa_the_thao.png", "Văn hóa, Thể thao, Đội 814 & Đô thị văn minh");
+
+  // 28. Thông tin, Truyền thông & Chuyển đổi số
+  console.log("\n28. Chụp Thông tin, Truyền thông & Chuyển đổi số...");
+  await page.goto(`${BASE_URL}/thong-tin-truyen-thong`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("28_thong_tin_chuyen_doi_so.png", "Thông tin, Truyền thông, Phản ánh 1022 & DTI");
+
+  // 29. Lao động, Việc làm & An sinh xã hội
+  console.log("\n29. Chụp An sinh xã hội tổng hợp...");
+  await page.goto(`${BASE_URL}/an-sinh-xa-hoi`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("29_an_sinh_xa_hoi.png", "Lao động, Việc làm, Giảm nghèo đa chiều & Quỹ Đền ơn");
+
+  // 30. Giáo dục và Đào tạo cơ sở
+  console.log("\n30. Chụp Giáo dục và Đào tạo cơ sở...");
+  await page.goto(`${BASE_URL}/giao-duc-dao-tao`, { waitUntil: "networkidle2" });
+  await sleep(1500);
+  await take("30_giao_duc_dao_tao.png", "Giáo dục & Đào tạo cơ sở, Mầm non tư thục & Phổ cập GD");
+
+  // 31. Cơ sở dữ liệu 3NF & SQL Studio
+  console.log("\n31. Chụp CSDL Quan hệ 3NF & SQL Studio...");
+  await page.goto(`${BASE_URL}/he-thong`, { waitUntil: "networkidle2" });
+  await sleep(1000);
+  const dbTabBtn = await page.$('button ::-p-text(4. Cơ sở Dữ liệu Quan hệ 3NF)');
+  if (dbTabBtn) {
+    await dbTabBtn.click();
+    await sleep(1500);
+  }
+  await take("31_csdl_3nf_sql_studio.png", "Cơ sở Dữ liệu Quan hệ 3NF & Interactive SQL Studio");
+
   // Dọn dẹp test_puppeteer.png nếu có
   const testP = path.join(OUTPUT_DIR, "test_puppeteer.png");
   if (fs.existsSync(testP)) {
@@ -244,7 +309,7 @@ async function run() {
   }
 
   await browser.close();
-  console.log("\n🎉 HOÀN TẤT CHỤP TOÀN BỘ 21 MÀN HÌNH VÀ MODAL!");
+  console.log("\n🎉 HOÀN TẤT CHỤP TOÀN BỘ 31 MÀN HÌNH VÀ MODAL!");
 }
 
 run().catch((err) => {
