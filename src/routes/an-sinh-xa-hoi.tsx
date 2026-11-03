@@ -47,6 +47,7 @@ import { ModalTiepNhanTthcAnSinh } from "@/components/an-sinh/modals/ModalTiepNh
 import { ModalKySoSmartCAAnSinh } from "@/components/an-sinh/modals/ModalKySoSmartCAAnSinh";
 import { ModalXemQuyetDinhAnSinh } from "@/components/an-sinh/modals/ModalXemQuyetDinhAnSinh";
 import { ModalXetNghiemTeNan } from "@/components/an-sinh/modals/ModalXetNghiemTeNan";
+import { QuyetDinhBaoTroXaHoiModal } from "@/components/QuyetDinhBaoTroXaHoiModal";
 
 export const Route = createFileRoute("/an-sinh-xa-hoi")({
   head: () => ({
@@ -92,6 +93,7 @@ function AnSinhXaHoiPage() {
   const [showAddTthcModal, setShowAddTthcModal] = useState(false);
   const [signingTthcItem, setSigningTthcItem] = useState<HoSoTTHCAnSinhItem | null>(null);
   const [viewingQuyetDinhItem, setViewingQuyetDinhItem] = useState<HoSoTTHCAnSinhItem | null>(null);
+  const [selectedDoiTuongQd, setSelectedDoiTuongQd] = useState<DoiTuongBaoTroXaHoi | null>(null);
 
   const hasAccess =
     hasDomainAccess(currentUser, "LDTBXH_AN_SINH") || hasDomainAccess(currentUser, "LDTBXH_NCC");
@@ -273,6 +275,7 @@ function AnSinhXaHoiPage() {
               baoTroList={baoTroList}
               onOpenAddModal={() => setShowAddBaoTroModal(true)}
               onOpenThoiHuongModal={(item) => setThoiHuongItem(item)}
+              onOpenQuyetDinhModal={(item) => setSelectedDoiTuongQd(item)}
             />
           )}
 
@@ -389,6 +392,12 @@ function AnSinhXaHoiPage() {
       <ModalXemQuyetDinhAnSinh
         item={viewingQuyetDinhItem}
         onClose={() => setViewingQuyetDinhItem(null)}
+      />
+
+      <QuyetDinhBaoTroXaHoiModal
+        isOpen={Boolean(selectedDoiTuongQd)}
+        onClose={() => setSelectedDoiTuongQd(null)}
+        doiTuong={selectedDoiTuongQd}
       />
     </AppShell>
   );

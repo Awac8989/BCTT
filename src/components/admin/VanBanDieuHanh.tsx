@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { appStore, useAppState } from "@/services/app-state";
 import { type VanBanDenItem, type VanBanDiItem, type TiepCongDanItem } from "@/data/domain-mock";
+import { PhieuHuongDanTiepDanModal } from "@/components/PhieuHuongDanTiepDanModal";
 
 export function VanBanDieuHanh() {
   const { vanBanDenList, vanBanDiList, tiepCongDanList, currentUser } = useAppState();
@@ -47,6 +48,7 @@ export function VanBanDieuHanh() {
 
   // State Modal Soạn thảo Văn bản đi
   const [modalSoanVbDi, setModalSoanVbDi] = useState(false);
+  const [selectedTcdForPrint, setSelectedTcdForPrint] = useState<TiepCongDanItem | null>(null);
   const [newVbDiTrichYeu, setNewVbDiTrichYeu] = useState("");
   const [newVbDiLoai, setNewVbDiLoai] = useState<VanBanDiItem["loaiVanBan"]>("BAO_CAO");
   const [newVbDiNoiNhan, setNewVbDiNoiNhan] = useState("UBND Thành phố Thủ Dầu Một; Phòng VHTT TP; Lưu: VT");
@@ -644,6 +646,7 @@ export function VanBanDieuHanh() {
                     <th className="px-4 py-3">Ý kiến kết luận & Cán bộ thụ lý</th>
                     <th className="px-4 py-3 text-center">Hạn giải quyết</th>
                     <th className="px-4 py-3 text-center">Trạng thái</th>
+                    <th className="px-4 py-3 text-right">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -695,6 +698,17 @@ export function VanBanDieuHanh() {
                             Đang xác minh
                           </span>
                         )}
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedTcdForPrint(tcd)}
+                          className="px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold text-[11px] inline-flex items-center gap-1 shadow-xs transition-colors cursor-pointer"
+                          title="In Phiếu Hướng dẫn &amp; Xử lý đơn thư Tiếp công dân (Mẫu A4 chuẩn)"
+                        >
+                          <Printer className="w-3.5 h-3.5" />
+                          <span>In phiếu</span>
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -927,6 +941,12 @@ export function VanBanDieuHanh() {
           </div>
         </div>
       )}
+      {/* Modal In Phiếu Hướng dẫn & Xử lý đơn thư Tiếp công dân */}
+      <PhieuHuongDanTiepDanModal
+        isOpen={Boolean(selectedTcdForPrint)}
+        onClose={() => setSelectedTcdForPrint(null)}
+        item={selectedTcdForPrint}
+      />
     </div>
   );
 }

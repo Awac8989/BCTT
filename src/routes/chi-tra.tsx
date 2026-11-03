@@ -15,12 +15,18 @@ import {
   Check,
   RotateCcw,
   UploadCloud,
+  Gift,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { useAppState, appStore, type ChiTraItem } from "@/services/app-state";
 import { PhieuChiModal } from "@/components/PhieuChiModal";
 import { DoiSoatBankModal } from "@/components/DoiSoatBankModal";
+import { UyNhiemChiModal } from "@/components/UyNhiemChiModal";
+import { BangKeQua27Thang7Modal } from "@/components/BangKeQua27Thang7Modal";
+import { SoChiTraTroCapModal } from "@/components/SoChiTraTroCapModal";
+import { QuyetDinhMaiTangPhiModal } from "@/components/QuyetDinhMaiTangPhiModal";
+import { BangKeBuuDienModal } from "@/components/BangKeBuuDienModal";
 import { HUYEN_LIST } from "@/data/mock";
 
 export const Route = createFileRoute("/chi-tra")({
@@ -90,7 +96,7 @@ function exportChiTraExcel(data: ChiTraItem[], ky: string) {
 }
 
 function ChiTraPage() {
-  const { chiTraList } = useAppState();
+  const { chiTraList, hoSoList } = useAppState();
 
   // Bộ lọc
   const [kyChiTra, setKyChiTra] = useState("09/2026");
@@ -103,6 +109,21 @@ function ChiTraPage() {
   const [selectedItemForModal, setSelectedItemForModal] = useState<ChiTraItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showDoiSoatModal, setShowDoiSoatModal] = useState(false);
+  // Modal Ủy nhiệm chi Ngân hàng Vietcombank (Đề án 06)
+  const [selectedItemForUnc, setSelectedItemForUnc] = useState<ChiTraItem | null>(null);
+  const [isUncModalOpen, setIsUncModalOpen] = useState(false);
+  const [showQua277Modal, setShowQua277Modal] = useState(false);
+  const [showSoChiTraModal, setShowSoChiTraModal] = useState(false);
+  const [showBuuDienModal, setShowBuuDienModal] = useState(false);
+  const [selectedHoSoForMaiTang, setSelectedHoSoForMaiTang] = useState<any | null>(null);
+
+  // Danh sách các kỳ chi trả có trong hệ thống (tự động cập nhật khi có hồ sơ mới duyệt)
+  const availableKyList = useMemo(() => {
+    const list = Array.from(new Set(chiTraList.map((item) => item.kyChiTra)));
+    if (!list.includes("09/2026")) list.push("09/2026");
+    if (!list.includes("10/2026")) list.push("10/2026");
+    return list.sort().reverse();
+  }, [chiTraList]);
 
   // Chọn dòng để phát tiền hàng loạt
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -228,6 +249,42 @@ function ChiTraPage() {
             Phát tiền Ngân hàng tự động (Đề án 06)
           </button>
 
+          {/* Nút xem Sổ theo dõi Chi trả Trợ cấp Mẫu C70b-HD */}
+          <button
+            type="button"
+            onClick={() => setShowSoChiTraModal(true)}
+            className="flex items-center gap-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer"
+            title="Sổ theo dõi chi trả trợ cấp ưu đãi người có công Mẫu C70b-HD (A4 ngang)"
+          >
+            <FileSpreadsheet className="size-3.5" />
+            Sổ Chi trả Mẫu C70b-HD
+          </button>
+
+          {/* Nút Quyết định Mai táng phí & Trợ cấp 1 lần */}
+          <button
+            type="button"
+            onClick={() => {
+              const tuTran = hoSoList.find(h => h.isTuTran) || hoSoList[0];
+              setSelectedHoSoForMaiTang(tuTran);
+            }}
+            className="flex items-center gap-1.5 rounded-full bg-rose-700 hover:bg-rose-800 px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer"
+            title="Quyết định hưởng trợ cấp mai táng phí (10 tháng lương cơ sở = 23.4 triệu đ) và trợ cấp 1 lần khi NCC từ trần"
+          >
+            <CreditCard className="size-3.5" />
+            QĐ Mai táng phí &amp; Một lần
+          </button>
+
+          {/* Nút xem Bảng kê Quà tặng 27/7 & Thờ cúng liệt sĩ */}
+          <button
+            type="button"
+            onClick={() => setShowQua277Modal(true)}
+            className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-700 hover:to-amber-700 px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer"
+            title="Bảng kê quà tặng Chủ tịch Nước, Quà Tỉnh Bình Dương & Thờ cúng liệt sĩ dịp 27/7"
+          >
+            <Gift className="size-3.5 text-amber-200" />
+            Bảng kê Quà 27/7 & Thờ cúng LS
+          </button>
+
           {/* Nút đối soát tự động ngân hàng */}
           <button
             type="button"
@@ -249,17 +306,18 @@ function ChiTraPage() {
             Xuất Bảng kê C70a-HD (.csv)
           </button>
 
-          {/* Nút lập danh sách phát tiền bưu điện */}
+          {/* Nút lập danh sách phát tiền bưu điện & Phiếu phát tận nhà */}
           <button
             type="button"
             onClick={() => {
               setHinhThuc("BUU_DIEN");
-              toast.info("Đã lọc danh sách chi trả tiền mặt qua Bưu điện VNPost");
+              setShowBuuDienModal(true);
             }}
             className="flex items-center gap-1.5 rounded-full bg-[#00a65a] hover:bg-[#008d4c] px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer"
+            title="Bảng kê chi trả tiền mặt qua Bưu điện VNPost & Phiếu phát tiền tận nhà cho Mẹ VNAH / TB nặng"
           >
             <Building2 className="size-3.5" />
-            Danh sách Bưu điện VNPost
+            Bảng kê Bưu điện VNPost (Tiền mặt)
           </button>
         </div>
 
@@ -271,9 +329,11 @@ function ChiTraPage() {
             onChange={(e) => setKyChiTra(e.target.value)}
             className="rounded-[3px] border border-[#d2d6de] bg-white px-2.5 py-1 text-xs font-bold text-[#dd4b39] outline-none"
           >
-            <option value="09/2026">Tháng 09/2026 (Hiện tại)</option>
-            <option value="08/2026">Tháng 08/2026</option>
-            <option value="07/2026">Tháng 07/2026 (Dịp 27/7)</option>
+            {availableKyList.map((k) => (
+              <option key={k} value={k}>
+                Tháng {k} {k === "09/2026" ? "(Hiện tại)" : k === "07/2026" ? "(Dịp 27/7)" : ""}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -556,14 +616,28 @@ function ChiTraPage() {
                           </span>
                         )}
 
-                        <button
-                          type="button"
-                          onClick={() => handleOpenPhieuChi(item)}
-                          title="In Giấy lĩnh tiền C70a-HD"
-                          className="size-6 rounded-[2px] bg-[#00c0ef] hover:bg-[#00a7d0] text-white flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
-                        >
-                          <Printer className="size-3.5" />
-                        </button>
+                        {item.hinhThuc === "NGAN_HANG" ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSelectedItemForUnc(item);
+                              setIsUncModalOpen(true);
+                            }}
+                            title="In Ủy nhiệm chi (UNC) Vietcombank theo Đề án 06"
+                            className="size-6 rounded-[2px] bg-[#0073b7] hover:bg-[#005f96] text-white flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
+                          >
+                            <CreditCard className="size-3.5" />
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => handleOpenPhieuChi(item)}
+                            title="In Giấy lĩnh tiền C70a-HD (Bưu điện)"
+                            className="size-6 rounded-[2px] bg-[#00a65a] hover:bg-[#008d4c] text-white flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
+                          >
+                            <Printer className="size-3.5" />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -623,6 +697,43 @@ function ChiTraPage() {
       <DoiSoatBankModal
         isOpen={showDoiSoatModal}
         onClose={() => setShowDoiSoatModal(false)}
+      />
+
+      {/* Modal Ủy nhiệm chi Ngân hàng Vietcombank (Đề án 06) */}
+      <UyNhiemChiModal
+        isOpen={isUncModalOpen}
+        onClose={() => setIsUncModalOpen(false)}
+        item={selectedItemForUnc}
+      />
+
+      {/* Modal Bảng kê Quà tặng 27/7 & Thờ cúng Liệt sĩ hàng năm */}
+      <BangKeQua27Thang7Modal
+        isOpen={showQua277Modal}
+        onClose={() => setShowQua277Modal(false)}
+        kyChiTra={kyChiTra}
+      />
+
+      {/* Modal Sổ theo dõi Chi trả Trợ cấp Mẫu C70b-HD */}
+      <SoChiTraTroCapModal
+        isOpen={showSoChiTraModal}
+        onClose={() => setShowSoChiTraModal(false)}
+        hoSoList={hoSoList}
+        thangChiTra={`Tháng ${kyChiTra}`}
+      />
+
+      {/* Modal Quyết định Hưởng Trợ cấp Mai táng phí & Trợ cấp một lần */}
+      <QuyetDinhMaiTangPhiModal
+        isOpen={Boolean(selectedHoSoForMaiTang)}
+        onClose={() => setSelectedHoSoForMaiTang(null)}
+        hoSo={selectedHoSoForMaiTang}
+      />
+
+      {/* Modal Bảng kê Bưu điện VNPost & Phiếu phát tiền tận nhà */}
+      <BangKeBuuDienModal
+        isOpen={showBuuDienModal}
+        onClose={() => setShowBuuDienModal(false)}
+        items={chiTraList}
+        kyChiTra={`Tháng ${kyChiTra}`}
       />
     </AppShell>
   );

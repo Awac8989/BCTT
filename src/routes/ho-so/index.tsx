@@ -14,12 +14,17 @@ import {
   Sparkles,
   UserMinus,
   AlertTriangle,
+  Award,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { GiayHenModal } from "@/components/GiayHenModal";
 import { BaoGiamModal } from "@/components/BaoGiamModal";
 import { OcrScanModal } from "@/components/OcrScanModal";
+import { QuyetDinhModal } from "@/components/QuyetDinhModal";
+import { BienBanNiemYetModal } from "@/components/BienBanNiemYetModal";
+import { QuyetDinhMaiTangPhiModal } from "@/components/QuyetDinhMaiTangPhiModal";
+import { Calendar, CreditCard } from "lucide-react";
 import { HUYEN_LIST, HUYEN_PHUONG_MAP, type HoSo } from "@/data/mock";
 import { useAppState } from "@/services/app-state";
 import { CreateProfileModal } from "@/components/CreateProfileModal";
@@ -111,6 +116,10 @@ function HoSoIndex() {
   const [baoGiamHoSo, setBaoGiamHoSo] = useState<HoSo | null>(null);
   // Modal OCR AI scan tài liệu
   const [showOcrModal, setShowOcrModal] = useState(false);
+  // Modal Quyết định hưởng trợ cấp chuẩn NĐ 30/2020
+  const [selectedQdHoSo, setSelectedQdHoSo] = useState<HoSo | null>(null);
+  const [selectedNiemYetHoSo, setSelectedNiemYetHoSo] = useState<HoSo | null>(null);
+  const [selectedMaiTangHoSo, setSelectedMaiTangHoSo] = useState<HoSo | null>(null);
 
   // Bộ lọc tìm kiếm nâng cao theo giao diện Sở LĐTBXH Bình Dương
   const [showAdvanced, setShowAdvanced] = useState(true);
@@ -604,6 +613,14 @@ function HoSoIndex() {
                         >
                           <Printer className="size-3.5" />
                         </button>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedNiemYetHoSo(h)}
+                          title="Xem & In Biên bản Niêm yết công khai 15 ngày tại cấp Xã/Phường"
+                          className="size-6 rounded-[2px] bg-emerald-700 hover:bg-emerald-800 text-white flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
+                        >
+                          <Calendar className="size-3.5" />
+                        </button>
                         <Link
                           to="/ho-so/$id"
                           params={{ id: h.id }}
@@ -612,7 +629,17 @@ function HoSoIndex() {
                         >
                           <FileText className="size-3.5" />
                         </Link>
-                        {!h.isTuTran && (
+                        {h.trangThai === "ĐÃ_DUYỆT" && (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedQdHoSo(h)}
+                            title="Xem văn bản Quyết định hưởng trợ cấp chính thức (chuẩn Nghị định 30/2020)"
+                            className="size-6 rounded-[2px] bg-amber-600 hover:bg-amber-700 text-white flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
+                          >
+                            <Award className="size-3.5" />
+                          </button>
+                        )}
+                        {!h.isTuTran ? (
                           <button
                             type="button"
                             onClick={() => setBaoGiamHoSo(h)}
@@ -620,6 +647,15 @@ function HoSoIndex() {
                             className="size-6 rounded-[2px] bg-[#dd4b39] hover:bg-[#c82333] text-white flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
                           >
                             <UserMinus className="size-3.5" />
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedMaiTangHoSo(h)}
+                            title="Quyết định hưởng trợ cấp Mai táng phí (23.4 triệu đ) & Trợ cấp một lần"
+                            className="size-6 rounded-[2px] bg-rose-700 hover:bg-rose-800 text-white flex items-center justify-center transition-colors shadow-2xs cursor-pointer"
+                          >
+                            <CreditCard className="size-3.5" />
                           </button>
                         )}
                         <button
@@ -711,6 +747,29 @@ function HoSoIndex() {
           }}
         />
       )}
+
+      {/* Modal Quyết định hưởng trợ cấp chuẩn Nghị định 30/2020 & NĐ 131/2021 */}
+      {selectedQdHoSo && (
+        <QuyetDinhModal
+          hoSo={selectedQdHoSo}
+          isOpen={!!selectedQdHoSo}
+          onClose={() => setSelectedQdHoSo(null)}
+        />
+      )}
+
+      {/* Modal Biên bản Niêm yết công khai 15 ngày tại cấp Xã/Phường */}
+      <BienBanNiemYetModal
+        isOpen={Boolean(selectedNiemYetHoSo)}
+        onClose={() => setSelectedNiemYetHoSo(null)}
+        hoSo={selectedNiemYetHoSo}
+      />
+
+      {/* Modal Quyết định hưởng trợ cấp Mai táng phí & Trợ cấp một lần */}
+      <QuyetDinhMaiTangPhiModal
+        isOpen={Boolean(selectedMaiTangHoSo)}
+        onClose={() => setSelectedMaiTangHoSo(null)}
+        hoSo={selectedMaiTangHoSo}
+      />
     </AppShell>
   );
 }

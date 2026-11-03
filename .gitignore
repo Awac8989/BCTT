@@ -38,6 +38,7 @@ __pycache__/
 
 # Microsoft Word temporary files
 ~$*.docx
+*.backup.docx
 
 # Scratch & temporary dump files
 scratch_*.txt

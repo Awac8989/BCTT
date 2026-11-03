@@ -31,6 +31,7 @@ import {
   Calendar,
   Building2,
   FileSignature,
+  Wrench,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { appStore, useAppState, hasDomainAccess, MOCK_USERS, type DomainCode } from "@/services/app-state";
@@ -64,6 +65,7 @@ const PRIMARY_NAV: NavItem[] = [
   { to: "/danh-gia", label: "Đánh giá cán bộ", icon: Star },
   { to: "/phan-tich", label: "Báo cáo thống kê", icon: Folder },
   { to: "/he-thong", label: "Phân quyền & HT", icon: Settings },
+  { to: "/ky-thuat", label: "Kỹ thuật & Fix lỗi", icon: Wrench, badge: "IT Admin" },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -122,6 +124,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     if (pathname.startsWith("/danh-gia")) return ["Bảng điều khiển", "Đánh giá cán bộ", "Xem nhận xét & Chỉ số CSAT"];
     if (pathname.startsWith("/phan-tich")) return ["Bảng điều khiển", "Báo cáo thống kê", "Phân tích số liệu điều hành"];
     if (pathname.startsWith("/he-thong")) return ["Bảng điều khiển", "Phân quyền & Hệ thống", "Cấp quyền riêng từng mảng"];
+    if (pathname.startsWith("/ky-thuat")) return ["Bảng điều khiển", "Trung tâm Kỹ thuật & CSDL", "Ghi nhận Báo lỗi & Sửa lỗi CSDL"];
     return ["Bảng điều khiển", "Quản lý hồ sơ", "Tìm kiếm hồ sơ"];
   };
 
@@ -129,6 +132,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   // Lọc menu điều hướng theo quyền truy cập mảng của tài khoản hiện tại
   const filteredNav = PRIMARY_NAV.filter((item) => {
+    // Menu Kỹ thuật & Sửa CSDL CHỈ hiển thị duy nhất cho Quản trị viên Kỹ thuật (ADMIN_TECH)
+    // Sếp (ADMIN_SO) và Cán bộ chuyên môn tuyệt đối KHÔNG nhìn thấy menu này!
+    if (item.to === "/ky-thuat") {
+      return currentUser.role === "ADMIN_TECH";
+    }
     if (!item.domain) return true;
     return hasDomainAccess(currentUser, item.domain);
   });
@@ -262,15 +270,23 @@ export function AppShell({ children }: { children: ReactNode }) {
                     <span className="font-bold text-gray-800 text-xs">{currentUser.fullName}</span>
                     <span
                       className={`rounded px-1.5 py-0.2 font-mono text-[9px] font-extrabold uppercase ${
-                        currentUser.assignedDomains.includes("ALL")
+                        currentUser.role === "ADMIN_SO"
                           ? "bg-red-100 text-[#dd4b39] border border-red-200"
-                          : "bg-blue-100 text-[#0073b7] border border-blue-200"
+                          : currentUser.role === "ADMIN_TECH"
+                          ? "bg-purple-100 text-purple-700 border border-purple-200"
+                          : currentUser.role === "ADMIN_PHONG"
+                          ? "bg-blue-100 text-[#0073b7] border border-blue-200"
+                          : "bg-emerald-100 text-emerald-800 border border-emerald-200"
                       }`}
                     >
                       {currentUser.role === "ADMIN_SO"
                         ? "CẤP SỞ"
+                        : currentUser.role === "ADMIN_TECH"
+                        ? "IT ADMIN"
                         : currentUser.role === "ADMIN_PHONG"
                         ? "CẤP PHÒNG"
+                        : currentUser.role === "LANH_DAO_PHUONG"
+                        ? "LÃNH ĐẠO PHƯỜNG"
                         : "CÁN BỘ PHƯỜNG"}
                     </span>
                   </div>

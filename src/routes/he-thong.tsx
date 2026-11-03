@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import {
@@ -26,6 +26,8 @@ import {
   Briefcase,
   Sliders,
   FileText,
+  Wrench,
+  ShieldAlert,
 } from "lucide-react";
 import { AppShell, PageHeader } from "@/components/AppShell";
 import { formatVND, MUC_CHUAN, PHUONG_LIST } from "@/data/mock";
@@ -33,7 +35,6 @@ import { calculateAllowance } from "@/services/calculator.service";
 import { analyzeSentiment } from "@/services/sentiment.service";
 import { useAppState, appStore, type CurrentUser } from "@/services/app-state";
 import { type DomainCode, DOMAIN_METAS } from "@/data/domain-mock";
-import { DatabaseStudioTab } from "@/components/admin/DatabaseStudioTab";
 
 export const Route = createFileRoute("/he-thong")({
   head: () => ({
@@ -63,7 +64,7 @@ const HE_SO = [
 function HeThong() {
   const { currentUser, usersList, auditLogs } = useAppState();
 
-  const [activeTab, setActiveTab] = useState<"USERS_RBAC" | "ENGINE_STUDIO" | "DANH_MUC_LOGS" | "DATABASE_STUDIO">("USERS_RBAC");
+  const [activeTab, setActiveTab] = useState<"USERS_RBAC" | "ENGINE_STUDIO" | "DANH_MUC_LOGS">("USERS_RBAC");
 
   // State cho Modal Phân quyền người dùng
   const [editingUser, setEditingUser] = useState<CurrentUser | null>(null);
@@ -242,19 +243,7 @@ function HeThong() {
           }`}
         >
           <Sliders className="size-4" />
-          <span>3. Tham số Danh mục &amp; Audit Logs</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("DATABASE_STUDIO")}
-          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors ${
-            activeTab === "DATABASE_STUDIO"
-              ? "border-[#dd4b39] text-[#dd4b39]"
-              : "border-transparent text-gray-500 hover:text-gray-900"
-          }`}
-        >
-          <Database className="size-4" />
-          <span>4. Cơ sở Dữ liệu Quan hệ 3NF &amp; SQL Studio</span>
+          <span>3. Tham số Danh mục &amp; Sổ Nhật ký Phê duyệt</span>
         </button>
       </div>
 
@@ -703,9 +692,6 @@ function HeThong() {
           </div>
         </div>
       )}
-
-      {/* TAB 4: CƠ SỞ DỮ LIỆU QUAN HỆ 3NF & SQL STUDIO */}
-      {activeTab === "DATABASE_STUDIO" && <DatabaseStudioTab />}
 
       {/* MODAL CẤP QUYỀN MẢNG CHO TỪNG TÀI KHOẢN (PERMISSION MODAL) */}
       {editingUser && (

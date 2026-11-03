@@ -19,6 +19,10 @@ import {
 import { toast } from "sonner";
 import { useAppState } from "@/services/app-state";
 import { formatVND, type HoSo } from "@/data/mock";
+import { GiayHenModal } from "@/components/GiayHenModal";
+import { QuyetDinhModal } from "@/components/QuyetDinhModal";
+import { MauD03TsModal } from "@/components/MauD03TsModal";
+import { Award } from "lucide-react";
 
 export const Route = createFileRoute("/tra-cuu")({
   head: () => ({
@@ -50,6 +54,9 @@ function TraCuuPublicPage() {
     hoSoList.find((h) => h.cccd === "074026000123") || hoSoList[0] || null
   );
   const [hasSearched, setHasSearched] = useState(true);
+  const [showGiayHen, setShowGiayHen] = useState(false);
+  const [showQuyetDinh, setShowQuyetDinh] = useState(false);
+  const [showBhyt, setShowBhyt] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -236,19 +243,50 @@ function TraCuuPublicPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 self-end sm:self-center">
+                <div className="flex items-center gap-2 self-end sm:self-center flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => setShowGiayHen(true)}
+                    className="px-3 py-1.5 bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-300 rounded font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                    title="Xem & Tải Giấy tiếp nhận hồ sơ và Hẹn trả kết quả Mẫu 01/NĐ61 có mã QR tra cứu"
+                  >
+                    <FileText className="size-3.5 text-sky-700" />
+                    Giấy hẹn Một cửa (QR)
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setShowQuyetDinh(true)}
+                    className="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                    title="Xem văn bản Quyết định hưởng trợ cấp ưu đãi điện tử có chữ ký số SmartCA của Lãnh đạo Sở"
+                  >
+                    <Award className="size-3.5 text-amber-600" />
+                    Quyết định trợ cấp
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setShowBhyt(true)}
+                    className="px-3 py-1.5 bg-teal-50 hover:bg-teal-100 text-teal-900 border border-teal-300 rounded font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                    title="Xem Danh sách cấp thẻ BHYT diện Nhà nước đóng 100% Mẫu D03-TS"
+                  >
+                    <CreditCard className="size-3.5 text-teal-700" />
+                    Thẻ BHYT (Mẫu D03-TS)
+                  </button>
+
                   <Link
                     to="/khao-sat"
                     search={{ maHoSo: searchedHoSo.soHoSoTinh || searchedHoSo.id, hoTen: searchedHoSo.hoTen } as any}
-                    className="px-3.5 py-2 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
+                    className="px-3.5 py-1.5 bg-red-50 hover:bg-red-100 text-[#dd4b39] border border-red-300 rounded font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors"
                   >
-                    <Star className="size-3.5 text-amber-500 fill-amber-400" />
+                    <Star className="size-3.5 text-[#dd4b39] fill-[#dd4b39]" />
                     Đánh giá dịch vụ công
                   </Link>
+
                   <button
                     type="button"
                     onClick={() => window.print()}
-                    className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded font-semibold text-xs border border-gray-300 flex items-center gap-1"
+                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded font-semibold text-xs border border-gray-300 flex items-center gap-1"
                   >
                     <Printer className="size-3.5" />
                     In kết quả
@@ -297,7 +335,7 @@ function TraCuuPublicPage() {
                 {[
                   { buoc: 1, ten: "Tiếp nhận hồ sơ", ngay: "20/08/2026", status: "HOAN_THANH" },
                   { buoc: 2, ten: "Thẩm tra y khoa / Thực địa", ngay: "25/08/2026", status: "HOAN_THANH" },
-                  { buoc: 3, ten: "Xác định mức trợ cấp (NĐ 75)", ngay: "28/08/2026", status: "HOAN_THANH" },
+                  { buoc: 3, ten: "Xác định mức trợ cấp (Nghị định 77/2024/NĐ-CP)", ngay: "28/08/2026", status: "HOAN_THANH" },
                   { buoc: 4, ten: "Lãnh đạo ký Quyết định", ngay: "01/09/2026", status: "HOAN_THANH" },
                   { buoc: 5, ten: "Đã chi trả & Cấp thẻ BHYT", ngay: "05/09/2026", status: "HOAN_THANH" },
                 ].map((step, idx) => (
@@ -411,6 +449,29 @@ function TraCuuPublicPage() {
             </p>
           </div>
         ) : null}
+        {/* Modals phục vụ Công dân tải kết quả số hóa */}
+        {searchedHoSo && (
+          <>
+            {showGiayHen && (
+              <GiayHenModal
+                hoSo={searchedHoSo}
+                onClose={() => setShowGiayHen(false)}
+              />
+            )}
+
+            <QuyetDinhModal
+              hoSo={searchedHoSo}
+              isOpen={showQuyetDinh}
+              onClose={() => setShowQuyetDinh(false)}
+            />
+
+            <MauD03TsModal
+              hoSo={searchedHoSo}
+              isOpen={showBhyt}
+              onClose={() => setShowBhyt(false)}
+            />
+          </>
+        )}
       </main>
 
       {/* Footer công quyền */}

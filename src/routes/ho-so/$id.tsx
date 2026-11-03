@@ -15,12 +15,22 @@ import {
   UserMinus,
   ShieldCheck,
   AlertTriangle,
+  Stethoscope,
+  CreditCard,
+  MapPin,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { GiayHenModal } from "@/components/GiayHenModal";
 import { BaoGiamModal } from "@/components/BaoGiamModal";
 import { DigitalSignatureBadge } from "@/components/DigitalSignatureBadge";
+import { QuyetDinhModal } from "@/components/QuyetDinhModal";
+import { ToTrinhModal } from "@/components/ToTrinhModal";
+import { BienBanGiamDinhModal } from "@/components/BienBanGiamDinhModal";
+import { MauD03TsModal } from "@/components/MauD03TsModal";
+import { BienBanNiemYetModal } from "@/components/BienBanNiemYetModal";
+import { QuyetDinhMaiTangPhiModal } from "@/components/QuyetDinhMaiTangPhiModal";
+import { BienBanXacMinhThucDiaModal } from "@/components/BienBanXacMinhThucDiaModal";
 import { useAppState, appStore } from "@/services/app-state";
 import { calculateAllowance } from "@/services/calculator.service";
 import { formatVND, HUYEN_LIST, HUYEN_PHUONG_MAP } from "@/data/mock";
@@ -104,6 +114,13 @@ function HoSoLietSiDetail() {
 
   const [showGiayHen, setShowGiayHen] = useState(false);
   const [showBaoGiam, setShowBaoGiam] = useState(false);
+  const [showToTrinh, setShowToTrinh] = useState(false);
+  const [showQuyetDinh, setShowQuyetDinh] = useState(false);
+  const [showGdyk, setShowGdyk] = useState(false);
+  const [showD03Ts, setShowD03Ts] = useState(false);
+  const [showNiemYet, setShowNiemYet] = useState(false);
+  const [showMaiTangPhi, setShowMaiTangPhi] = useState(false);
+  const [showXacMinh, setShowXacMinh] = useState(false);
 
   const handleSave = () => {
     toast.success(`Đã cập nhật thông tin hồ sơ liệt sĩ ${hoTen} (Số tỉnh: ${soHoSoTinh})`);
@@ -133,13 +150,67 @@ function HoSoLietSiDetail() {
           </Link>
           <button
             type="button"
+            onClick={() => setShowGdyk(true)}
+            className="flex items-center gap-1 rounded-[3px] bg-emerald-600 hover:bg-emerald-700 px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+            title="Biên bản Giám định Y khoa xác định tỷ lệ tổn thương cơ thể"
+          >
+            <Stethoscope className="size-3.5" />
+            Biên bản GĐYK
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowXacMinh(true)}
+            className="flex items-center gap-1 rounded-[3px] bg-sky-700 hover:bg-sky-800 px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+            title="Biên bản kiểm tra hiện trường &amp; xác minh thực địa cấp cơ sở (Mẫu 02/XMTD)"
+          >
+            <MapPin className="size-3.5" />
+            Xác minh thực địa
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowNiemYet(true)}
+            className="flex items-center gap-1 rounded-[3px] bg-[#00a65a] hover:bg-[#008d4c] px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+            title="Biên bản Niêm yết công khai 15 ngày tại cấp Xã/Phường theo Nghị định 131/2021"
+          >
+            <Calendar className="size-3.5" />
+            Niêm yết 15 ngày
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowToTrinh(true)}
+            className="flex items-center gap-1 rounded-[3px] bg-[#3c8dbc] hover:bg-[#367fa9] px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+            title="Tờ trình đề nghị giải quyết chế độ ưu đãi người có công"
+          >
+            <FileText className="size-3.5" />
+            Tờ trình Cấp Phòng
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowQuyetDinh(true)}
+            className="flex items-center gap-1 rounded-[3px] bg-[#605ca8] hover:bg-[#524e93] px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+            title="Quyết định phê duyệt trợ cấp ưu đãi người có công (Nghị định 131/2021)"
+          >
+            <Award className="size-3.5" />
+            Quyết định trợ cấp
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowD03Ts(true)}
+            className="flex items-center gap-1 rounded-[3px] bg-teal-600 hover:bg-teal-700 px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+            title="Danh sách cấp thẻ BHYT Người có công (Mẫu D03-TS theo QĐ 505/QĐ-BHXH)"
+          >
+            <CreditCard className="size-3.5" />
+            Mẫu D03-TS (BHYT)
+          </button>
+          <button
+            type="button"
             onClick={() => setShowGiayHen(true)}
             className="flex items-center gap-1 rounded-[3px] bg-[#00c0ef] hover:bg-[#00a7d0] px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
           >
             <Printer className="size-3.5" />
             In Giấy hẹn Một cửa (Kèm QR)
           </button>
-          {!hoSo.isTuTran && (
+          {!hoSo.isTuTran ? (
             <button
               type="button"
               onClick={() => setShowBaoGiam(true)}
@@ -147,6 +218,16 @@ function HoSoLietSiDetail() {
             >
               <UserMinus className="size-3.5" />
               Báo giảm từ trần
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setShowMaiTangPhi(true)}
+              className="flex items-center gap-1 rounded-[3px] bg-red-700 hover:bg-red-800 px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
+              title="Quyết định hưởng trợ cấp Mai táng phí (23.4 triệu đ) & Trợ cấp 1 lần"
+            >
+              <CreditCard className="size-3.5" />
+              QĐ Mai táng phí
             </button>
           )}
           <button
@@ -769,12 +850,12 @@ function HoSoLietSiDetail() {
       {/* 5. Nội dung TAB 3: THÔNG TIN ƯU ĐÃI */}
       {activeTab === "UU_DAI" && (
         <div className="border border-t-0 border-[#d2d6de] bg-white p-5 shadow-xs text-xs text-[#333333]">
-          <h2 className="text-xs font-bold text-[#dd4b39] mb-3">Chính sách trợ cấp ưu đãi theo Nghị định 75/2021/NĐ-CP</h2>
+          <h2 className="text-xs font-bold text-[#dd4b39] mb-3">Chính sách trợ cấp ưu đãi theo Nghị định 77/2024/NĐ-CP (áp dụng từ 01/07/2024)</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="rounded border border-[#d2d6de] p-3 bg-[#f9fafb]">
               <div className="text-[#666666] font-medium">Trợ cấp tiền tuất hàng tháng:</div>
-              <div className="font-mono text-lg font-bold text-[#dd4b39] mt-1">2.055.000 đ/tháng</div>
-              <div className="text-[11px] text-[#777777] mt-0.5">1.0 lần mức chuẩn theo quy định</div>
+              <div className="font-mono text-lg font-bold text-[#dd4b39] mt-1">2.789.000 đ/tháng</div>
+              <div className="text-[11px] text-[#777777] mt-0.5">1.0 lần mức chuẩn theo Nghị định 77/2024/NĐ-CP (2.789.000 đ/tháng)</div>
             </div>
 
             <div className="rounded border border-[#d2d6de] p-3 bg-[#f9fafb]">
@@ -836,6 +917,56 @@ function HoSoLietSiDetail() {
           onClose={() => setShowBaoGiam(false)}
         />
       )}
+
+      {/* Modal Tờ trình Cấp Phòng */}
+      <ToTrinhModal
+        isOpen={showToTrinh}
+        onClose={() => setShowToTrinh(false)}
+        hoSo={hoSo}
+      />
+
+      {/* Modal Quyết định phê duyệt trợ cấp */}
+      <QuyetDinhModal
+        isOpen={showQuyetDinh}
+        onClose={() => setShowQuyetDinh(false)}
+        hoSo={hoSo}
+      />
+
+      {/* Modal Biên bản Giám định Y khoa */}
+      <BienBanGiamDinhModal
+        isOpen={showGdyk}
+        onClose={() => setShowGdyk(false)}
+        hoSo={hoSo}
+      />
+
+      {/* Modal Mẫu D03-TS cấp thẻ BHYT liên thông BHXH */}
+      <MauD03TsModal
+        isOpen={showD03Ts}
+        onClose={() => setShowD03Ts(false)}
+        hoSo={hoSo}
+        loaiNghiepVu={hoSo.isTuTran ? "BAO_GIAM" : "CAP_MOI"}
+      />
+
+      {/* Modal Biên bản Niêm yết công khai 15 ngày tại cấp Xã/Phường */}
+      <BienBanNiemYetModal
+        isOpen={showNiemYet}
+        onClose={() => setShowNiemYet(false)}
+        hoSo={hoSo}
+      />
+
+      {/* Modal Quyết định hưởng trợ cấp Mai táng phí & Trợ cấp một lần */}
+      <QuyetDinhMaiTangPhiModal
+        isOpen={showMaiTangPhi}
+        onClose={() => setShowMaiTangPhi(false)}
+        hoSo={hoSo}
+      />
+
+      {/* Modal Biên bản kiểm tra hiện trường & xác minh thực địa */}
+      <BienBanXacMinhThucDiaModal
+        isOpen={showXacMinh}
+        onClose={() => setShowXacMinh(false)}
+        hoSo={hoSo}
+      />
     </AppShell>
   );
 }

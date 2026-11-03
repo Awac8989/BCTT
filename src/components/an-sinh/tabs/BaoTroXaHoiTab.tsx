@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import {
   Users,
   Search,
+  Printer,
   Filter,
   Plus,
   CreditCard,
@@ -18,12 +19,14 @@ interface BaoTroXaHoiTabProps {
   baoTroList: DoiTuongBaoTroXaHoi[];
   onOpenAddModal: () => void;
   onOpenThoiHuongModal: (item: DoiTuongBaoTroXaHoi) => void;
+  onOpenQuyetDinhModal?: (item: DoiTuongBaoTroXaHoi) => void;
 }
 
 export function BaoTroXaHoiTab({
   baoTroList,
   onOpenAddModal,
   onOpenThoiHuongModal,
+  onOpenQuyetDinhModal,
 }: BaoTroXaHoiTabProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterKhuPho, setFilterKhuPho] = useState("ALL");
@@ -195,18 +198,29 @@ export function BaoTroXaHoiTab({
                       )}
                     </td>
                     <td className="py-2.5 px-3 text-right">
-                      {item.trangThai === "DANG_HUONG" ? (
+                      <div className="flex items-center justify-end gap-1.5">
                         <button
-                          onClick={() => onOpenThoiHuongModal(item)}
-                          className="px-2.5 py-1 rounded bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold transition-colors inline-flex items-center gap-1"
-                          title="Ban hành Quyết định thôi hưởng trợ cấp (khi chết hoặc chuyển khẩu)"
+                          type="button"
+                          onClick={() => onOpenQuyetDinhModal && onOpenQuyetDinhModal(item)}
+                          className="px-2 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-bold transition-colors inline-flex items-center gap-1 cursor-pointer"
+                          title="Xem & In Quyết định trợ cấp xã hội hàng tháng (Nghị định 76/2024/NĐ-CP)"
                         >
-                          <UserX className="size-3 text-rose-600" />
-                          Thôi hưởng
+                          <Printer className="size-3 text-blue-600" />
+                          <span>Quyết định</span>
                         </button>
-                      ) : (
-                        <span className="text-[11px] text-gray-400 italic">Đã chốt sổ</span>
-                      )}
+                        {item.trangThai === "DANG_HUONG" ? (
+                          <button
+                            onClick={() => onOpenThoiHuongModal(item)}
+                            className="px-2.5 py-1 rounded bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold transition-colors inline-flex items-center gap-1 cursor-pointer"
+                            title="Ban hành Quyết định thôi hưởng trợ cấp (khi chết hoặc chuyển khẩu)"
+                          >
+                            <UserX className="size-3 text-rose-600" />
+                            Thôi hưởng
+                          </button>
+                        ) : (
+                          <span className="text-[11px] text-gray-400 italic">Đã chốt sổ</span>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );

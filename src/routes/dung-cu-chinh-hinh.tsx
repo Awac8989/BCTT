@@ -21,6 +21,7 @@ import { AppShell, PageHeader } from "@/components/AppShell";
 import { useAppState, appStore } from "@/services/app-state";
 import { formatVND, HUYEN_LIST, type DungCuChinhHinhItem } from "@/data/mock";
 import { DigitalSignatureBadge } from "@/components/DigitalSignatureBadge";
+import { PhieuCapDungCuModal } from "@/components/PhieuCapDungCuModal";
 
 export const Route = createFileRoute("/dung-cu-chinh-hinh")({
   head: () => ({
@@ -580,94 +581,12 @@ function DungCuChinhHinhPage() {
           </div>
         )}
 
-        {/* Modal Xem & In Phiếu Cấp Dụng Cụ */}
-        {printItem && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
-            <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full border border-gray-300 overflow-hidden my-6">
-              <div className="bg-[#3c8dbc] text-white px-5 py-3 flex items-center justify-between">
-                <div className="font-bold text-sm uppercase flex items-center gap-2">
-                  <Printer className="size-4" />
-                  Phiếu cấp phương tiện trợ giúp & Dụng cụ chỉnh hình
-                </div>
-                <button
-                  onClick={() => setPrintItem(null)}
-                  className="text-white/80 hover:text-white"
-                >
-                  <X className="size-5" />
-                </button>
-              </div>
-
-              <div className="p-8 text-xs font-serif leading-relaxed text-[#222]">
-                <div className="flex justify-between items-start border-b-2 border-gray-800 pb-3 mb-5 font-sans">
-                  <div>
-                    <div className="text-[11px] font-bold uppercase">ỦY BAN NHÂN DÂN TỈNH BÌNH DƯƠNG</div>
-                    <div className="text-[11px] font-bold">SỞ LAO ĐỘNG - TB&XH</div>
-                    <div className="text-[10px] text-gray-500 mt-0.5">Số: {printItem.soQuyetDinhCap || "QĐ-SLĐTBXH/2026-DC"}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-[11px] font-bold uppercase">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
-                    <div className="text-[11px] font-bold underline">Độc lập - Tự do - Hạnh phúc</div>
-                    <div className="text-[10px] italic text-gray-500 mt-0.5">Thủ Dầu Một, ngày {new Date().toLocaleDateString("vi-VN")}</div>
-                  </div>
-                </div>
-
-                <div className="text-center my-4 font-sans">
-                  <h3 className="text-base font-bold uppercase">PHIẾU CẤP PHƯƠNG TIỆN TRỢ GIÚP & DỤNG CỤ CHỈNH HÌNH</h3>
-                  <p className="text-[11px] italic text-gray-600">(Theo Nghị định số 131/2021/NĐ-CP ngày 30/12/2021 của Chính phủ)</p>
-                </div>
-
-                <div className="space-y-2 mt-4">
-                  <p>1. Họ và tên người được cấp: <strong>{printItem.hoTen}</strong></p>
-                  <p>2. Số CCCD: <strong>{printItem.cccd}</strong> · Số hồ sơ Tỉnh quản lý: <strong>{printItem.soHoSoTinh}</strong></p>
-                  <p>3. Thuộc diện: <strong>{printItem.loaiDoiTuong}</strong> · Cư trú tại: {printItem.phuong}, {printItem.huyen}</p>
-                  <p>4. Tên phương tiện / Dụng cụ trang cấp: <strong>{printItem.tenDungCu}</strong> ({printItem.loaiDungCu})</p>
-                  <p>5. Niên hạn sử dụng: <strong>{printItem.nienHanNam} năm</strong>. Hạn cấp mới tiếp theo: <strong>Năm {printItem.namDenHanCapMoi}</strong></p>
-                  <p>6. Định mức kinh phí trang cấp: <strong>{formatVND(printItem.dinhMucTien)}</strong></p>
-                  <p>7. Tiền bồi dưỡng phục hồi chức năng: <strong>{formatVND(printItem.tienBoiDuongPhucHoi)}</strong></p>
-                  <p className="font-bold text-red-700 mt-2">
-                    ➔ TỔNG KINH PHÍ ĐƯỢC THANH TOÁN: {formatVND(printItem.dinhMucTien + printItem.tienBoiDuongPhucHoi)}
-                  </p>
-                </div>
-
-                <div className="mt-8 flex justify-between items-end font-sans">
-                  <div className="text-center">
-                    <p className="font-bold">NGƯỜI NHẬN DỤNG CỤ</p>
-                    <p className="text-[10px] italic text-gray-500">(Ký và ghi rõ họ tên)</p>
-                    <div className="h-16 flex items-end justify-center font-bold">{printItem.hoTen}</div>
-                  </div>
-                  <div className="text-center">
-                    <p className="font-bold uppercase">KT. GIÁM ĐỐC SỞ</p>
-                    <p className="text-[10px] font-bold uppercase text-[#dd4b39]">PHÓ GIÁM ĐỐC</p>
-                    <div className="my-2">
-                      <DigitalSignatureBadge
-                        nguoiKy="TS. Nguyễn Văn Hùng"
-                        chucVu="Phó Giám đốc Sở LĐTBXH tỉnh Bình Dương"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={() => setPrintItem(null)}
-                  className="px-4 py-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded font-semibold text-xs"
-                >
-                  Đóng
-                </button>
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="px-4 py-1.5 bg-[#3c8dbc] hover:bg-[#357ca5] text-white rounded font-bold text-xs flex items-center gap-1.5 shadow-xs"
-                >
-                  <Printer className="size-3.5" />
-                  In phiếu cấp
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Modal Xem & In Phiếu Cấp Dụng Cụ Chuẩn Phụ Lục V Nghị Định 77/2024/NĐ-CP */}
+        <PhieuCapDungCuModal
+          isOpen={Boolean(printItem)}
+          onClose={() => setPrintItem(null)}
+          item={printItem}
+        />
       </div>
     </AppShell>
   );

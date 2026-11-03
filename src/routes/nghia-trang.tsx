@@ -23,6 +23,7 @@ import { useAppState, appStore } from "@/services/app-state";
 import { type MoLietSiItem } from "@/data/mock";
 import { QuanLyMoLietSiKhuPho } from "@/components/nghia-trang/QuanLyMoLietSiKhuPho";
 import { MapTilerGisView, type GisMarkerItem } from "@/components/map/MapTilerGisView";
+import { TrichLucMoLietSiModal } from "@/components/TrichLucMoLietSiModal";
 
 export const Route = createFileRoute("/nghia-trang")({
   head: () => ({
@@ -51,6 +52,7 @@ function NghiaTrangPage() {
   const [selectedTinhTrang, setSelectedTinhTrang] = useState<string>("ALL");
   const [selectedMo, setSelectedMo] = useState<MoLietSiItem | null>(moLietSiList[0] || null);
   const [isBurningIncense, setIsBurningIncense] = useState(false);
+  const [showTrichLucModal, setShowTrichLucModal] = useState(false);
 
   // Thống kê
   const stats = useMemo(() => {
@@ -691,6 +693,16 @@ function NghiaTrangPage() {
                     <Flame className="size-4 text-amber-300" />
                     Thắp Nén Hương / Dâng Hoa Tưởng Niệm Liệt Sĩ
                   </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setShowTrichLucModal(true)}
+                    className="w-full mt-2 py-2 bg-white hover:bg-gray-50 text-[#0073b7] border border-[#0073b7] rounded font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                    title="In Giấy trích lục thông tin mộ liệt sĩ khổ A4 có mã QR GPS dẫn đường viếng mộ"
+                  >
+                    <Compass className="size-4" />
+                    In Giấy Trích Lục Mộ (A4 / QR GPS)
+                  </button>
                 </div>
               </div>
             ) : (
@@ -702,6 +714,13 @@ function NghiaTrangPage() {
         </div>
       </div>
     )}
-  </AppShell>
+
+      {/* Modal In Giấy Trích Lục Mộ Liệt Sĩ (A4 / Mã QR GPS) */}
+      <TrichLucMoLietSiModal
+        isOpen={showTrichLucModal}
+        onClose={() => setShowTrichLucModal(false)}
+        moItem={selectedMo}
+      />
+    </AppShell>
 );
 }

@@ -15,11 +15,24 @@ import {
   Stethoscope,
   Award,
   Sparkles,
+  ExternalLink,
+  Lock,
+  Send,
+  CreditCard,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { useAppState, appStore } from "@/services/app-state";
 import { type HoSo } from "@/data/mock";
+import { QuyetDinhModal } from "@/components/QuyetDinhModal";
+import { ToTrinhModal } from "@/components/ToTrinhModal";
+import { BienBanGiamDinhModal } from "@/components/BienBanGiamDinhModal";
+import { MauD03TsModal } from "@/components/MauD03TsModal";
+import { BienBanNiemYetModal } from "@/components/BienBanNiemYetModal";
+import { QuyetDinhMaiTangPhiModal } from "@/components/QuyetDinhMaiTangPhiModal";
+import { BienBanXacMinhThucDiaModal } from "@/components/BienBanXacMinhThucDiaModal";
+import { MapPin } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 export const Route = createFileRoute("/tham-dinh")({
   head: () => ({
@@ -85,7 +98,15 @@ const QUY_TRINH_BUOC = [
 ];
 
 function ThamDinhPage() {
-  const { hoSoList } = useAppState();
+  const { hoSoList, currentUser } = useAppState();
+  const [selectedHoSoForQd, setSelectedHoSoForQd] = useState<HoSo | null>(null);
+  const [isQdModalOpen, setIsQdModalOpen] = useState(false);
+  const [selectedHoSoForToTrinh, setSelectedHoSoForToTrinh] = useState<HoSo | null>(null);
+  const [selectedHoSoForGdyk, setSelectedHoSoForGdyk] = useState<HoSo | null>(null);
+  const [selectedHoSoForD03Ts, setSelectedHoSoForD03Ts] = useState<HoSo | null>(null);
+  const [selectedHoSoForNiemYet, setSelectedHoSoForNiemYet] = useState<HoSo | null>(null);
+  const [selectedHoSoForMaiTang, setSelectedHoSoForMaiTang] = useState<HoSo | null>(null);
+  const [selectedHoSoForXacMinh, setSelectedHoSoForXacMinh] = useState<HoSo | null>(null);
 
   // Bộ lọc
   const [filterLoai, setFilterLoai] = useState("ALL");
@@ -118,22 +139,18 @@ function ThamDinhPage() {
     };
   }, [hoSoList]);
 
-  // Chuyển bước nhanh cho hồ sơ
+  // Chuyển bước theo đúng logic thẩm quyền công vụ
   const handleNextStep = (h: HoSo) => {
     if (h.trangThai === "MỚI_TIẾP_NHẬN") {
-      appStore.updateProfileStatus(h.id, "ĐANG_THẨM_ĐỊNH", "Đã tiếp nhận hồ sơ, chuyển sang thẩm tra thực địa & giới thiệu Giám định Y khoa.");
-      toast.success(`Hồ sơ ${h.id} đã chuyển sang bước: Thẩm tra & Giám định Y khoa`);
+      appStore.updateProfileStatus(h.id, "ĐANG_THẨM_ĐỊNH", "Bộ phận Một cửa đã tiếp nhận hồ sơ, chuyển sang phòng chuyên môn thẩm tra & giới thiệu Hội đồng Giám định Y khoa.");
+      toast.success(`Hồ sơ ${h.id} đã chuyển sang bước: Thẩm tra thực địa & Giám định Y khoa`);
     } else if (h.trangThai === "ĐANG_THẨM_ĐỊNH") {
-      appStore.updateProfileStatus(h.id, "CHỜ_PHÊ_DUYỆT", "Đã hoàn tất giám định và tính toán chế độ, trình Lãnh đạo Sở phê duyệt.");
-      toast.success(`Hồ sơ ${h.id} đã hoàn tất thẩm định, đang trình Lãnh đạo phê duyệt`);
+      appStore.updateProfileStatus(h.id, "CHỜ_PHÊ_DUYỆT", "Chuyên viên đã hoàn tất thẩm định điều kiện, lập Tờ trình và dự thảo Quyết định trình Lãnh đạo Sở phê duyệt.");
+      toast.success(`Đã lập Tờ trình cho hồ sơ ${h.id}! Đang trình Lãnh đạo Sở (TS. Nguyễn Văn Hùng) phê duyệt.`);
     } else if (h.trangThai === "CHỜ_PHÊ_DUYỆT") {
-      const res = appStore.approveProfile(h.id, "TS. Nguyễn Văn Hùng (Lãnh đạo Sở)");
-      if (res.success) {
-        appStore.kySoHoSo(h.id);
-        toast.success(`${res.message} và đã hoàn tất ký số điện tử SmartCA!`);
-      } else {
-        toast.error(res.message);
-      }
+      // Mở modal để xem và ký số
+      setSelectedHoSoForQd(h);
+      setIsQdModalOpen(true);
     }
   };
 
@@ -284,9 +301,15 @@ function ThamDinhPage() {
                     {/* Tỷ lệ thương tật */}
                     <td className="px-3 py-2.5 text-center font-mono font-medium">
                       {h.tyLeTonThuong > 0 ? (
-                        <span className="rounded bg-amber-50 px-2 py-0.5 text-amber-800 border border-amber-200">
-                          {h.tyLeTonThuong}%
-                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedHoSoForGdyk(h)}
+                          title="Bấm để xem Biên bản Giám định Y khoa của Hội đồng GĐYK"
+                          className="rounded bg-amber-50 hover:bg-amber-100 px-2 py-0.5 text-amber-900 border border-amber-300 font-bold hover:underline cursor-pointer flex items-center gap-1 mx-auto shadow-2xs"
+                        >
+                          <Stethoscope className="size-3 text-emerald-700" />
+                          <span>{h.tyLeTonThuong}%</span>
+                        </button>
                       ) : (
                         <span className="text-[#888888]">—</span>
                       )}
@@ -323,29 +346,136 @@ function ThamDinhPage() {
 
                     {/* Tác vụ */}
                     <td className="px-3 py-2.5 text-center">
-                      <div className="flex items-center justify-center gap-1.5">
-                        {!isDaDuyet ? (
+                      <div className="flex items-center justify-center gap-1.5 flex-wrap">
+                        {h.trangThai === "CHỜ_PHÊ_DUYỆT" ? (
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              onClick={() => setSelectedHoSoForToTrinh(h)}
+                              title="Xem Tờ trình của Phòng LĐ-TB&XH TP. Thủ Dầu Một"
+                              className="flex items-center gap-1 rounded border border-blue-300 bg-blue-50 hover:bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-900 shadow-2xs transition-colors cursor-pointer"
+                            >
+                              <FileText className="size-3 text-blue-700" />
+                              <span>Tờ trình</span>
+                            </button>
+                            {currentUser.role === "ADMIN_SO" ? (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedHoSoForQd(h);
+                                  setIsQdModalOpen(true);
+                                }}
+                                title="Ký số điện tử SmartCA và ban hành Quyết định"
+                                className="flex items-center gap-1 rounded bg-[#dd4b39] hover:bg-[#c23321] px-2.5 py-1 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer animate-pulse"
+                              >
+                                <ShieldCheck className="size-3.5" />
+                                <span>Ký QĐ</span>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedHoSoForQd(h);
+                                  setIsQdModalOpen(true);
+                                }}
+                                title="Xem dự thảo Quyết định trình Lãnh đạo"
+                                className="flex items-center gap-1 rounded border border-amber-300 bg-amber-50 hover:bg-amber-100 px-2 py-1 text-xs font-medium text-amber-900 shadow-2xs transition-colors cursor-pointer"
+                              >
+                                <FileText className="size-3 text-amber-600" />
+                                <span>Dự thảo QĐ</span>
+                              </button>
+                            )}
+                          </div>
+                        ) : h.trangThai === "ĐANG_THẨM_ĐỊNH" ? (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedHoSoForToTrinh(h)}
+                            title="Lập Tờ trình đề nghị Giám đốc Sở phê duyệt trợ cấp"
+                            className="flex items-center gap-1 rounded bg-[#0073b7] hover:bg-[#005f96] px-2.5 py-1 text-xs font-bold text-white shadow-2xs transition-colors cursor-pointer"
+                          >
+                            <Send className="size-3" />
+                            <span>Lập Tờ trình</span>
+                          </button>
+                        ) : h.trangThai === "ĐÃ_DUYỆT" ? (
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedHoSoForQd(h);
+                                setIsQdModalOpen(true);
+                              }}
+                              title="Xem văn bản Quyết định chính thức đã ký số"
+                              className="flex items-center gap-1 rounded border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 px-2 py-1 text-xs font-bold text-emerald-800 shadow-2xs transition-colors cursor-pointer"
+                            >
+                              <Award className="size-3.5 text-emerald-600" />
+                              <span>Quyết định</span>
+                            </button>
+                            <Link
+                              to="/chi-tra"
+                              title="Xem kỳ chi trả trợ cấp hàng tháng"
+                              className="text-xs text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-0.5"
+                            >
+                              <span>Chi trả</span>
+                              <ExternalLink className="size-3" />
+                            </Link>
+                          </div>
+                        ) : (
                           <button
                             type="button"
                             onClick={() => handleNextStep(h)}
-                            title="Chuyển bước kế tiếp trong quy trình"
-                            className="flex items-center gap-1 rounded-[3px] bg-[#00a65a] hover:bg-[#008d4c] px-2.5 py-1 text-xs font-bold text-white shadow-2xs transition-colors cursor-pointer"
+                            title="Tiếp nhận hồ sơ & chuyển thẩm tra"
+                            className="flex items-center gap-1 rounded bg-[#00a65a] hover:bg-[#008d4c] px-2.5 py-1 text-xs font-bold text-white shadow-2xs transition-colors cursor-pointer"
                           >
-                            <span>Duyệt bước</span>
+                            <span>Thụ lý hồ sơ</span>
                             <ArrowRight className="size-3" />
                           </button>
-                        ) : (
-                          <span className="text-xs text-emerald-700 font-semibold flex items-center gap-1">
-                            <CheckCircle2 className="size-3.5" />
-                            Đã chuyển chi trả
-                          </span>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => setSelectedHoSoForXacMinh(h)}
+                          title="Biên bản kiểm tra hiện trường & xác minh thực địa cấp cơ sở (Mẫu 02/XMTD)"
+                          className="size-6 rounded bg-sky-700 hover:bg-sky-800 text-white flex items-center justify-center transition-colors shadow-2xs"
+                        >
+                          <MapPin className="size-3.5" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setSelectedHoSoForNiemYet(h)}
+                          title="Xem Biên bản niêm yết công khai 15 ngày tại cấp Xã/Phường"
+                          className="size-6 rounded bg-emerald-700 hover:bg-emerald-800 text-white flex items-center justify-center transition-colors shadow-2xs"
+                        >
+                          <Calendar className="size-3.5" />
+                        </button>
+
+                        {h.isTuTran && (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedHoSoForMaiTang(h)}
+                            title="Quyết định hưởng trợ cấp Mai táng phí (23.4 triệu đ) & Trợ cấp một lần"
+                            className="size-6 rounded bg-rose-700 hover:bg-rose-800 text-white flex items-center justify-center transition-colors shadow-2xs"
+                          >
+                            <CreditCard className="size-3.5" />
+                          </button>
+                        )}
+
+                        {h.trangThai === "ĐÃ_DUYỆT" && (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedHoSoForD03Ts(h)}
+                            title="Danh sách đề nghị cấp thẻ BHYT Người có công (Mẫu D03-TS)"
+                            className="size-6 rounded bg-teal-600 hover:bg-teal-700 text-white flex items-center justify-center transition-colors shadow-2xs"
+                          >
+                            <CreditCard className="size-3.5" />
+                          </button>
                         )}
 
                         <Link
                           to="/ho-so/$id"
                           params={{ id: h.id }}
                           title="Xem toàn bộ tài liệu hồ sơ"
-                          className="size-6 rounded-[2px] bg-[#00c0ef] hover:bg-[#00a7d0] text-white flex items-center justify-center transition-colors shadow-2xs"
+                          className="size-6 rounded bg-[#00c0ef] hover:bg-[#00a7d0] text-white flex items-center justify-center transition-colors shadow-2xs"
                         >
                           <Eye className="size-3.5" />
                         </Link>
@@ -400,6 +530,62 @@ function ThamDinhPage() {
           </div>
         </div>
       </div>
+
+      {/* 6. Modal Văn bản Quyết định hưởng trợ cấp chuẩn Nghị định 30/2020 & NĐ 131/2021 */}
+      <QuyetDinhModal
+        isOpen={isQdModalOpen}
+        onClose={() => setIsQdModalOpen(false)}
+        hoSo={selectedHoSoForQd}
+        onApproved={() => {
+          setIsQdModalOpen(false);
+        }}
+      />
+
+      {/* 7. Modal Tờ trình Cấp Phòng trình Giám đốc Sở (Mẫu NĐ 30/2020) */}
+      <ToTrinhModal
+        isOpen={!!selectedHoSoForToTrinh}
+        onClose={() => setSelectedHoSoForToTrinh(null)}
+        hoSo={selectedHoSoForToTrinh}
+        onSubmitted={() => {
+          setSelectedHoSoForToTrinh(null);
+        }}
+      />
+
+      {/* 8. Modal Biên bản Giám định Y khoa của Hội đồng GĐYK tỉnh Bình Dương */}
+      <BienBanGiamDinhModal
+        isOpen={!!selectedHoSoForGdyk}
+        onClose={() => setSelectedHoSoForGdyk(null)}
+        hoSo={selectedHoSoForGdyk}
+      />
+
+      {/* 9. Modal Mẫu D03-TS cấp thẻ BHYT liên thông BHXH */}
+      <MauD03TsModal
+        isOpen={Boolean(selectedHoSoForD03Ts)}
+        onClose={() => setSelectedHoSoForD03Ts(null)}
+        hoSo={selectedHoSoForD03Ts}
+        loaiNghiepVu={selectedHoSoForD03Ts?.isTuTran ? "BAO_GIAM" : "CAP_MOI"}
+      />
+
+      {/* 10. Modal Biên bản Niêm yết công khai 15 ngày tại cấp Xã/Phường */}
+      <BienBanNiemYetModal
+        isOpen={Boolean(selectedHoSoForNiemYet)}
+        onClose={() => setSelectedHoSoForNiemYet(null)}
+        hoSo={selectedHoSoForNiemYet}
+      />
+
+      {/* 11. Modal Quyết định hưởng trợ cấp Mai táng phí & Trợ cấp một lần */}
+      <QuyetDinhMaiTangPhiModal
+        isOpen={Boolean(selectedHoSoForMaiTang)}
+        onClose={() => setSelectedHoSoForMaiTang(null)}
+        hoSo={selectedHoSoForMaiTang}
+      />
+
+      {/* 12. Modal Biên bản kiểm tra hiện trường & xác minh thực địa */}
+      <BienBanXacMinhThucDiaModal
+        isOpen={Boolean(selectedHoSoForXacMinh)}
+        onClose={() => setSelectedHoSoForXacMinh(null)}
+        hoSo={selectedHoSoForXacMinh}
+      />
     </AppShell>
   );
 }

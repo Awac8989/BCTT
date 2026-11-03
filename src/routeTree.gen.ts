@@ -20,6 +20,7 @@ import { Route as GiaoDucDaoTaoRouteImport } from './routes/giao-duc-dao-tao'
 import { Route as HeThongRouteImport } from './routes/he-thong'
 import { Route as HopTrucTuyenRouteImport } from './routes/hop-truc-tuyen'
 import { Route as KhaoSatRouteImport } from './routes/khao-sat'
+import { Route as KyThuatRouteImport } from './routes/ky-thuat'
 import { Route as LichTuanRouteImport } from './routes/lich-tuan'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MotCuaRouteImport } from './routes/mot-cua'
@@ -86,6 +87,11 @@ const HopTrucTuyenRoute = HopTrucTuyenRouteImport.update({
 const KhaoSatRoute = KhaoSatRouteImport.update({
   id: '/khao-sat',
   path: '/khao-sat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KyThuatRoute = KyThuatRouteImport.update({
+  id: '/ky-thuat',
+  path: '/ky-thuat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LichTuanRoute = LichTuanRouteImport.update({
@@ -161,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/he-thong': typeof HeThongRoute
   '/hop-truc-tuyen': typeof HopTrucTuyenRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/ky-thuat': typeof KyThuatRoute
   '/lich-tuan': typeof LichTuanRoute
   '/login': typeof LoginRoute
   '/mot-cua': typeof MotCuaRoute
@@ -186,6 +193,7 @@ export interface FileRoutesByTo {
   '/he-thong': typeof HeThongRoute
   '/hop-truc-tuyen': typeof HopTrucTuyenRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/ky-thuat': typeof KyThuatRoute
   '/lich-tuan': typeof LichTuanRoute
   '/login': typeof LoginRoute
   '/mot-cua': typeof MotCuaRoute
@@ -212,6 +220,7 @@ export interface FileRoutesById {
   '/he-thong': typeof HeThongRoute
   '/hop-truc-tuyen': typeof HopTrucTuyenRoute
   '/khao-sat': typeof KhaoSatRoute
+  '/ky-thuat': typeof KyThuatRoute
   '/lich-tuan': typeof LichTuanRoute
   '/login': typeof LoginRoute
   '/mot-cua': typeof MotCuaRoute
@@ -239,6 +248,7 @@ export interface FileRouteTypes {
     | '/he-thong'
     | '/hop-truc-tuyen'
     | '/khao-sat'
+    | '/ky-thuat'
     | '/lich-tuan'
     | '/login'
     | '/mot-cua'
@@ -264,6 +274,7 @@ export interface FileRouteTypes {
     | '/he-thong'
     | '/hop-truc-tuyen'
     | '/khao-sat'
+    | '/ky-thuat'
     | '/lich-tuan'
     | '/login'
     | '/mot-cua'
@@ -289,6 +300,7 @@ export interface FileRouteTypes {
     | '/he-thong'
     | '/hop-truc-tuyen'
     | '/khao-sat'
+    | '/ky-thuat'
     | '/lich-tuan'
     | '/login'
     | '/mot-cua'
@@ -315,6 +327,7 @@ export interface RootRouteChildren {
   HeThongRoute: typeof HeThongRoute
   HopTrucTuyenRoute: typeof HopTrucTuyenRoute
   KhaoSatRoute: typeof KhaoSatRoute
+  KyThuatRoute: typeof KyThuatRoute
   LichTuanRoute: typeof LichTuanRoute
   LoginRoute: typeof LoginRoute
   MotCuaRoute: typeof MotCuaRoute
@@ -406,6 +419,13 @@ declare module '@tanstack/react-router' {
       path: '/khao-sat'
       fullPath: '/khao-sat'
       preLoaderRoute: typeof KhaoSatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ky-thuat': {
+      id: '/ky-thuat'
+      path: '/ky-thuat'
+      fullPath: '/ky-thuat'
+      preLoaderRoute: typeof KyThuatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lich-tuan': {
@@ -507,6 +527,7 @@ const rootRouteChildren: RootRouteChildren = {
   HeThongRoute: HeThongRoute,
   HopTrucTuyenRoute: HopTrucTuyenRoute,
   KhaoSatRoute: KhaoSatRoute,
+  KyThuatRoute: KyThuatRoute,
   LichTuanRoute: LichTuanRoute,
   LoginRoute: LoginRoute,
   MotCuaRoute: MotCuaRoute,

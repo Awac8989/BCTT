@@ -8,11 +8,12 @@ export interface AllowanceRequest {
   maLoaiDt: string; // VD: 'THUONG_BINH', 'ME_VNAH', 'BENH_BINH', 'LIET_SI', 'CHAT_DOC_HOA_HOC', 'TIEN_KHOI_NGHIA'
   tyLeThuongTat?: number | undefined; // 0 - 100%
   coNguoiChamSoc?: boolean | undefined;
+  baseRate?: number | undefined; // Tùy chọn định mức chuẩn trợ cấp
 }
 
 export interface AllowanceResponse {
   status: "SUCCESS" | "FAILED";
-  baseRate: number; // Mức chuẩn: 2.055.000 VNĐ
+  baseRate: number; // Mức chuẩn trợ cấp
   heSo: number;
   troCapHangThang: number;
   phuCapChamSoc: number;
@@ -22,19 +23,30 @@ export interface AllowanceResponse {
   chiTietCongThuc: string;
 }
 
-// Mức chuẩn trợ cấp ưu đãi quy định theo Nghị định 75/2021/NĐ-CP (VND)
+// Mức chuẩn trợ cấp ưu đãi quy định theo Nghị định 77/2024/NĐ-CP (Áp dụng từ 01/07/2024)
+export const MUC_CHUAN_ND77_2024 = 2_789_000;
+
+// Mức chuẩn trợ cấp ưu đãi quy định theo Nghị định 55/2023/NĐ-CP (Áp dụng từ 05/09/2023)
+export const MUC_CHUAN_ND55_2023 = 2_055_000;
+
+// Mức chuẩn trợ cấp ưu đãi quy định theo Nghị định 75/2021/NĐ-CP
+export const MUC_CHUAN_ND75_2021 = 1_624_000;
+
+// Mức chuẩn trợ cấp ưu đãi áp dụng mặc định hệ thống (VND)
 export const MUC_CHUAN_TRO_CAP = 2_055_000;
 
 // Trợ cấp thờ cúng liệt sĩ hàng năm (phát dịp 27/7)
 export const MUC_THO_CUNG_LIET_SI = 1_400_000;
 
-// Trợ cấp điều dưỡng phục hồi sức khỏe tại nhà (0.9 lần mức chuẩn)
-export const MUC_DIEU_DUONG_TAI_NHA = 1_849_500;
+// Trợ cấp điều dưỡng phục hồi sức khỏe tại nhà (0.9 lần mức chuẩn theo NĐ 77/2024: 0.9 × 2.789.000đ)
+export const MUC_DIEU_DUONG_TAI_NHA = 2_510_100;
+export const MUC_DIEU_DUONG_TAI_NHA_ND55 = 1_849_500;
 
-// Trợ cấp điều dưỡng tập trung (1.8 lần mức chuẩn)
-export const MUC_DIEU_DUONG_TAP_TRUNG = 3_699_000;
+// Trợ cấp điều dưỡng tập trung (1.8 lần mức chuẩn theo NĐ 77/2024: 1.8 × 2.789.000đ)
+export const MUC_DIEU_DUONG_TAP_TRUNG = 5_020_200;
+export const MUC_DIEU_DUONG_TAP_TRUNG_ND55 = 3_699_000;
 
-// Trợ cấp mai táng phí (10 tháng lương cơ sở = 10 × 2.340.000đ)
+// Trợ cấp mai táng phí (10 tháng lương cơ sở = 10 × 2.340.000đ theo NĐ 73/2024 & NĐ 77/2024)
 export const MUC_MAI_TANG_PHI = 23_400_000;
 
 /**
@@ -110,6 +122,7 @@ export function calculateDisabilityFactor(tyLe: number): number {
  * Engine tính trợ cấp tài chính
  */
 export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
+  const baseRate = req.baseRate || MUC_CHUAN_TRO_CAP;
   const tyLe = Number(req.tyLeThuongTat || 0);
   let heSo = 1.0;
   let troCapHangThang = 0;
@@ -124,8 +137,8 @@ export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
     case "THƯƠNG BINH": {
       if (tyLe >= 21) {
         heSo = calculateDisabilityFactor(tyLe);
-        troCapHangThang = Math.round(MUC_CHUAN_TRO_CAP * heSo);
-        chiTietCongThuc = `Mức chuẩn (${MUC_CHUAN_TRO_CAP.toLocaleString("vi-VN")}đ) × Hệ số ${heSo} (tỷ lệ ${tyLe}%)`;
+        troCapHangThang = Math.round(baseRate * heSo);
+        chiTietCongThuc = `Mức chuẩn (${baseRate.toLocaleString("vi-VN")}đ) × Hệ số ${heSo} (tỷ lệ ${tyLe}%)`;
       } else {
         heSo = 0;
         troCapHangThang = 0;
@@ -134,12 +147,12 @@ export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
 
       // Nếu thương tật >= 81% và có người phục vụ
       if (tyLe >= 81 && req.coNguoiChamSoc) {
-        phuCapChamSoc = Math.round(MUC_CHUAN_TRO_CAP * 1.0);
+        phuCapChamSoc = Math.round(baseRate * 1.0);
       }
 
       // Trợ cấp điều dưỡng hàng năm phân bổ
       if (tyLe >= 81) {
-        troCapDieuDuong = Math.round((MUC_CHUAN_TRO_CAP * 1.8) / 12);
+        troCapDieuDuong = Math.round((baseRate * 1.8) / 12);
       }
       break;
     }
@@ -149,10 +162,10 @@ export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
     case "BÀ MẸ VIỆT NAM ANH HÙNG": {
       // Phụ cấp Mẹ VNAH = 3.0 lần mức chuẩn + Phụ cấp chăm sóc 1.0 lần
       heSo = 3.0;
-      troCapHangThang = Math.round(MUC_CHUAN_TRO_CAP * 3.0);
-      phuCapChamSoc = Math.round(MUC_CHUAN_TRO_CAP * 1.0);
-      troCapDieuDuong = Math.round((MUC_CHUAN_TRO_CAP * 2.0) / 12);
-      chiTietCongThuc = `Trợ cấp danh hiệu (×3.0) + Phụ cấp người phục vụ (×1.0) theo NĐ 75/2021/NĐ-CP`;
+      troCapHangThang = Math.round(baseRate * 3.0);
+      phuCapChamSoc = Math.round(baseRate * 1.0);
+      troCapDieuDuong = Math.round((baseRate * 2.0) / 12);
+      chiTietCongThuc = `Trợ cấp danh hiệu (×3.0) + Phụ cấp người phục vụ (×1.0) theo NĐ 75/2021 & NĐ 77/2024`;
       break;
     }
 
@@ -163,9 +176,9 @@ export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
       else if (tyLe >= 41) heSo = 1.5;
       else heSo = 1.0;
 
-      troCapHangThang = Math.round(MUC_CHUAN_TRO_CAP * heSo);
+      troCapHangThang = Math.round(baseRate * heSo);
       if (tyLe >= 81 && req.coNguoiChamSoc) {
-        phuCapChamSoc = Math.round(MUC_CHUAN_TRO_CAP * 1.0);
+        phuCapChamSoc = Math.round(baseRate * 1.0);
       }
       chiTietCongThuc = `Bệnh binh hệ số ${heSo} theo tỷ lệ mất sức lao động ${tyLe}%`;
       break;
@@ -175,7 +188,7 @@ export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
     case "THÂN NHÂN LIỆT SĨ":
     case "THAN_NHAN_LIET_SI": {
       heSo = 1.0;
-      troCapHangThang = Math.round(MUC_CHUAN_TRO_CAP * 1.0);
+      troCapHangThang = Math.round(baseRate * 1.0);
       chiTietCongThuc = `Định suất thờ cúng / nuôi dưỡng thân nhân liệt sĩ: 1.0 × Mức chuẩn`;
       break;
     }
@@ -183,9 +196,9 @@ export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
     case "CHAT_DOC_HOA_HOC":
     case "NHIỄM CHẤT ĐỘC HÓA HỌC": {
       heSo = tyLe >= 81 ? 2.4 : tyLe >= 61 ? 1.7 : 1.15;
-      troCapHangThang = Math.round(MUC_CHUAN_TRO_CAP * heSo);
+      troCapHangThang = Math.round(baseRate * heSo);
       if (tyLe >= 81 && req.coNguoiChamSoc) {
-        phuCapChamSoc = Math.round(MUC_CHUAN_TRO_CAP * 1.0);
+        phuCapChamSoc = Math.round(baseRate * 1.0);
       }
       chiTietCongThuc = `Người hoạt động kháng chiến nhiễm CĐHH hệ số ${heSo}`;
       break;
@@ -194,14 +207,14 @@ export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
     case "TIEN_KHOI_NGHIA":
     case "CÁN BỘ TIỀN KHỞI NGHĨA": {
       heSo = 1.45;
-      troCapHangThang = Math.round(MUC_CHUAN_TRO_CAP * heSo);
+      troCapHangThang = Math.round(baseRate * heSo);
       chiTietCongThuc = `Cán bộ tiền khởi nghĩa hệ số ưu đãi 1.45`;
       break;
     }
 
     default: {
       heSo = 1.0;
-      troCapHangThang = MUC_CHUAN_TRO_CAP;
+      troCapHangThang = baseRate;
       chiTietCongThuc = `Áp dụng định mức chuẩn cơ bản`;
       break;
     }
@@ -209,15 +222,20 @@ export function calculateAllowance(req: AllowanceRequest): AllowanceResponse {
 
   const tongTienThucNhan = troCapHangThang + phuCapChamSoc + troCapDieuDuong;
 
+  const ghiChuPhapLy =
+    baseRate >= 2_789_000
+      ? "Căn cứ Nghị định số 77/2024/NĐ-CP ngày 25/06/2024 của Chính phủ (Mức chuẩn 2.789.000 VNĐ)"
+      : "Căn cứ Nghị định số 75/2021/NĐ-CP và Nghị định số 55/2023/NĐ-CP của Chính phủ (Mức chuẩn 2.055.000 VNĐ)";
+
   return {
     status: "SUCCESS",
-    baseRate: MUC_CHUAN_TRO_CAP,
+    baseRate,
     heSo,
     troCapHangThang,
     phuCapChamSoc,
     troCapDieuDuong,
     tongTienThucNhan,
-    ghiChuPhapLy: "Tính theo quy định chuẩn tại Nghị định 75/2021/NĐ-CP của Chính phủ",
+    ghiChuPhapLy,
     chiTietCongThuc,
   };
 }

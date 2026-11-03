@@ -23,9 +23,28 @@ import {
   ExternalLink,
   RefreshCw,
   FileCode,
+  AlertTriangle,
+  Wrench,
+  Zap,
+  Lock,
 } from "lucide-react";
 import { toast } from "sonner";
 import { formatVND } from "@/data/mock";
+import { useAppState } from "@/services/app-state";
+
+interface AnomalyItem {
+  id: string;
+  tableName: string;
+  recordId: string | number;
+  recordName: string;
+  field: string;
+  currentValue: string;
+  suggestedValue: string;
+  errorType: string;
+  severity: "CAO" | "TRUNG_BINH" | "NHẮC_NHỞ";
+  reason: string;
+  sqlFix: string;
+}
 
 interface TableInfo {
   name: string;
@@ -55,6 +74,9 @@ interface DatabaseOverview {
 }
 
 export function DatabaseStudioTab() {
+  const { currentUser } = useAppState();
+  const isTechAdmin = currentUser.role === "ADMIN_TECH";
+
   const [overview, setOverview] = useState<DatabaseOverview | null>(null);
   const [tables, setTables] = useState<TableInfo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -68,6 +90,19 @@ export function DatabaseStudioTab() {
   const [sqlQuery, setSqlQuery] = useState("SELECT * FROM ho_so_ncc WHERE tyLeThuongTat >= 81 LIMIT 5");
   const [queryResult, setQueryResult] = useState<any>(null);
   const [queryLoading, setQueryLoading] = useState(false);
+
+  // Diagnostics & Fix Studio state
+  const [anomalies, setAnomalies] = useState<AnomalyItem[]>([]);
+  const [diagnosticsLoading, setDiagnosticsLoading] = useState(false);
+  const [diagnosticsOverview, setDiagnosticsOverview] = useState<{
+    totalAnomalies: number;
+    highSeverityCount: number;
+    mediumSeverityCount?: number;
+    lowSeverityCount?: number;
+    lastScannedAt?: string;
+  } | null>(null);
+  const [fixingId, setFixingId] = useState<string | null>(null);
+  const [showDiagnosticsPanel, setShowDiagnosticsPanel] = useState(true);
 
   // Load database overview & tables list
   const loadDatabaseInfo = async () => {
@@ -108,7 +143,73 @@ export function DatabaseStudioTab() {
 
   useEffect(() => {
     loadDatabaseInfo();
+    runDiagnostics();
   }, []);
+
+  // Run data diagnostics scanner
+  const runDiagnostics = async () => {
+    try {
+      setDiagnosticsLoading(true);
+      const res = await fetch("/api/v1/database/diagnostics").then((r) => r.json());
+      if (res.success) {
+        setAnomalies(res.data.anomalies);
+        setDiagnosticsOverview({
+          totalAnomalies: res.data.totalAnomalies,
+          highSeverityCount: res.data.highSeverityCount,
+          mediumSeverityCount: res.data.mediumSeverityCount,
+          lowSeverityCount: res.data.lowSeverityCount,
+          lastScannedAt: res.data.lastScannedAt,
+        });
+        toast.success(`Đã quét CSDL: Phát hiện ${res.data.totalAnomalies} cảnh báo dữ liệu cần chuẩn hóa`);
+      }
+    } catch (err) {
+      console.error("Lỗi chẩn đoán CSDL:", err);
+    } finally {
+      setDiagnosticsLoading(false);
+    }
+  };
+
+  // Fix an anomaly with 1-click
+  const handleFixAnomaly = async (ano: AnomalyItem) => {
+    if (!isTechAdmin) {
+      toast.warning("Phân quyền bảo mật: Chỉ Quản trị viên Kỹ thuật (ADMIN_TECH) mới có quyền can thiệp sửa đổi CSDL!");
+      return;
+    }
+    try {
+      setFixingId(ano.id);
+      const res = await fetch("/api/v1/database/fix-anomaly", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tableName: ano.tableName,
+          recordId: ano.recordId,
+          field: ano.field,
+          fixValue: ano.suggestedValue,
+        }),
+      }).then((r) => r.json());
+
+      if (res.success) {
+        toast.success(`Đã sửa lỗi '${ano.field}' cho ${ano.recordName}!`);
+        setAnomalies((prev) => prev.filter((a) => a.id !== ano.id));
+        if (selectedTable === ano.tableName) {
+          loadTableData(selectedTable, tableSearch);
+        }
+        loadDatabaseInfo();
+      } else {
+        toast.error(res.message || "Lỗi khi sửa dữ liệu");
+      }
+    } catch {
+      toast.error("Không thể kết nối máy chủ để sửa dữ liệu");
+    } finally {
+      setFixingId(null);
+    }
+  };
+
+  // Copy SQL fix into SQL Console
+  const handleApplySqlFixToConsole = (sql: string) => {
+    setSqlQuery(sql);
+    toast.info("Đã nạp câu lệnh SQL FIX vào bàn điều khiển!");
+  };
 
   useEffect(() => {
     if (selectedTable) {
@@ -120,6 +221,10 @@ export function DatabaseStudioTab() {
   const handleExecuteSql = async () => {
     if (!sqlQuery.trim()) {
       toast.error("Vui lòng nhập câu lệnh SQL");
+      return;
+    }
+    if (sqlQuery.trim().toUpperCase().startsWith("UPDATE") && !isTechAdmin) {
+      toast.warning("Lệnh UPDATE bị từ chối: Lãnh đạo chỉ được phép xem (SELECT). Hãy chuyển sang tài khoản Admin Kỹ thuật!");
       return;
     }
     try {
@@ -240,6 +345,16 @@ export function DatabaseStudioTab() {
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
+            onClick={runDiagnostics}
+            disabled={diagnosticsLoading}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-xs"
+          >
+            <RefreshCw className={`size-3.5 ${diagnosticsLoading ? "animate-spin" : ""}`} />
+            <span>Quét Lỗi Dữ Liệu</span>
+          </button>
+
+          <button
+            type="button"
             onClick={handleDownloadSqlDump}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs"
           >
@@ -267,25 +382,204 @@ export function DatabaseStudioTab() {
         </div>
       </div>
 
+      {/* 2.5 PHÂN HỆ RÀ SOÁT & SỬA LỖI DỮ LIỆU CSDL (DATA DIAGNOSTICS & ANOMALY FIX STUDIO) */}
+      <div className="rounded-lg border border-amber-300 bg-white shadow-xs overflow-hidden">
+        <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Wrench className="size-4 text-amber-200" />
+            <span className="font-bold text-xs tracking-wide">
+              PHÂN HỆ TRUY VẤN & SỬA LỖI DỮ LIỆU TOÀN DIỆN (DATA DIAGNOSTIC & FIX STUDIO)
+            </span>
+            <span className="bg-amber-100/20 text-[10px] px-2 py-0.5 rounded font-mono font-medium">
+              Kiểm toán toàn vẹn CSDL
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {!isTechAdmin ? (
+              <span className="text-[10px] bg-black/30 text-amber-100 border border-amber-300/40 px-2 py-0.5 rounded font-bold flex items-center gap-1">
+                <Lock className="size-3" /> Chế độ Xem (Lãnh đạo)
+              </span>
+            ) : (
+              <span className="text-[10px] bg-emerald-800 text-emerald-100 border border-emerald-400/40 px-2 py-0.5 rounded font-bold flex items-center gap-1">
+                <ShieldCheck className="size-3" /> Quyền Sửa (Admin Kỹ thuật)
+              </span>
+            )}
+            <span className="text-[11px] bg-white/20 px-2.5 py-0.5 rounded font-bold">
+              {anomalies.length} vấn đề cần xử lý
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowDiagnosticsPanel(!showDiagnosticsPanel)}
+              className="text-[11px] underline hover:text-amber-100 cursor-pointer"
+            >
+              {showDiagnosticsPanel ? "Thu gọn" : "Mở rộng"}
+            </button>
+          </div>
+        </div>
+
+        {showDiagnosticsPanel && (
+          <div className="p-4 space-y-3 bg-amber-50/20">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2 text-gray-700">
+                <span className="font-semibold text-gray-900">Trạng thái rà soát:</span>
+                <span>
+                  Quét tự động trên 42 bảng 3NF · Lần quét gần nhất:{" "}
+                  <span className="font-mono text-gray-600">{diagnosticsOverview?.lastScannedAt || "Vừa xong"}</span>
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-[11px]">
+                <span className="px-2 py-0.5 rounded bg-red-100 text-red-800 font-bold">
+                  Cao: {diagnosticsOverview?.highSeverityCount || anomalies.filter((a) => a.severity === "CAO").length}
+                </span>
+                <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold">
+                  Trung bình: {diagnosticsOverview?.mediumSeverityCount || anomalies.filter((a) => a.severity === "TRUNG_BINH").length}
+                </span>
+                <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">
+                  Nhắc nhở: {diagnosticsOverview?.lowSeverityCount || anomalies.filter((a) => a.severity === "NHẮC_NHỞ").length}
+                </span>
+              </div>
+            </div>
+
+            {anomalies.length === 0 ? (
+              <div className="flex items-center gap-2 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded text-xs">
+                <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
+                <span>
+                  <strong>Hệ thống đạt chuẩn 100%!</strong> Không phát hiện sai lệch định dạng CCCD, thông tin chuyển khoản ngân hàng hay số quyết định trong toàn bộ các bảng dữ liệu.
+                </span>
+              </div>
+            ) : (
+              <div className="overflow-x-auto border border-gray-200 rounded-md bg-white">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-gray-100 text-gray-700 border-b border-gray-200 text-[11px]">
+                    <tr>
+                      <th className="p-2.5 font-bold w-20">Mức độ</th>
+                      <th className="p-2.5 font-bold">Bảng & Đối tượng</th>
+                      <th className="p-2.5 font-bold">Lỗi phát hiện & Lý do</th>
+                      <th className="p-2.5 font-bold">Giá trị hiện tại ➔ Đề xuất Fix</th>
+                      <th className="p-2.5 font-bold text-right w-44">Hành động khắc phục</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {anomalies.map((ano) => (
+                      <tr key={ano.id} className="hover:bg-amber-50/40">
+                        <td className="p-2.5">
+                          {ano.severity === "CAO" ? (
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-red-100 text-red-700 font-bold text-[10px]">
+                              <AlertTriangle className="size-3 text-red-600" />
+                              <span>CAO</span>
+                            </span>
+                          ) : ano.severity === "TRUNG_BINH" ? (
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px]">
+                              <AlertTriangle className="size-3 text-amber-600" />
+                              <span>VỪA</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-bold text-[10px]">
+                              <span>NHẮC</span>
+                            </span>
+                          )}
+                        </td>
+                        <td className="p-2.5">
+                          <div className="font-bold text-gray-900">{ano.recordName}</div>
+                          <div className="text-[10px] text-gray-500 font-mono">
+                            {ano.tableName} · {ano.recordId}
+                          </div>
+                        </td>
+                        <td className="p-2.5">
+                          <div className="font-semibold text-gray-800">{ano.errorType}</div>
+                          <div className="text-[11px] text-gray-600">{ano.reason}</div>
+                        </td>
+                        <td className="p-2.5 font-mono text-[11px]">
+                          <span className="text-red-600 bg-red-50 px-1.5 py-0.5 rounded mr-1">
+                            {ano.currentValue}
+                          </span>
+                          <span className="text-gray-400">➔</span>
+                          <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold ml-1">
+                            {ano.suggestedValue}
+                          </span>
+                        </td>
+                        <td className="p-2.5 text-right space-x-1.5">
+                          <button
+                            type="button"
+                            onClick={() => handleApplySqlFixToConsole(ano.sqlFix)}
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded border border-gray-300 hover:bg-gray-100 text-gray-700 text-[10px] font-semibold"
+                            title="Nạp câu lệnh SQL FIX vào console bên dưới"
+                          >
+                            <Code2 className="size-3 text-gray-600" />
+                            <span>SQL Fix</span>
+                          </button>
+                          <button
+                            type="button"
+                            disabled={fixingId === ano.id}
+                            onClick={() => handleFixAnomaly(ano)}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-600 hover:bg-amber-700 text-white text-[10px] font-bold shadow-xs cursor-pointer"
+                          >
+                            <Zap className="size-3 fill-white" />
+                            <span>{fixingId === ano.id ? "Đang sửa..." : "Sửa ngay"}</span>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* 3. Interactive SQL Query Console */}
       <div className="bg-white rounded-lg border border-gray-200 shadow-xs overflow-hidden">
         <div className="bg-[#24292e] text-white px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-bold">
             <Code2 className="size-4 text-emerald-400" />
-            <span>Bàn Điều Khiển Truy Vấn SQL (Interactive SQL Console)</span>
+            <span>Bàn Điều Khiển Truy Vấn & Sửa Lỗi SQL (Interactive Query & Fix Console)</span>
           </div>
-          <span className="text-[10px] text-gray-400 font-mono">SELECT, JOIN, WHERE, LIMIT</span>
+          <span className="text-[10px] text-gray-400 font-mono">Hỗ trợ: SELECT, UPDATE ... SET, WHERE, LIMIT</span>
         </div>
 
         <div className="p-4 space-y-3">
           <div className="flex flex-wrap gap-1.5 text-[11px]">
-            <span className="text-gray-500 font-semibold mr-1 py-0.5">Truy vấn mẫu:</span>
+            <span className="text-gray-500 font-semibold mr-1 py-0.5">Truy vấn & Sửa lỗi mẫu:</span>
             <button
               type="button"
               onClick={() => setSqlQuery("SELECT * FROM ho_so_ncc WHERE tyLeThuongTat >= 81 LIMIT 5")}
               className="px-2 py-0.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 font-mono text-[10px]"
             >
               Thương binh nặng ≥ 81%
+            </button>
+            <button
+              type="button"
+              onClick={() => setSqlQuery("UPDATE ho_so_ncc SET muc_tro_cap = 2789000 WHERE loaiDoiTuong LIKE 'Thương binh'")}
+              className="px-2 py-0.5 rounded bg-red-50 hover:bg-red-100 text-red-800 border border-red-200 font-mono text-[10px] font-bold"
+              title="Cập nhật mức trợ cấp chuẩn theo Nghị định 77/2024/NĐ-CP"
+            >
+              ⚡ UPDATE Mức chuẩn 2.789.000đ (NĐ 77/2024)
+            </button>
+            <button
+              type="button"
+              onClick={() => setSqlQuery("UPDATE ho_so_ncc SET so_cccd = '074026000123' WHERE id = 1")}
+              className="px-2 py-0.5 rounded bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-mono text-[10px] font-bold"
+              title="Fix chuẩn hóa số CCCD 12 số chuẩn C06"
+            >
+              ⚡ UPDATE Fix CCCD 12 số Đề án 06
+            </button>
+            <button
+              type="button"
+              onClick={() => setSqlQuery("UPDATE chi_tra_tro_cap SET soTaiKhoan = '0281000349281' WHERE maPhieuChi = 'PC-2026-03-001'")}
+              className="px-2 py-0.5 rounded bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-mono text-[10px] font-bold"
+              title="Bổ sung tài khoản Vietcombank an sinh xã hội"
+            >
+              ⚡ UPDATE Fix STK VNeID Ngân hàng
+            </button>
+            <button
+              type="button"
+              onClick={() => setSqlQuery("UPDATE ho_so_ncc SET soBhyt = 'CC4740001889' WHERE id = 1")}
+              className="px-2 py-0.5 rounded bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-mono text-[10px] font-bold"
+              title="Đồng bộ mã thẻ BHYT ưu đãi 100%"
+            >
+              ⚡ UPDATE Fix Mã Thẻ BHYT NCC
             </button>
             <button
               type="button"
@@ -300,13 +594,6 @@ export function DatabaseStudioTab() {
               className="px-2 py-0.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 font-mono text-[10px]"
             >
               Sổ Quỹ Đền ơn đáp nghĩa
-            </button>
-            <button
-              type="button"
-              onClick={() => setSqlQuery("SELECT * FROM dieu_tra_pho_cap_gd LIMIT 10")}
-              className="px-2 py-0.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 font-mono text-[10px]"
-            >
-              Số liệu Phổ cập GD
             </button>
           </div>
 

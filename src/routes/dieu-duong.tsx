@@ -15,12 +15,15 @@ import {
   MapPin,
   Search,
   Check,
+  Printer,
+  FileText,
 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { useAppState } from "@/services/app-state";
 import { MUC_DIEU_DUONG_TAI_NHA, MUC_DIEU_DUONG_TAP_TRUNG } from "@/services/calculator.service";
 import { HUYEN_LIST } from "@/data/mock";
+import { PhieuDieuDuongModal } from "@/components/PhieuDieuDuongModal";
 
 export const Route = createFileRoute("/dieu-duong")({
   head: () => ({
@@ -180,6 +183,7 @@ function DieuDuongPage() {
   const [filterHuyen, setFilterHuyen] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const [isDoanModalOpen, setIsDoanModalOpen] = useState(false);
+  const [selectedRecordForModal, setSelectedRecordForModal] = useState<DieuDuongRecord | null>(null);
 
   // Bộ lọc
   const filteredRecords = useMemo(() => {
@@ -247,7 +251,7 @@ function DieuDuongPage() {
             type="button"
             onClick={() => {
               setFilterHinhThuc("TAI_NHA");
-              toast.info("Đã lọc danh sách cấp tiền điều dưỡng tại nhà (1.849.500đ/người)");
+              toast.info("Đã lọc danh sách cấp tiền điều dưỡng tại nhà (2.510.100đ/người theo NĐ 77/2024)");
             }}
             className="flex items-center gap-1.5 rounded-full bg-[#00c0ef] hover:bg-[#00a7d0] px-4 py-1.5 text-xs font-bold text-white shadow-xs cursor-pointer"
           >
@@ -473,32 +477,43 @@ function DieuDuongPage() {
                     )}
                   </td>
                   <td className="px-3 py-2.5 text-center">
-                    {r.trangThai === "CHUA_THUC_HIEN" && r.hinhThuc === "TAI_NHA" ? (
+                    <div className="inline-flex items-center gap-1.5 justify-center">
+                      {r.trangThai === "CHUA_THUC_HIEN" && r.hinhThuc === "TAI_NHA" ? (
+                        <button
+                          type="button"
+                          onClick={() => handlePhatTienTaiNha(r.id)}
+                          className="rounded-[2px] bg-[#00a65a] hover:bg-[#008d4c] px-2 py-1 text-xs font-bold text-white shadow-2xs cursor-pointer"
+                        >
+                          Cấp tiền
+                        </button>
+                      ) : r.trangThai === "CHUA_THUC_HIEN" && r.hinhThuc === "TAP_TRUNG" ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setData((prev) =>
+                              prev.map((item) =>
+                                item.id === r.id ? { ...item, trangThai: "DA_HOAN_THANH" as const } : item,
+                              ),
+                            );
+                            toast.success(`Đã xếp ${r.hoTen} vào đoàn đi Trung tâm điều dưỡng Vũng Tàu!`);
+                          }}
+                          className="rounded-[2px] bg-[#00c0ef] hover:bg-[#00a7d0] px-2 py-1 text-xs font-bold text-white shadow-2xs cursor-pointer"
+                        >
+                          Xếp đoàn
+                        </button>
+                      ) : (
+                        <span className="text-xs text-emerald-700 font-medium">Hoàn tất</span>
+                      )}
                       <button
                         type="button"
-                        onClick={() => handlePhatTienTaiNha(r.id)}
-                        className="rounded-[2px] bg-[#00a65a] hover:bg-[#008d4c] px-2.5 py-1 text-xs font-bold text-white shadow-2xs cursor-pointer"
+                        onClick={() => setSelectedRecordForModal(r)}
+                        title={r.hinhThuc === "TAP_TRUNG" ? "Xem & In Giấy báo điều dưỡng tập trung" : "Xem & In Phiếu cấp kinh phí điều dưỡng tại nhà"}
+                        className="rounded-[2px] bg-white hover:bg-gray-100 text-gray-700 px-2 py-1 text-xs font-semibold border border-gray-300 shadow-2xs cursor-pointer inline-flex items-center gap-1"
                       >
-                        Cấp tiền
+                        <Printer className="size-3 text-gray-600" />
+                        <span>{r.hinhThuc === "TAP_TRUNG" ? "Giấy báo" : "Phiếu chi"}</span>
                       </button>
-                    ) : r.trangThai === "CHUA_THUC_HIEN" && r.hinhThuc === "TAP_TRUNG" ? (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setData((prev) =>
-                            prev.map((item) =>
-                              item.id === r.id ? { ...item, trangThai: "DA_HOAN_THANH" as const } : item,
-                            ),
-                          );
-                          toast.success(`Đã xếp ${r.hoTen} vào đoàn đi Trung tâm điều dưỡng Vũng Tàu!`);
-                        }}
-                        className="rounded-[2px] bg-[#00c0ef] hover:bg-[#00a7d0] px-2.5 py-1 text-xs font-bold text-white shadow-2xs cursor-pointer"
-                      >
-                        Xếp đoàn
-                      </button>
-                    ) : (
-                      <span className="text-xs text-emerald-700 font-medium">Hoàn tất</span>
-                    )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -516,7 +531,7 @@ function DieuDuongPage() {
           <div className="rounded border border-[#e5e7eb] p-3 bg-gray-50/50">
             <div className="font-bold text-[#00a65a] mb-1">1. Chế độ Điều dưỡng tập trung (7 ngày)</div>
             <p className="text-[#555555]">
-              - Mức chi bằng <strong>1.8 lần mức chuẩn</strong> = <strong>3.699.000 đồng/người/lần</strong>.
+              - Mức chi bằng <strong>1.8 lần mức chuẩn</strong> = <strong>5.020.200 đồng/người/lần (Nghị định 77/2024/NĐ-CP, áp dụng từ 01/07/2024)</strong>.
             </p>
             <p className="text-[#555555] mt-1">
               - Bao gồm: Tiền ăn trong thời gian điều dưỡng, thuốc bổ thiết yếu, quà tặng, vé tham quan, sinh hoạt văn hóa và xe đưa đón đi về.
@@ -526,7 +541,7 @@ function DieuDuongPage() {
           <div className="rounded border border-[#e5e7eb] p-3 bg-gray-50/50">
             <div className="font-bold text-[#00c0ef] mb-1">2. Chế độ Điều dưỡng tại gia đình</div>
             <p className="text-[#555555]">
-              - Mức chi bằng <strong>0.9 lần mức chuẩn</strong> = <strong>1.849.500 đồng/người/lần</strong>.
+              - Mức chi bằng <strong>0.9 lần mức chuẩn</strong> = <strong>2.510.100 đồng/người/lần (Nghị định 77/2024/NĐ-CP, áp dụng từ 01/07/2024)</strong>.
             </p>
             <p className="text-[#555555] mt-1">
               - Chi trả trực tiếp bằng tiền mặt hoặc qua tài khoản ngân hàng không dùng tiền mặt (Đề án 06) cho người có công hoặc người thờ cúng.
@@ -534,6 +549,13 @@ function DieuDuongPage() {
           </div>
         </div>
       </div>
+
+      {/* Modal In & Xuất Biểu mẫu Phiếu Cấp Kinh Phí / Giấy Báo Điều Dưỡng */}
+      <PhieuDieuDuongModal
+        isOpen={Boolean(selectedRecordForModal)}
+        onClose={() => setSelectedRecordForModal(null)}
+        record={selectedRecordForModal}
+      />
 
       {/* Modal Lập đoàn điều dưỡng tập trung */}
       {isDoanModalOpen && (
@@ -546,7 +568,7 @@ function DieuDuongPage() {
 
             <div className="space-y-2 mb-4 bg-gray-50 p-3 rounded border border-[#e5e7eb]">
               <div>- Thời gian: 7 ngày (Dự kiến từ 15/09/2026 đến 21/09/2026)</div>
-              <div>- Định mức kinh phí: 3.699.000 đồng/đối tượng</div>
+              <div>- Định mức kinh phí: 5.020.200 đồng/đối tượng (Nghị định 77/2024/NĐ-CP)</div>
               <div>- Đơn vị tổ chức: Sở Lao động - Thương binh và Xã hội tỉnh Bình Dương</div>
             </div>
 

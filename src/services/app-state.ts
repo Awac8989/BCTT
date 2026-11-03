@@ -151,6 +151,7 @@ import {
   type NhaTinhNghiaItem,
   initialNhaTinhNghiaList,
 } from "@/data/domain-mock";
+export type { DomainCode };
 import { calculateAllowance } from "./calculator.service";
 import { createProfileSchema, type CreateProfileInput } from "./profile.validation";
 import { analyzeSentiment } from "./sentiment.service";
@@ -209,7 +210,7 @@ export interface CurrentUser {
   id: string;
   username: string;
   fullName: string;
-  role: "ADMIN_SO" | "ADMIN_PHONG" | "CB_THONG_TIN" | "CB_AN_SINH" | "CB_GIAO_DUC" | "CB_VAN_HOA" | string;
+  role: "ADMIN_SO" | "ADMIN_PHONG" | "ADMIN_TECH" | "CB_THONG_TIN" | "CB_AN_SINH" | "CB_GIAO_DUC" | "CB_VAN_HOA" | string;
   roleName: string;
   title: string;
   department: string;
@@ -222,7 +223,7 @@ export interface CurrentUser {
   isActive?: boolean;
 }
 
-export type MockRoleKey = "ADMIN_SO" | "ADMIN_PHONG" | "CB_THONG_TIN" | "CB_AN_SINH" | "CB_GIAO_DUC" | "CB_VAN_HOA";
+export type MockRoleKey = "ADMIN_SO" | "ADMIN_PHONG" | "ADMIN_TECH" | "CB_THONG_TIN" | "CB_AN_SINH" | "CB_GIAO_DUC" | "CB_VAN_HOA";
 
 export const MOCK_USERS = {
   ADMIN_SO: {
@@ -230,7 +231,7 @@ export const MOCK_USERS = {
     username: "admin.so",
     fullName: "TS. Nguyễn Văn Hùng",
     role: "ADMIN_SO",
-    roleName: "Quản trị viên Toàn quyền (Admin Cấp Sở)",
+    roleName: "Lãnh đạo Ban Giám đốc Sở (Sếp)",
     title: "Phó Giám đốc Sở LĐTBXH tỉnh Bình Dương",
     department: "Ban Giám đốc Sở",
     unit: "Sở Lao động - Thương binh và Xã hội tỉnh Bình Dương",
@@ -238,13 +239,35 @@ export const MOCK_USERS = {
     phone: "0274.3822.456",
     avatarText: "NVH",
     permissions: [
-      "Toàn quyền điều hành & giám sát toàn diện các mảng nghiệp vụ",
-      "Phê duyệt hồ sơ chính sách & ban hành QĐ hưởng trợ cấp",
-      "Phân bổ & thẩm tra quyết toán ngân sách các huyện/thị/phường",
-      "Cấp quyền & phân nhiệm cán bộ phụ trách từng mảng",
-      "Cấu hình tham số hệ thống & định mức phụ cấp toàn tỉnh",
+      "Toàn quyền chỉ đạo điều hành công tác Lao động - Thương binh & Xã hội toàn tỉnh",
+      "Ký số phê duyệt hồ sơ chính sách & ban hành quyết định trợ cấp",
+      "Thẩm tra, phân bổ dự toán và quyết toán ngân sách an sinh xã hội địa bàn",
+      "Giám sát chỉ số điều hành vĩ mô, tiến độ giải quyết Một cửa & CSAT công dân",
+      "Phê duyệt quy chế phân công nhiệm vụ cán bộ các phòng ban chuyên môn",
     ],
     assignedDomains: ["ALL", "TT_CDS", "LDTBXH_NCC", "LDTBXH_AN_SINH", "GD_DT", "VH_TT_DL"],
+    isActive: true,
+  },
+  ADMIN_TECH: {
+    id: "USR-TECH-001",
+    username: "admin.kythuat",
+    fullName: "KS. Lê Văn Khoa",
+    role: "ADMIN_TECH",
+    roleName: "Quản trị viên Kỹ thuật & CSDL (DevOps / DBA)",
+    title: "Kỹ sư An toàn thông tin & Quản trị CSDL",
+    department: "Tổ Kỹ thuật Công nghệ thông tin & CSDL Chuyên ngành",
+    unit: "Trung tâm CNTT & Truyền thông - Sở LĐTBXH Bình Dương",
+    email: "admin.kythuat@binhduong.gov.vn",
+    phone: "0274.3899.112",
+    avatarText: "LVK",
+    permissions: [
+      "Toàn quyền truy cập Trung tâm Kỹ thuật, CSDL 3NF & API Engine",
+      "Rà soát, chẩn đoán dị biệt dữ liệu & thực thi lệnh SQL UPDATE Fix",
+      "Tiếp nhận, phân loại và xử lý phiếu báo lỗi kỹ thuật hệ thống",
+      "Quản trị bản sao lưu Snapshot, xuất SQL Dump & khôi phục CSDL",
+      "Giám sát an toàn thông tin, mTLS và cấu hình tích hợp VNeID",
+    ],
+    assignedDomains: ["ALL", "TT_CDS"],
     isActive: true,
   },
   ADMIN_PHONG: {
@@ -459,6 +482,7 @@ interface AppState {
   khongGianMangList: GiamSatKhongGianMangItem[];
   quyDenOnList: QuyDenOnDapNghiaItem[];
   nhaTinhNghiaList: NhaTinhNghiaItem[];
+  technicalErrorReports: TechnicalErrorReport[];
   auditLogs: {
     id: string;
     timestamp: string;
@@ -466,6 +490,23 @@ interface AppState {
     details: string;
     status: "SUCCESS" | "FAILED" | "WARNING";
   }[];
+}
+
+export interface TechnicalErrorReport {
+  id: string;
+  code: string;
+  title: string;
+  module: "MOT_CUA" | "THAM_DINH" | "CHI_TRA" | "CSDL_3NF" | "LGSP_VNEID" | "HE_THONG";
+  severity: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW";
+  reportedBy: string;
+  reporterRole: string;
+  reportedAt: string;
+  description: string;
+  stackTrace?: string;
+  status: "OPEN" | "INVESTIGATING" | "RESOLVED" | "IGNORED";
+  resolutionNote?: string;
+  resolvedAt?: string;
+  resolvedBy?: string;
 }
 
 const STORAGE_KEY = "QDM_NCC_APP_STATE_V3";
@@ -732,8 +773,14 @@ function getInitialState(): AppState {
         const parsed = JSON.parse(saved);
         return {
           ...parsed,
-          currentUser: parsed.currentUser || MOCK_USERS.ADMIN_SO,
-          usersList: parsed.usersList || initialUsers,
+          currentUser: parsed.currentUser
+            ? parsed.currentUser.role === "ADMIN_SO"
+              ? { ...parsed.currentUser, roleName: "Lãnh đạo Ban Giám đốc Sở (Sếp)" }
+              : parsed.currentUser
+            : MOCK_USERS.ADMIN_SO,
+          usersList: parsed.usersList?.some((u: CurrentUser) => u.role === "ADMIN_TECH")
+            ? parsed.usersList
+            : [...(parsed.usersList || initialUsers), MOCK_USERS.ADMIN_TECH],
           dungCuChinhHinhList: parsed.dungCuChinhHinhList || initialDungCuChinhHinh,
           moLietSiList: parsed.moLietSiList || initialMoLietSiList,
           baoGiamList: parsed.baoGiamList || initialBaoGiamList,
@@ -896,6 +943,66 @@ function getInitialState(): AppState {
     khongGianMangList: initialKhongGianMangList,
     quyDenOnList: initialQuyDenOnList,
     nhaTinhNghiaList: initialNhaTinhNghiaList,
+    technicalErrorReports: [
+      {
+        id: "ERR-2026-001",
+        code: "ERR_DB_CCCD_FORMAT",
+        title: "Dị biệt định dạng số CCCD trong bảng hồ sơ người có công",
+        module: "CSDL_3NF",
+        severity: "HIGH",
+        reportedBy: "Hệ thống Rà soát CSDL",
+        reporterRole: "SYSTEM_DIAGNOSTICS",
+        reportedAt: "03/11/2026 09:15",
+        description: "Số CCCD '07402600120' chỉ có 11 chữ số (thiếu 1 số so với quy chuẩn 12 số của Bộ Công an). Cần chuẩn hóa dữ liệu cũ.",
+        stackTrace: "Table: ho_so_ncc | RecordId: 12029 | Field: cccd | PatternMismatch: ^\\d{12}$",
+        status: "RESOLVED",
+        resolutionNote: "Đã thực thi câu lệnh SQL UPDATE ho_so_ncc SET cccd = '074026001202' WHERE id = '12029'",
+        resolvedAt: "03/11/2026 14:40",
+        resolvedBy: "KS. Lê Văn Khoa (DevOps)",
+      },
+      {
+        id: "ERR-2026-002",
+        code: "ERR_BANK_MISSING_ACCOUNT",
+        title: "Thiếu số tài khoản ngân hàng trong phiếu chi trợ cấp qua ATM",
+        module: "CHI_TRA",
+        severity: "CRITICAL",
+        reportedBy: "Nguyễn Thị Minh Thảo",
+        reporterRole: "ADMIN_PHONG",
+        reportedAt: "03/11/2026 10:30",
+        description: "Phương thức chi trả là chuyển khoản ngân hàng nhưng trường 'soTaiKhoan' bị bỏ trống hoặc chưa liên kết với Ngân hàng Chính sách Xã hội.",
+        stackTrace: "Table: chi_tra_tro_cap | Field: soTaiKhoan IS NULL AND hinhThucNhan = 'CHUYEN_KHOAN'",
+        status: "INVESTIGATING",
+        resolutionNote: "Đang yêu cầu cán bộ phường xác minh số tài khoản với đối tượng thụ hưởng.",
+      },
+      {
+        id: "ERR-2026-003",
+        code: "ERR_LGSP_TIMEOUT",
+        title: "Độ trễ xác thực kết nối liên thông LGSP / VNeID",
+        module: "LGSP_VNEID",
+        severity: "MEDIUM",
+        reportedBy: "Tổ Giám sát Kỹ thuật",
+        reporterRole: "SECURITY_OPERATIONS",
+        reportedAt: "03/11/2026 11:45",
+        description: "Độ trễ bắt tay mTLS giữa API Gateway và LGSP tỉnh vượt ngưỡng 800ms trong giờ cao điểm tiếp nhận hồ sơ Một cửa.",
+        stackTrace: "HTTPS/TLS Handshake Timeout at lgsp.binhduong.gov.vn:8443 (SocketTimeoutException)",
+        status: "OPEN",
+      },
+      {
+        id: "ERR-2026-004",
+        code: "ERR_DOC_DECISION_NUMBER",
+        title: "Hồ sơ đã duyệt nhưng chưa sinh số quyết định hành chính chuẩn",
+        module: "THAM_DINH",
+        severity: "LOW",
+        reportedBy: "Cán bộ thụ lý Một cửa",
+        reporterRole: "CAN_BO_MOT_CUA",
+        reportedAt: "03/11/2026 13:20",
+        description: "Có hồ sơ đã duyệt trợ cấp nhưng chưa được cấp số quyết định theo định dạng QĐ-SLĐTBXH/2026 chuẩn.",
+        status: "RESOLVED",
+        resolutionNote: "Đã cấp số quyết định tự động và đồng bộ vào bảng CSDL.",
+        resolvedAt: "03/11/2026 14:41",
+        resolvedBy: "KS. Lê Văn Khoa (DevOps)",
+      },
+    ],
     auditLogs: [
       {
         id: "LOG-01",
@@ -1073,7 +1180,7 @@ export const appStore = {
 
       // 2. Tạo Quyết định hưởng trợ cấp
       const now = new Date();
-      const soQd = `QĐ-UBND-${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
+      const soQd = `QĐ-SLĐTBXH-${now.getFullYear()}/${Math.floor(1000 + Math.random() * 9000)}`;
       const newQuyetDinh: QuyetDinhHuong = {
         quyetDinhId: `QD-${Date.now()}`,
         hoSoId: hoSo.id,
@@ -1087,19 +1194,47 @@ export const appStore = {
         canBoPheDuyet,
       };
 
-      // 3. Atomically Cập nhật hồ sơ & Lưu quyết định
+      // 3. Tự động liên thông danh sách chi trả hàng tháng (Kỳ chi trả tiếp theo)
+      const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+      const kyChiTra = `${String(nextMonth.getMonth() + 1).padStart(2, "0")}/${nextMonth.getFullYear()}`;
+      const newChiTraItem: ChiTraItem = {
+        id: `CT-${nextMonth.getFullYear()}${String(nextMonth.getMonth() + 1).padStart(2, "0")}-${Math.floor(100 + Math.random() * 900)}`,
+        hoSoId: hoSo.id,
+        soHoSoTinh: hoSo.soHoSoTinh || hoSo.id,
+        hoTen: hoSo.hoTen,
+        cccd: hoSo.cccd,
+        loaiDoiTuong: hoSo.loaiDoiTuong,
+        loaiCheDo: "HÀNG_THÁNG",
+        tenCheDo: `Trợ cấp ${hoSo.loaiDoiTuong.toLowerCase()} hàng tháng (NĐ 75/2021 & NĐ 77/2024)`,
+        soTien: calc.tongTienThucNhan,
+        hinhThuc: hoSo.soTaiKhoan ? "NGAN_HANG" : "BUU_DIEN",
+        thongTinChiTra: hoSo.soTaiKhoan
+          ? `${hoSo.tenNganHang || "Vietcombank"} CN Bình Dương`
+          : `Bưu điện văn hóa xã ${hoSo.phuong}`,
+        tenNganHang: hoSo.tenNganHang || (hoSo.soTaiKhoan ? "Vietcombank" : undefined),
+        soTaiKhoan: hoSo.soTaiKhoan,
+        phuong: hoSo.phuong,
+        huyen: hoSo.huyen || "TP. Thủ Dầu Một",
+        kyChiTra,
+        trangThai: "CHỜ_CHI_TRẢ",
+        nguoiNhan: hoSo.hoTen,
+      };
+
+      // 4. Atomically Cập nhật hồ sơ & Lưu quyết định & Đồng bộ chi trả
       state = {
         ...state,
         quyetDinhList: [newQuyetDinh, ...state.quyetDinhList],
+        chiTraList: [newChiTraItem, ...state.chiTraList],
         hoSoList: state.hoSoList.map((h) =>
           h.id === hoSoId
             ? {
               ...h,
               trangThai: "ĐÃ_DUYỆT",
+              soQuyetDinh: soQd,
               mucTroCap: calc.troCapHangThang,
               phuCapPhucVu: calc.phuCapChamSoc,
               troCapDieuDuong: calc.troCapDieuDuong,
-              ghiChuThamDinh: `Đã phê duyệt và ban hành ${soQd}. Tổng tiền hưởng: ${calc.tongTienThucNhan.toLocaleString("vi-VN")}đ/tháng.`,
+              ghiChuThamDinh: `Đã phê duyệt và ban hành ${soQd}. Tổng tiền hưởng: ${calc.tongTienThucNhan.toLocaleString("vi-VN")}đ/tháng. Đã đưa vào kỳ chi trả ${kyChiTra}.`,
             }
             : h,
         ),
@@ -1107,8 +1242,8 @@ export const appStore = {
           {
             id: `LOG-${Date.now()}`,
             timestamp: new Date().toLocaleString("vi-VN"),
-            action: "Ban hành Quyết định hưởng",
-            details: `Phê duyệt hồ sơ ${hoSoId}, ban hành ${soQd}`,
+            action: "Ban hành Quyết định hưởng & Liên thông Chi trả",
+            details: `Lãnh đạo ${canBoPheDuyet} phê duyệt hồ sơ ${hoSoId}, ban hành ${soQd}, tự động đưa vào kỳ chi trả ${kyChiTra}`,
             status: "SUCCESS",
           },
           ...state.auditLogs,
@@ -1375,6 +1510,79 @@ export const appStore = {
           timestamp: new Date().toLocaleString("vi-VN"),
           action: "Thêm tài khoản cán bộ",
           details: `Thêm tài khoản mới: ${newUser.fullName} (${newUser.title}) - Quyền: [${newUser.assignedDomains.join(", ")}]`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+  },
+
+  /**
+   * Báo lỗi sự cố kỹ thuật (Dành cho Cán bộ hoặc Lãnh đạo gửi về Tổ Kỹ thuật)
+   */
+  reportTechnicalError(report: {
+    title: string;
+    module: "MOT_CUA" | "THAM_DINH" | "CHI_TRA" | "CSDL_3NF" | "LGSP_VNEID" | "HE_THONG";
+    severity: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW";
+    description: string;
+    stackTrace?: string;
+  }) {
+    const newReport: TechnicalErrorReport = {
+      id: `ERR-${Date.now().toString().slice(-4)}`,
+      code: `ERR_${report.module}_${Date.now().toString().slice(-3)}`,
+      title: report.title,
+      module: report.module,
+      severity: report.severity,
+      reportedBy: state.currentUser.fullName,
+      reporterRole: state.currentUser.role,
+      reportedAt: new Date().toLocaleString("vi-VN"),
+      description: report.description,
+      stackTrace: report.stackTrace,
+      status: "OPEN",
+    };
+
+    state = {
+      ...state,
+      technicalErrorReports: [newReport, ...(state.technicalErrorReports || [])],
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Gửi báo cáo sự cố kỹ thuật",
+          details: `Cán bộ ${state.currentUser.fullName} gửi báo lỗi: ${report.title} [${report.module}]`,
+          status: "WARNING",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+    return newReport;
+  },
+
+  /**
+   * Quản trị viên Kỹ thuật xử lý / giải quyết lỗi hệ thống
+   */
+  resolveTechnicalError(id: string, resolutionNote: string) {
+    state = {
+      ...state,
+      technicalErrorReports: (state.technicalErrorReports || []).map((err) =>
+        err.id === id
+          ? {
+              ...err,
+              status: "RESOLVED" as const,
+              resolutionNote,
+              resolvedAt: new Date().toLocaleString("vi-VN"),
+              resolvedBy: state.currentUser.fullName,
+            }
+          : err
+      ),
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Xử lý sự cố kỹ thuật",
+          details: `Admin Kỹ thuật ${state.currentUser.fullName} đã giải quyết sự cố ${id}: ${resolutionNote}`,
           status: "SUCCESS",
         },
         ...state.auditLogs,
@@ -2116,11 +2324,32 @@ export const appStore = {
       return c;
     });
 
+    // 4. Tự động bổ sung khoản chi trả Mai táng phí một lần cho thân nhân
+    const kyChiTraCurrent = `${String(now.getMonth() + 1).padStart(2, "0")}/${now.getFullYear()}`;
+    const newMaiTangChiTraItem: ChiTraItem = {
+      id: `CT-MTP-${now.getFullYear()}-${Math.floor(100 + Math.random() * 900)}`,
+      hoSoId: hoSo.id,
+      soHoSoTinh: hoSo.soHoSoTinh || hoSo.id,
+      hoTen: hoSo.hoTen,
+      cccd: hoSo.cccd,
+      loaiDoiTuong: hoSo.loaiDoiTuong,
+      loaiCheDo: "MỘT_LẦN",
+      tenCheDo: "Trợ cấp mai táng phí theo NĐ 131/2021 & NĐ 77/2024",
+      soTien: soTienMaiTangPhi,
+      hinhThuc: "NGAN_HANG",
+      thongTinChiTra: `Người nhận mai táng phí: ${input.nguoiKhaiBao} (CCCD: ${input.soCccdNguoiKhai})`,
+      phuong: hoSo.phuong,
+      huyen: hoSo.huyen || "TP. Thủ Dầu Một",
+      kyChiTra: kyChiTraCurrent,
+      trangThai: "CHỜ_CHI_TRẢ",
+      nguoiNhan: input.nguoiKhaiBao,
+    };
+
     state = {
       ...state,
       hoSoList: updatedHoSoList,
       baoGiamList: [newBaoGiamItem, ...state.baoGiamList],
-      chiTraList: updatedChiTraList,
+      chiTraList: [newMaiTangChiTraItem, ...updatedChiTraList],
       auditLogs: [
         {
           id: `LOG-${Date.now()}`,

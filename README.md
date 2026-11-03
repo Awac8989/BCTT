@@ -11,20 +11,53 @@
 [![Database](https://img.shields.io/badge/CSDL_3NF-42%20Bảng%20InnoDB-purple.svg)](#-kiến-trúc-cơ-sở-dữ-liệu-quan-hệ-3nf-42-bảng)
 [![Vercel Deployment](https://img.shields.io/badge/Deploy-Vercel%20Ready-black.svg)](#-hướng-dẫn-triển-khai-lên-vercel-deployment-guide)
 [![Tài liệu Kiến trúc](https://img.shields.io/badge/Tài_liệu-Kiến_trúc_Hệ_thống_Chi_tiết-emerald.svg)](docs/KIEN_TRUC_HE_THONG.md)
+[![Tính năng Mới](https://img.shields.io/badge/Tài_liệu-Tính_Năng_Mới_Nâng_Cấp-blueviolet.svg)](README_TINH_NANG_MOI.md)
+[![Kịch bản Demo 5 Phút](https://img.shields.io/badge/Kịch_bản-Demo_5_Phút-gold.svg)](docs/KICH_BAN_QUAY_VIDEO_DEMO_5_PHUT.md)
 
 ---
 
 ## 📑 MỤC LỤC TỔNG QUAN
+0. [🚀 Các Tính Năng Nghiệp Vụ Mới Nâng Cấp (New Features v2.6)](#-các-tính-năng-nghiệp-vụ-mới-nâng-cấp-new-features-v26)
 1. [Giới Thiệu Tổng Quan Hệ Thống](#-giới-thiệu-tổng-quan-hệ-thống)
 2. [Kiến Trúc Hệ Thống Toàn Diện (System Architecture Specification)](#-kiến-trúc-hệ-thống-toàn-diện-system-architecture-specification)
 3. [Thiết Kế UX/UI Chuẩn Mực Chính Quyền Số (UI/UX Design System)](#-thiết-kế-uxui-chuẩn-mực-chính-quyền-số-uiux-design-system)
 4. [Danh Mục 15 Phân Hệ Nghiệp Vụ Cốt Lõi](#-danh-mục-15-phân-hệ-nghiệp-vụ-cốt-lõi)
-5. [Bộ Sưu Tập Hình Ảnh Giao Diện Thực Tế (Visual Showcase - 31 Màn Hình)](#-bộ-sưu-tập-hình-ảnh-giao-diện-thực-tế-visual-showcase---31-màn-hình)
+5. [Bộ Sưu Tập Hình Ảnh Giao Diện Thực Tế (Visual Showcase - 48 Màn Hình)](#-bộ-sưu-tập-hình-ảnh-giao-diện-thực-tế-visual-showcase---48-màn-hình)
 6. [Kiến Trúc Cơ Sở Dữ Liệu Quan Hệ 3NF (42 Bảng)](#-kiến-trúc-cơ-sở-dữ-liệu-quan-hệ-3nf-42-bảng)
 7. [Kiểm Thử Tự Động Backend (222 Test Cases Passed)](#-kiểm-thử-tự-động-backend-222-test-cases)
 8. [Hướng Dẫn Cài Đặt & Chạy Local](#-hướng-dẫn-cài-đặt--chạy-local-local-setup)
 9. [Hướng Dẫn Triển Khai Lên Vercel (Deployment Guide)](#-hướng-dẫn-triển-khai-lên-vercel-deployment-guide)
 10. [Tác Giả & Thông Tin Dự Án](#-tác-giả--thông-tin-dự-án)
+
+---
+
+## 🚀 CÁC TÍNH NĂNG NGHIỆP VỤ MỚI NÂNG CẤP (NEW FEATURES V2.6)
+
+> Chi tiết kỹ thuật và văn bản pháp luật áp dụng được đặc tả đầy đủ tại **[README_TINH_NANG_MOI.md](README_TINH_NANG_MOI.md)**.
+
+Phiên bản cập nhật mang đến bước đột phá về tính thực tiễn hành chính công với **15 tính năng cốt lõi**:
+1. **Phân hệ Kỹ thuật Quản trị Dữ liệu & Fix lỗi chuyên biệt (`/ky-thuat`):**
+   - **Tách biệt độc lập phân quyền (Separation of Duties - SoD):** Lãnh đạo Sở (`ADMIN_SO` TS. Nguyễn Văn Hùng) hoàn toàn không có quyền can thiệp CSDL. Toàn bộ công cụ kỹ thuật bàn giao độc quyền cho Kỹ sư IT (`ADMIN_TECH` KS. Lê Văn Khoa).
+   - Database Studio, SQL Query Console, Audit Trail kiểm toán, Safety Guards chống lỗi lệnh không có `WHERE`.
+2. **Cổng Đăng Nhập Xác Thực Độc Lập (`/login`) & Bộ Danh Sách Tài Khoản:**
+   - Đăng nhập bảo mật với mật khẩu, nhớ phiên đăng nhập, huy hiệu cấp quản lý (Tỉnh - Huyện - Xã - Công dân).
+   - Xuất dữ liệu tài khoản định dạng công vụ: `DANH_SACH_TAI_KHOAN_DANG_NHAP_HE_THONG.xlsx` & `.csv`.
+3. **Cập Nhật Chuẩn Hóa Mức Chuẩn Trợ Cấp & Lương Cơ Sở Mới:**
+   - **Nghị định 77/2024/NĐ-CP:** Mức chuẩn ưu đãi Người có công tăng lên **2.789.000 đồng/tháng** (áp dụng từ 01/07/2024).
+   - **Nghị định 73/2024/NĐ-CP:** Lương cơ sở tăng lên **2.340.000 đồng/tháng**; Trợ cấp Mai táng phí đạt **23.400.000 đồng** ($10$ tháng).
+   - **Nghị định 76/2024/NĐ-CP:** Mức chuẩn trợ giúp xã hội tăng lên **500.000 đồng/tháng**.
+4. **Biên Bản Niêm Yết Công Khai 15 Ngày (Mẫu số 15/NĐ131):** Đầy đủ Thông báo niêm yết & Biên bản kết thúc với 4 bên ký (Chủ tịch UBND Phường, MTTQ, Trưởng khu phố, Cán bộ LĐ-TB&XH).
+5. **Biên Bản Xác Minh Hiện Trường & Thực Địa (Mẫu 02/XMTD):** Tổ xác minh liên ngành gồm Cán bộ LĐ-TB&XH, Cảnh sát khu vực Công an Phường, Trưởng khu phố và Thân nhân.
+6. **Quyết Định Mai Táng Phí & Trợ Cấp 1 Lần:** Tính toán tự động tổng chi $33.900.000$đ kèm ký số SmartCA của Ban Giám đốc Sở LĐ-TB&XH.
+7. **Trích Lục Mộ Liệt Sĩ & Live QR Dẫn Đường Tọa Độ GPS:** Cung cấp thông tin vị trí Khu/Lô/Hàng/Mộ và quét QR dẫn đường Google Maps đến tận bia mộ tại Nghĩa trang Liệt sĩ tỉnh Bình Dương.
+8. **Sổ Theo Dõi Chi Trả Trợ Cấp (Mẫu C70b-HD):** Bảng kê A4 ngang chuẩn Thông tư liên tịch BTC - BLĐTBXH, phân tích chi tiết mức chuẩn NĐ 77/2024, tỷ lệ ATM VNeID đạt 98.4%, đủ 3 chữ ký và xuất file CSV.
+9. **Bảng Kê Chi Trả Bưu Điện VNPost (Mẫu C70a-VNPost):** Quản lý chi trả tiền mặt và Phiếu phát tiền tận nhà cho Mẹ VNAH và Thương binh nặng $\ge 81\%$.
+10. **Quyết Định Trợ Cấp Bảo Trợ Xã Hội Hàng Tháng (NĐ 20/2021 & NĐ 76/2024):** Mức chuẩn mới 500.000đ/tháng và cấp thẻ BHYT diện BTXH miễn phí 100%.
+11. **Phiếu Tiếp Nhận & Hướng Dẫn Tiếp Công Dân:** Chuẩn hóa theo Luật Tiếp công dân 2013 và Thông tư 04/2021/TT-TTCP của Thanh tra Chính phủ.
+12. **Cổng Tra Cứu Công Dân - Tải Giấy Tờ Điện Tử:** Tải trực tiếp Giấy hẹn Một cửa (Mẫu 01) có mã QR tra cứu, Quyết định trợ cấp SmartCA, Thẻ BHYT Mẫu D03-TS.
+13. **Khung Đánh Giá Hiệu Quả Nghiệp Vụ Đa Chiều:** Đánh giá các chỉ số SLA (99.2%), SIPAS (98.6%), Đề án 06 (98.4%), ROI tiết kiệm ngân sách 1,2 tỷ đồng/năm.
+14. **Thiết Kế An Toàn Thông Tin Cấp Độ 3:** Tuân thủ Nghị định 85/2016/NĐ-CP & Thông tư 12/2022/TT-BTTTT, tích hợp VNeID SSO (OAuth 2.0 / PKCE), mã hóa AES-256-GCM.
+15. **Kịch Bản Quay Video Demo 5 Phút:** Định thời lượng và thao tác từng giây tại `docs/KICH_BAN_QUAY_VIDEO_DEMO_5_PHUT.md`.
 
 ---
 
@@ -198,9 +231,78 @@ Trải nghiệm người dùng (UX) và giao diện trực quan (UI) được ch
 
 ---
 
-## 📸 BỘ SƯU TẬP HÌNH ẢNH GIAO DIỆN THỰC TẾ (VISUAL SHOWCASE - 31 MÀN HÌNH)
+## 📸 BỘ SƯU TẬP HÌNH ẢNH GIAO DIỆN THỰC TẾ (VISUAL SHOWCASE - 48 MÀN HÌNH)
 
-Toàn bộ 31 màn hình chức năng và modal nghiệp vụ của hệ thống được chụp thực tế với độ phân giải cao (Retina 2x):
+Toàn bộ **48 màn hình chức năng và biểu mẫu nghiệp vụ công vụ** của hệ thống được chụp thực tế với độ phân giải cao sắc nét (Retina 2x, Full HD 1600x1000px):
+- **Phần A (Mới):** 17 Màn hình Nghiệp vụ Nâng cấp Chuyên sâu (Phiên bản v2.6 Enterprise Pro) tại `docs/screenshots/tinh_nang_moi/`.
+- **Phần B:** 31 Màn hình Toàn diện các Phân hệ Cốt lõi (Phiên bản v2.5) tại `docs/screenshots/`.
+
+---
+
+### ⭐ PHẦN A: BỘ SƯU TẬP 17 MÀN HÌNH TÍNH NĂNG MỚI NÂNG CẤP (V2.6 SHOWCASE)
+
+#### 1. Cổng Đăng Nhập Mới, Tra Cứu Danh Bạ Tài Khoản & Phân Hệ Kỹ Thuật (SoD)
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/01_cong_dang_nhap_chuyen_dung.png" alt="Cổng đăng nhập bảo mật" width="49%" />
+  <img src="docs/screenshots/tinh_nang_moi/02_modal_tra_cuu_tai_khoan.png" alt="Bảng tra cứu danh bạ tài khoản" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/03_ky_thuat_bao_loi_su_co.png" alt="Tiếp nhận và xử lý báo lỗi hệ thống" width="49%" />
+  <img src="docs/screenshots/tinh_nang_moi/04_ky_thuat_database_studio.png" alt="Database Studio và SQL Console" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/05_ky_thuat_attt_vneid.png" alt="Kiến trúc An toàn Thông tin Cấp độ 3 và Tích hợp VNeID" width="98%" />
+</p>
+
+*Màn hình đăng nhập độc lập, tra cứu danh bạ tài khoản công chức 3 cấp chính quyền; Phân hệ Kỹ thuật chuyên biệt dành riêng cho Kỹ sư IT (KS. Lê Văn Khoa) gồm Database Studio, SQL Editor, Safety Guards, Báo lỗi website và Kiến trúc ATTT Cấp độ 3 (Nghị định 85/2016/NĐ-CP).*
+
+---
+
+#### 2. Quy Trình Thẩm Định Hồ Sơ: Xác Minh Thực Địa & Niêm Yết Công Khai 15 Ngày (NĐ 131/2021)
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/06_bien_ban_xac_minh_thuc_dia.png" alt="Biên bản kiểm tra hiện trường & xác minh thực địa" width="98%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/07_thong_bao_niem_yet_15_ngay.png" alt="Thông báo Niêm yết công khai tại UBND Phường" width="49%" />
+  <img src="docs/screenshots/tinh_nang_moi/08_bien_ban_ket_thuc_niem_yet.png" alt="Biên bản Kết thúc Niêm yết sau 15 ngày" width="49%" />
+</p>
+
+*Biên bản kiểm tra hiện trường & xác minh thực địa Mẫu 02/XMTD (Tổ liên ngành 4 bên: Cán bộ LĐ-TB&XH, CSKV Công an Phường, Trưởng khu phố và Thân nhân); Thông báo và Biên bản kết thúc Niêm yết công khai 15 ngày có 4 chữ ký liên ngành theo Điều 13, 24, 38 Nghị định 131/2021/NĐ-CP.*
+
+---
+
+#### 3. Chi Trả Trợ Cấp & An Sinh Xã Hội: Mai Táng Phí, Sổ C70b-HD, VNPost & Quyết Định BTXH
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/09_quyet_dinh_mai_tang_phi.png" alt="Quyết định hưởng trợ cấp Mai táng phí và Trợ cấp 1 lần" width="49%" />
+  <img src="docs/screenshots/tinh_nang_moi/10_so_chi_tra_mau_c70b_hd.png" alt="Sổ theo dõi Chi trả Trợ cấp Mẫu C70b-HD" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/11_bang_ke_buu_dien_vnpost.png" alt="Bảng kê Bưu điện VNPost" width="49%" />
+  <img src="docs/screenshots/tinh_nang_moi/12_phieu_phat_tien_tan_nha.png" alt="Phiếu phát tiền tận nhà cho Mẹ VNAH" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/14_quyet_dinh_bao_tro_xa_hoi.png" alt="Quyết định trợ cấp Bảo trợ xã hội hàng tháng" width="98%" />
+</p>
+
+*Quyết định Mai táng phí 23.400.000đ ($10$ tháng lương CS) + Trợ cấp 1 lần 10.500.000đ có ký số SmartCA; Sổ chi trả Mẫu C70b-HD A4 ngang theo Thông tư liên tịch BTC - BLĐTBXH mức chuẩn mới 2.789.000đ (NĐ 77/2024); Bảng kê bưu điện VNPost & Phiếu phát tiền tận nhà cho Mẹ VNAH; Quyết định trợ cấp Bảo trợ xã hội theo NĐ 76/2024 (chuẩn 500.000đ) cấp thẻ BHYT.*
+
+---
+
+#### 4. Nghĩa Trang Liệt Sĩ, Tiếp Dân, Cổng Tra Cứu & Đánh Giá Hiệu Quả Nghiệp Vụ
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/13_trich_luc_mo_liet_si_gps.png" alt="Trích lục thông tin mộ liệt sĩ và QR Code GPS" width="49%" />
+  <img src="docs/screenshots/tinh_nang_moi/15_phieu_huong_dan_tiep_dan.png" alt="Phiếu Hướng dẫn & Thông báo thụ lý Tiếp công dân" width="49%" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/tinh_nang_moi/16_tra_cuu_cong_dan_ket_qua.png" alt="Cổng Tra cứu Công dân tải tài liệu số hóa" width="49%" />
+  <img src="docs/screenshots/tinh_nang_moi/17_danh_gia_hieu_qua_nghiep_vu.png" alt="Khung Đánh giá Hiệu quả Đề tài" width="49%" />
+</p>
+
+*Giấy trích lục thông tin mộ liệt sĩ khổ A4 có mã QR Code GPS dẫn đường; Phiếu Hướng dẫn Tiếp công dân (Thông tư 04/2021/TT-TTCP); Cổng tra cứu công dân tải trực tiếp Giấy hẹn Một cửa, Quyết định trợ cấp, Thẻ BHYT D03-TS; Khung Đánh giá Hiệu quả đa chiều (SLA 99.2%, SIPAS 98.6%, Đề án 06 98.4%, ROI ngân sách 1,2 tỷ/năm).*
+
+---
+
+### ⭐ PHẦN B: BỘ SƯU TẬP 31 MÀN HÌNH TOÀN DIỆN HỆ THỐNG GỐC (V2.5)
 
 ### 1. Xác Thực Bảo Mật & Chuyển Đổi Vai Trò Cán Bộ (RBAC)
 <p align="center">
