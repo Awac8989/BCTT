@@ -24,3 +24,4 @@ if all_good:
     print("\n✓ 100% of TOC paragraphs (P54-P116) have valid TAB CHARACTERS and RIGHT DOT-LEADER TABS XML!")
 else:
     print("\nSome paragraphs failed verification!")
+
