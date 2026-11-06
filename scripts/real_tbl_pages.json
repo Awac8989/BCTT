@@ -1,114 +1,114 @@
 ﻿{
     "Bảng 3.0":  {
-                     "Page":  29,
+                     "Page":  31,
                      "Title":  "Bảng 3.0: Bảng tổng hợp phân loại Use Case theo Phân hệ và Tác nhân phân quyền trong hệ thống"
                  },
     "Bảng 3.1":  {
-                     "Page":  39,
+                     "Page":  41,
                      "Title":  "Bảng 3.1: Từ điển dữ liệu bảng `dm_phuong` (Bảng danh mục các đơn vị hành chính phường trực thuộc TP. Thủ Dầu Một)"
                  },
     "Bảng 3.2":  {
-                     "Page":  39,
+                     "Page":  41,
                      "Title":  "Bảng 3.2: Từ điển dữ liệu bảng `dm_loai_doi_tuong` (Bảng danh mục các diện đối tượng người có công theo Pháp lệnh 02/2020)"
                  },
     "Bảng 3.3":  {
-                     "Page":  40,
+                     "Page":  42,
                      "Title":  "Bảng 3.3: Từ điển dữ liệu bảng `sys_roles` (Bảng định nghĩa các vai trò quản trị hệ thống phục vụ phân quyền RBAC)"
                  },
     "Bảng 3.4":  {
-                     "Page":  41,
+                     "Page":  43,
                      "Title":  "Bảng 3.4: Từ điển dữ liệu bảng `sys_users` (Bảng lưu trữ thông tin tài khoản cán bộ công chức vận hành hệ thống)"
                  },
     "Bảng 3.5":  {
-                     "Page":  42,
+                     "Page":  44,
                      "Title":  "Bảng 3.5: Từ điển dữ liệu bảng `ho_so_ncc` (Bảng trung tâm lưu trữ thông tin nhân thân và trạng thái hồ sơ người có công)"
                  },
     "Bảng 3.6":  {
-                     "Page":  44,
+                     "Page":  46,
                      "Title":  "Bảng 3.6: Từ điển dữ liệu bảng `quyet_dinh_huong` (Bảng lưu trữ thông tin các Quyết định phê duyệt hưởng trợ cấp ưu đãi hàng tháng)"
                  },
     "Bảng 3.7":  {
-                     "Page":  45,
+                     "Page":  47,
                      "Title":  "Bảng 3.7: Từ điển dữ liệu bảng `lich_su_chi_tra` (Bảng ghi vết toàn bộ các đợt phát tiền trợ cấp an sinh xã hội định kỳ)"
                  },
     "Bảng 3.8":  {
-                     "Page":  46,
+                     "Page":  48,
                      "Title":  "Bảng 3.8: Từ điển dữ liệu bảng `khao_sat_danh_gia` (Bảng lưu trữ ý kiến khảo sát mức độ hài lòng của công dân (CSAT) tại Kiosk/QR)"
                  },
     "Bảng 3.9":  {
-                     "Page":  47,
+                     "Page":  49,
                      "Title":  "Bảng 3.9: Từ điển dữ liệu bảng `chi_tiet_tieu_chi_danh_gia` (Bảng lưu trữ chi tiết điểm số cho từng tiêu chí thành phần SIPAS của Bộ Nội vụ)"
                  },
     "Bảng 3.10":  {
-                      "Page":  48,
+                      "Page":  50,
                       "Title":  "Bảng 3.10: Từ điển dữ liệu bảng `ho_so_liet_sy` (Bảng lưu trữ trích lục hồ sơ Liệt sĩ theo quy định Nghị định số 131/2021/NĐ-CP)"
                   },
     "Bảng 3.11":  {
-                      "Page":  51,
+                      "Page":  53,
                       "Title":  "Bảng 3.11: Từ điển dữ liệu bảng `than_nhan_liet_si` (Bảng quản lý thông tin thân nhân liệt sĩ và người được ủy quyền thờ cúng)"
                   },
     "Bảng 3.12":  {
-                      "Page":  52,
+                      "Page":  54,
                       "Title":  "Bảng 3.12: Từ điển dữ liệu bảng `ke_hoach_dieu_duong` (Bảng quản lý kế hoạch điều dưỡng phục hồi sức khỏe người có công theo từng năm)"
                   },
     "Bảng 3.13":  {
-                      "Page":  53,
+                      "Page":  55,
                       "Title":  "Bảng 3.13: Từ điển dữ liệu bảng `danh_sach_dieu_duong` (Bảng chi tiết các đối tượng người có công tham gia từng đợt điều dưỡng cụ thể)"
                   },
     "Bảng 3.14":  {
-                      "Page":  54,
+                      "Page":  56,
                       "Title":  "Bảng 3.14: Từ điển dữ liệu bảng `ho_so_bao_giam_mai_tang` (Bảng ghi nhận thủ tục Báo giảm từ trần \u0026 Ban hành Quyết định Mai táng phí Mẫu 02)"
                   },
     "Bảng 3.15":  {
-                      "Page":  57,
+                      "Page":  59,
                       "Title":  "Bảng 3.15: Từ điển dữ liệu bảng `danh_sach_phuong_tien_chinh_hinh` (Bảng quản lý cấp phương tiện trợ giúp và dụng cụ chỉnh hình theo Điều 90-93 NĐ 131/2021)"
                   },
     "Bảng 3.16":  {
-                      "Page":  58,
+                      "Page":  60,
                       "Title":  "Bảng 3.16: Từ điển dữ liệu bảng `nghia_trang_mo_liet_si` (Bảng số hóa thông tin phân lô và tọa độ GIS mộ liệt sĩ tại Nghĩa trang Liệt sĩ)"
                   },
     "Bảng 3.17":  {
-                      "Page":  59,
+                      "Page":  61,
                       "Title":  "Bảng 3.17: Từ điển dữ liệu bảng `doi_soat_chi_tra_ngan_hang` (Bảng lưu trữ kết quả đối soát tự động giao dịch chi trả an sinh xã hội theo Đề án 06)"
                   },
     "Bảng 3.18":  {
-                      "Page":  61,
+                      "Page":  63,
                       "Title":  "Bảng 3.18: Danh mục 12 RESTful API Contracts của hệ thống"
                   },
     "Bảng 4.1":  {
-                     "Page":  70,
+                     "Page":  72,
                      "Title":  "Bảng 4.1: Ma trận quy tắc nghiệp vụ và công thức tính toán trợ cấp ưu đãi người có công"
                  },
     "Bảng 4.2":  {
-                     "Page":  71,
+                     "Page":  73,
                      "Title":  "Bảng 4.2: Bảng ma trận quy tắc ngữ pháp chuyển đổi số tiền thành chữ tiếng Việt"
                  },
     "Bảng 4.3":  {
-                     "Page":  73,
+                     "Page":  75,
                      "Title":  "Bảng 4.3: Ma trận chuyển đổi trạng thái và tác động nghiệp vụ khi thực hiện báo giảm khai tử"
                  },
     "Bảng 5.1":  {
-                     "Page":  100,
+                     "Page":  105,
                      "Title":  "Bảng 5.1: Danh mục Checklist kiểm thử chức năng và giao diện hệ thống (30 hạng mục)"
                  },
     "Bảng 5.2":  {
-                     "Page":  104,
+                     "Page":  109,
                      "Title":  "Bảng 5.2: Bảng kịch bản kiểm thử chi tiết Test Cases Specification (50 Test Cases)"
                  },
     "Bảng 5.3":  {
-                     "Page":  117,
+                     "Page":  122,
                      "Title":  "Bảng 5.3: Bảng ghi nhận và theo dõi lỗi phần mềm Bug Report Sheet (15 lỗi thực tế)"
                  },
     "Bảng 5.4":  {
-                     "Page":  125,
+                     "Page":  130,
                      "Title":  "Bảng 5.4: Báo cáo tổng kết chất lượng kiểm thử Test Summary Report"
                  },
     "Bảng PL.1":  {
-                      "Page":  137,
+                      "Page":  142,
                       "Title":  "Bảng PL.1: Bảng quy đổi định mức phụ cấp, trợ cấp ưu đãi người có công theo Nghị định 75/2021/NĐ-CP"
                   },
     "Bảng PL.2":  {
-                      "Page":  139,
+                      "Page":  144,
                       "Title":  "Bảng PL.2: Thuật ngữ và Khái niệm Nghiệp vụ Hành chính An sinh Xã hội (Theo NĐ 55/2023)"
                   }
 }

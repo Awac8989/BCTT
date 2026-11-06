@@ -57,3 +57,4 @@ def verify_lists(filepath):
 if __name__ == "__main__":
     verify_lists("DoanMinhQuan_2224801030137_BCTT2.docx")
     verify_lists("docs/DoanMinhQuan_2224801030137_BCTT2.docx")
+

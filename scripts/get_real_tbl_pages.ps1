@@ -9,20 +9,16 @@ $pCount = 0
 foreach ($p in $doc.Paragraphs) {
     $pCount++
     $txt = $p.Range.Text.Trim()
-    if ($txt.Length -gt 8 -and $txt.StartsWith("Bảng") -and $txt.Contains(":")) {
+    if ($txt -match '^B[ảa]ng\s+(\S+)\s*:\s*(.+)$') {
         $pg = $p.Range.Information([Microsoft.Office.Interop.Word.WdInformation]::wdActiveEndAdjustedPageNumber)
-        # MUST BE IN BODY (PAGE >= 15 or in front matter if Bảng 1.1)
-        if ($pg -ge 12) {
-            $parts = $txt.Split(":")
-            $first = $parts[0].Trim()
-            if ($first -match "^Bảng\s+[\w\.]+$") {
-                if (-not $tblPages.Contains($first)) {
-                    $tblPages[$first] = @{
-                        Page = $pg
-                        Title = $txt
-                    }
-                    Write-Host "$first => Page $pg"
+        if ($pg -ge 14) {
+            $code = "Bảng " + $Matches[1]
+            if (-not $tblPages.Contains($code)) {
+                $tblPages[$code] = @{
+                    Page = $pg
+                    Title = $txt
                 }
+                Write-Host "$code => Page $pg"
             }
         }
     }
@@ -35,4 +31,4 @@ $doc.Close([Microsoft.Office.Interop.Word.WdSaveOptions]::wdDoNotSaveChanges)
 $word.Quit()
 [System.Runtime.InteropServices.Marshal]::ReleaseComObject($doc) | Out-Null
 [System.Runtime.InteropServices.Marshal]::ReleaseComObject($word) | Out-Null
-Write-Host "Done! Found " $tblPages.Count " tables in body."
+Write-Host "Done! Found $($tblPages.Count) tables in body."
