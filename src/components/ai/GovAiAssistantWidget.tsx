@@ -6,62 +6,167 @@ import {
   Send,
   Minimize2,
   Maximize2,
-  FileText,
-  HelpCircle,
-  ShieldCheck,
-  CheckCircle2,
-  ChevronRight,
   Copy,
   Check,
+  RotateCcw,
+  Calculator,
+  FileText,
+  Building2,
+  Award,
+  ShieldAlert,
+  ChevronRight,
+  Search,
 } from "lucide-react";
 import { useAppState } from "@/services/app-state";
 import { toast } from "sonner";
+import { generateGovAiResponse, type AiResponseResult } from "./gov-ai-engine";
 
 interface Message {
   id: string;
   sender: "USER" | "AI";
   text: string;
   timestamp: string;
+  category?: string;
   quickActions?: { label: string; prompt: string }[];
 }
 
+type TopicCategory =
+  | "ALL"
+  | "CALC"
+  | "MOT_CUA"
+  | "VAN_BAN"
+  | "SOAN_THAO"
+  | "VAN_HOA"
+  | "BAO_LUC"
+  | "BAO_CAO";
+
+interface TopicOption {
+  id: TopicCategory;
+  label: string;
+  icon: any;
+  prompts: { label: string; prompt: string }[];
+}
+
+const TOPIC_OPTIONS: TopicOption[] = [
+  {
+    id: "ALL",
+    label: "Tất cả",
+    icon: Sparkles,
+    prompts: [
+      { label: "📊 Báo cáo nhanh tiến độ", prompt: "Báo cáo nhanh tiến độ thực hiện nhiệm vụ và sản phẩm công tác" },
+      { label: "📁 Văn bản đến hỏa tốc", prompt: "Tình hình văn bản đến và các văn bản hỏa tốc đang chờ xử lý" },
+      { label: "🧮 Tính trợ cấp thương binh 61%", prompt: "Tính trợ cấp thương binh 61% theo Nghị định 77/2024" },
+      { label: "🏛️ 4 Mẫu biểu Một cửa (NĐ 61)", prompt: "Quy định về 4 mẫu biểu giải quyết TTHC theo Nghị định 61/2018" },
+      { label: "✍️ Gợi ý Bút phê Lãnh đạo", prompt: "Gợi ý các mẫu bút phê chỉ đạo chuẩn của Lãnh đạo UBND Phường" },
+      { label: "📝 Soạn Phiếu xin lỗi Mẫu 04", prompt: "Soạn thảo Mẫu số 04 Phiếu xin lỗi và hẹn lại ngày trả kết quả" },
+    ],
+  },
+  {
+    id: "CALC",
+    label: "Tính trợ cấp",
+    icon: Calculator,
+    prompts: [
+      { label: "Thương binh 61%", prompt: "Tính trợ cấp thương binh 61% theo Nghị định 77/2024" },
+      { label: "Thương binh nặng 81%", prompt: "Tính trợ cấp thương binh đặc biệt nặng 81% có người phục vụ" },
+      { label: "Mẹ Việt Nam Anh hùng", prompt: "Chế độ trợ cấp Mẹ Việt Nam Anh hùng theo Nghị định 77" },
+      { label: "Mai táng phí người có công", prompt: "Mức hưởng mai táng phí người có công mới nhất" },
+      { label: "Người cao tuổi 80+ tuổi", prompt: "Chế độ bảo trợ xã hội người cao tuổi 80 tuổi theo Nghị định 76/2024" },
+      { label: "Thờ cúng liệt sĩ", prompt: "Mức trợ cấp thờ cúng liệt sĩ hàng năm" },
+    ],
+  },
+  {
+    id: "MOT_CUA",
+    label: "Bộ phận Một cửa",
+    icon: Building2,
+    prompts: [
+      { label: "4 Mẫu biểu chuẩn (NĐ 61)", prompt: "Quy định về 4 mẫu biểu giải quyết TTHC theo Nghị định 61/2018" },
+      { label: "Tình hình hồ sơ Một cửa", prompt: "Báo cáo tình hình tiếp nhận và giải quyết TTHC Một cửa" },
+      { label: "Nguyên tắc bổ sung 1 lần", prompt: "Quy định chỉ được yêu cầu bổ sung hồ sơ 1 lần duy nhất theo NĐ 61" },
+      { label: "Tra cứu hồ sơ cụ thể", prompt: "Tra cứu hồ sơ Một cửa Lê Thị Mai" },
+    ],
+  },
+  {
+    id: "VAN_BAN",
+    label: "Văn bản & Bút phê",
+    icon: FileText,
+    prompts: [
+      { label: "Văn bản đến hỏa tốc", prompt: "Tình hình văn bản đến và các văn bản hỏa tốc đang chờ xử lý" },
+      { label: "Mẫu Bút phê chỉ đạo khẩn", prompt: "Gợi ý các mẫu bút phê chỉ đạo chuẩn của Lãnh đạo UBND Phường" },
+      { label: "Căn lề chuẩn (NĐ 30/2020)", prompt: "Quy chuẩn cỡ chữ, căn lề văn bản hành chính theo Nghị định 30/2020" },
+      { label: "Sổ Văn bản đi và trình ký", prompt: "Tình hình văn bản đi đang chờ ký số và phát hành" },
+    ],
+  },
+  {
+    id: "SOAN_THAO",
+    label: "Soạn thảo văn bản",
+    icon: FileText,
+    prompts: [
+      { label: "Soạn Phiếu xin lỗi Mẫu 04", prompt: "Soạn thảo Mẫu số 04 Phiếu xin lỗi và hẹn lại ngày trả kết quả" },
+      { label: "Soạn Giấy hẹn Mẫu 01", prompt: "Soạn thảo Mẫu số 01 Giấy tiếp nhận hồ sơ và hẹn trả kết quả" },
+      { label: "Soạn QĐ cấm tiếp xúc BLGĐ", prompt: "Soạn thảo dự thảo Quyết định cấm tiếp xúc theo Điều 25 Luật PCBLGĐ" },
+      { label: "Soạn Biên bản 814 Karaoke", prompt: "Soạn thảo dự thảo Biên bản kiểm tra liên ngành 814 về Karaoke" },
+    ],
+  },
+  {
+    id: "VAN_HOA",
+    label: "Văn hóa & Đời sống",
+    icon: Award,
+    prompts: [
+      { label: "Thang điểm GĐVH (NĐ 86)", prompt: "Quy định thang điểm 100 xét tặng Gia đình văn hóa theo NĐ 86/2023" },
+      { label: "Tiêu chí Khu phố văn hóa", prompt: "Tiêu chí và thang điểm công nhận Khu phố văn hóa theo Nghị định 86" },
+      { label: "Hậu kiểm Karaoke Đội 814", prompt: "Báo cáo nghiệp vụ hậu kiểm Đội liên ngành 814 về Karaoke" },
+      { label: "Quy chuẩn biển quảng cáo", prompt: "Mức xử phạt biển quảng cáo vi phạm chỉ giới theo Nghị định 38" },
+    ],
+  },
+  {
+    id: "BAO_LUC",
+    label: "Phòng chống BLGĐ",
+    icon: ShieldAlert,
+    prompts: [
+      { label: "Lệnh cấm tiếp xúc 03 ngày", prompt: "Quy định về biện pháp cấm tiếp xúc theo Luật PCBLGĐ 2022" },
+      { label: "Địa chỉ tin cậy tạm lánh", prompt: "Danh sách địa chỉ tin cậy tạm lánh nạn nhân bạo lực gia đình" },
+      { label: "Quy trình xử lý khẩn cấp 4 bước", prompt: "Nguyên tắc xử lý khẩn cấp 4 bước vụ việc bạo lực gia đình" },
+    ],
+  },
+  {
+    id: "BAO_CAO",
+    label: "Báo cáo & Giám sát",
+    icon: Sparkles,
+    prompts: [
+      { label: "Tiến độ sản phẩm công vụ", prompt: "Báo cáo nhanh tiến độ thực hiện nhiệm vụ và sản phẩm công tác" },
+      { label: "Phản ánh hiện trường 1022", prompt: "Báo cáo tình hình tiếp nhận phản ánh người dân trên Cổng 1022" },
+      { label: "Tiếp công dân định kỳ", prompt: "Báo cáo công tác tiếp công dân và giải quyết đơn thư khiếu nại" },
+      { label: "Lịch tuần làm việc Lãnh đạo", prompt: "Lịch tuần làm việc và lịch tiếp công dân của Lãnh đạo" },
+    ],
+  },
+];
+
 export function GovAiAssistantWidget() {
-  const {
-    currentUser,
-    giaDinhVanHoaList,
-    khuPhoVanHoaList,
-    diTichLeHoiList,
-    coSoDichVuVanHoaList,
-    baoLucGiaDinhList,
-    productCheckInList,
-    taskAssignmentList,
-    hoSoTTHCVanHoaList,
-    vanBanDenList,
-    vanBanDiList,
-    hoSoMotCuaLienThongList,
-    tiepCongDanList,
-  } = useAppState();
+  const state = useAppState();
+  const { currentUser } = state;
 
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [selectedTopic, setSelectedTopic] = useState<TopicCategory>("ALL");
 
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "MSG-WELCOME",
-      sender: "AI",
-      text: `Xin chào **${currentUser.fullName}**! Tôi là **Trợ lý Công vụ Điện tử phục vụ Điều hành UBND Phường Thủ Dầu Một**. Tôi có thể hỗ trợ đồng chí tra cứu pháp luật (NĐ 30/2020 văn thư, NĐ 61/2018 một cửa, NĐ 86/2023, NĐ 54/2019, Luật PCBLGĐ 2022), tra cứu văn bản đến/đi, soạn Bút phê Lãnh đạo hoặc báo cáo nhanh tiến độ thực hiện nhiệm vụ.`,
-      timestamp: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }),
-      quickActions: [
-        { label: "📊 Báo cáo nhanh tiến độ công việc", prompt: "Báo cáo nhanh tiến độ thực hiện nhiệm vụ và sản phẩm công tác" },
-        { label: "📁 Văn bản đến cần xử lý khẩn", prompt: "Tình hình văn bản đến và các văn bản hỏa tốc đang chờ xử lý" },
-        { label: "🏛️ 4 Mẫu biểu Một cửa (NĐ 61)", prompt: "Quy định về 4 mẫu biểu giải quyết TTHC theo Nghị định 61/2018" },
-        { label: "✍️ Gợi ý Bút phê Lãnh đạo chuẩn", prompt: "Gợi ý các mẫu bút phê chỉ đạo chuẩn của Lãnh đạo UBND Phường" },
-        { label: "📌 Thang điểm GĐVH (NĐ 86)", prompt: "Quy định thang điểm 100 xét tặng Gia đình văn hóa theo NĐ 86/2023" },
-      ],
-    },
-  ]);
+  const buildInitialWelcome = (): Message => ({
+    id: "MSG-WELCOME",
+    sender: "AI",
+    text: `Xin kính chào **${currentUser.fullName}**! Tôi là **Trợ lý Công vụ Điện tử phục vụ Điều hành UBND Phường Thủ Dầu Một**. 
 
+Tôi được tích hợp sẵn toàn bộ dữ liệu thực địa và hệ thống tri thức pháp quy chuyên ngành:
+- 🧮 **Tính toán trợ cấp ưu đãi chính xác**: Tự động tính trợ cấp thương binh, bệnh binh, Mẹ VNAH, mai táng phí (NĐ 77/2024 & NĐ 76/2024).
+- 🏛️ **Tra cứu dữ liệu trực tiếp**: Tìm kiếm hồ sơ Một cửa (NĐ 61/2018), văn bản đến hỏa tốc (NĐ 30/2020), người có công, phản ánh 1022, hậu kiểm 814.
+- 📝 **Soạn thảo văn bản hành chính**: Dự thảo Mẫu 04 (Phiếu xin lỗi), Mẫu 01 (Giấy hẹn), Quyết định cấm tiếp xúc bạo lực gia đình, Biên bản kiểm tra 814.
+- ✍️ **Gợi ý Bút phê Lãnh đạo**: Cung cấp các mẫu bút phê điều hành chuẩn mực cho từng tình huống khẩn cấp.
+
+Đồng chí hãy nhập yêu cầu hoặc bấm chọn các gợi ý tác nghiệp nhanh bên dưới!`,
+    timestamp: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }),
+    quickActions: TOPIC_OPTIONS[0].prompts,
+  });
+
+  const [messages, setMessages] = useState<Message[]>([buildInitialWelcome()]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -69,146 +174,6 @@ export function GovAiAssistantWidget() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
-
-  // Logic tổng hợp tri thức & dữ liệu công vụ
-  const generateAiResponse = (query: string): string => {
-    const q = query.toLowerCase();
-
-    // 1. Báo cáo nhanh tiến độ công việc
-    if (q.includes("báo cáo") || q.includes("kpi") || q.includes("cho sếp") || q.includes("tiến độ") || q.includes("sản phẩm")) {
-      const pendingProds = productCheckInList.filter((p) => p.trangThai === "CHO_LANH_DAO_DUYET");
-      const approvedProds = productCheckInList.filter((p) => p.trangThai === "DA_PHE_CHUAN");
-      const urgentTasks = taskAssignmentList.filter((t) => t.mucDoUuTien === "HOA_TOC");
-
-      return `📋 **BÁO CÁO NHANH TIẾN ĐỘ THỰC HIỆN NHIỆM VỤ (UBND PHƯỜNG THỦ DẦU MỘT)**:
-- **Tiến độ Sản phẩm Công vụ**:
-  * Đã phê chuẩn: **${approvedProds.length}** sản phẩm.
-  * Đang chờ Lãnh đạo phê duyệt: **${pendingProds.length}** sản phẩm (${pendingProds.map((p) => p.canBoNop).join(", ") || "Không có"}).
-- **Nhiệm vụ trọng tâm**:
-  * Tổng số công việc giao: **${taskAssignmentList.length}** nhiệm vụ.
-  * Việc hỏa tốc đang thực hiện: **${urgentTasks.length}** nhiệm vụ (Hậu kiểm an toàn PCCC Lễ hội Chùa Bà).
-- **Mảng Văn hóa - Xã hội**:
-  * Tỷ lệ GĐVH Khu phố 1 đạt **97.8%** (528/540 hộ).
-  * 100% Di tích lịch sử có hướng dẫn thông tin điện tử.
-  * Đội 814 đã kiểm tra 4 cơ sở, xử phạt 1 trường hợp biển quảng cáo trái phép 7.500.000đ.
-  * Tiếp nhận 2 vụ việc bạo lực gia đình, đã kích hoạt bảo vệ an toàn 100%.`;
-    }
-
-    // 2. Tra cứu Nghị định 86/2023 Gia đình văn hóa
-    if (q.includes("86") || q.includes("gia đình văn hóa") || q.includes("thang điểm") || q.includes("bình xét")) {
-      return `📌 **CĂN CỨ PHÁP LÝ NGHỊ ĐỊNH SỐ 86/2023/NĐ-CP (NGÀY 07/12/2023)**:
-Khung tiêu chuẩn xét tặng danh hiệu **Gia đình văn hóa** theo thang điểm 100:
-1. **Tiêu chuẩn 1 (Tối đa 30 điểm)**: Gương mẫu chấp hành chủ trương của Đảng, chính sách, pháp luật của Nhà nước.
-2. **Tiêu chuẩn 2 (Tối đa 30 điểm)**: Tích cực học tập, lao động, sản xuất, kinh doanh, phát triển kinh tế gia đình.
-3. **Tiêu chuẩn 3 (Tối đa 40 điểm)**: Xây dựng gia đình ấm no, bình đẳng, tiến bộ, hòa thuận, văn minh.
-
-⚖️ **Điều kiện công nhận**:
-- Đạt từ **85 điểm trở lên**: Được công nhận danh hiệu *Gia đình văn hóa* hàng năm.
-- Đạt từ **95 điểm trở lên**: Đề nghị Chủ tịch UBND Phường tặng Giấy khen *Gia đình văn hóa tiêu biểu*.
-- Không vi phạm tiêu chí loại trừ: Bị xử phạt vi phạm hành chính, bạo lực gia đình, khiếu kiện vượt cấp.`;
-    }
-
-    // 2. Tra cứu Văn bản đến & e-Office / VDXP / Nghị định 30/2020
-    if (q.includes("văn bản đến") || q.includes("hỏa tốc") || q.includes("văn bản đi") || q.includes("vdxp") || q.includes("nghị định 30")) {
-      const pendingVbd = vanBanDenList.filter((v) => v.trangThai === "CHO_PHAN_CONG");
-      const hoaTocVbd = vanBanDenList.filter((v) => v.doKhan === "HOA_TOC" || v.doKhan === "THUONG_KHAN");
-      return `📁 **TÌNH HÌNH QUẢN LÝ VĂN BẢN & ĐIỀU HÀNH (NĐ 30/2020/NĐ-CP & LIÊN THÔNG TOÀN QUỐC)**:
-- **Tổng số Văn bản đến**: **${vanBanDenList.length}** văn bản.
-  * Hỏa tốc / Thượng khẩn: **${hoaTocVbd.length}** văn bản (cần xử lý trong 24h-48h).
-  * Chờ Lãnh đạo bút phê phân công: **${pendingVbd.length}** văn bản.
-  * Đang thụ lý xử lý: **${vanBanDenList.filter((v) => v.trangThai === "DANG_XU_LY").length}** văn bản.
-- **Sổ Văn bản đi & Trình ký**: **${vanBanDiList.length}** văn bản (100% kiểm tra thể thức font Times New Roman, cỡ chữ, căn lề theo NĐ 30/2020).
-- **Trục Liên thông Văn bản Quốc gia**: Mã định danh UBND Phường **000.00.24.H50** hoạt động bình thường, 100% tích hợp ký số điện tử công vụ.`;
-    }
-
-    // 3. Tra cứu Một cửa & 4 Mẫu biểu chuẩn Nghị định 61/2018/NĐ-CP
-    if (q.includes("mẫu biểu") || q.includes("một cửa") || q.includes("nghị định 61") || q.includes("mẫu 01") || q.includes("mẫu 02") || q.includes("mẫu 04") || q.includes("xin lỗi")) {
-      return `🏛️ **QUY ĐỊNH 4 MẪU BIỂU BẮT BUỘC THEO NGHỊ ĐỊNH 61/2018/NĐ-CP & NĐ 107/2021/NĐ-CP**:
-1. **Mẫu số 01**: *Giấy tiếp nhận hồ sơ và hẹn trả kết quả* - Bắt buộc có mã hồ sơ, mã vạch Barcode/QR tra cứu tiến độ trên Cổng DVCQG.
-2. **Mẫu số 02**: *Phiếu yêu cầu bổ sung, hoàn thiện hồ sơ* - Ghi rõ danh mục giấy tờ thiếu; **cán bộ Một cửa chỉ được yêu cầu bổ sung 01 lần duy nhất**.
-3. **Mẫu số 03**: *Phiếu từ chối tiếp nhận giải quyết hồ sơ* - Nêu rõ lý do và căn cứ pháp luật không đủ điều kiện giải quyết.
-4. **Mẫu số 04**: *Phiếu xin lỗi và hẹn lại ngày trả kết quả* - **Bắt buộc ban hành khi hồ sơ chậm trễ**, nêu rõ lý do nguyên nhân và ấn định ngày trả kết quả mới.
-- **Hiện trạng tại UBND Phường**: Có **${hoSoMotCuaLienThongList.length}** hồ sơ trong hệ thống, tỷ lệ DVC toàn trình đạt **82.4%**, cấp kết quả điện tử gắn chữ ký số xác thực tái sử dụng theo Đề án 06.`;
-    }
-
-    // 4. Gợi ý Bút phê Lãnh đạo chuẩn
-    if (q.includes("bút phê") || q.includes("chỉ đạo") || q.includes("phê duyệt văn bản")) {
-      return `✍️ **GỢI Ý CÁC MẪU BÚT PHÊ CHỈ ĐẠO CHUẨN CỦA LÃNH ĐẠO UBND PHƯỜNG**:
-1. **Đối với Văn bản Hỏa tốc / Thanh tra**:
-   *"Giao Đ/c [Tên cán bộ] chủ trì, phối hợp [Bộ phận liên quan] kiểm tra thực địa, xử lý dứt điểm và tham mưu văn bản báo cáo UBND Thành phố trước 16h ngày [dd/mm]."*
-2. **Đối với Tờ trình xin chủ trương**:
-   *"Thống nhất về mặt chủ trương. Đề nghị bộ phận chuyên môn rà soát chặt chẽ điều kiện pháp lý, đảm bảo quy chế chi tiêu nội bộ và lập dự thảo quyết định trình Chủ tịch ký trước ngày [dd/mm]."*
-3. **Đối với Đơn thư khiếu nại, phản ánh của công dân**:
-   *"Chuyển Đ/c [Cán bộ thụ lý] thụ lý theo thẩm quyền; mời công dân đến làm việc đối thoại, kiểm tra hiện trạng và có văn bản trả lời đúng hạn luật định."*`;
-    }
-
-    // 5. Thang điểm Gia đình văn hóa (Nghị định 86/2023/NĐ-CP)
-    if (q.includes("cấm tiếp xúc") || q.includes("bạo lực") || q.includes("luật 2022") || q.includes("địa chỉ tin cậy")) {
-      return `🛡️ **QUY ĐỊNH VỀ BIỆN PHÁP CẤM TIẾP XÚC THEO LUẬT PHÒNG, CHỐNG BẠO LỰC GIA ĐÌNH NĂM 2022**:
-- **Thẩm quyền**: Căn cứ **Điều 25**, **Chủ tịch UBND cấp xã** nơi xảy ra vụ việc có thẩm quyền ban hành quyết định cấm tiếp xúc.
-- **Thời hạn áp dụng**: **Không quá 03 ngày** (tối đa 72 giờ) kể từ khi ban hành.
-- **Điều kiện ban hành**:
-  1. Có đơn yêu cầu của người bị bạo lực gia đình hoặc cơ quan/tổ chức có thẩm quyền.
-  2. Hành vi bạo lực gây tổn hại hoặc đe dọa tổn hại tính mạng, sức khỏe.
-  3. Người bị bạo lực và người gây bạo lực không cùng chỗ ở hoặc có nơi tạm lánh an toàn.
-- **Phạm vi cấm**: Người có hành vi bạo lực không được đến gần người bị bạo lực trong phạm vi **100 mét** và không sử dụng phương tiện để đe dọa, xúc phạm.
-- **Giám sát thi hành**: Giao **Công an Phường** tống đạt và chủ trì giám sát thực hiện.`;
-    }
-
-    // 4. Tra cứu kiểm tra Karaoke / Đội 814
-    if (q.includes("karaoke") || q.includes("54") || q.includes("814") || q.includes("quảng cáo") || q.includes("quán bar")) {
-      return `🎤 **NGHIỆP VỤ HẬU KIỂM LIÊN NGÀNH 814 (NĐ 54/2019/NĐ-CP & NĐ 38/2021/NĐ-CP)**:
-- **Cơ sở Karaoke**:
-  * Diện tích phòng hát từ **20m² trở lên** (không tính công trình phụ).
-  * **Cấm chốt khóa trong phòng hát** hoặc lắp đặt thiết bị báo động để đối phó kiểm tra.
-  * Không hoạt động từ **00h00 đến 08h00** sáng hôm sau.
-  * Phải đảm bảo điều kiện PCCC và an ninh trật tự theo Nghị định 96/2016/NĐ-CP.
-- **Xử phạt Biển quảng cáo (Nghị định 38/2021/NĐ-CP)**:
-  * Biển hiệu dọc: Chiều ngang tối đa 1m, chiều cao tối đa 4m không vượt quá tầng nhà.
-  * Biển hiệu ngang: Chiều cao tối đa 2m, chiều dài không vượt quá mặt tiền nhà.
-  * Mức phạt tiền từ **5.000.000đ đến 10.000.000đ** đối với hành vi lắp đặt vượt kích thước chỉ giới hoặc chưa thông báo cơ quan thẩm quyền.`;
-    }
-
-    // 5. Soạn thảo mẫu văn bản
-    if (q.includes("soạn") || q.includes("mẫu") || q.includes("dự thảo")) {
-      return `📝 **DỰ THẢO QUYẾT ĐỊNH CẤM TIẾP XÚC (MẪU CHUẨN ĐIỀU 25 LUẬT PCBLGĐ 2022)**:
-
-UBND TP. THỦ DẦU MỘT               CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
-UBND PHƯỜNG PHÚ CƯỜNG                     Độc lập - Tự do - Hạnh phúc
-Số: QĐ-UBND-CTX/...               Thủ Dầu Một, ngày ... tháng ... năm 2026
-
-                              QUYẾT ĐỊNH
-                   Về việc áp dụng biện pháp cấm tiếp xúc
-
-                    CHỦ TỊCH ỦY BAN NHÂN DÂN PHƯỜNG
-Căn cứ Luật Tổ chức chính quyền địa phương năm 2015;
-Căn cứ Điều 25 Luật Phòng, chống bạo lực gia đình năm 2022;
-Xét đề nghị của Công chức Văn hóa - Xã hội và Trưởng Công an Phường,
-
-                              QUYẾT ĐỊNH:
-Điều 1. Áp dụng biện pháp cấm tiếp xúc đối với:
-- Họ và tên: [Người gây bạo lực] - CCCD: [...]
-- Nơi cư trú: [Địa chỉ cư trú]
-Không được tiếp xúc với người bị bạo lực gia đình:
-- Họ và tên: [Nạn nhân] - CCCD: [...]
-Phạm vi cấm: Trong bán kính 100m tính từ nơi cư trú hoặc nơi làm việc của nạn nhân.
-Điều 2. Thời hạn áp dụng: 03 ngày, kể từ ngày ký.
-Điều 3. Trưởng Công an phường, Công chức Văn hóa - Xã hội và các ông/bà có tên tại Điều 1 chịu trách nhiệm thi hành Quyết định này.
-
-                                             CHỦ TỊCH
-                                       (Ký tên, đóng dấu)`;
-    }
-
-    // Default response
-    return `Tôi đã ghi nhận yêu cầu: "${query}". 
-Hệ thống hiện đang hỗ trợ tự động:
-1. **Kiểm tra tiến độ công việc** các khối ngành (Văn hóa, Giáo dục, An sinh, Thông tin).
-2. **Duyệt nhanh sản phẩm công vụ** tại phân hệ Điều hành Lãnh đạo.
-3. **Tra cứu quy định pháp luật**: NĐ 86/2023, NĐ 54/2019, NĐ 38/2021, Luật PCBLGĐ 2022, TT 04/2023/TT-BTC.
-4. **Soạn thảo mẫu văn bản**: Tờ trình, Quyết định, Biên bản kiểm tra 814.
-
-Đồng chí có thể bấm vào các gợi ý bên dưới để tra cứu tức thì!`;
-  };
 
   const handleSend = (textToSend?: string) => {
     const query = textToSend || input;
@@ -226,16 +191,18 @@ Hệ thống hiện đang hỗ trợ tự động:
     setIsTyping(true);
 
     setTimeout(() => {
-      const responseText = generateAiResponse(query);
+      const response: AiResponseResult = generateGovAiResponse(query, state);
       const aiMsg: Message = {
         id: `AI-${Date.now()}`,
         sender: "AI",
-        text: responseText,
+        text: response.text,
         timestamp: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }),
+        category: response.category,
+        quickActions: response.suggestedFollowUps,
       };
       setMessages((prev) => [...prev, aiMsg]);
       setIsTyping(false);
-    }, 500);
+    }, 400);
   };
 
   const copyToClipboard = (text: string, id: string) => {
@@ -245,54 +212,66 @@ Hệ thống hiện đang hỗ trợ tự động:
     setTimeout(() => setCopiedId(null), 2000);
   };
 
+  const handleResetChat = () => {
+    setMessages([buildInitialWelcome()]);
+    setSelectedTopic("ALL");
+    toast.info("Đã làm mới phiên hỗ trợ công vụ!");
+  };
+
+  const currentTopicObj = TOPIC_OPTIONS.find((t) => t.id === selectedTopic) || TOPIC_OPTIONS[0];
+
   return (
     <>
-      {/* 1. Floating Action Button (Always visible on bottom-right) */}
+      {/* 1. Nút nổi Trợ lý Công vụ Điện tử (Góc dưới bên phải) */}
       {!isOpen && (
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-[#dd4b39] hover:bg-[#c23321] text-white rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-[#dd4b39] to-[#c23321] hover:from-[#c23321] hover:to-[#a82819] text-white rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group border border-white/20"
           title="Mở Trợ lý Công vụ Điện tử"
         >
           <div className="relative">
             <Bot className="w-5 h-5 text-white animate-bounce" />
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
             </span>
           </div>
           <div className="flex flex-col text-left">
             <span className="text-xs font-bold leading-tight flex items-center gap-1">
               Trợ lý Công vụ Điện tử <Sparkles className="w-3 h-3 text-amber-300" />
             </span>
-            <span className="text-[10px] text-red-100 leading-tight">Tra cứu văn bản &amp; Hỗ trợ công vụ</span>
+            <span className="text-[10px] text-red-100 leading-tight">
+              Tra cứu hồ sơ · Tính trợ cấp · Soạn thảo văn bản
+            </span>
           </div>
         </button>
       )}
 
-      {/* 2. Dialog Panel */}
+      {/* 2. Cửa sổ Trợ lý Công vụ Điện tử */}
       {isOpen && (
         <div
-          className={`fixed z-50 transition-all duration-300 shadow-2xl overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col ${
+          className={`fixed z-50 transition-all duration-300 shadow-2xl overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 flex flex-col ${
             isExpanded
-              ? "inset-4 sm:inset-10"
-              : "bottom-5 right-5 w-[92vw] sm:w-[420px] h-[580px] max-h-[85vh]"
+              ? "inset-3 sm:inset-8"
+              : "bottom-5 right-5 w-[94vw] sm:w-[460px] h-[640px] max-h-[88vh]"
           }`}
         >
-          {/* Header */}
-          <div className="px-4 py-3.5 bg-gradient-to-r from-[#222d32] to-[#1e282c] border-b-2 border-[#dd4b39] text-white flex items-center justify-between">
+          {/* Header màu Slate Hành chính */}
+          <div className="px-4 py-3 bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] border-b-2 border-[#dd4b39] text-white flex items-center justify-between shadow-xs">
             <div className="flex items-center gap-2.5">
               <div className="size-8 rounded-full bg-[#dd4b39] text-white flex items-center justify-center font-bold shadow-xs">
                 <Bot className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="text-xs font-bold flex items-center gap-1">
-                  Trợ lý Công vụ Điện tử UBND Phường <Sparkles className="w-3 h-3 text-amber-300" />
+                <h3 className="text-xs font-bold flex items-center gap-1.5">
+                  Trợ lý Công vụ Điện tử Phường Thủ Dầu Một
+                  <span className="px-1.5 py-0.2 bg-emerald-600/80 text-[9px] rounded font-mono font-normal">
+                    Trực tuyến 24/7
+                  </span>
                 </h3>
-                <div className="text-[10px] text-emerald-400 flex items-center gap-1">
-                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Sẵn sàng hỗ trợ pháp lý &amp; điều hành</span>
+                <div className="text-[10px] text-slate-300 flex items-center gap-1">
+                  <span>Sẵn sàng hỗ trợ pháp lý, nghiệp vụ Một cửa &amp; Điều hành</span>
                 </div>
               </div>
             </div>
@@ -300,16 +279,24 @@ Hệ thống hiện đang hỗ trợ tự động:
             <div className="flex items-center gap-1">
               <button
                 type="button"
+                onClick={handleResetChat}
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg cursor-pointer transition-colors"
+                title="Làm mới cuộc trò chuyện"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg cursor-pointer"
-                title={isExpanded ? "Thu nhỏ" : "Phóng to"}
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg cursor-pointer transition-colors"
+                title={isExpanded ? "Thu nhỏ" : "Phóng to toàn màn hình"}
               >
                 {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
               </button>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg cursor-pointer"
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg cursor-pointer transition-colors"
                 title="Đóng trợ lý"
               >
                 <X className="w-4 h-4" />
@@ -317,85 +304,143 @@ Hệ thống hiện đang hỗ trợ tự động:
             </div>
           </div>
 
-          {/* Messages list */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 text-xs bg-slate-50/50 dark:bg-slate-900/50 scrollbar-thin">
-            {messages.map((m) => (
-              <div
-                key={m.id}
-                className={`flex gap-2.5 ${m.sender === "USER" ? "flex-row-reverse" : "flex-row"}`}
-              >
-                {m.sender === "AI" ? (
-                  <div className="size-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs mt-0.5">
-                    AI
-                  </div>
-                ) : (
-                  <div className="size-7 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs mt-0.5">
-                    {currentUser.avatarText || "CB"}
-                  </div>
-                )}
+          {/* Thanh chuyển đổi chuyên đề nhanh (Topic Filter Bar) */}
+          <div className="px-3 py-2 bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700/80 flex items-center gap-1.5 overflow-x-auto scrollbar-thin text-xs">
+            {TOPIC_OPTIONS.map((topic) => {
+              const Icon = topic.icon;
+              const isSelected = selectedTopic === topic.id;
+              return (
+                <button
+                  key={topic.id}
+                  type="button"
+                  onClick={() => setSelectedTopic(topic.id)}
+                  className={`px-2.5 py-1 rounded-full whitespace-nowrap text-[11px] font-medium transition-all cursor-pointer flex items-center gap-1 ${
+                    isSelected
+                      ? "bg-[#dd4b39] text-white shadow-xs font-semibold"
+                      : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700"
+                  }`}
+                >
+                  <Icon className="w-3 h-3" />
+                  <span>{topic.label}</span>
+                </button>
+              );
+            })}
+          </div>
 
-                <div className={`max-w-[85%] space-y-1.5 ${m.sender === "USER" ? "items-end" : "items-start"}`}>
-                  <div
-                    className={`p-3 rounded-2xl text-xs leading-relaxed ${
-                      m.sender === "USER"
-                        ? "bg-blue-600 text-white rounded-tr-xs shadow-xs"
-                        : "bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-xs border border-slate-200 dark:border-slate-700 shadow-2xs whitespace-pre-wrap"
-                    }`}
-                  >
-                    {m.text}
+          {/* Khối gợi ý nhanh theo chuyên đề đang chọn */}
+          {selectedTopic !== "ALL" && (
+            <div className="px-3 py-2 bg-amber-50/60 dark:bg-slate-800/40 border-b border-amber-200/50 dark:border-slate-700/50 flex flex-wrap gap-1.5 text-[11px]">
+              <span className="text-amber-800 dark:text-amber-300 font-semibold flex items-center gap-1 text-[10px] w-full">
+                <ChevronRight className="w-3 h-3 text-amber-600" />
+                Gợi ý chuyên đề {currentTopicObj.label}:
+              </span>
+              {currentTopicObj.prompts.map((p) => (
+                <button
+                  key={p.label}
+                  type="button"
+                  onClick={() => handleSend(p.prompt)}
+                  className="px-2 py-0.5 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-amber-300/70 dark:border-slate-600 rounded-md text-[10px] hover:bg-amber-100 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          )}
 
-                    {m.sender === "AI" && (
-                      <div className="flex justify-end pt-1">
-                        <button
-                          type="button"
-                          onClick={() => copyToClipboard(m.text, m.id)}
-                          className="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
-                          title="Sao chép nội dung"
-                        >
-                          {copiedId === m.id ? (
-                            <>
-                              <Check className="w-3 h-3 text-emerald-500" />
-                              <span className="text-emerald-500">Đã chép</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3 h-3" />
-                              <span>Sao chép</span>
-                            </>
-                          )}
-                        </button>
+          {/* Vùng Tin nhắn Trò chuyện */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs bg-slate-50/60 dark:bg-slate-900/60 scrollbar-thin">
+            {messages.map((m) => {
+              const isAi = m.sender === "AI";
+              return (
+                <div
+                  key={m.id}
+                  className={`flex gap-2.5 ${isAi ? "flex-row" : "flex-row-reverse"}`}
+                >
+                  {isAi ? (
+                    <div className="size-7 rounded-full bg-[#dd4b39] text-white flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs mt-0.5">
+                      <Bot className="w-4 h-4" />
+                    </div>
+                  ) : (
+                    <div className="size-7 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs mt-0.5">
+                      {currentUser?.avatarText || "CB"}
+                    </div>
+                  )}
+
+                  <div className={`max-w-[88%] space-y-1.5 ${isAi ? "items-start" : "items-end"}`}>
+                    <div className="flex items-center gap-1.5 text-[10px] text-slate-400">
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        {isAi ? "Trợ lý Công vụ Điện tử" : currentUser?.fullName || "Cán bộ"}
+                      </span>
+                      <span>•</span>
+                      <span>{m.timestamp}</span>
+                    </div>
+
+                    <div
+                      className={`p-3.5 rounded-2xl text-xs leading-relaxed ${
+                        !isAi
+                          ? "bg-blue-600 text-white rounded-tr-xs shadow-xs"
+                          : "bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-xs border border-slate-200 dark:border-slate-700/80 shadow-2xs whitespace-pre-wrap font-sans"
+                      }`}
+                    >
+                      {m.text}
+
+                      {/* Nút Sao chép nội dung phản hồi của AI */}
+                      {isAi && (
+                        <div className="flex justify-end pt-2 border-t border-slate-100 dark:border-slate-700/60 mt-2">
+                          <button
+                            type="button"
+                            onClick={() => copyToClipboard(m.text, m.id)}
+                            className="inline-flex items-center gap-1 text-[10px] text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 cursor-pointer font-medium px-2 py-0.5 rounded hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                            title="Sao chép toàn văn nội dung"
+                          >
+                            {copiedId === m.id ? (
+                              <>
+                                <Check className="w-3 h-3 text-emerald-500" />
+                                <span className="text-emerald-500 font-semibold">Đã sao chép</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-3 h-3" />
+                                <span>Sao chép văn bản</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Quick Action / Follow-up Chips */}
+                    {m.quickActions && m.quickActions.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        <span className="text-[10px] text-slate-400 w-full font-medium">Gợi ý tác nghiệp tiếp theo:</span>
+                        {m.quickActions.map((qa) => (
+                          <button
+                            key={qa.label}
+                            type="button"
+                            onClick={() => handleSend(qa.prompt)}
+                            className="px-2.5 py-1 bg-white hover:bg-red-50 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-red-300 rounded-full text-[11px] text-slate-700 dark:text-slate-300 font-medium transition-colors cursor-pointer text-left flex items-center gap-1 shadow-2xs"
+                          >
+                            <span>{qa.label}</span>
+                          </button>
+                        ))}
                       </div>
                     )}
                   </div>
-
-                  {/* Quick Action Chips if present */}
-                  {m.quickActions && m.quickActions.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {m.quickActions.map((qa) => (
-                        <button
-                          key={qa.label}
-                          type="button"
-                          onClick={() => handleSend(qa.prompt)}
-                          className="px-2.5 py-1 bg-white hover:bg-blue-50 dark:bg-slate-800 dark:hover:bg-blue-950/60 border border-slate-200 dark:border-slate-700 hover:border-blue-300 rounded-full text-[11px] text-slate-700 dark:text-slate-300 font-medium transition-colors cursor-pointer text-left"
-                        >
-                          {qa.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
+            {/* Hiệu ứng đang suy nghĩ & tra cứu */}
             {isTyping && (
               <div className="flex gap-2 items-center text-xs text-slate-400">
-                <div className="size-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-[9px]">
-                  AI
+                <div className="size-6 rounded-full bg-[#dd4b39] text-white flex items-center justify-center font-bold text-[9px]">
+                  <Bot className="w-3.5 h-3.5" />
                 </div>
-                <div className="bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 flex items-center gap-1">
-                  <span className="size-1.5 rounded-full bg-blue-600 animate-bounce" />
-                  <span className="size-1.5 rounded-full bg-blue-600 animate-bounce [animation-delay:0.2s]" />
-                  <span className="size-1.5 rounded-full bg-blue-600 animate-bounce [animation-delay:0.4s]" />
+                <div className="bg-white dark:bg-slate-800 px-3.5 py-2 rounded-full border border-slate-200 dark:border-slate-700 flex items-center gap-1.5 text-[11px] shadow-xs">
+                  <span className="text-slate-500 dark:text-slate-400 font-medium">Đang tra cứu dữ liệu &amp; đối soát pháp quy...</span>
+                  <span className="size-1.5 rounded-full bg-[#dd4b39] animate-bounce" />
+                  <span className="size-1.5 rounded-full bg-[#dd4b39] animate-bounce [animation-delay:0.2s]" />
+                  <span className="size-1.5 rounded-full bg-[#dd4b39] animate-bounce [animation-delay:0.4s]" />
                 </div>
               </div>
             )}
@@ -403,7 +448,7 @@ Hệ thống hiện đang hỗ trợ tự động:
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Form input */}
+          {/* Form Nhập yêu cầu */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -411,19 +456,23 @@ Hệ thống hiện đang hỗ trợ tự động:
             }}
             className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2"
           >
-            <input
-              type="text"
-              placeholder="Nhập câu hỏi tra cứu hoặc yêu cầu soạn văn bản..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="flex-1 px-3.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-blue-500"
-            />
+            <div className="relative flex-1">
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3" />
+              <input
+                type="text"
+                placeholder="Hỏi tra cứu hồ sơ, tính trợ cấp, mẫu biên bản, bút phê..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="w-full pl-9 pr-3.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-[#dd4b39]"
+              />
+            </div>
             <button
               type="submit"
               disabled={!input.trim()}
-              className="p-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white rounded-xl shadow-xs transition-colors cursor-pointer shrink-0"
+              className="px-3.5 py-2 bg-[#dd4b39] hover:bg-[#c23321] disabled:opacity-40 text-white rounded-xl shadow-xs transition-colors cursor-pointer shrink-0 flex items-center gap-1 font-semibold text-xs"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Gửi</span>
             </button>
           </form>
         </div>
