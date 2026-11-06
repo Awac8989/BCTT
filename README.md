@@ -9,7 +9,7 @@
 [![Build](https://img.shields.io/badge/Vite-8.1-yellow.svg)](https://vitejs.dev)
 [![Backend Tests](https://img.shields.io/badge/Backend_Tests-222%20PASSED-brightgreen.svg)](#-kiểm-thử-tự-động-backend-222-test-cases)
 [![Database](https://img.shields.io/badge/CSDL_3NF-42%20Bảng%20InnoDB-purple.svg)](#-kiến-trúc-cơ-sở-dữ-liệu-quan-hệ-3nf-42-bảng)
-[![Vercel Deployment](https://img.shields.io/badge/Deploy-Vercel%20Ready-black.svg)](#-hướng-dẫn-triển-khai-lên-vercel-deployment-guide)
+[![Vercel Deployment](https://img.shields.io/badge/Deploy-Vercel%20Ready-black.svg)](#-10-hướng-dẫn-triển-khai-lên-vercel-deployment-guide)
 [![Tài liệu Kiến trúc](https://img.shields.io/badge/Tài_liệu-Kiến_trúc_Hệ_thống_Chi_tiết-emerald.svg)](docs/KIEN_TRUC_HE_THONG.md)
 [![Tính năng Mới](https://img.shields.io/badge/Tài_liệu-Tính_Năng_Mới_Nâng_Cấp-blueviolet.svg)](README_TINH_NANG_MOI.md)
 [![Kịch bản Demo 5 Phút](https://img.shields.io/badge/Kịch_bản-Demo_5_Phút-gold.svg)](docs/KICH_BAN_QUAY_VIDEO_DEMO_5_PHUT.md)
@@ -25,9 +25,10 @@
 5. [Bộ Sưu Tập Hình Ảnh Giao Diện Thực Tế (Visual Showcase - 48 Màn Hình)](#-bộ-sưu-tập-hình-ảnh-giao-diện-thực-tế-visual-showcase---48-màn-hình)
 6. [Kiến Trúc Cơ Sở Dữ Liệu Quan Hệ 3NF (42 Bảng)](#-kiến-trúc-cơ-sở-dữ-liệu-quan-hệ-3nf-42-bảng)
 7. [Kiểm Thử Tự Động Backend (222 Test Cases Passed)](#-kiểm-thử-tự-động-backend-222-test-cases)
-8. [Hướng Dẫn Cài Đặt & Chạy Local](#-hướng-dẫn-cài-đặt--chạy-local-local-setup)
-9. [Hướng Dẫn Triển Khai Lên Vercel (Deployment Guide)](#-hướng-dẫn-triển-khai-lên-vercel-deployment-guide)
-10. [Tác Giả & Thông Tin Dự Án](#-tác-giả--thông-tin-dự-án)
+8. [Cấu Trúc Mã Nguồn Toàn Bộ Dự Án (Project Source Code Structure)](#-8-cấu-trúc-mã-nguồn-toàn-bộ-dự-án)
+9. [Hướng Dẫn Cài Đặt & Chạy Local](#-9-hướng-dẫn-cài-đặt--chạy-local-local-setup)
+10. [Hướng Dẫn Triển Khai Lên Vercel (Deployment Guide)](#-10-hướng-dẫn-triển-khai-lên-vercel-deployment-guide)
+11. [Tác Giả & Thông Tin Dự Án](#-11-tác-giả--thông-tin-dự-án)
 
 ---
 
@@ -510,7 +511,157 @@ $ npm run test:backend
 
 ---
 
-## 🚀 HƯỚNG DẪN CÀI ĐẶT & CHẠY LOCAL (LOCAL SETUP)
+## 📁 8. CẤU TRÚC MÃ NGUỒN TOÀN BỘ DỰ ÁN
+
+Toàn bộ cây thư mục mã nguồn được tổ chức khoa học theo mô hình **Module hóa Đa tầng (Modular Layered Architecture)**. Dự án phân định rành mạch giữa các tầng: Tầng Giao diện và Biểu mẫu số hóa (`src/components/`, `src/routes/`), Tầng Động cơ Nghiệp vụ & AI (`src/services/`, `src/components/ai/`), Tầng Máy chủ API Phi máy chủ (`src/server/`), Tầng Cơ sở Dữ liệu Quan hệ 3NF chuẩn hóa (`database/`), cùng hệ thống Hồ sơ Pháp lý và Kịch bản Kiểm thử tự động (`docs/`, `scripts/`):
+
+```text
+bctt_sldtbxh/
+├── package.json                         # Cấu hình dự án, gói phụ thuộc Vite/React 19 & TanStack Start
+├── vite.config.ts                       # Cấu hình trình đóng gói Vite v8, alias đường dẫn @ & Nitro Server
+├── tsconfig.json                        # Cấu hình biên dịch TypeScript v5.8 chế độ Strict Type
+├── vercel.json                          # Cấu hình triển khai Serverless Edge Production trên nền tảng Vercel
+├── AGENTS.md                            # Quy tắc đồng bộ mã nguồn thời gian thực với Lovable & GitHub
+├── README.md                            # Cẩm nang kỹ thuật toàn diện & hồ sơ kiến trúc hệ thống
+├── README_TINH_NANG_MOI.md              # Thuyết minh chi tiết 15 tính năng nghiệp vụ công vụ mới nâng cấp
+│
+├── database/                            # TẦNG CƠ SỞ DỮ LIỆU QUAN HỆ 3NF & PERSISTENCE
+│   ├── schema.sql                       # Script CSDL MySQL/InnoDB chuẩn 42 bảng, khóa ngoại PK/FK & chỉ mục
+│   └── database_persistence.json        # File CSDL lưu trữ trạng thái bền vững (hỗ trợ ACID & snapshot)
+│
+├── public/                              # TÀI NGUYÊN TĨNH & CỔNG TẢI BIỂU MẪU CÔNG VỤ
+│   ├── favicon.ico / favicon.svg        # Biểu tượng Quốc huy & nhận diện thương hiệu Chính quyền số
+│   ├── robots.txt                       # Tệp cấu hình phân quyền thu thập dữ liệu công cụ tìm kiếm
+│   ├── DANH_SACH_TAI_KHOAN...xlsx       # Bảng kê 12 tài khoản công chức 4 cấp (Sở, Phòng, Phường, Công dân)
+│   └── DANH_SACH_TAI_KHOAN...csv        # Bản xuất danh sách tài khoản định dạng CSV phục vụ nhập liệu tự động
+│
+├── scripts/                             # KỊCH BẢN KIỂM THỬ TỰ ĐỘNG & CHỤP MÀN HÌNH MINH CHỨNG
+│   ├── test_backend.mjs                 # Bộ kịch bản kiểm thử toàn diện 222 test cases cho 18 nhóm phân hệ
+│   └── capture_all_screens.mjs          # Kịch bản Puppeteer tự động chụp 48 màn hình giao diện thực tế
+│
+├── docs/                                # HỒ SƠ PHÁP LÝ, VĂN BẢN QUY PHẠM & BẢN IN BÁO CÁO GIẤY
+│   ├── DoanMinhQuan...BCTT2.docx        # Báo cáo thực tập chuyên ngành 100+ trang hoàn chỉnh (bản in chuẩn)
+│   ├── BAO_CAO_THUC_TAP...IN_CHUAN.docx # Bản sao lưu đối chiếu hồ sơ báo cáo thực tập đạt chuẩn học thuật
+│   ├── 01_Bien_Ban_Lam_Viec...docx/pdf  # Biên bản làm việc tiếp nhận sinh viên thực tập tại đơn vị
+│   ├── 02_Bien_Ban_Kiem_Tra...docx/pdf  # Biên bản kiểm tra hiện trường & xác minh điều kiện chuyên môn
+│   ├── DỰ THẢO QĐ...30.10.2025.pdf      # Dự thảo quy định chức năng, nhiệm vụ Phòng Văn hóa - Xã hội mới
+│   ├── KIEN_TRUC_HE_THONG.md            # Tài liệu đặc tả kiến trúc 4 tầng, luồng dữ liệu & an toàn thông tin
+│   ├── KICH_BAN_QUAY_VIDEO_DEMO_5_PHUT  # Kịch bản phân cảnh thao tác từng giây thuyết minh bảo vệ đề tài
+│   ├── TECHNICAL_DESIGN_DOCUMENT.md     # Hồ sơ thiết kế kỹ thuật, hợp đồng RESTful API & sơ đồ ERD 3NF
+│   ├── diagrams/                        # Sơ đồ kiến trúc đa tầng, sơ đồ ca sử dụng Use Case & luồng dữ liệu
+│   └── screenshots/                     # Bộ sưu tập 48 ảnh chụp thực tế màn hình phân hệ hệ thống
+│
+└── src/                                 # MÃ NGUỒN CỐT LÕI HỆ THỐNG (FULL-STACK APPLICATION)
+    ├── styles.css                       # Định dạng giao diện Tailwind CSS v4, chuẩn màu hành chính công ISO
+    ├── router.tsx                       # Cấu hình bộ định tuyến TanStack Router tích hợp TanStack Query
+    ├── routeTree.gen.ts                 # Cây định tuyến tự động sinh chuẩn xác định kiểu dữ liệu TypeScript
+    ├── server.ts                        # Máy chủ tích hợp Nitro Serverless Engine khởi chạy backend API
+    ├── start.ts                         # Cấu hình khởi tạo tiến trình Client Hydration & SSR Server
+    │
+    ├── api/                             # CỔNG GIAO TIẾP DỮ LIỆU CLIENT (API CLIENT REPOSITORIES)
+    │   ├── anSinhApi.ts                 # Gọi API liên thông An sinh xã hội, Người có công, Giảm nghèo đa chiều
+    │   └── vanHoaApi.ts                 # Gọi API liên thông Quản lý văn hóa, Thể thao, Đội 814 & Di tích
+    │
+    ├── components/                      # THÀNH PHẦN GIAO DIỆN CHUYÊN BIỆT & MODAL CÔNG CHỨC
+    │   ├── AppShell.tsx                 # Khung giao diện trung tâm: Sidebar công vụ, Topbar phân quyền 4 cấp
+    │   ├── admin/                       # BẢNG ĐIỀU HÀNH TRUNG TÂM & QUẢN TRỊ KỸ THUẬT CSDL
+    │   │   ├── DatabaseStudioTab.tsx    # Studio quản trị CSDL 3NF, SQL Console, Safety Guards & Dump SQL
+    │   │   ├── ExecutiveKpiCheckIn.tsx  # Điều hành Lãnh đạo, Check-in KPI, Thưởng phạt theo Nghị định 90/48
+    │   │   ├── IocSmartDashboard.tsx    # Trung tâm giám sát điều hành thông minh IOC đô thị cấp phường
+    │   │   ├── LichTuanLanhDao.tsx      # Sổ lịch công tác tuần điện tử của Thường trực Đảng ủy - UBND
+    │   │   ├── MotCuaDvcCenter.tsx      # Bộ phận Một cửa Quốc gia, số hóa tiếp nhận & luân chuyển TTHC
+    │   │   └── VanBanDieuHanh.tsx       # Văn phòng điện tử e-Office, Sổ văn bản đến/đi, Bút phê & Ký VDXP
+    │   │
+    │   ├── ai/                          # ĐỘNG CƠ TRỢ LÝ ẢO CÔNG VỤ (GOV AI ASSISTANT ENGINE)
+    │   │   ├── gov-ai-engine.ts         # Tính trợ cấp NĐ 77/76, tra cứu pháp luật & tự động soạn thảo văn bản
+    │   │   └── GovAiAssistantWidget.tsx # Widget Trợ lý ảo AI Công chức tương tác trực quan trên giao diện
+    │   │
+    │   ├── an-sinh/                     # PHÂN HỆ AN SINH XÃ HỘI, NGƯỜI CÓ CÔNG & GIẢM NGHÈO
+    │   │   ├── modals/                  # 10 Modal: Thẩm định hồ sơ, Ký số SmartCA, Chấm điểm nghèo...
+    │   │   └── tabs/                    # 9 Tab: Bảo trợ xã hội, Cứu trợ, Điều dưỡng NCC, Trẻ em, Việc làm...
+    │   │
+    │   ├── chat/                        # PHÒNG HỌP GIAO BAN TRỰC TUYẾN & TRAO ĐỔI NỘI BỘ
+    │   │   └── InternalChatMeeting.tsx  # Họp giao ban công vụ trực tuyến & Chat liên thông cán bộ thụ lý
+    │   │
+    │   ├── giao-duc/                    # PHÂN HỆ GIÁO DỤC, ĐÀO TẠO & AN TOÀN THỰC PHẨM
+    │   │   ├── modals/                  # 12 Modal: Kiểm thực ATTP 3 bước, Giấy hẹn, Phiếu xin lỗi...
+    │   │   └── tabs/                    # 7 Tab: Sổ kiểm thực ATTP bán trú, Trường công lập, Mầm non ngoài CL...
+    │   │
+    │   ├── map/                         # BẢN ĐỒ SỐ GIS KHÔNG GIAN ĐIA LÝ CẤP PHƯỜNG
+    │   │   └── MapTilerGisView.tsx      # Bản đồ GIS định vị di tích lịch sử, cơ sở văn hóa & mộ liệt sĩ
+    │   │
+    │   ├── nghia-trang/                 # SỐ HÓA PHẦN MỘ LIỆT SĨ THEO 4 KHU PHỐ
+    │   │   └── QuanLyMoLietSiKhuPho.tsx # Quản lý thông tin mộ liệt sĩ 4 Khu phố & Live QR dẫn đường GPS
+    │   │
+    │   ├── thong-tin/                   # PHÂN HỆ THÔNG TIN, TRUYỀN THÔNG & CHUYỂN ĐỔI SỐ
+    │   │   ├── CongThongTinVaMang...tsx # Cổng thông tin điện tử phường, Zalo OA & Giám sát không gian mạng
+    │   │   ├── DtiCapXaSection.tsx      # Bộ chỉ số Chuyển đổi số DTI cấp xã theo 3 trụ cột (Chính quyền số)
+    │   │   ├── ModalGiaoNhiemVuToCNS... # Giao chỉ tiêu chuyển đổi số cho Tổ công nghệ số cộng đồng 4 khu phố
+    │   │   └── PhanAnh1022Section.tsx   # Hệ thống tiếp nhận, xử lý phản ánh hiện trường Tổng đài 1022 (SLA 24h)
+    │   │
+    │   ├── ui/                          # THÀNH PHẦN HIỂN THỊ THÔNG BÁO TỐI GIẢN
+    │   │   └── sonner.tsx               # Component Toast Notification hiển thị trạng thái xử lý hồ sơ
+    │   │
+    │   ├── van-hoa/                     # PHÂN HỆ VĂN HÓA, THỂ THAO, DU LỊCH & GIA ĐÌNH
+    │   │   ├── modals/                  # 7 Modal: Bình xét Gia đình văn hóa, Kiểm tra 814, QĐ Cấm tiếp xúc...
+    │   │   └── tabs/                    # 11 Tab: Gia đình văn hóa, Đô thị văn minh, Phòng chống bạo lực GĐ...
+    │   │
+    │   └── [24 Modals Nghiệp Vụ]        # Mẫu số 15 Niêm yết, Mẫu 01 Giấy hẹn, QĐ Mai táng, Mẫu C70b Chi trả...
+    │
+    ├── data/                            # CƠ SỞ DỮ LIỆU MẪU MÔ PHỎNG & KHỞI TẠO DOMAIN
+    │   ├── domain-mock.ts               # Dữ liệu khởi tạo 15 phân hệ: Danh mục TTHC, Hộ nghèo, Liệt sĩ...
+    │   └── mock.ts                      # Dữ liệu mẫu hồ sơ Người có công, trợ cấp chi trả & đối soát
+    │
+    ├── lib/                             # THƯ VIỆN TIỆN ÍCH & HỆ THỐNG AN TOÀN KIỂM TOÁN
+    │   ├── error-capture.ts             # Cơ chế bẫy lỗi toàn cục và tự động chuyển hướng trang lỗi thân thiện
+    │   ├── error-logger.ts              # Ghi nhận vết kiểm toán lỗi hệ thống (Audit Trail)
+    │   ├── error-page.ts                # Định nghĩa giao diện trang thông báo sự cố chuẩn công vụ
+    │   └── utils.ts                     # Hàm tiện ích xử lý định dạng tiền tệ Việt Nam, ngày tháng hành chính
+    │
+    ├── routes/                          # ĐỊNH TUYẾN 24 TRANG GIAO DIỆN (FILE-BASED ROUTING)
+    │   ├── __root.tsx                   # Khung định tuyến gốc bọc Auth, Theme & Thông báo toàn cục
+    │   ├── index.tsx                    # Bảng điều khiển Tổng quan Dashboard điều hành chỉ số công vụ
+    │   ├── login.tsx                    # Cổng Đăng nhập tập trung phân quyền 4 cấp (Sở - Phòng - Xã - Dân)
+    │   ├── mot-cua.tsx                  # Trung tâm tiếp nhận và trả kết quả TTHC Một cửa liên thông
+    │   ├── van-ban.tsx                  # Quản lý Văn phòng điện tử e-Office, Văn bản đến, Văn bản đi & Bút phê
+    │   ├── lich-tuan.tsx                # Lịch công tác tuần của Thường trực Đảng ủy - HĐND - UBND Phường
+    │   ├── hop-truc-tuyen.tsx           # Hội nghị truyền hình trực tuyến & Phòng họp nội bộ không giấy tờ
+    │   ├── an-sinh-xa-hoi.tsx           # Trung tâm quản trị phân hệ An sinh Xã hội, Hộ nghèo & Trẻ em
+    │   ├── giao-duc-dao-tao.tsx         # Trung tâm quản trị phân hệ Giáo dục cơ sở & Bếp ăn bán trú ATTP
+    │   ├── van-hoa-xa-hoi.tsx           # Trung tâm quản trị Văn hóa, Thể thao, Du lịch, Di tích & Gia đình
+    │   ├── thong-tin-truyen-thong.tsx   # Trung tâm quản trị Truyền thông, Tổng đài 1022 & DTI cấp xã
+    │   ├── dieu-hanh.tsx                # Trung tâm điều hành thông minh IOC đô thị Phường Phú Cường
+    │   ├── nghia-trang.tsx              # Số hóa mộ liệt sĩ theo 4 Khu phố & Tra cứu định vị dẫn đường GIS
+    │   ├── tra-cuu.tsx                  # Cổng Dịch vụ công trực tuyến dành cho người dân tra cứu tiến độ hồ sơ
+    │   ├── danh-gia.tsx                 # Hệ thống đo lường mức độ hài lòng người dân CSAT & Radar SIPAS
+    │   ├── chi-tra.tsx                  # Quản lý chi trả trợ cấp, Bưu điện VNPost & Đối soát sao kê ngân hàng
+    │   ├── tham-dinh.tsx                # Hội đồng thẩm định hồ sơ chính sách, Hội đồng xác định dạng tật
+    │   ├── dieu-duong.tsx               # Quản lý chế độ điều dưỡng phục hồi sức khỏe Người có công
+    │   ├── dung-cu-chinh-hinh.tsx       # Cấp phát dụng cụ chỉnh hình, phương tiện trợ giúp & niên hạn 3-5 năm
+    │   ├── khao-sat.tsx                 # Biểu mẫu khảo sát ý kiến nhân dân trực tuyến chuẩn Đề án 06
+    │   ├── phan-tich.tsx                # Phân tích dữ liệu thống kê, biểu đồ Recharts & dự báo xu hướng
+    │   ├── ky-thuat.tsx                 # Phân hệ kỹ thuật CSDL 3NF, SQL Console dành cho Quản trị viên IT
+    │   └── ho-so/                       # HỒ SƠ ĐIỆN TỬ CHI TIẾT
+    │       ├── index.tsx                # Danh sách tổng hợp toàn bộ hồ sơ nghiệp vụ một cửa cấp phường
+    │       └── $id.tsx                  # Chi tiết hồ sơ điện tử từng công dân, Lịch sử xử lý & Ký số SmartCA
+    │
+    ├── server/                          # HỆ THỐNG MÁY CHỦ BACKEND & CSDL QUAN HỆ (RESTFUL API ENGINE)
+    │   ├── index.ts                     # Dispatcher điều phối toàn bộ các tuyến API RESTful `/api/v1/*`
+    │   ├── controllers/                 # 18 Bộ điều khiển xử lý nghiệp vụ backend: An sinh, Giáo dục, Văn hóa...
+    │   ├── db/database.ts               # Động cơ CSDL quan hệ 3NF (42 bảng InnoDB, giao dịch ACID, Dump SQL)
+    │   ├── services/backend-store.ts    # Kho lưu trữ dữ liệu In-Memory kết hợp cơ chế Persistence đồng bộ
+    │   └── utils/response.ts            # Chuẩn hóa định dạng phản hồi RESTful API (Success, BadRequest, NotFound)
+    │
+    └── services/                        # ĐỘNG CƠ NGHIỆP VỤ & TÍNH TOÁN CÔNG VỤ (BUSINESS LOGIC ENGINES)
+        ├── app-state.ts                 # Quản lý trạng thái toàn cục ứng dụng reactive, tự động đồng bộ CSDL
+        ├── calculator.service.ts        # Động cơ tính trợ cấp NĐ 77/2024 & chuyển đổi số tiền thành chữ
+        ├── profile.validation.ts        # Bộ quy chuẩn kiểm thực dữ liệu Zod Schema cho hồ sơ công chức & CCCD
+        └── sentiment.service.ts         # Động cơ phân tích cảm xúc NLP phản ánh người dân (CSAT/Tổng đài 1022)
+```
+
+---
+
+## 🚀 9. HƯỚNG DẪN CÀI ĐẶT & CHẠY LOCAL (LOCAL SETUP)
 
 ### Yêu Cầu Môi Trường
 - **Node.js:** Phiên bản 20.x hoặc 22.x LTS trở lên.
@@ -528,7 +679,7 @@ npm install
 # 3. Chạy kiểm thử tự động toàn diện backend
 npm run test:backend
 
-# 4. Chụp tự động bộ 31 màn hình hệ thống (tùy chọn)
+# 4. Chụp tự động bộ 48 màn hình hệ thống (tùy chọn)
 node scripts/capture_all_screens.mjs
 
 # 5. Khởi chạy máy chủ phát triển (Development Server)
@@ -540,7 +691,7 @@ npm run dev
 
 ---
 
-## ☁️ HƯỚNG DẪN TRIỂN KHAI LÊN VERCEL (DEPLOYMENT GUIDE)
+## ☁️ 10. HƯỚNG DẪN TRIỂN KHAI LÊN VERCEL (DEPLOYMENT GUIDE)
 
 Dự án đã được cấu hình sẵn sàng 100% cho nền tảng **Vercel** thông qua công nghệ Nitro Serverless Engine và TanStack Start.
 
@@ -570,7 +721,7 @@ vercel --prod
 
 ---
 
-## 👨‍💻 TÁC GIẢ & THÔNG TIN DỰ ÁN
+## 👨‍💻 11. TÁC GIẢ & THÔNG TIN DỰ ÁN
 
 - **Tác giả:** Đoàn Minh Quân
 - **Mã số sinh viên:** 2224801030137
