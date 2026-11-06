@@ -82,7 +82,7 @@ function PhanTich() {
 - Thời gian thụ lý trung bình: Giảm từ 15 ngày làm việc xuống còn 2.8 ngày làm việc (Tiết kiệm 81.3% thời gian).
 - Tỷ lệ hồ sơ giải quyết trước hạn và đúng hạn: 99.4% (Tăng từ mức 82.6% của phương thức thủ công).
 - Thời gian tiếp nhận tại Bộ phận Một cửa: Giảm từ 25 phút/lượt xuống còn 3.5 phút/lượt nhờ ứng dụng OCR CCCD gắn chip và tích hợp VNeID.
-- Tỷ lệ số hóa hồ sơ và cấp kết quả điện tử có chữ ký số SmartCA (NĐ 30/2020 & NĐ 61/2018): 100%.
+- Tỷ lệ số hóa hồ sơ và cấp kết quả điện tử có chữ ký số chuyên dùng công vụ (NĐ 30/2020 & NĐ 61/2018): 100%.
 
 2. HIỆU QUẢ KINH TẾ & TIẾT KIỆM NGÂN SÁCH NHÀ NƯỚC (FINANCIAL ROI)
 - Tiết kiệm chi phí in ấn giấy tờ, phôi chứng nhận, sổ theo dõi vật lý: 180.000.000 VNĐ / năm.
@@ -524,7 +524,7 @@ NGƯỜI LẬP BÁO CÁO: ĐOÀN MINH QUÂN - MSSV: 2224801030137`;
                     <td className="p-3 text-center font-mono font-bold text-gray-500">3</td>
                     <td className="p-3 font-semibold text-gray-900">
                       Tỷ lệ hồ sơ số hóa &amp; kết quả điện tử
-                      <div className="text-[11px] text-gray-500 font-normal">Chữ ký số SmartCA của Lãnh đạo Sở &amp; con dấu đỏ điện tử</div>
+                      <div className="text-[11px] text-gray-500 font-normal">Chữ ký số công vụ của Lãnh đạo &amp; dấu mộc đỏ điện tử</div>
                     </td>
                     <td className="p-3 text-center text-red-700 font-mono">&lt; 35% (văn bản giấy)</td>
                     <td className="p-3 text-center text-emerald-800 font-mono font-bold bg-emerald-50/50">100% điện tử</td>
@@ -620,10 +620,10 @@ NGƯỜI LẬP BÁO CÁO: ĐOÀN MINH QUÂN - MSSV: 2224801030137`;
                 <strong>Tính cấp thiết &amp; Thời sự:</strong> Đề tài bám sát trực tiếp 02 chủ trương chiến lược của Đảng và Chính phủ là <em>Chương trình Tổng thể Cải cách TTHC (Nghị quyết 76)</em> và <em>Đề án 06/CP về phát triển ứng dụng dữ liệu dân cư, định danh và xác thực điện tử</em>.
               </li>
               <li>
-                <strong>Tính chuẩn mực pháp lý:</strong> Toàn bộ 100% biểu mẫu đều tuân thủ thể thức văn bản hành chính Nhà nước: Mẫu 01/NĐ61 (Giấy hẹn Một cửa), Mẫu C2-02/NS (Ủy nhiệm chi Kho bạc theo TT 77/2017), Nghị định 30/2020 (Quyết định ký số SmartCA), Nghị định 77/2024 (Mức chuẩn trợ cấp 2.789.000đ), Quyết định 505/QĐ-BHXH (Mẫu D03-TS BHYT).
+                <strong>Tính chuẩn mực pháp lý:</strong> Toàn bộ 100% biểu mẫu đều tuân thủ thể thức văn bản hành chính Nhà nước: Mẫu 01/NĐ61 (Giấy hẹn Một cửa), Mẫu C2-02/NS (Ủy nhiệm chi Kho bạc theo TT 77/2017), Nghị định 30/2020 (Quyết định ký số công vụ), Nghị định 77/2024 (Mức chuẩn trợ cấp 2.789.000đ), Quyết định 505/QĐ-BHXH (Mẫu D03-TS BHYT).
               </li>
               <li>
-                <strong>Tính an toàn &amp; Tách biệt quyền hạn (SoD):</strong> Phân quyền chặt chẽ theo nguyên tắc nghiệp vụ thực tế — Lãnh đạo Sở chỉ xem xét và ký số duyệt văn bản pháp lý, Quản trị viên IT có phân hệ riêng để bảo trì và sửa lỗi CSDL 3NF, loại bỏ hoàn toàn xung đột quyền lợi và rủi ro an toàn thông tin mạng.
+                <strong>Tính an toàn &amp; Tách biệt quyền hạn:</strong> Phân quyền chặt chẽ theo nguyên tắc nghiệp vụ thực tế — Lãnh đạo thẩm định và ký số duyệt văn bản pháp lý, Cán bộ phụ trách kỹ thuật có phân hệ riêng để bảo trì và chuẩn hóa dữ liệu, loại bỏ hoàn toàn xung đột quyền lợi và rủi ro an toàn thông tin mạng.
               </li>
             </ul>
           </div>

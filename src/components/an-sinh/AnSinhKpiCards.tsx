@@ -148,7 +148,7 @@ export function AnSinhKpiCards({
           <span className="text-xl font-black text-teal-700 font-mono">{tthcList.length}</span>
           <span className="text-[10px] font-bold text-emerald-600">({tthcDaXuLy} ký số)</span>
         </div>
-        <div className="mt-0.5 text-[10px] text-gray-500 truncate">NĐ 61/2018 & SmartCA</div>
+        <div className="mt-0.5 text-[10px] text-gray-500 truncate">NĐ 61/2018 &amp; Ký số công vụ</div>
       </div>
     </div>
   );

@@ -49,7 +49,7 @@ export const Route = createFileRoute("/van-hoa-xa-hoi")({
       {
         name: "description",
         content:
-          "Hệ thống quản lý toàn diện Văn hóa - Xã hội: Gia đình văn hóa (NĐ 86/2023), Di tích & Lễ hội Chùa Bà, Làng nghề Sơn mài, Bản đồ số GIS, Quản lý Tôn giáo, Hậu kiểm liên ngành 814 Karaoke, PC Bạo lực gia đình và Một cửa liên thông SmartCA.",
+          "Hệ thống quản lý toàn diện Văn hóa - Xã hội: Gia đình văn hóa (NĐ 86/2023), Di tích & Lễ hội Chùa Bà, Làng nghề Sơn mài, Bản đồ số GIS, Quản lý Tôn giáo, Hậu kiểm liên ngành 814 Karaoke, PC Bạo lực gia đình và Một cửa liên thông điện tử.",
       },
     ],
   }),
@@ -255,7 +255,7 @@ function VanHoaXaHoiPage() {
 
   const handleConfirmKySo = async (hoSoId: string, nguoiKy: string, chucVu: string) => {
     const res = await vanHoaApi.kySoTthcSmartCA(hoSoId, nguoiKy, chucVu);
-    toast.success(`Ký số SmartCA thành công! Mã xác thực điện tử: ${res.maXacThuc}`);
+    toast.success(`Ký số công vụ thành công! Mã xác thực điện tử: ${res.maXacThuc}`);
   };
 
   return (
@@ -397,7 +397,7 @@ function VanHoaXaHoiPage() {
           />
         )}
 
-        {/* Tab 9: TTHC Một cửa & SmartCA */}
+        {/* Tab 9: TTHC Một cửa & Ký số công vụ */}
         {activeTab === "TTHC_MOT_CUA" && (
           <TthcMotCuaVanHoaTab
             hoSoList={hoSoTTHCVanHoaList}

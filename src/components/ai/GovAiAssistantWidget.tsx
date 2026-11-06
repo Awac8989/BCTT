@@ -50,10 +50,10 @@ export function GovAiAssistantWidget() {
     {
       id: "MSG-WELCOME",
       sender: "AI",
-      text: `Xin chào **${currentUser.fullName}**! Tôi là **Trợ lý Ảo AI Công chức & Điều hành UBND Phường**. Tôi có thể hỗ trợ đồng chí tra cứu pháp luật (NĐ 30/2020 văn thư, NĐ 61/2018 một cửa, NĐ 86/2023, NĐ 54/2019, Luật PCBLGĐ 2022), tra cứu văn bản đến/đi, soạn Bút phê Lãnh đạo hoặc báo cáo nhanh KPI cho Sếp.`,
+      text: `Xin chào **${currentUser.fullName}**! Tôi là **Trợ lý Công vụ Điện tử phục vụ Điều hành UBND Phường Thủ Dầu Một**. Tôi có thể hỗ trợ đồng chí tra cứu pháp luật (NĐ 30/2020 văn thư, NĐ 61/2018 một cửa, NĐ 86/2023, NĐ 54/2019, Luật PCBLGĐ 2022), tra cứu văn bản đến/đi, soạn Bút phê Lãnh đạo hoặc báo cáo nhanh tiến độ thực hiện nhiệm vụ.`,
       timestamp: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }),
       quickActions: [
-        { label: "📊 Báo cáo nhanh KPI cho Sếp", prompt: "Báo cáo nhanh tiến độ KPI và sản phẩm check-in cho Sếp" },
+        { label: "📊 Báo cáo nhanh tiến độ công việc", prompt: "Báo cáo nhanh tiến độ thực hiện nhiệm vụ và sản phẩm công tác" },
         { label: "📁 Văn bản đến cần xử lý khẩn", prompt: "Tình hình văn bản đến và các văn bản hỏa tốc đang chờ xử lý" },
         { label: "🏛️ 4 Mẫu biểu Một cửa (NĐ 61)", prompt: "Quy định về 4 mẫu biểu giải quyết TTHC theo Nghị định 61/2018" },
         { label: "✍️ Gợi ý Bút phê Lãnh đạo chuẩn", prompt: "Gợi ý các mẫu bút phê chỉ đạo chuẩn của Lãnh đạo UBND Phường" },
@@ -70,26 +70,26 @@ export function GovAiAssistantWidget() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
-  // AI Knowledge Logic & Data Query Engine
+  // Logic tổng hợp tri thức & dữ liệu công vụ
   const generateAiResponse = (query: string): string => {
     const q = query.toLowerCase();
 
-    // 1. Báo cáo nhanh KPI cho Sếp
-    if (q.includes("báo cáo") || q.includes("kpi") || q.includes("cho sếp") || q.includes("sản phẩm check-in")) {
+    // 1. Báo cáo nhanh tiến độ công việc
+    if (q.includes("báo cáo") || q.includes("kpi") || q.includes("cho sếp") || q.includes("tiến độ") || q.includes("sản phẩm")) {
       const pendingProds = productCheckInList.filter((p) => p.trangThai === "CHO_LANH_DAO_DUYET");
       const approvedProds = productCheckInList.filter((p) => p.trangThai === "DA_PHE_CHUAN");
       const urgentTasks = taskAssignmentList.filter((t) => t.mucDoUuTien === "HOA_TOC");
 
-      return `📋 **BÁO CÁO NHANH TIẾN ĐỘ ĐIỀU HÀNH & KPI (UBND PHƯỜNG PHÚ CƯỜNG)**:
-- **Tiến độ Sản phẩm Check-in**:
+      return `📋 **BÁO CÁO NHANH TIẾN ĐỘ THỰC HIỆN NHIỆM VỤ (UBND PHƯỜNG THỦ DẦU MỘT)**:
+- **Tiến độ Sản phẩm Công vụ**:
   * Đã phê chuẩn: **${approvedProds.length}** sản phẩm.
-  * Đang chờ Sếp duyệt: **${pendingProds.length}** sản phẩm (${pendingProds.map((p) => p.canBoNop).join(", ") || "Không có"}).
+  * Đang chờ Lãnh đạo phê duyệt: **${pendingProds.length}** sản phẩm (${pendingProds.map((p) => p.canBoNop).join(", ") || "Không có"}).
 - **Nhiệm vụ trọng tâm**:
   * Tổng số công việc giao: **${taskAssignmentList.length}** nhiệm vụ.
-  * Việc hỏa tốc đang thực hiện: **${urgentTasks.length}** nhiệm vụ (Hậu kiểm PCCC Lễ hội Chùa Bà).
+  * Việc hỏa tốc đang thực hiện: **${urgentTasks.length}** nhiệm vụ (Hậu kiểm an toàn PCCC Lễ hội Chùa Bà).
 - **Mảng Văn hóa - Xã hội**:
   * Tỷ lệ GĐVH Khu phố 1 đạt **97.8%** (528/540 hộ).
-  * 100% Di tích lịch sử có QR Audio Guide.
+  * 100% Di tích lịch sử có hướng dẫn thông tin điện tử.
   * Đội 814 đã kiểm tra 4 cơ sở, xử phạt 1 trường hợp biển quảng cáo trái phép 7.500.000đ.
   * Tiếp nhận 2 vụ việc bạo lực gia đình, đã kích hoạt bảo vệ an toàn 100%.`;
     }
@@ -112,13 +112,13 @@ Khung tiêu chuẩn xét tặng danh hiệu **Gia đình văn hóa** theo thang 
     if (q.includes("văn bản đến") || q.includes("hỏa tốc") || q.includes("văn bản đi") || q.includes("vdxp") || q.includes("nghị định 30")) {
       const pendingVbd = vanBanDenList.filter((v) => v.trangThai === "CHO_PHAN_CONG");
       const hoaTocVbd = vanBanDenList.filter((v) => v.doKhan === "HOA_TOC" || v.doKhan === "THUONG_KHAN");
-      return `📁 **TÌNH HÌNH QUẢN LÝ VĂN BẢN & ĐIỀU HÀNH (NĐ 30/2020/NĐ-CP & TRỤC VDXP)**:
+      return `📁 **TÌNH HÌNH QUẢN LÝ VĂN BẢN & ĐIỀU HÀNH (NĐ 30/2020/NĐ-CP & LIÊN THÔNG TOÀN QUỐC)**:
 - **Tổng số Văn bản đến**: **${vanBanDenList.length}** văn bản.
   * Hỏa tốc / Thượng khẩn: **${hoaTocVbd.length}** văn bản (cần xử lý trong 24h-48h).
   * Chờ Lãnh đạo bút phê phân công: **${pendingVbd.length}** văn bản.
   * Đang thụ lý xử lý: **${vanBanDenList.filter((v) => v.trangThai === "DANG_XU_LY").length}** văn bản.
 - **Sổ Văn bản đi & Trình ký**: **${vanBanDiList.length}** văn bản (100% kiểm tra thể thức font Times New Roman, cỡ chữ, căn lề theo NĐ 30/2020).
-- **Trục Liên thông Văn bản Quốc gia (VDXP)**: Mã định danh UBND Phường **000.00.24.H50** hoạt động bình thường, 100% tích hợp ký số SmartCA.`;
+- **Trục Liên thông Văn bản Quốc gia**: Mã định danh UBND Phường **000.00.24.H50** hoạt động bình thường, 100% tích hợp ký số điện tử công vụ.`;
     }
 
     // 3. Tra cứu Một cửa & 4 Mẫu biểu chuẩn Nghị định 61/2018/NĐ-CP
@@ -128,7 +128,7 @@ Khung tiêu chuẩn xét tặng danh hiệu **Gia đình văn hóa** theo thang 
 2. **Mẫu số 02**: *Phiếu yêu cầu bổ sung, hoàn thiện hồ sơ* - Ghi rõ danh mục giấy tờ thiếu; **cán bộ Một cửa chỉ được yêu cầu bổ sung 01 lần duy nhất**.
 3. **Mẫu số 03**: *Phiếu từ chối tiếp nhận giải quyết hồ sơ* - Nêu rõ lý do và căn cứ pháp luật không đủ điều kiện giải quyết.
 4. **Mẫu số 04**: *Phiếu xin lỗi và hẹn lại ngày trả kết quả* - **Bắt buộc ban hành khi hồ sơ chậm trễ**, nêu rõ lý do nguyên nhân và ấn định ngày trả kết quả mới.
-- **Hiện trạng tại UBND Phường**: Có **${hoSoMotCuaLienThongList.length}** hồ sơ trong hệ thống, tỷ lệ DVC toàn trình đạt **82.4%**, cấp kết quả điện tử gắn mã băm SHA-256 tái sử dụng theo Đề án 06.`;
+- **Hiện trạng tại UBND Phường**: Có **${hoSoMotCuaLienThongList.length}** hồ sơ trong hệ thống, tỷ lệ DVC toàn trình đạt **82.4%**, cấp kết quả điện tử gắn chữ ký số xác thực tái sử dụng theo Đề án 06.`;
     }
 
     // 4. Gợi ý Bút phê Lãnh đạo chuẩn
@@ -202,8 +202,8 @@ Phạm vi cấm: Trong bán kính 100m tính từ nơi cư trú hoặc nơi làm
     // Default response
     return `Tôi đã ghi nhận yêu cầu: "${query}". 
 Hệ thống hiện đang hỗ trợ tự động:
-1. **Kiểm tra tiến độ KPI** các khối ngành (Văn hóa, Giáo dục, An sinh, Thông tin).
-2. **Duyệt nhanh sản phẩm check-in** tại phân hệ Điều hành Lãnh đạo.
+1. **Kiểm tra tiến độ công việc** các khối ngành (Văn hóa, Giáo dục, An sinh, Thông tin).
+2. **Duyệt nhanh sản phẩm công vụ** tại phân hệ Điều hành Lãnh đạo.
 3. **Tra cứu quy định pháp luật**: NĐ 86/2023, NĐ 54/2019, NĐ 38/2021, Luật PCBLGĐ 2022, TT 04/2023/TT-BTC.
 4. **Soạn thảo mẫu văn bản**: Tờ trình, Quyết định, Biên bản kiểm tra 814.
 
@@ -252,8 +252,8 @@ Hệ thống hiện đang hỗ trợ tự động:
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-105 cursor-pointer group"
-          title="Mở Trợ lý AI Công chức"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-[#dd4b39] hover:bg-[#c23321] text-white rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer group"
+          title="Mở Trợ lý Công vụ Điện tử"
         >
           <div className="relative">
             <Bot className="w-5 h-5 text-white animate-bounce" />
@@ -264,14 +264,14 @@ Hệ thống hiện đang hỗ trợ tự động:
           </div>
           <div className="flex flex-col text-left">
             <span className="text-xs font-bold leading-tight flex items-center gap-1">
-              Trợ lý AI Công chức <Sparkles className="w-3 h-3 text-amber-300" />
+              Trợ lý Công vụ Điện tử <Sparkles className="w-3 h-3 text-amber-300" />
             </span>
-            <span className="text-[10px] text-blue-100 leading-tight">Tra cứu &amp; Soạn thảo số</span>
+            <span className="text-[10px] text-red-100 leading-tight">Tra cứu văn bản &amp; Hỗ trợ công vụ</span>
           </div>
         </button>
       )}
 
-      {/* 2. Chatbot Dialog Panel */}
+      {/* 2. Dialog Panel */}
       {isOpen && (
         <div
           className={`fixed z-50 transition-all duration-300 shadow-2xl overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col ${
@@ -281,14 +281,14 @@ Hệ thống hiện đang hỗ trợ tự động:
           }`}
         >
           {/* Header */}
-          <div className="px-4 py-3.5 bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 text-white flex items-center justify-between border-b border-slate-800">
+          <div className="px-4 py-3.5 bg-gradient-to-r from-[#222d32] to-[#1e282c] border-b-2 border-[#dd4b39] text-white flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="size-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-xs">
+              <div className="size-8 rounded-full bg-[#dd4b39] text-white flex items-center justify-center font-bold shadow-xs">
                 <Bot className="w-4 h-4" />
               </div>
               <div>
                 <h3 className="text-xs font-bold flex items-center gap-1">
-                  Trợ lý AI Công chức UBND Phường <Sparkles className="w-3 h-3 text-amber-300" />
+                  Trợ lý Công vụ Điện tử UBND Phường <Sparkles className="w-3 h-3 text-amber-300" />
                 </h3>
                 <div className="text-[10px] text-emerald-400 flex items-center gap-1">
                   <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />

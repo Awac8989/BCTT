@@ -359,7 +359,7 @@ export function DatabaseStudioTab() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs"
           >
             <Download className="size-3.5" />
-            <span>Tải SQL Dump (.sql)</span>
+            <span>Sao lưu tệp dữ liệu (.sql)</span>
           </button>
 
           <button
@@ -368,7 +368,7 @@ export function DatabaseStudioTab() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#dd4b39] hover:bg-[#c23321] text-white font-bold text-xs shadow-xs cursor-pointer"
           >
             <Clock className="size-3.5" />
-            <span>Tạo Bản Sao Lưu (Backup)</span>
+            <span>Tạo Bản Sao Lưu Dự Phòng</span>
           </button>
 
           <button
@@ -377,7 +377,7 @@ export function DatabaseStudioTab() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 hover:bg-gray-100 text-gray-700 font-bold text-xs cursor-pointer"
           >
             <RotateCcw className="size-3.5 text-amber-600" />
-            <span>Khôi phục CSDL Gốc</span>
+            <span>Khôi phục Dữ liệu Ban đầu</span>
           </button>
         </div>
       </div>

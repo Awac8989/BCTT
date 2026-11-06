@@ -42,7 +42,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Dashboard điều hành quản lý hồ sơ Người có công phường Thủ Dầu Một: chỉ số KPI, giải ngân theo tháng, cơ cấu đối tượng và cảnh báo hồ sơ quá hạn.",
+          "Bảng điều hành quản lý hồ sơ Người có công phường Thủ Dầu Một: chỉ tiêu giải ngân theo tháng, cơ cấu đối tượng và cảnh báo hồ sơ quá hạn.",
       },
       { property: "og:title", content: "Bảng điều khiển điều hành · Hồ sơ Người có công" },
       {
@@ -85,7 +85,7 @@ const KPI = [
     subColor: "text-gray-500",
   },
   {
-    label: "Chỉ số hài lòng (CSAT)",
+    label: "Chỉ số hài lòng của người dân",
     value: "4,85",
     unit: "/5★",
     sub: "3.862 lượt khảo sát",

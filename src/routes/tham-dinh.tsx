@@ -365,7 +365,7 @@ function ThamDinhPage() {
                                   setSelectedHoSoForQd(h);
                                   setIsQdModalOpen(true);
                                 }}
-                                title="Ký số điện tử SmartCA và ban hành Quyết định"
+                                title="Ký số điện tử công vụ và ban hành Quyết định"
                                 className="flex items-center gap-1 rounded bg-[#dd4b39] hover:bg-[#c23321] px-2.5 py-1 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer animate-pulse"
                               >
                                 <ShieldCheck className="size-3.5" />

@@ -130,31 +130,31 @@ export function VanBanDieuHanh() {
     setNewVbDiTrichYeu("");
   };
 
-  // Xử lý ký số SmartCA phát hành văn bản đi
+  // Xử lý ký số công vụ phát hành văn bản đi
   const handleKySoPhatHanh = (vbDi: VanBanDiItem) => {
     appStore.kySoPhatHanhVanBanDi(vbDi.id, currentUser.fullName, currentUser.roleTitle || "Lãnh đạo UBND");
     toast.success(
-      `Ký số SmartCA & Phát hành văn bản số ${vbDi.soKyHieu} thành công! Sản phẩm đã được đồng bộ vào sổ Check-in KPI.`
+      `Ký số công vụ & Phát hành văn bản số ${vbDi.soKyHieu} thành công! Nhiệm vụ đã được ghi nhận hoàn thành.`
     );
   };
 
   return (
     <div className="space-y-6">
-      {/* Top Banner giới thiệu quy trình e-Office */}
-      <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+      {/* Top Banner giới thiệu quy trình Văn phòng Điện tử */}
+      <div className="bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] border-b-2 border-[#dd4b39] text-white rounded-xl p-6 shadow-md relative overflow-hidden">
         <div className="absolute right-0 top-0 bottom-0 opacity-10 pointer-events-none flex items-center pr-10">
           <Layers className="w-80 h-80" />
         </div>
         <div className="relative z-10 max-w-4xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-semibold uppercase tracking-wider">
-            <FileSignature className="w-3.5 h-3.5 text-blue-300" />
-            Hệ thống Quản lý Văn bản & Điều hành Công việc (e-Office)
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dd4b39]/20 border border-[#dd4b39]/40 text-red-200 text-xs font-semibold uppercase tracking-wider">
+            <FileSignature className="w-3.5 h-3.5 text-red-400" />
+            Hệ thống Quản lý Văn bản &amp; Điều hành Công việc
           </div>
           <h2 className="text-2xl font-bold tracking-tight">
-            Văn phòng Điện tử & Trục Liên thông Văn bản Quốc gia VDXP
+            Văn phòng Điện tử &amp; Trục Liên thông Văn bản Quốc gia
           </h2>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Chu trình hành chính khép kín theo <strong>Nghị định 30/2020/NĐ-CP</strong> và <strong>Đề án 06</strong>: Tiếp nhận Văn bản đến $\rightarrow$ Lãnh đạo Bút phê chỉ đạo $\rightarrow$ Tự động giao việc & đẩy Chat nội bộ $\rightarrow$ Cán bộ lập dự thảo Văn bản đi $\rightarrow$ Ký số SmartCA $\rightarrow$ Nghiệm thu Check-in KPI và phát hành VDXP.
+            Chu trình hành chính khép kín theo <strong>Nghị định 30/2020/NĐ-CP</strong> và <strong>Đề án 06</strong>: Tiếp nhận Văn bản đến → Lãnh đạo Bút phê chỉ đạo → Tự động giao việc &amp; thông báo nội bộ → Cán bộ lập dự thảo Văn bản đi → Ký số điện tử công vụ → Đánh giá hoàn thành nhiệm vụ và phát hành liên thông quốc gia.
           </p>
         </div>
       </div>
@@ -185,7 +185,7 @@ export function VanBanDieuHanh() {
           }`}
         >
           <Send className={`w-4 h-4 ${activeTab === "VAN_BAN_DI" ? "text-[#dd4b39]" : ""}`} />
-          <span>Sổ Văn bản Đi &amp; Trình ký SmartCA</span>
+          <span>Sổ Văn bản Đi &amp; Trình ký số công vụ</span>
           <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${activeTab === "VAN_BAN_DI" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
             {vanBanDiList.length}
           </span>
@@ -200,7 +200,7 @@ export function VanBanDieuHanh() {
           }`}
         >
           <Share2 className={`w-4 h-4 ${activeTab === "TRUC_VDXP" ? "text-[#dd4b39]" : ""}`} />
-          <span>Trục Liên thông Quốc gia (VDXP)</span>
+          <span>Trục Liên thông Văn bản Quốc gia</span>
           <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${activeTab === "TRUC_VDXP" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
             Kết nối thông suốt
           </span>
@@ -415,7 +415,7 @@ export function VanBanDieuHanh() {
                             setButPheText(v.butPheLanhDao || "");
                             setHanXuLyInput(v.hanXuLy || "30/10/2026");
                           }}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs shadow-sm transition cursor-pointer"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#dd4b39] hover:bg-[#c23321] text-white font-medium text-xs shadow-xs transition cursor-pointer"
                         >
                           <PenTool className="w-3.5 h-3.5" />
                           <span>Bút phê & Giao việc</span>
@@ -431,14 +431,14 @@ export function VanBanDieuHanh() {
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 2: SỔ VĂN BẢN ĐI & QUY TRÌNH TRÌNH KÝ SMARTCA */}
+      {/* TAB 2: SỔ VĂN BẢN ĐI & QUY TRÌNH TRÌNH KÝ SỐ CÔNG VỤ */}
       {/* ========================================================================= */}
       {activeTab === "VAN_BAN_DI" && (
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                Sổ Văn bản Đi, Phiếu Trình ký & Ký số SmartCA
+                Sổ Văn bản Đi, Phiếu Trình ký & Ký số Điện tử Công vụ
               </h3>
               <p className="text-xs text-slate-500">
                 Thẩm tra thể thức văn bản theo Nghị định 30/2020/NĐ-CP và cấp số phát hành điện tử
@@ -447,7 +447,7 @@ export function VanBanDieuHanh() {
             <button
               type="button"
               onClick={() => setModalSoanVbDi(true)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-md transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-semibold shadow-xs transition cursor-pointer"
             >
               <Send className="w-4 h-4" />
               <span>Soạn Dự thảo Văn bản Đi Mới</span>
@@ -516,7 +516,7 @@ export function VanBanDieuHanh() {
                           </span>
                         ) : vb.trangThai === "CHO_KY_SO" ? (
                           <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-800">
-                            Chờ Sếp ký số
+                            Chờ Lãnh đạo ký số
                           </span>
                         ) : (
                           <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-800">
@@ -529,10 +529,10 @@ export function VanBanDieuHanh() {
                           <button
                             type="button"
                             onClick={() => handleKySoPhatHanh(vb)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-sm transition cursor-pointer"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#dd4b39] hover:bg-[#c23321] text-white font-medium text-xs shadow-xs transition cursor-pointer"
                           >
                             <ShieldCheck className="w-3.5 h-3.5" />
-                            <span>Ký số SmartCA</span>
+                            <span>Ký số công vụ</span>
                           </button>
                         ) : vb.trangThai === "DA_PHAT_HANH" ? (
                           <div className="text-right">
@@ -564,7 +564,7 @@ export function VanBanDieuHanh() {
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 3: TRỤC LIÊN THÔNG VĂN BẢN QUỐC GIA (VDXP) */}
+      {/* TAB 3: TRỤC LIÊN THÔNG VĂN BẢN QUỐC GIA */}
       {/* ========================================================================= */}
       {activeTab === "TRUC_VDXP" && (
         <div className="space-y-6">
@@ -573,7 +573,7 @@ export function VanBanDieuHanh() {
               <div>
                 <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                   <Share2 className="w-5 h-5 text-emerald-600" />
-                  Trục Liên thông Văn bản Quốc gia (VDXP) & Nền tảng Tích hợp Dữ liệu Tỉnh (LGSP)
+                  Trục Liên thông Văn bản Quốc gia & Nền tảng Tích hợp Dữ liệu Tỉnh
                 </h3>
                 <p className="text-xs text-slate-500 mt-1">
                   Mã định danh cơ quan UBND Phường Thủ Dầu Một: <strong>000.00.24.H50</strong> · Trạng thái kết nối: Hoạt động ổn định 24/7
@@ -581,7 +581,7 @@ export function VanBanDieuHanh() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-xs font-bold text-emerald-600">ĐÃ KẾT NỐI VDXP</span>
+                <span className="text-xs font-bold text-emerald-600">ĐÃ KẾT NỐI LIÊN THÔNG TOÀN QUỐC</span>
               </div>
             </div>
 
@@ -590,17 +590,17 @@ export function VanBanDieuHanh() {
                 <p className="text-xs text-emerald-800 dark:text-emerald-300 font-semibold">UBND Thành phố Thủ Dầu Một</p>
                 <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1">Gửi/Nhận: 342 văn bản điện tử</p>
                 <div className="flex items-center justify-between text-[11px] text-emerald-700 font-bold mt-2">
-                  <span>Trễ gói tin: 12ms</span>
+                  <span>Trễ truyền gửi: 12ms</span>
                   <span>100% Ký số</span>
                 </div>
               </div>
 
               <div className="p-4 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-950/20">
                 <p className="text-xs text-blue-800 dark:text-blue-300 font-semibold">UBND Tỉnh Bình Dương & Các Sở</p>
-                <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1">Trực tiếp qua Trục LGSP Tỉnh</p>
+                <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1">Trực tiếp qua Trục liên thông tỉnh</p>
                 <div className="flex items-center justify-between text-[11px] text-blue-700 font-bold mt-2">
-                  <span>Mã hóa AES-256</span>
-                  <span>Chứng thư Ban Cơ yếu</span>
+                  <span>Mật mã chuyên dùng công vụ</span>
+                  <span>Chứng thư Ban Cơ yếu Chính phủ</span>
                 </div>
               </div>
 
@@ -608,8 +608,8 @@ export function VanBanDieuHanh() {
                 <p className="text-xs text-indigo-800 dark:text-indigo-300 font-semibold">Hệ thống Một Cửa Quốc Gia</p>
                 <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1">Đồng bộ trạng thái hồ sơ TTHC</p>
                 <div className="flex items-center justify-between text-[11px] text-indigo-700 font-bold mt-2">
-                  <span>Đề án 06 / VNeID</span>
-                  <span>API Sync 15 phút/lần</span>
+                  <span>Đề án 06 về định danh điện tử</span>
+                  <span>Đồng bộ định kỳ 15 phút/lần</span>
                 </div>
               </div>
             </div>

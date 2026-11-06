@@ -128,7 +128,7 @@ function HoSoLietSiDetail() {
 
   const handleKySo = () => {
     appStore.kySoHoSo(hoSo.id);
-    toast.success("Lãnh đạo đã ký số điện tử SmartCA phê duyệt hồ sơ thành công!");
+    toast.success("Lãnh đạo đã ký số điện tử công vụ phê duyệt hồ sơ thành công!");
   };
 
   return (
@@ -236,7 +236,7 @@ function HoSoLietSiDetail() {
             className="flex items-center gap-1 rounded-[3px] bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-700 hover:to-amber-700 px-3.5 py-1 font-bold text-white shadow-xs cursor-pointer"
           >
             <ShieldCheck className="size-3.5 text-amber-200" />
-            Ký số SmartCA
+            Ký số công vụ
           </button>
           <button
             type="button"

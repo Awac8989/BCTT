@@ -98,7 +98,7 @@ export function InternalChatMeeting({ initialChannel }: InternalChatMeetingProps
               }`}
             >
               <MessageSquare className="w-4 h-4" />
-              <span>Kênh Chat Tác nghiệp Nội bộ</span>
+              <span>Kênh Trao đổi Tác nghiệp Nội bộ</span>
             </button>
             <button
               type="button"

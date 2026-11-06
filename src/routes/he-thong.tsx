@@ -441,7 +441,7 @@ function HeThong() {
                   </span>
                   <span className="font-mono text-emerald-600 font-bold">HOẠT ĐỘNG</span>
                 </div>
-                <p className="mt-1 text-gray-500 text-[11px]">JWT Auth, Profile CRUD &amp; CSAT</p>
+                <p className="mt-1 text-gray-500 text-[11px]">Xác thực công vụ, Quản lý hồ sơ &amp; Đánh giá hài lòng</p>
                 <div className="mt-2 font-mono text-[10px] text-gray-400">Port: 8080 · Express.js</div>
               </div>
 
@@ -452,30 +452,30 @@ function HeThong() {
                   </span>
                   <span className="font-mono text-emerald-600 font-bold">HOẠT ĐỘNG</span>
                 </div>
-                <p className="mt-1 text-gray-500 text-[11px]">Allowance BigDecimal Engine</p>
-                <div className="mt-2 font-mono text-[10px] text-gray-400">Port: 8081 · Java 21</div>
+                <p className="mt-1 text-gray-500 text-[11px]">Bộ tính toán trợ cấp chuẩn y khoa &amp; Pháp lệnh Người có công</p>
+                <div className="mt-2 font-mono text-[10px] text-gray-400">Cổng dịch vụ: 8081 · Nền tảng số thế hệ mới</div>
               </div>
 
               <div className="rounded-lg border bg-gray-50/70 p-3">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-gray-900 flex items-center gap-1.5">
-                    <Database className="size-3.5 text-[#0073b7]" /> MySQL 8.0 Cluster
+                    <Database className="size-3.5 text-[#0073b7]" /> Cơ sở Dữ liệu Tập trung
                   </span>
                   <span className="font-mono text-emerald-600 font-bold">ĐÃ KẾT NỐI</span>
                 </div>
-                <p className="mt-1 text-gray-500 text-[11px]">18 Tables · InnoDB 3NF · UTF8MB4</p>
-                <div className="mt-2 font-mono text-[10px] text-gray-400">Lat: 1.2ms · Index OK</div>
+                <p className="mt-1 text-gray-500 text-[11px]">18 Bảng dữ liệu chuẩn hóa · Mã hóa ký tự Quốc gia</p>
+                <div className="mt-2 font-mono text-[10px] text-gray-400">Độ trễ: 1.2ms · Chỉ mục an toàn</div>
               </div>
 
               <div className="rounded-lg border bg-gray-50/70 p-3">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-gray-900 flex items-center gap-1.5">
-                    <Sparkles className="size-3.5 text-amber-600" /> Trục liên thông LGSP
+                    <Sparkles className="size-3.5 text-amber-600" /> Trục liên thông Dịch vụ công (LGSP)
                   </span>
                   <span className="font-mono text-emerald-600 font-bold">ĐÃ ĐỒNG BỘ</span>
                 </div>
-                <p className="mt-1 text-gray-500 text-[11px]">OAuth2 / mTLS TP. Thủ Dầu Một</p>
-                <div className="mt-2 font-mono text-[10px] text-gray-400">Trạng thái: 200 OK (Bình thường)</div>
+                <p className="mt-1 text-gray-500 text-[11px]">Bảo mật liên thông xác thực số TP. Thủ Dầu Một</p>
+                <div className="mt-2 font-mono text-[10px] text-gray-400">Trạng thái: Hoạt động thông suốt (200 OK)</div>
               </div>
             </div>
           </div>
@@ -488,11 +488,11 @@ function HeThong() {
                 <div className="flex items-center gap-2">
                   <Calculator className="size-4 text-amber-600" />
                   <span className="font-bold text-gray-900 text-sm">
-                    Kiểm thử Engine Tính Trợ cấp (Nghị định 75/2021)
+                    Thử nghiệm Tính toán Trợ cấp Chính sách (Nghị định 75/2021)
                   </span>
                 </div>
                 <span className="rounded bg-amber-50 text-amber-800 text-[10px] font-bold px-2 py-0.5 border border-amber-200">
-                  BigDecimal Engine
+                  Chuẩn xác tuyệt đối
                 </span>
               </div>
 
@@ -567,11 +567,11 @@ function HeThong() {
                 <div className="flex items-center gap-2">
                   <Sparkles className="size-4 text-[#dd4b39]" />
                   <span className="font-bold text-gray-900 text-sm">
-                    Kiểm thử Bộ Phân tích Cảm xúc CSAT (Sentiment Engine)
+                    Thử nghiệm Bộ Phân tích Ý kiến Người dân &amp; Đo lường Hài lòng
                   </span>
                 </div>
                 <span className="rounded bg-sky-50 text-sky-800 text-[10px] font-bold px-2 py-0.5 border border-sky-200">
-                  Node.js NLP
+                  Tự động phân loại
                 </span>
               </div>
 

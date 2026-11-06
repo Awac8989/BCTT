@@ -122,7 +122,7 @@ export function VanHoaTabNav({ activeTab, onSelectTab, counts }: VanHoaTabNavPro
     },
     {
       key: "TTHC_MOT_CUA",
-      label: "TTHC Một cửa & SmartCA",
+      label: "TTHC Một cửa & Ký số công vụ",
       subLabel: "6 bước liên thông",
       icon: FileCheck,
       count: counts.tthc,

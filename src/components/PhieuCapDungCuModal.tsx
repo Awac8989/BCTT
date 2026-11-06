@@ -211,7 +211,7 @@ export function PhieuCapDungCuModal({ isOpen, onClose, item }: Props) {
                 <div className="border border-red-500 bg-red-50 p-2 rounded text-[10px] text-left space-y-0.5 text-red-900 inline-block">
                   <div className="flex items-center gap-1 font-bold text-red-700">
                     <ShieldCheck className="size-3.5" />
-                    <span>ĐÃ KÝ SỐ SMARTCA</span>
+                    <span>ĐÃ KÝ SỐ CÔNG VỤ</span>
                   </div>
                   <div>SỞ LAO ĐỘNG - THƯƠNG BINH VÀ XÃ HỘI</div>
                   <div className="font-mono text-[9px] text-gray-600">

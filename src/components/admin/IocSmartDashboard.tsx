@@ -89,7 +89,7 @@ export const IocSmartDashboard: React.FC<IocSmartDashboardProps> = ({ onNavigate
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[#dd4b39]/20 border border-[#dd4b39]/40 px-2.5 py-0.5 text-[11px] font-bold text-red-200">
                 <span className="size-2 rounded-full bg-[#dd4b39] animate-pulse" />
-                TRỰC TUYẾN 24/7 (IOC) · TRỤC LIÊN THÔNG VDXP / LGSP
+                TRỰC TUYẾN 24/7 · TRỤC LIÊN THÔNG VĂN BẢN QUỐC GIA &amp; TỈNH
               </span>
               <span className="text-xs text-gray-400 font-mono">
                 MÃ ĐƠN VỊ: UBND-TDM-711
@@ -97,10 +97,10 @@ export const IocSmartDashboard: React.FC<IocSmartDashboardProps> = ({ onNavigate
             </div>
             <h2 className="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-2">
               <Activity className="size-6 text-[#dd4b39] animate-pulse" />
-              TRUNG TÂM GIÁM SÁT ĐIỀU HÀNH THÔNG MINH (IOC) PHƯỜNG THỦ DẦU MỘT
+              TRUNG TÂM GIÁM SÁT ĐIỀU HÀNH THÔNG MINH PHƯỜNG THỦ DẦU MỘT
             </h2>
             <p className="text-xs text-gray-300">
-              Vận hành theo Khoản 8 Điều 3 Quyết định số 2698/QĐ-UBND của UBND phường Thủ Dầu Một · Kết nối IOC Thành phố &amp; IOC Tỉnh
+              Vận hành theo Khoản 8 Điều 3 Quyết định số 2698/QĐ-UBND của UBND phường Thủ Dầu Một · Kết nối Hệ thống Giám sát Thành phố &amp; Tỉnh
             </p>
           </div>
 
@@ -200,7 +200,7 @@ export const IocSmartDashboard: React.FC<IocSmartDashboardProps> = ({ onNavigate
             </div>
             <div className="space-y-1">
               <div className="flex justify-between text-[11px] text-gray-600 font-medium">
-                <span>Ký số SmartCA điện tử:</span>
+                <span>Ký số điện tử công vụ:</span>
                 <span className="font-mono font-bold text-sky-600">99,1%</span>
               </div>
               <div className="h-1.5 w-full rounded-full bg-gray-100 overflow-hidden">

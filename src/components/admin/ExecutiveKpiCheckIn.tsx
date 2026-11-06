@@ -247,7 +247,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
       sanPhamYeuCau: taskDeliverable.trim(),
     });
 
-    toast.success(`Đã giao nhiệm vụ mới cho đồng chí ${taskCanBo} và gửi thông báo qua kênh Chat nội bộ!`);
+    toast.success(`Đã giao nhiệm vụ mới cho đồng chí ${taskCanBo} và gửi thông báo qua kênh trao đổi nội bộ!`);
     setShowGiaoViecModal(false);
     setTaskTieuDe("");
     setTaskDeliverable("");
@@ -256,22 +256,22 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
   return (
     <div className="space-y-6">
       {/* Executive Command Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 text-white rounded-2xl p-6 shadow-md border border-slate-800 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] text-white rounded-xl p-6 shadow-md border-b-2 border-[#dd4b39] relative overflow-hidden">
         <div className="relative z-10 max-w-4xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
-            <Building2 className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#dd4b39]/20 text-red-200 border border-[#dd4b39]/40 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+            <Building2 className="w-3.5 h-3.5 text-red-400" />
             Trung tâm Giám sát Điều hành Lãnh đạo UBND Phường
           </div>
           <h2 className="text-2xl font-bold mb-2">
-            Giám sát Tiến độ KPI, Thẩm định Check-in Sản phẩm &amp; Giao việc Số
+            Giám sát Tiến độ Công tác, Thẩm định Sản phẩm Công vụ &amp; Giao việc Điện tử
           </h2>
           <p className="text-slate-300 text-sm leading-relaxed mb-4">
-            Bảng điều hành chuyên quyền dành cho Lãnh đạo UBND và Ban Giám đốc: Theo dõi thời gian thực kết quả đầu ra của từng công chức (Văn hóa, Giáo dục, An sinh, Thông tin), phê chuẩn sản phẩm check-in, giao nhiệm vụ trực tiếp và liên kết trao đổi nhanh.
+            Bảng điều hành chuyên quyền dành cho Lãnh đạo UBND Phường: Theo dõi thời gian thực kết quả đầu ra của từng công chức (Văn hóa, Giáo dục, An sinh, Thông tin), phê chuẩn sản phẩm công vụ, giao nhiệm vụ trực tiếp và liên kết trao đổi nhanh.
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
             <div className="bg-black/40 border border-slate-700/60 p-2.5 rounded-xl">
-              <div className="text-slate-400">KPI Trung bình Phường</div>
+              <div className="text-slate-400">Tỷ lệ hoàn thành nhiệm vụ</div>
               <div className="text-xl font-bold text-emerald-400 mt-0.5">94.8%</div>
               <div className="text-[11px] text-slate-400">Đạt chỉ tiêu HĐND giao</div>
             </div>
@@ -284,14 +284,14 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
             </div>
             <div className="bg-black/40 border border-slate-700/60 p-2.5 rounded-xl">
               <div className="text-slate-400">Nhiệm vụ đang thực hiện</div>
-              <div className="text-xl font-bold text-blue-400 mt-0.5">
+              <div className="text-xl font-bold text-red-400 mt-0.5">
                 {taskAssignmentList.filter((t) => t.trangThai !== "HOAN_THANH").length} công việc
               </div>
               <div className="text-[11px] text-slate-400">Đúng hạn 100%</div>
             </div>
             <div className="bg-black/40 border border-slate-700/60 p-2.5 rounded-xl">
               <div className="text-slate-400">Đội ngũ Cán bộ</div>
-              <div className="text-xl font-bold text-purple-400 mt-0.5">4 Khối ngành</div>
+              <div className="text-xl font-bold text-slate-200 mt-0.5">4 Khối ngành</div>
               <div className="text-[11px] text-slate-400">Chuyên môn hóa 100%</div>
             </div>
           </div>
@@ -306,18 +306,18 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
             onClick={() => setActiveTab("SAN_PHAM")}
             className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === "SAN_PHAM"
-                ? "bg-blue-600 text-white shadow-xs"
+                ? "bg-[#dd4b39] text-white shadow-xs"
                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
-            Sổ Check-in Sản phẩm ({productCheckInList.length})
+            Sổ Sản phẩm Công vụ ({productCheckInList.length})
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("GIAO_VIEC")}
             className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === "GIAO_VIEC"
-                ? "bg-blue-600 text-white shadow-xs"
+                ? "bg-[#dd4b39] text-white shadow-xs"
                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
@@ -328,30 +328,30 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
             onClick={() => setActiveTab("TIEN_DO_CAN_BO")}
             className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === "TIEN_DO_CAN_BO"
-                ? "bg-blue-600 text-white shadow-xs"
+                ? "bg-[#dd4b39] text-white shadow-xs"
                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
-            Đánh giá KPI &amp; Năng lực Cán bộ
+            Đánh giá Kết quả &amp; Năng lực Cán bộ
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("CHAM_DIEM_KPI")}
             className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
               activeTab === "CHAM_DIEM_KPI"
-                ? "bg-blue-600 text-white shadow-xs"
+                ? "bg-[#dd4b39] text-white shadow-xs"
                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
             <Scale className="w-4 h-4 text-amber-300" />
-            <span>Chấm Điểm KPI Đa Chiều &amp; Thưởng Phạt ({kpiEvaluationList.length})</span>
+            <span>Đánh giá Đa Chiều &amp; Thưởng Phạt ({kpiEvaluationList.length})</span>
           </button>
         </div>
 
         <button
           type="button"
           onClick={() => setShowGiaoViecModal(true)}
-          className="flex items-center gap-2 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors cursor-pointer flex-shrink-0"
+          className="flex items-center gap-2 px-3.5 py-2 bg-[#dd4b39] hover:bg-[#c23321] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors cursor-pointer flex-shrink-0"
         >
           <Plus className="w-4 h-4" />
           <span>Lãnh đạo Giao việc Mới</span>
@@ -732,13 +732,13 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                 </div>
               </div>
               <div className="text-[11px] text-slate-500 mt-1">
-                Tự động từ QĐ 766 Một cửa &amp; Khảo sát CSAT
+                Tự động từ QĐ 766 Một cửa &amp; Khảo sát hài lòng
               </div>
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-2xs">
               <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium">
-                <span>Thẩm định SmartCA</span>
+                <span>Thẩm định Ký số công vụ</span>
                 <ShieldCheck className="w-4 h-4 text-indigo-500" />
               </div>
               <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-2">
@@ -780,7 +780,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
 
               <div className="bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-slate-200 dark:border-slate-800">
                 <div className="font-bold text-amber-700 dark:text-amber-400 flex items-center justify-between">
-                  <span>3. Hài lòng Dân (CSAT/SIPAS)</span>
+                  <span>3. Hài lòng của Nhân dân (SIPAS)</span>
                   <span className="px-1.5 py-0.5 bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 rounded text-[10px]">Tối đa 15đ</span>
                 </div>
                 <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
@@ -949,7 +949,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                         <div className="text-base font-bold text-blue-600 dark:text-blue-400 mt-0.5">
                           {kpi.diemHeThongAutoTong} <span className="text-xs font-normal text-slate-400">/100</span>
                         </div>
-                        <div className="text-[10px] text-slate-400">Từ QĐ 766 &amp; CSAT</div>
+                        <div className="text-[10px] text-slate-400">Từ QĐ 766 &amp; Khảo sát hài lòng</div>
                       </div>
 
                       <div className="p-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200/60 dark:border-slate-800">
@@ -1018,7 +1018,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                             </td>
                           </tr>
                           <tr>
-                            <td className="py-2 px-3 font-semibold">3. Mức độ hài lòng của nhân dân (CSAT &amp; SIPAS)</td>
+                            <td className="py-2 px-3 font-semibold">3. Mức độ hài lòng của nhân dân (Chỉ số SIPAS)</td>
                             <td className="py-2 px-3 text-center font-bold text-slate-500">15</td>
                             <td className="py-2 px-3 text-center">{kpi.tieuChi3_CsatHaiLongDan.diemTuCham}</td>
                             <td className="py-2 px-3 text-center font-semibold text-blue-600">{kpi.tieuChi3_CsatHaiLongDan.diemHeThongAuto}</td>
@@ -1117,7 +1117,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                         className="inline-flex items-center gap-1.5 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 cursor-pointer font-medium"
                       >
                         <MessageSquare className="w-3.5 h-3.5" />
-                        <span>Chỉ đạo qua Chat với {kpi.canBoName.split(" ").slice(-1)[0]}</span>
+                        <span>Trao đổi &amp; chỉ đạo công vụ với {kpi.canBoName.split(" ").slice(-1)[0]}</span>
                       </button>
 
                       <div className="flex items-center gap-2">
@@ -1143,7 +1143,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                           className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
                         >
                           <Sliders className="w-3.5 h-3.5" />
-                          <span>Lãnh đạo Thẩm định &amp; Chấm điểm (SmartCA)</span>
+                          <span>Lãnh đạo Thẩm định &amp; Ký số Duyệt</span>
                         </button>
                       </div>
                     </div>
@@ -1351,7 +1351,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
 
               <div>
                 <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Sản phẩm đầu ra yêu cầu nộp check-in: <span className="text-red-500">*</span>
+                  Sản phẩm đầu ra yêu cầu nộp thẩm định: <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   rows={2}
@@ -1503,12 +1503,12 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                 <div className="bg-slate-50 dark:bg-slate-800/30 p-3 rounded-lg border border-slate-200/60 dark:border-slate-700/60 space-y-1.5">
                   <div className="flex items-center justify-between">
                     <label className="font-semibold text-slate-800 dark:text-slate-200">
-                      3. Mức độ hài lòng của nhân dân CSAT/SIPAS (Tối đa 15 điểm)
+                      3. Mức độ hài lòng của nhân dân theo Chỉ số SIPAS (Tối đa 15 điểm)
                     </label>
                     <span className="font-bold text-amber-600 dark:text-amber-400 text-sm">{evalTc3}/15đ</span>
                   </div>
                   <div className="text-[11px] text-slate-500">
-                    CSAT thực địa: {evaluatingKpi.heThongMetrics.diemCsatTrungBinh}/5.0 sao, {evaluatingKpi.heThongMetrics.soPhanHoiTieuCuc} phản ánh tiêu cực
+                    Đánh giá thực tế của nhân dân: {evaluatingKpi.heThongMetrics.diemCsatTrungBinh}/5.0 sao, {evaluatingKpi.heThongMetrics.soPhanHoiTieuCuc} phản ánh tiêu cực
                   </div>
                   <div className="flex items-center gap-3 pt-1">
                     <input
@@ -1659,7 +1659,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   <div>
                     <div className="font-semibold text-slate-800 dark:text-slate-200">
-                      Ký số chức danh điện tử SmartCA
+                      Ký số chức danh điện tử công vụ
                     </div>
                     <div className="text-[11px] text-slate-500">
                       Chứng thực số công vụ bảo đảm tính pháp lý theo QCVN
@@ -1818,7 +1818,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                       setPenaltyEvidence("Biên bản chấm công");
                     } else if (val === "PHAT_SAN_PHAM") {
                       setPenaltyPoints(3);
-                      setPenaltyReason("Sản phẩm check-in bị Lãnh đạo trả về yêu cầu sửa chữa quá 2 lần");
+                      setPenaltyReason("Sản phẩm công vụ bị Lãnh đạo trả về yêu cầu sửa chữa quá 2 lần");
                       setPenaltyEvidence("Lịch sử phê duyệt sản phẩm");
                     }
                   }}

@@ -227,7 +227,7 @@ export function TthcMotCuaVanHoaTab({
                             className="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors cursor-pointer"
                           >
                             <ShieldCheck className="w-3.5 h-3.5" />
-                            <span>Ký số SmartCA</span>
+                            <span>Ký số công vụ</span>
                           </button>
                         ) : (
                           <div className="inline-flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium">

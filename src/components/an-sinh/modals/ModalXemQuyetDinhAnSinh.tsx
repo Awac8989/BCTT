@@ -20,7 +20,7 @@ export function ModalXemQuyetDinhAnSinh({
       <div className="bg-white rounded-lg shadow-2xl border border-gray-300 w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
         <div className="flex items-center justify-between px-4 py-2.5 bg-gray-800 text-white">
           <span className="font-bold text-xs uppercase tracking-wider">
-            Văn Bản Quyết Định Điện Tử Ký Số SmartCA
+            Văn Bản Quyết Định Điện Tử Ký Số Công Vụ
           </span>
           <div className="flex items-center gap-2">
             <button

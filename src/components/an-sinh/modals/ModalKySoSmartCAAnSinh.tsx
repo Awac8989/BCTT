@@ -47,7 +47,7 @@ export function ModalKySoSmartCAAnSinh({
         <div className="flex items-center justify-between px-4 py-3 bg-purple-700 text-white">
           <div className="flex items-center gap-2 font-bold text-sm">
             <FileSignature className="size-4" />
-            <span>Ký Số SmartCA Điện Tử Phê Duyệt Kết Quả TTHC (Nghị định 30/2020 & NĐ 61/2018)</span>
+            <span>Ký Số Điện Tử Công Vụ Phê Duyệt Kết Quả TTHC (Nghị định 30/2020 &amp; NĐ 61/2018)</span>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white">
             <X className="size-4" />
@@ -117,9 +117,9 @@ export function ModalKySoSmartCAAnSinh({
           <div className="bg-gray-50 border border-gray-200 rounded p-2.5 flex items-center justify-between text-gray-600 text-[11px]">
             <div className="flex items-center gap-2">
               <ShieldCheck className="size-4 text-purple-600" />
-              <span>Chứng thư số SmartCA: <strong>VNPT-CA / Bộ Công an</strong></span>
+              <span>Chứng thư số công vụ: <strong>Ban Cơ yếu Chính phủ / C06</strong></span>
             </div>
-            <span className="font-mono text-purple-700 font-bold">SHA-256 Valid</span>
+            <span className="font-mono text-purple-700 font-bold">Xác thực hợp lệ</span>
           </div>
 
           <div className="pt-2 flex justify-end gap-2 border-t border-gray-200">
@@ -135,7 +135,7 @@ export function ModalKySoSmartCAAnSinh({
               className="px-4 py-1.5 bg-purple-700 hover:bg-purple-800 text-white rounded font-bold shadow-xs flex items-center gap-1.5"
             >
               <Sparkles className="size-3.5 text-amber-300" />
-              Ký Số SmartCA & Ban Hành Kết Quả
+              Ký Số Công Vụ &amp; Ban Hành Kết Quả
             </button>
           </div>
         </form>

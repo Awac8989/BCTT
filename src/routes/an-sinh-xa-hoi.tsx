@@ -58,7 +58,7 @@ export const Route = createFileRoute("/an-sinh-xa-hoi")({
       {
         name: "description",
         content:
-          "Quản lý hồ sơ chính sách Người có công, Bảo trợ xã hội (NĐ 20/2021), Cứu trợ khẩn cấp, Giảm nghèo đa chiều (QĐ 24/2021), Việc làm quân nhân xuất ngũ (TT 01/2022), Chăm sóc bảo vệ trẻ em (NĐ 56/2017) và Một cửa liên thông SmartCA.",
+          "Quản lý hồ sơ chính sách Người có công, Bảo trợ xã hội (NĐ 20/2021), Cứu trợ khẩn cấp, Giảm nghèo đa chiều (QĐ 24/2021), Việc làm quân nhân xuất ngũ (TT 01/2022), Chăm sóc bảo vệ trẻ em (NĐ 56/2017) và Bộ phận Một cửa liên thông điện tử.",
       },
     ],
   }),
@@ -179,8 +179,8 @@ function AnSinhXaHoiPage() {
     quyetDinhData: NonNullable<HoSoTTHCAnSinhItem["quyetDinhKySo"]>
   ) => {
     anSinhApi.kySoTthc(id, quyetDinhData);
-    toast.success("Lãnh đạo UBND Phường đã ký số SmartCA điện tử phê chuẩn kết quả TTHC!", {
-      description: `Số: ${quyetDinhData.soQuyetDinh} · Mã băm SHA-256 hợp lệ`,
+    toast.success("Lãnh đạo UBND Phường đã ký số điện tử công vụ phê chuẩn kết quả TTHC!", {
+      description: `Số: ${quyetDinhData.soQuyetDinh} · Chữ ký số xác thực hợp lệ`,
     });
     setSigningTthcItem(null);
   };

@@ -57,7 +57,7 @@ export function TthcMotCuaAnSinhTab({
       <div className="bg-teal-50 border border-teal-200 rounded-lg p-3 text-xs text-teal-900 flex items-start gap-2.5">
         <ShieldCheck className="size-4 text-teal-600 shrink-0 mt-0.5" />
         <div>
-          <strong className="font-bold">Cơ chế Một cửa điện tử liên thông & Ký số SmartCA (Nghị định 61/2018/NĐ-CP & NĐ 107/2021/NĐ-CP):</strong>{" "}
+          <strong className="font-bold">Cơ chế Một cửa điện tử liên thông &amp; Ký số điện tử công vụ (Nghị định 61/2018/NĐ-CP &amp; NĐ 107/2021/NĐ-CP):</strong>{" "}
           Tiếp nhận hồ sơ trực tiếp tại Bộ phận Một cửa hoặc trực tuyến qua Cổng Dịch vụ công Quốc gia;
           tự động đối soát CCCD với CSDL Quốc gia về Dân cư; luân chuyển điện tử giữa Công chức Văn hóa - Xã hội và
           Chủ tịch UBND Phường ký số kết quả giải quyết TTHC.
@@ -99,7 +99,7 @@ export function TthcMotCuaAnSinhTab({
             <option value="CHO_THAM_DINH">Chờ thẩm định</option>
             <option value="DANG_XU_LY">Đang xử lý</option>
             <option value="CHO_LANH_DAO_KY">Chờ lãnh đạo ký số</option>
-            <option value="DA_KY_SO">Đã ký số SmartCA</option>
+            <option value="DA_KY_SO">Đã ký số công vụ</option>
             <option value="DA_TRA_KET_QUA">Đã trả kết quả</option>
           </select>
         </div>
@@ -171,7 +171,7 @@ export function TthcMotCuaAnSinhTab({
                       {item.trangThai === "DA_KY_SO" && (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">
                           <CheckCircle2 className="size-3 text-emerald-600" />
-                          Đã ký số SmartCA
+                          Đã ký số công vụ
                         </span>
                       )}
                       {item.trangThai === "CHO_LANH_DAO_KY" && (
@@ -200,7 +200,7 @@ export function TthcMotCuaAnSinhTab({
                           className="px-2.5 py-1 rounded bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-colors inline-flex items-center gap-1 shadow-xs"
                         >
                           <FileSignature className="size-3" />
-                          Ký số SmartCA
+                          Ký số công vụ
                         </button>
                       ) : item.quyetDinhKySo ? (
                         <button

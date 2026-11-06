@@ -9,12 +9,12 @@ export const Route = createFileRoute("/dieu-hanh")({
   head: () => ({
     meta: [
       {
-        title: "Trung tâm Giám sát Điều hành Thông minh (IOC) & Giao việc Lãnh đạo · UBND Phường Thủ Dầu Một",
+        title: "Trung tâm Giám sát Điều hành & Giao việc Lãnh đạo · UBND Phường Thủ Dầu Một",
       },
       {
         name: "description",
         content:
-          "Hệ thống IOC Phường Thủ Dầu Một: Giám sát đa ngành thời gian thực theo Khoản 8 Điều 3 Quyết định số 2698/QĐ-UBND, điều phối 14 Tổ CNSCĐ, check-in sản phẩm KPI và giao việc công vụ.",
+          "Hệ thống Giám sát Điều hành Phường Thủ Dầu Một: Giám sát đa ngành thời gian thực theo Khoản 8 Điều 3 Quyết định số 2698/QĐ-UBND, điều phối 14 Tổ công nghệ số cộng đồng, nộp sản phẩm công vụ và giao việc cán bộ.",
       },
     ],
   }),
@@ -29,9 +29,9 @@ function DieuHanhPage() {
     <AppShell activeDomain="ALL">
       <div className="space-y-6">
         <PageHeader
-          title="Trung tâm Giám sát Điều hành Thông minh (IOC) & Lãnh đạo Phường"
+          title="Trung tâm Giám sát Điều hành & Lãnh đạo Phường"
           subtitle="Ủy ban nhân dân Phường Thủ Dầu Một · Phòng Văn hóa – Xã hội (Quyết định số 2698/QĐ-UBND)"
-          badge="IOC THÔNG MINH"
+          badge="GIÁM SÁT ĐIỀU HÀNH"
         />
 
         {/* Chuyển đổi góc nhìn Điều hành Lãnh đạo */}
@@ -46,7 +46,7 @@ function DieuHanhPage() {
               }`}
             >
               <Activity className="size-4" />
-              <span>1. Màn Hình Giám Sát IOC Đa Ngành Thời Gian Thực</span>
+              <span>1. Màn Hình Giám Sát Đa Ngành Thời Gian Thực</span>
             </button>
             <button
               onClick={() => setViewMode("KPI_CHECKIN")}
@@ -57,7 +57,7 @@ function DieuHanhPage() {
               }`}
             >
               <LayoutDashboard className="size-4" />
-              <span>2. Nộp Sản Phẩm Công Vụ, Giao Việc &amp; Đánh Giá KPI Cán Bộ</span>
+              <span>2. Nộp Sản Phẩm Công Vụ, Giao Việc &amp; Đánh Giá Kết Quả Cán Bộ</span>
             </button>
           </div>
 

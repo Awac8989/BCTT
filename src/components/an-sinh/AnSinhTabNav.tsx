@@ -87,7 +87,7 @@ export function AnSinhTabNav({ activeTab, onChangeTab, counts }: AnSinhTabNavPro
     },
     {
       id: "TTHC_MOT_CUA_AN_SINH" as const,
-      label: "TTHC Một cửa & Ký số SmartCA",
+      label: "TTHC Một cửa & Ký số công vụ",
       icon: FileSignature,
       badge: counts.tthc,
     },

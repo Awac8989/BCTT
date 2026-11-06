@@ -56,7 +56,7 @@ export function GisBanDoVanHoaTab({
         categoryLabel = "Làng nghề thủ công";
       } else if (d.loaiHinh === "DIEM_DU_LICH_CHECKIN") {
         category = "CHECKIN";
-        categoryLabel = "Điểm du lịch & Check-in";
+        categoryLabel = "Điểm du lịch & Thắng cảnh";
       }
 
       return {

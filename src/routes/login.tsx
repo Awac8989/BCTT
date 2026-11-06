@@ -30,11 +30,11 @@ import { appStore, MOCK_USERS, type MockRoleKey, type CurrentUser } from "@/serv
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Cổng Đăng nhập Xác thực Công vụ · Hệ thống Điều hành Đa mảng · Tỉnh Bình Dương" },
+      { title: "Cổng Đăng nhập Xác thực Công vụ · Hệ thống Điều hành Đa mảng · Phường Thủ Dầu Một" },
       {
         name: "description",
         content:
-          "Cổng đăng nhập hệ thống quản lý hồ sơ Người có công, An sinh xã hội, Giáo dục đào tạo và Trung tâm Kỹ thuật CSDL 3NF tỉnh Bình Dương.",
+          "Cổng đăng nhập hệ thống quản lý hồ sơ Người có công, An sinh xã hội, Giáo dục đào tạo và Quản trị dữ liệu nghiệp vụ.",
       },
     ],
   }),
@@ -66,10 +66,10 @@ const OFFICIAL_ACCOUNTS: AccountDetail[] = [
     username: "admin.so",
     email: "admin.so@binhduong.gov.vn",
     passwordDefault: "BinhDuong@2026",
-    roleName: "Lãnh đạo Ban Giám đốc Sở (Sếp)",
+    roleName: "Lãnh đạo Cơ quan",
     badgeClass: "bg-red-100 text-red-800 border-red-200",
-    scope: "Chỉ đạo điều hành vĩ mô, ký số quyết định trợ cấp, giám sát CSAT và ngân sách toàn tỉnh.",
-    boundaries: "Lãnh đạo cơ quan; không can thiệp kỹ thuật hệ thống, không xem CSDL SQL hay xử lý lỗi IT.",
+    scope: "Chỉ đạo điều hành toàn diện, ký số quyết định trợ cấp, giám sát mức độ hài lòng của nhân dân và ngân sách.",
+    boundaries: "Lãnh đạo cơ quan; thực hiện chỉ đạo điều hành vĩ mô, không trực tiếp thao tác kỹ thuật cơ sở dữ liệu.",
   },
   {
     stt: 2,
@@ -80,9 +80,9 @@ const OFFICIAL_ACCOUNTS: AccountDetail[] = [
     username: "admin.kythuat",
     email: "admin.kythuat@binhduong.gov.vn",
     passwordDefault: "BinhDuong@2026",
-    roleName: "Quản trị viên Kỹ thuật & CSDL (DevOps / DBA)",
+    roleName: "Cán bộ Kỹ thuật & Quản trị Dữ liệu",
     badgeClass: "bg-purple-100 text-purple-800 border-purple-200",
-    scope: "Độc quyền truy cập Trung tâm Kỹ thuật (/ky-thuat), chẩn đoán dị biệt dữ liệu, chạy SQL UPDATE sửa lỗi CSDL 3NF, giám sát ATTT.",
+    scope: "Phụ trách Phân hệ Kỹ thuật (/ky-thuat), rà soát tính toàn vẹn dữ liệu, khắc phục sự cố kỹ thuật và giám sát an toàn thông tin.",
     boundaries: "Chuyên trách kỹ thuật; độc lập và tách bạch hoàn toàn khỏi vai trò lãnh đạo chỉ đạo.",
   },
   {

@@ -202,7 +202,7 @@ export function UyNhiemChiModal({ isOpen, onClose, item }: Props) {
             <div>
               <div className="font-bold uppercase text-gray-800">CHỦ TÀI KHOẢN (LÃNH ĐẠO SỞ)</div>
               <div className="text-[10px] text-gray-500 italic mt-0.5">Phó Giám đốc Sở LĐ-TB&amp;XH</div>
-              <div className="my-8 text-xs italic text-gray-400">(Đã ký số SmartCA)</div>
+              <div className="my-8 text-xs italic text-gray-400">(Đã ký số điện tử công vụ)</div>
               <div className="font-bold text-gray-900 uppercase">TS. Nguyễn Văn Hùng</div>
             </div>
 

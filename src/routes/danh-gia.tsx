@@ -164,7 +164,7 @@ function GiamSatDanhGiaPage() {
           <h1 className="text-xl font-extrabold text-[#333333] flex items-baseline mt-1">
             Sổ theo dõi & Xem Nhận xét, Đánh giá Cán bộ
             <span className="text-sm font-normal text-[#777777] ml-2">
-              (Chỉ số CSAT & Tiếng nói người dân)
+              (Ý kiến phản hồi &amp; Mức độ hài lòng của người dân)
             </span>
           </h1>
           <div className="text-xs text-[#666666] mt-0.5">
@@ -221,11 +221,11 @@ function GiamSatDanhGiaPage() {
         </div>
       </div>
 
-      {/* 3. 4 Thẻ KPI Chỉ số Hài lòng (CSAT) & Đánh giá Cán bộ */}
+      {/* 3. 4 Thẻ Chỉ số Hài lòng & Đánh giá Cán bộ */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
-        {/* Card 1: CSAT chung */}
+        {/* Card 1: Mức độ hài lòng chung */}
         <div className="bg-white border-t-3 border-t-[#00a65a] border-x border-b border-[#d2d6de] p-3.5 rounded-xs shadow-xs">
-          <div className="text-xs uppercase font-bold text-gray-500">Chỉ số hài lòng chung (CSAT)</div>
+          <div className="text-xs uppercase font-bold text-gray-500">Mức độ hài lòng chung</div>
           <div className="text-2xl font-extrabold text-[#00a65a] mt-1 flex items-baseline gap-1">
             {csatScore}%
             <span className="text-xs font-normal text-gray-500">hài lòng</span>
@@ -303,7 +303,7 @@ function GiamSatDanhGiaPage() {
                 <th className="p-2.5 text-left">Cán bộ tiếp nhận</th>
                 <th className="p-2.5 text-left">Vị trí công tác</th>
                 <th className="p-2.5 text-center">Số lượt đánh giá</th>
-                <th className="p-2.5 text-center">Điểm CSAT TB</th>
+                <th className="p-2.5 text-center">Điểm TB</th>
                 <th className="p-2.5 text-center">Tỷ lệ hài lòng</th>
                 <th className="p-2.5 text-center">Thái độ</th>
                 <th className="p-2.5 text-center">Thời gian</th>
@@ -501,7 +501,7 @@ function GiamSatDanhGiaPage() {
         <div className="bg-white border border-[#d2d6de] rounded-xs shadow-xs p-4 flex flex-col justify-between">
           <div>
             <div className="font-bold text-xs uppercase text-gray-800 tracking-wider mb-2">
-              Xếp hạng CSAT theo Phường/Xã tại TP. Thủ Dầu Một
+              Xếp hạng mức độ hài lòng theo Phường/Xã tại TP. Thủ Dầu Một
             </div>
             <div className="overflow-y-auto max-h-64 text-xs">
               <table className="w-full border-collapse">
@@ -509,7 +509,7 @@ function GiamSatDanhGiaPage() {
                   <tr className="border-b bg-gray-50 text-gray-600">
                     <th className="p-2 text-left">Phường / Xã</th>
                     <th className="p-2 text-center">Số lượt</th>
-                    <th className="p-2 text-center">Tỷ lệ CSAT</th>
+                    <th className="p-2 text-center">Tỷ lệ hài lòng</th>
                     <th className="p-2 text-center">Xếp loại</th>
                   </tr>
                 </thead>

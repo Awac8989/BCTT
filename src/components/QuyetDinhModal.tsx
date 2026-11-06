@@ -66,7 +66,7 @@ export function QuyetDinhModal({ isOpen, onClose, hoSo, onApproved }: Props) {
       const res = appStore.approveProfile(hoSo.id, currentUser.fullName);
       if (res.success) {
         appStore.kySoHoSo(hoSo.id, currentUser.fullName, currentUser.title);
-        toast.success(`Đã ký số SmartCA & Ban hành Quyết định số ${res.quyetDinh?.soQuyetDinh}!`, {
+        toast.success(`Đã ký số công vụ & Ban hành Quyết định số ${res.quyetDinh?.soQuyetDinh}!`, {
           description: `Đã tự động liên thông hồ sơ ${hoSo.hoTen} vào danh sách chi trả tháng tới.`,
         });
         setSigning(false);
@@ -111,14 +111,14 @@ export function QuyetDinhModal({ isOpen, onClose, hoSo, onApproved }: Props) {
                     ? "bg-[#dd4b39] hover:bg-[#c23321] text-white animate-pulse"
                     : "bg-gray-700 text-gray-400 cursor-not-allowed"
                 }`}
-                title={isLeader ? "Ký số công vụ SmartCA" : "Chỉ Lãnh đạo Ban Giám đốc Sở mới có quyền ký"}
+                title={isLeader ? "Ký số điện tử công vụ" : "Chỉ Lãnh đạo Ban Giám đốc Sở mới có quyền ký"}
               >
                 <ShieldCheck className="size-4" />
                 <span>
                   {signing
-                    ? "Đang xác thực chứng thư SmartCA..."
+                    ? "Đang xác thực chứng thư số công vụ..."
                     : isLeader
-                      ? "KÝ SỐ SMARTCA & BAN HÀNH"
+                      ? "KÝ SỐ CÔNG VỤ & BAN HÀNH"
                       : "Chờ Lãnh đạo ký số"}
                 </span>
               </button>

@@ -258,7 +258,7 @@ function TraCuuPublicPage() {
                     type="button"
                     onClick={() => setShowQuyetDinh(true)}
                     className="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
-                    title="Xem văn bản Quyết định hưởng trợ cấp ưu đãi điện tử có chữ ký số SmartCA của Lãnh đạo Sở"
+                    title="Xem văn bản Quyết định hưởng trợ cấp ưu đãi điện tử có chữ ký số công vụ của Lãnh đạo"
                   >
                     <Award className="size-3.5 text-amber-600" />
                     Quyết định trợ cấp

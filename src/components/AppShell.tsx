@@ -47,11 +47,11 @@ interface NavItem {
 
 const PRIMARY_NAV: NavItem[] = [
   { to: "/", label: "Bảng điều khiển", icon: Home },
-  { to: "/dieu-hanh", label: "Điều hành & Giao việc", icon: LayoutDashboard, badge: "Sếp" },
-  { to: "/van-ban", label: "Văn bản & e-Office", icon: FileSignature, badge: "NĐ 30" },
-  { to: "/mot-cua", label: "Một cửa & DVCQG", icon: Building2, badge: "NĐ 61" },
+  { to: "/dieu-hanh", label: "Điều hành & Giao việc", icon: LayoutDashboard, badge: "Lãnh đạo" },
+  { to: "/van-ban", label: "Văn bản & Điều hành", icon: FileSignature, badge: "NĐ 30" },
+  { to: "/mot-cua", label: "Bộ phận Một cửa", icon: Building2, badge: "NĐ 61" },
   { to: "/lich-tuan", label: "Lịch tuần & Tiếp dân", icon: Calendar },
-  { to: "/hop-truc-tuyen", label: "Họp số & Chat nội bộ", icon: MessagesSquare },
+  { to: "/hop-truc-tuyen", label: "Họp trực tuyến & Trao đổi", icon: MessagesSquare },
   { to: "/van-hoa-xa-hoi", label: "Văn hóa & Thể thao", icon: Landmark, domain: "VH_TT_DL" },
   { to: "/thong-tin-truyen-thong", label: "Thông tin & CĐS", icon: Radio, domain: "TT_CDS" },
   { to: "/an-sinh-xa-hoi", label: "An sinh xã hội", icon: HeartHandshake, domain: "LDTBXH_AN_SINH" },
@@ -65,7 +65,7 @@ const PRIMARY_NAV: NavItem[] = [
   { to: "/danh-gia", label: "Đánh giá cán bộ", icon: Star },
   { to: "/phan-tich", label: "Báo cáo thống kê", icon: Folder },
   { to: "/he-thong", label: "Phân quyền & HT", icon: Settings },
-  { to: "/ky-thuat", label: "Kỹ thuật & Fix lỗi", icon: Wrench, badge: "IT Admin" },
+  { to: "/ky-thuat", label: "Bảo trì & Khắc phục sự cố", icon: Wrench, badge: "Kỹ thuật" },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -85,10 +85,10 @@ export function AppShell({ children }: { children: ReactNode }) {
   const getBreadcrumbs = () => {
     if (pathname === "/") return ["Bảng điều khiển"];
     if (pathname.startsWith("/dieu-hanh")) {
-      return ["Bảng điều khiển", "Trung tâm Điều hành Lãnh đạo", "Giám sát KPI & Check-in Sản phẩm"];
+      return ["Bảng điều khiển", "Trung tâm Điều hành Lãnh đạo", "Theo dõi tiến độ & Báo cáo kết quả"];
     }
     if (pathname.startsWith("/van-ban")) {
-      return ["Bảng điều khiển", "Văn phòng Điện tử (e-Office)", "Quản lý Văn bản Đến, Đi & Trục VDXP"];
+      return ["Bảng điều khiển", "Văn phòng Điện tử", "Quản lý Văn bản Đến, Đi & Trục Liên thông"];
     }
     if (pathname.startsWith("/mot-cua")) {
       return ["Bảng điều khiển", "Cơ chế Một cửa Quốc gia", "Giải quyết TTHC & 4 Mẫu biểu chuẩn NĐ 61"];
@@ -121,10 +121,10 @@ export function AppShell({ children }: { children: ReactNode }) {
     if (pathname.startsWith("/dung-cu-chinh-hinh")) return ["Bảng điều khiển", "Quy trình thụ lý", "Dụng cụ chỉnh hình & Niên hạn"];
     if (pathname.startsWith("/nghia-trang")) return ["Bảng điều khiển", "Đền ơn đáp nghĩa", "Bản đồ số Nghĩa trang Liệt sĩ GIS"];
     if (pathname.startsWith("/tra-cuu")) return ["Bảng điều khiển", "Cổng dịch vụ công", "Tra cứu hồ sơ công dân"];
-    if (pathname.startsWith("/danh-gia")) return ["Bảng điều khiển", "Đánh giá cán bộ", "Xem nhận xét & Chỉ số CSAT"];
+    if (pathname.startsWith("/danh-gia")) return ["Bảng điều khiển", "Đánh giá cán bộ", "Ý kiến nhận xét của người dân"];
     if (pathname.startsWith("/phan-tich")) return ["Bảng điều khiển", "Báo cáo thống kê", "Phân tích số liệu điều hành"];
     if (pathname.startsWith("/he-thong")) return ["Bảng điều khiển", "Phân quyền & Hệ thống", "Cấp quyền riêng từng mảng"];
-    if (pathname.startsWith("/ky-thuat")) return ["Bảng điều khiển", "Trung tâm Kỹ thuật & CSDL", "Ghi nhận Báo lỗi & Sửa lỗi CSDL"];
+    if (pathname.startsWith("/ky-thuat")) return ["Bảng điều khiển", "Quản trị cơ sở dữ liệu", "Khắc phục sự cố dữ liệu"];
     return ["Bảng điều khiển", "Quản lý hồ sơ", "Tìm kiếm hồ sơ"];
   };
 

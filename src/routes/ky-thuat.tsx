@@ -39,11 +39,11 @@ import { DatabaseStudioTab } from "@/components/admin/DatabaseStudioTab";
 export const Route = createFileRoute("/ky-thuat")({
   head: () => ({
     meta: [
-      { title: "Trung tâm Kỹ thuật, Ghi nhận Báo lỗi & Chẩn đoán CSDL · SLĐTBXH Bình Dương" },
+      { title: "Phân hệ Kỹ thuật, Tiếp nhận Báo lỗi & Khắc phục Dữ liệu · UBND Phường Thủ Dầu Một" },
       {
         name: "description",
         content:
-          "Phân hệ dành riêng cho Quản trị viên Kỹ thuật (DevOps/DBA): Tiếp nhận báo lỗi hệ thống, rà soát dị biệt dữ liệu, thực thi câu lệnh SQL UPDATE sửa lỗi và giám sát ATTT VNeID.",
+          "Phân hệ dành riêng cho Cán bộ Kỹ thuật và Quản trị dữ liệu: Tiếp nhận báo lỗi hệ thống, rà soát dữ liệu và đảm bảo vận hành thông suốt.",
       },
     ],
   }),
@@ -164,7 +164,7 @@ CĂN CỨ PHÁP LÝ: Nghị định 85/2016/NĐ-CP & Thông tư 12/2022/TT-BTTTT
 3. CƠ CHẾ BẢO VỆ DỮ LIỆU CÁ NHÂN (NĐ 13/2023/NĐ-CP):
 - Mã hóa toàn bộ dữ liệu CCCD, số tài khoản ngân hàng, hồ sơ y khoa bằng thuật toán AES-256.
 - Áp dụng mặt nạ (Data Masking) trên toàn bộ màn hình tra cứu công khai (VD: 0740****1202).
-- Chữ ký số SmartCA PKI chống chối bỏ cho 100% Quyết định trợ cấp và Tờ trình cấp Phòng.
+- Chữ ký số chuyên dùng công vụ chống chối bỏ cho 100% Quyết định trợ cấp và Tờ trình cấp Phòng.
 - Tách biệt tuyệt đối quyền hạn (SoD): Lãnh đạo Sở không có quyền sửa CSDL; Quản trị IT không có quyền ký văn bản.
 
 4. KẾT NỐI VNeID & ĐỀ ÁN 06:
@@ -271,15 +271,15 @@ KỸ SƯ TRƯỞNG AN TOÀN THÔNG TIN & CSDL: KS. Lê Văn Khoa`;
 
             <div className="space-y-2">
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-red-700 bg-red-50 border border-red-200 px-3 py-1 rounded-full">
-                403 FORBIDDEN · PHÂN HỆ NỘI BỘ BỘ PHẬN KỸ THUẬT
+                KHÔNG CÓ QUYỀN TRUY CẬP · PHÂN HỆ NỘI BỘ BỘ PHẬN KỸ THUẬT
               </span>
               <h2 className="text-xl font-black text-gray-900 pt-2">
-                TỪ CHỐI TRUY CẬP: CHỈ DÀNH CHO QUẢN TRỊ VIÊN KỸ THUẬT (IT / DBA)
+                TỪ CHỐI TRUY CẬP: CHỈ DÀNH CHO CÁN BỘ PHỤ TRÁCH KỸ THUẬT &amp; DỮ LIỆU
               </h2>
               <p className="text-xs text-gray-600 max-w-lg mx-auto leading-relaxed">
-                Theo quy chuẩn An toàn thông tin và nguyên tắc <strong>Phân tách nhiệm vụ (Separation of Duties)</strong>:
-                Lãnh đạo cơ quan (Sếp) chỉ thực hiện chỉ đạo điều hành vĩ mô, phê duyệt hồ sơ và phân bổ ngân sách.
-                Toàn bộ quy trình <strong>theo dõi báo lỗi website, nhật ký sự cố hệ thống và can thiệp sửa đổi CSDL</strong> chỉ thuộc thẩm quyền kỹ thuật của <strong>Quản trị viên Kỹ thuật (KS. Lê Văn Khoa)</strong>.
+                Theo quy chuẩn An toàn thông tin và nguyên tắc <strong>Phân tách quyền hạn công vụ</strong>:
+                Lãnh đạo cơ quan thực hiện chỉ đạo điều hành, phê duyệt hồ sơ và phân bổ ngân sách.
+                Toàn bộ quy trình <strong>theo dõi báo cáo kỹ thuật và kiểm tra tính toàn vẹn của dữ liệu</strong> thuộc thẩm quyền chuyên môn của <strong>Cán bộ phụ trách Kỹ thuật (KS. Lê Văn Khoa)</strong>.
               </p>
             </div>
 
@@ -382,9 +382,9 @@ KỸ SƯ TRƯỞNG AN TOÀN THÔNG TIN & CSDL: KS. Lê Văn Khoa`;
             }`}
           >
             <Wrench className="size-4" />
-            <span>2. Phân hệ Rà soát & Sửa lỗi CSDL 3NF (Data Fix Studio)</span>
+            <span>2. Phân hệ Rà soát &amp; Khắc phục Dữ liệu Chuyên ngành</span>
             <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-100 text-amber-800 font-bold">
-              ⚡ Fix 1-Click
+              ⚡ Khắc phục nhanh
             </span>
           </button>
 
@@ -641,7 +641,7 @@ KỸ SƯ TRƯỞNG AN TOÀN THÔNG TIN & CSDL: KS. Lê Văn Khoa`;
                   </span>
                 </div>
                 <p className="text-xs text-indigo-200">
-                  Hạ tầng bảo vệ 4 lớp, xác thực mTLS Trục NDXP/VDXP, mã hóa AES-256 dữ liệu cá nhân theo Nghị định 13/2023/NĐ-CP & Thông tư 12/2022/TT-BTTTT.
+                  Hạ tầng bảo vệ 4 lớp, chứng thư số Trục liên thông Dịch vụ công Quốc gia, mã hóa bảo mật dữ liệu cá nhân theo Nghị định 13/2023/NĐ-CP &amp; Thông tư 12/2022/TT-BTTTT.
                 </p>
               </div>
 
@@ -730,15 +730,15 @@ KỸ SƯ TRƯỞNG AN TOÀN THÔNG TIN & CSDL: KS. Lê Văn Khoa`;
                   <Fingerprint className="size-5 text-purple-600" />
                   <div>
                     <h3 className="font-bold text-gray-900 text-sm">
-                      Công Cụ Đối Soát Thời Gian Thực API C06 (CSDL Quốc Gia Về Dân Cư)
+                      Công Cụ Đối Soát Dữ Liệu Dân Cư Quốc Gia (Đề Án 06)
                     </h3>
                     <p className="text-gray-500 text-xs">
-                      Kiểm tra đồng bộ 4 trường thông tin bắt buộc, trạng thái tài khoản an sinh xã hội và mã định danh VNeID mức 2.
+                      Kiểm tra đồng bộ thông tin công dân, trạng thái tài khoản an sinh xã hội và mã định danh VNeID mức 2.
                     </p>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 bg-purple-100 text-purple-800 text-[11px] font-bold rounded-full self-start sm:self-center font-mono">
-                  TRỤC NDXP - VDXP ACTIVE
+                <span className="px-2.5 py-1 bg-red-100 text-[#dd4b39] text-[11px] font-bold rounded-full self-start sm:self-center font-mono">
+                  LIÊN THÔNG DỮ LIỆU ĐANG KẾT NỐI
                 </span>
               </div>
 
@@ -753,23 +753,23 @@ KỸ SƯ TRƯỞNG AN TOÀN THÔNG TIN & CSDL: KS. Lê Văn Khoa`;
                     value={testCccd}
                     onChange={(e) => setTestCccd(e.target.value.trim())}
                     placeholder="VD: 074026000123"
-                    className="flex-1 px-3 py-2 border rounded-lg border-gray-300 font-mono text-sm focus:ring-2 focus:ring-purple-500 outline-none"
+                    className="flex-1 px-3 py-2 border rounded-lg border-gray-300 font-mono text-sm focus:ring-2 focus:ring-[#dd4b39] outline-none"
                   />
                   <button
                     type="button"
                     onClick={() => handleVerifyC06(testCccd)}
                     disabled={c06Verifying}
-                    className="px-5 py-2 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-lg shadow-xs flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                    className="px-5 py-2 bg-[#dd4b39] hover:bg-[#c23321] text-white font-bold text-xs rounded-lg shadow-xs flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
                   >
                     {c06Verifying ? (
                       <>
                         <RefreshCw className="size-4 animate-spin" />
-                        <span>Đang gọi API C06...</span>
+                        <span>Đang đối soát dữ liệu dân cư...</span>
                       </>
                     ) : (
                       <>
                         <Fingerprint className="size-4" />
-                        <span>Xác thực qua C06 / VNeID</span>
+                        <span>Xác thực qua CSDL Dân cư</span>
                       </>
                     )}
                   </button>
@@ -975,7 +975,7 @@ KỸ SƯ TRƯỞNG AN TOÀN THÔNG TIN & CSDL: KS. Lê Văn Khoa`;
                     </tr>
                     <tr className="hover:bg-gray-50">
                       <td className="p-3 font-mono font-bold text-gray-900">ATTT-03</td>
-                      <td className="p-3 font-bold text-gray-800">Ký số PKI SmartCA (TT 16)</td>
+                      <td className="p-3 font-bold text-gray-800">Ký số chuyên dùng công vụ (TT 16)</td>
                       <td className="p-3 text-gray-600">
                         Chữ ký số hợp chuẩn cho 100% Quyết định trợ cấp và Tờ trình cấp Phòng; có mã QR xác thực và dấu mộc điện tử chống chối bỏ.
                       </td>

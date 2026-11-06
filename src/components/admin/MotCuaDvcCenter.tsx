@@ -159,7 +159,7 @@ export function MotCuaDvcCenter() {
             Bộ phận Tiếp nhận & Trả kết quả TTHC · UBND Phường Thủ Dầu Một
           </h2>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Áp dụng nghiêm ngặt <strong>Nghị định 61/2018/NĐ-CP</strong> và <strong>Nghị định 107/2021/NĐ-CP</strong>: Chuẩn hóa 4 mẫu biểu bắt buộc (Giấy hẹn Mẫu 01, Bổ sung Mẫu 02, Từ chối Mẫu 03, Xin lỗi Mẫu 04) · 100% hồ sơ cấp bản kết quả điện tử có mã băm SHA-256 tích hợp Kho dữ liệu Đề án 06.
+            Áp dụng nghiêm ngặt <strong>Nghị định 61/2018/NĐ-CP</strong> và <strong>Nghị định 107/2021/NĐ-CP</strong>: Chuẩn hóa 4 mẫu biểu bắt buộc (Giấy hẹn Mẫu 01, Bổ sung Mẫu 02, Từ chối Mẫu 03, Xin lỗi Mẫu 04) · 100% hồ sơ cấp bản kết quả điện tử có chữ ký số xác thực tích hợp Kho dữ liệu Đề án 06.
           </p>
         </div>
       </div>
