@@ -81,7 +81,7 @@ export function ModalTiepNhanTthcVanHoa({
       nguoiNop: nguoiNop.trim(),
       sdt: sdt.trim() || "0908.123.456",
       cccd: cccd.trim(),
-      diaChi: diaChi.trim() || "Phường Phú Cường",
+      diaChi: diaChi.trim() || "Phường Thủ Dầu Một",
       khuPho,
       ngayHenTra: `${ngayHenTraStr} (${currentTt.thoiHan})`,
       ketQuaVanBan: currentTt.ketQua,

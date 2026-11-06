@@ -808,7 +808,7 @@ export function QuanLyMoLietSiKhuPho({ moLietSiList }: QuanLyMoLietSiKhuPhoProps
             zoom={14}
             height="580px"
             markers={gisMarkersChoTho}
-            title="Bản Đồ Số GIS Điểm Thờ Cúng & Mộ Liệt Sĩ 4 Khu Phố Phường Phú Cường"
+            title="Bản Đồ Số GIS Điểm Thờ Cúng & Mộ Liệt Sĩ 4 Khu Phố Phường Thủ Dầu Một"
             subtitle="Định vị tọa độ GPS chuẩn xác trên nền ảnh vệ tinh MapTiler Cloud Key: t9C3...jM45"
           />
         </div>

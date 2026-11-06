@@ -105,7 +105,7 @@ export const ModalToTrinhUbnd: React.FC<ModalToTrinhUbndProps> = ({
               <input
                 type="text"
                 readOnly
-                value="Kính trình: Chủ tịch UBND Phường Phú Cường"
+                value="Kính trình: Chủ tịch UBND Phường Thủ Dầu Một"
                 className="w-full rounded-lg border border-gray-300 p-2 text-xs bg-gray-100 font-semibold text-gray-700"
               />
             </div>

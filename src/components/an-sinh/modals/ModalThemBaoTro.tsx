@@ -65,7 +65,7 @@ export function ModalThemBaoTro({ isOpen, onClose, onSubmit }: ModalThemBaoTroPr
       ngaySinh,
       gioiTinh,
       khuPho,
-      diaChi: diaChi || `${khuPho}, Phường Phú Cường`,
+      diaChi: diaChi || `${khuPho}, Phường Thủ Dầu Một`,
       loaiDoiTuong,
       tenLoaiDoiTuong: currentConfig.ten,
       heSoHuong: currentConfig.heSo,

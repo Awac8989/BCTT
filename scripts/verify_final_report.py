@@ -66,3 +66,4 @@ def verify_file(filepath):
 if __name__ == "__main__":
     verify_file("DoanMinhQuan_2224801030137_BCTT2.docx")
     verify_file("docs/DoanMinhQuan_2224801030137_BCTT2.docx")
+

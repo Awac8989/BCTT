@@ -24,7 +24,7 @@ function MotCuaPage() {
       <div className="space-y-6">
         <PageHeader
           title="Bộ phận Tiếp nhận & Trả kết quả TTHC (Một cửa điện tử)"
-          subtitle="Ủy ban nhân dân Phường Phú Cường / TP. Thủ Dầu Một · Tỉnh Bình Dương"
+          subtitle="Ủy ban nhân dân Phường Thủ Dầu Một · Tỉnh Bình Dương"
           badge="NĐ 61/2018 & ĐỀ ÁN 06"
         />
 

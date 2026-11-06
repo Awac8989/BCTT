@@ -212,7 +212,7 @@ export const ModalPhieuXinLoi: React.FC<ModalPhieuXinLoiProps> = ({
                 <input
                   type="text"
                   readOnly
-                  value="TS. Nguyễn Văn Hùng - Chủ tịch UBND Phường Phú Cường"
+                  value="TS. Nguyễn Văn Hùng - Chủ tịch UBND Phường Thủ Dầu Một"
                   className="w-full rounded-lg border border-gray-300 p-2 text-xs bg-gray-100 font-semibold text-gray-700"
                 />
               </div>
@@ -269,7 +269,7 @@ export const ModalPhieuXinLoi: React.FC<ModalPhieuXinLoiProps> = ({
                     Độc lập - Tự do - Hạnh phúc
                   </div>
                   <div className="text-[11px] italic font-sans mt-2">
-                    Phú Cường, ngày {hoSo.phieuXinLoi.ngayLap}
+                    Thủ Dầu Một, ngày {hoSo.phieuXinLoi.ngayLap}
                   </div>
                 </div>
               </div>
@@ -310,7 +310,7 @@ export const ModalPhieuXinLoi: React.FC<ModalPhieuXinLoiProps> = ({
               {/* Nội dung trình bày xin lỗi */}
               <div className="space-y-3 text-[13px] text-justify leading-relaxed">
                 <p>
-                  Ngày {hoSo.ngayTiepNhan}, Ủy ban nhân dân Phường Phú Cường đã
+                  Ngày {hoSo.ngayTiepNhan}, Ủy ban nhân dân Phường Thủ Dầu Một đã
                   tiếp nhận giải quyết hồ sơ đề nghị{" "}
                   <strong>{hoSo.tenThuTuc}</strong> của Ông/Bà; Mã số hồ sơ
                   điện tử:{" "}
@@ -330,7 +330,7 @@ export const ModalPhieuXinLoi: React.FC<ModalPhieuXinLoiProps> = ({
                 </div>
                 <p>
                   Sự chậm trễ này đã làm ảnh hưởng đến thời gian, công việc và
-                  hoạt động của Ông/Bà, Ủy ban nhân dân Phường Phú Cường thành
+                  hoạt động của Ông/Bà, Ủy ban nhân dân Phường Thủ Dầu Một thành
                   thật xin lỗi và xin hẹn lại ngày trả kết quả giải quyết hồ sơ
                   như sau:
                 </p>
@@ -343,7 +343,7 @@ export const ModalPhieuXinLoi: React.FC<ModalPhieuXinLoiProps> = ({
                   </div>
                   <div className="text-xs text-gray-600 mt-1">
                     Địa điểm nhận kết quả: Bộ phận Tiếp nhận và Trả kết quả (Một
-                    cửa) - UBND Phường Phú Cường (Số 01 đường Quang Trung, Phường
+                    cửa) - UBND Phường Thủ Dầu Một (Số 01 đường Quang Trung, Phường
                     Phú Cường, TP. Thủ Dầu Một).
                   </div>
                 </div>
@@ -374,7 +374,7 @@ export const ModalPhieuXinLoi: React.FC<ModalPhieuXinLoiProps> = ({
                   <div className="py-2 flex justify-center">
                     <DigitalSignatureBadge
                       nguoiKy={hoSo.phieuXinLoi.nguoiKy}
-                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                       ngayKy={hoSo.phieuXinLoi.ngayLap}
                       maXacThuc={`CA-PXL-${hoSo.id}-2026`}
                     />
@@ -391,7 +391,7 @@ export const ModalPhieuXinLoi: React.FC<ModalPhieuXinLoiProps> = ({
             <div className="flex items-center justify-between px-6 py-3 border-t bg-gray-50 rounded-b-xl no-print">
               <span className="text-xs text-gray-500 font-sans">
                 Mẫu số 04/NĐ-61 · Bộ phận Tiếp nhận &amp; Trả kết quả UBND
-                Phường Phú Cường
+                Phường Thủ Dầu Một
               </span>
               <div className="flex items-center gap-2">
                 <button

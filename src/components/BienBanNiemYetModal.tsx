@@ -50,7 +50,7 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
     appStore.updateProfileStatus(
       hoSo.id,
       "ĐANG_THẨM_ĐỊNH",
-      `Đã hoàn thành niêm yết công khai 15 ngày tại UBND Phường Phú Cường và Nhà văn hóa Khu phố theo Biên bản số ${soBienBan}. Không có đơn thư phản ánh.`,
+      `Đã hoàn thành niêm yết công khai 15 ngày tại UBND Phường Thủ Dầu Một và Nhà văn hóa Khu phố theo Biên bản số ${soBienBan}. Không có đơn thư phản ánh.`,
     );
     toast.success("Đã hoàn tất thủ tục niêm yết công khai 15 ngày!", {
       description: `Hồ sơ ${hoSo.hoTen} đã đủ điều kiện chuyển sang bước Lập Tờ trình đề nghị cấp Huyện.`,
@@ -158,7 +158,7 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
               <div className="font-bold text-[12px] uppercase">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
               <div className="font-bold text-[12px] underline">Độc lập - Tự do - Hạnh phúc</div>
               <div className="text-[11px] italic text-gray-600 mt-1">
-                Phú Cường, ngày {now.getDate()} tháng {now.getMonth() + 1} năm {namHienTai}
+                Thủ Dầu Một, ngày {now.getDate()} tháng {now.getMonth() + 1} năm {namHienTai}
               </div>
             </div>
           </div>
@@ -183,7 +183,7 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
               </p>
 
               <p className="indent-6 text-justify">
-                Ủy ban nhân dân Phường Phú Cường thông báo về việc niêm yết công khai hồ sơ đề nghị công nhận và giải quyết chế độ ưu đãi người có công với cách mạng đối với trường hợp sau:
+                Ủy ban nhân dân Phường Thủ Dầu Một thông báo về việc niêm yết công khai hồ sơ đề nghị công nhận và giải quyết chế độ ưu đãi người có công với cách mạng đối với trường hợp sau:
               </p>
 
               <div className="my-4 border border-gray-300 rounded overflow-hidden font-sans text-xs">
@@ -221,9 +221,9 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
                   <strong>2. Địa điểm niêm yết:</strong>
                 </p>
                 <ul className="list-disc pl-6 space-y-1">
-                  <li>Bảng tin công khai Trụ sở UBND Phường Phú Cường (Số 01 đường Yersin, Phường Phú Cường).</li>
+                  <li>Bảng tin công khai Trụ sở UBND Phường Thủ Dầu Một (Số 01 đường Yersin, Phường Thủ Dầu Một).</li>
                   <li>Bảng thông tin Nhà văn hóa Khu phố nơi công dân cư trú.</li>
-                  <li>Cổng thông tin điện tử UBND Phường Phú Cường.</li>
+                  <li>Cổng thông tin điện tử UBND Phường Thủ Dầu Một.</li>
                 </ul>
                 <p>
                   <strong>3. Tiếp nhận ý kiến đóng góp:</strong>
@@ -251,7 +251,7 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
                   <div className="my-2">
                     <DigitalSignatureBadge
                       nguoiKy="Trần Văn Nam"
-                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                     />
                   </div>
                   <div className="font-bold text-xs">Trần Văn Nam</div>
@@ -276,14 +276,14 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
               </div>
 
               <p className="indent-6 text-justify">
-                Hôm nay, vào hồi 17 giờ 00 phút ngày {now.toLocaleDateString("vi-VN")}, tại Trụ sở Ủy ban nhân dân Phường Phú Cường, thành phố Thủ Dầu Một, tỉnh Bình Dương; Hội đồng xét duyệt chính sách người có công Phường Phú Cường tiến hành lập biên bản kết thúc thời hạn 15 ngày niêm yết công khai hồ sơ đề nghị công nhận người có công đối với ông/bà <strong>{hoSo.hoTen}</strong>.
+                Hôm nay, vào hồi 17 giờ 00 phút ngày {now.toLocaleDateString("vi-VN")}, tại Trụ sở Ủy ban nhân dân Phường Thủ Dầu Một, thành phố Thủ Dầu Một, tỉnh Bình Dương; Hội đồng xét duyệt chính sách người có công Phường Thủ Dầu Một tiến hành lập biên bản kết thúc thời hạn 15 ngày niêm yết công khai hồ sơ đề nghị công nhận người có công đối với ông/bà <strong>{hoSo.hoTen}</strong>.
               </p>
 
               <div className="space-y-2">
                 <div className="font-bold font-sans text-xs uppercase text-gray-800">I. THÀNH PHẦN THAM DỰ:</div>
                 <ol className="list-decimal pl-6 space-y-1 font-sans text-xs">
-                  <li><strong>Ông Trần Văn Nam</strong> - Chủ tịch UBND Phường Phú Cường - Chủ trì.</li>
-                  <li><strong>Bà Nguyễn Thị Lan</strong> - Chủ tịch Ủy ban MTTQ Việt Nam Phường Phú Cường.</li>
+                  <li><strong>Ông Trần Văn Nam</strong> - Chủ tịch UBND Phường Thủ Dầu Một - Chủ trì.</li>
+                  <li><strong>Bà Nguyễn Thị Lan</strong> - Chủ tịch Ủy ban MTTQ Việt Nam Phường Thủ Dầu Một.</li>
                   <li><strong>Ông Lê Văn Hải</strong> - Trưởng ban điều hành Khu phố nơi công dân cư trú.</li>
                   <li><strong>Ông Đoàn Minh Quân</strong> - Công chức Lao động - Thương binh &amp; Xã hội Phường - Thư ký.</li>
                 </ol>
@@ -292,10 +292,10 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
               <div className="space-y-2">
                 <div className="font-bold font-sans text-xs uppercase text-gray-800">II. NỘI DUNG VÀ KẾT QUẢ NIÊM YẾT CÔNG KHAI:</div>
                 <p className="indent-6 text-justify">
-                  1. Căn cứ Thông báo số {soThongBao} của UBND Phường Phú Cường, danh sách và hồ sơ của ông/bà <strong>{hoSo.hoTen}</strong> (Sinh năm: {hoSo.namSinh}, Số CCCD: {hoSo.cccd}, diện đối tượng: <strong>{hoSo.loaiDoiTuong}</strong>) đã được niêm yết công khai đầy đủ, đúng vị trí quy định trong thời gian liên tục <strong>15 ngày</strong> (từ ngày {ngayBatDau.toLocaleDateString("vi-VN")} đến ngày {ngayKetThuc.toLocaleDateString("vi-VN")}).
+                  1. Căn cứ Thông báo số {soThongBao} của UBND Phường Thủ Dầu Một, danh sách và hồ sơ của ông/bà <strong>{hoSo.hoTen}</strong> (Sinh năm: {hoSo.namSinh}, Số CCCD: {hoSo.cccd}, diện đối tượng: <strong>{hoSo.loaiDoiTuong}</strong>) đã được niêm yết công khai đầy đủ, đúng vị trí quy định trong thời gian liên tục <strong>15 ngày</strong> (từ ngày {ngayBatDau.toLocaleDateString("vi-VN")} đến ngày {ngayKetThuc.toLocaleDateString("vi-VN")}).
                 </p>
                 <p className="indent-6 text-justify">
-                  2. Trong suốt thời gian niêm yết công khai 15 ngày, UBND Phường Phú Cường và Ban điều hành Khu phố <strong>không nhận được bất kỳ đơn thư khiếu nại, tố cáo, phản ánh hay kiến nghị nào</strong> của tổ chức, cá nhân và nhân dân đối với trường hợp của ông/bà {hoSo.hoTen}.
+                  2. Trong suốt thời gian niêm yết công khai 15 ngày, UBND Phường Thủ Dầu Một và Ban điều hành Khu phố <strong>không nhận được bất kỳ đơn thư khiếu nại, tố cáo, phản ánh hay kiến nghị nào</strong> của tổ chức, cá nhân và nhân dân đối với trường hợp của ông/bà {hoSo.hoTen}.
                 </p>
                 <div className="bg-emerald-50 border border-emerald-300 rounded p-3 text-xs font-sans text-emerald-950">
                   <div className="font-bold flex items-center gap-1.5 text-emerald-800 mb-1">
@@ -303,7 +303,7 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
                     <span>Ý KIẾN ĐỒNG THUẬN CỦA HỘI ĐỒNG XÉT DUYỆT CƠ SỞ:</span>
                   </div>
                   <div>
-                    {yKienGhiNhan} Toàn thể các thành viên Hội đồng tham dự nhất trí 100% hồ sơ hoàn toàn trung thực, đủ điều kiện pháp lý để UBND Phường Phú Cường ban hành Tờ trình đề nghị UBND thành phố Thủ Dầu Một (Phòng LĐ-TB&amp;XH) thẩm định và trình Sở Lao động - TB&amp;XH tỉnh Bình Dương ban hành Quyết định hưởng trợ cấp ưu đãi theo quy định.
+                    {yKienGhiNhan} Toàn thể các thành viên Hội đồng tham dự nhất trí 100% hồ sơ hoàn toàn trung thực, đủ điều kiện pháp lý để UBND Phường Thủ Dầu Một ban hành Tờ trình đề nghị UBND thành phố Thủ Dầu Một (Phòng LĐ-TB&amp;XH) thẩm định và trình Sở Lao động - TB&amp;XH tỉnh Bình Dương ban hành Quyết định hưởng trợ cấp ưu đãi theo quy định.
                   </div>
                 </div>
               </div>
@@ -344,7 +344,7 @@ export function BienBanNiemYetModal({ isOpen, onClose, hoSo, onCompleteNiemYet }
                   <div className="my-1">
                     <DigitalSignatureBadge
                       nguoiKy="Trần Văn Nam"
-                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                     />
                   </div>
                   <div className="font-bold text-gray-900">Trần Văn Nam</div>

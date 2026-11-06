@@ -48,6 +48,7 @@ import {
 import { PhanAnh1022Section } from "@/components/thong-tin/PhanAnh1022Section";
 import { DtiCapXaSection } from "@/components/thong-tin/DtiCapXaSection";
 import { CongThongTinVaMangSection } from "@/components/thong-tin/CongThongTinVaMangSection";
+import { ModalGiaoNhiemVuToCNS } from "@/components/thong-tin/ModalGiaoNhiemVuToCNS";
 
 export const Route = createFileRoute("/thong-tin-truyen-thong")({
   head: () => ({
@@ -95,6 +96,10 @@ function ThongTinTruyenThongPage() {
   // State Modal Sửa Bảng Tin LED
   const [editingLed, setEditingLed] = useState<BangTinDienTu | null>(null);
   const [ledContent, setLedContent] = useState("");
+
+  // State Modal Giao Nhiệm Vụ Tổ CNSCĐ (Khoản 14 Điều 3 QĐ 2698)
+  const [showGiaoNhiemVuModal, setShowGiaoNhiemVuModal] = useState(false);
+  const [selectedToForModal, setSelectedToForModal] = useState<ToCongNgheSoCongDong | null>(null);
 
   // Kiểm tra quyền truy cập mảng
   const hasAccess = hasDomainAccess(currentUser, "TT_CDS");
@@ -251,10 +256,12 @@ function ThongTinTruyenThongPage() {
             <Users className="size-4 text-emerald-600" />
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl font-extrabold text-gray-900">{toCNSList.length}</span>
-            <span className="text-[11px] font-bold text-emerald-600">36 thành viên</span>
+            <span className="text-2xl font-extrabold text-gray-900">{toCNSList.length} Tổ</span>
+            <span className="text-[11px] font-bold text-emerald-600">
+              {toCNSList.reduce((acc, to) => acc + to.soThanhVien, 0)} thành viên
+            </span>
           </div>
-          <div className="mt-1 text-[11px] text-gray-500 font-medium">Phủ sóng 5/5 khu phố</div>
+          <div className="mt-1 text-[11px] text-gray-500 font-medium">Phủ sóng 14/14 khu phố toàn phường</div>
         </div>
 
         {/* KPI 4 */}
@@ -695,7 +702,7 @@ function ThongTinTruyenThongPage() {
                 <Share2 className="size-4 text-blue-600" />
               </div>
               <div className="mt-3">
-                <div className="font-extrabold text-sm text-gray-900">Zalo OA: UBND Phường Phú Cường</div>
+                <div className="font-extrabold text-sm text-gray-900">Zalo OA: UBND Phường Thủ Dầu Một</div>
                 <div className="text-[11px] text-gray-500 mt-0.5">Kênh tương tác số trực tiếp với người dân</div>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2 text-center text-xs">
@@ -963,16 +970,28 @@ function ThongTinTruyenThongPage() {
 
           {/* 3.2 Hoạt động của Tổ công nghệ số cộng đồng (CNSCĐ) */}
           <div className="bg-white rounded-md border border-gray-200 p-4 shadow-xs">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-gray-100">
               <div className="flex items-center gap-2">
                 <Users className="size-4 text-[#dd4b39]" />
                 <h3 className="text-sm font-bold text-gray-900">
-                  Hoạt động của Tổ Công nghệ số cộng đồng (CNSCĐ) tại 5 Khu phố
+                  Hoạt động của Tổ Công nghệ số cộng đồng (CNSCĐ) tại 14 Khu phố · P. Thủ Dầu Một
                 </h3>
               </div>
-              <span className="text-xs text-gray-500 font-medium">
-                Mô hình &ldquo;Đi từng ngõ, gõ từng nhà, hướng dẫn từng người&rdquo;
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="hidden md:inline-block text-xs text-gray-500 font-medium">
+                  Mô hình &ldquo;Đi từng ngõ, gõ từng nhà, hướng dẫn từng người&rdquo; (Khoản 14 Điều 3 QĐ 2698)
+                </span>
+                <button
+                  onClick={() => {
+                    setSelectedToForModal(null);
+                    setShowGiaoNhiemVuModal(true);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                >
+                  <Zap className="size-3.5 fill-white" />
+                  Giao Chỉ Tiêu Chiến Dịch Số
+                </button>
+              </div>
             </div>
 
             <div className="mt-3 overflow-x-auto">
@@ -988,6 +1007,7 @@ function ThongTinTruyenThongPage() {
                     <th className="py-2.5 px-3 text-center">Thanh toán số</th>
                     <th className="py-2.5 px-3 text-center">Số đợt ra quân</th>
                     <th className="py-2.5 px-3 text-center">Đánh giá</th>
+                    <th className="py-2.5 px-3 text-right">Điều phối tác nghiệp</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -1024,6 +1044,18 @@ function ThongTinTruyenThongPage() {
                         >
                           {to.danhGiaHoatDong === "XUAT_SAC" ? "Xuất sắc" : to.danhGiaHoatDong === "TOT" ? "Tốt" : "Trung bình"}
                         </span>
+                      </td>
+                      <td className="py-2.5 px-3 text-right">
+                        <button
+                          onClick={() => {
+                            setSelectedToForModal(to);
+                            setShowGiaoNhiemVuModal(true);
+                          }}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-sky-50 text-sky-800 border border-sky-200 hover:bg-sky-100 font-bold text-[11px] transition-colors cursor-pointer"
+                        >
+                          <Zap className="size-3 text-sky-600" />
+                          Giao việc
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -1223,6 +1255,13 @@ function ThongTinTruyenThongPage() {
           </div>
         </div>
       )}
+
+      {/* Modal Giao Nhiệm Vụ & Điều Phối Tổ CNSCĐ (Khoản 14 Điều 3 QĐ 2698) */}
+      <ModalGiaoNhiemVuToCNS
+        isOpen={showGiaoNhiemVuModal}
+        onClose={() => setShowGiaoNhiemVuModal(false)}
+        selectedTo={selectedToForModal}
+      />
     </AppShell>
   );
 }

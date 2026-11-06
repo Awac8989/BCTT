@@ -27,6 +27,7 @@ import { PhoCapKhuyenHocTab } from "@/components/giao-duc/tabs/PhoCapKhuyenHocTa
 import { TthcMotCuaTab } from "@/components/giao-duc/tabs/TthcMotCuaTab";
 import { KiemThuc3BuocTab } from "@/components/giao-duc/tabs/KiemThuc3BuocTab";
 import { PhoCapCongDongTab } from "@/components/giao-duc/tabs/PhoCapCongDongTab";
+import { YTeCoSoVaAttpTab } from "@/components/giao-duc/tabs/YTeCoSoVaAttpTab";
 
 // Administrative Modals
 import { ModalTiepNhanHoSo } from "@/components/giao-duc/modals/ModalTiepNhanHoSo";
@@ -163,8 +164,8 @@ function GiaoDucDaoTaoPage() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="Phân hệ Nghiệp vụ 4 · Giáo dục và Đào tạo cơ sở"
-        title="Quản lý Giáo dục mầm non, Trường học & Khuyến học"
+        eyebrow="Bộ phận Chuyên môn Giáo dục & Y tế · Phòng Văn hóa - Xã hội P. Thủ Dầu Một"
+        title="Quản lý Giáo dục Đào tạo, Y tế cơ sở & An toàn thực phẩm"
         right={
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold">
@@ -319,6 +320,11 @@ function GiaoDucDaoTaoPage() {
       {/* TAB 6: PHỔ CẬP GIÁO DỤC & CỘNG ĐỒNG HỌC TẬP (NĐ 20/2014 & TT 44/2014) */}
       {activeTab === "PHO_CAP_CONG_DONG_TT44" && (
         <PhoCapCongDongTab />
+      )}
+
+      {/* TAB 7: Y TẾ CƠ SỞ, HÀNH NGHỀ Y DƯỢC TƯ NHÂN & ATTP (KHOẢN 9 ĐIỀU 3 QĐ 2698 & NĐ 148) */}
+      {activeTab === "Y_TE_CO_SO_ATTP" && (
+        <YTeCoSoVaAttpTab />
       )}
 
       {/* ==================== CÁC MODAL NGHIỆP VỤ HÀNH CHÍNH & VĂN BẢN QUY PHẠM ==================== */}

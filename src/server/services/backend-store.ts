@@ -41,7 +41,7 @@ export interface DmPhuong {
 }
 
 export const WARDS: DmPhuong[] = [
-  { ward_id: 1, ward_name: "Phường Phú Cường", district_name: "TP. Thủ Dầu Một" },
+  { ward_id: 1, ward_name: "Phường Thủ Dầu Một", district_name: "TP. Thủ Dầu Một" },
   { ward_id: 2, ward_name: "Phường Phú Hòa", district_name: "TP. Thủ Dầu Một" },
   { ward_id: 3, ward_name: "Phường Hiệp Thành", district_name: "TP. Thủ Dầu Một" },
   { ward_id: 4, ward_name: "Phường Định Hòa", district_name: "TP. Thủ Dầu Một" },
@@ -106,8 +106,8 @@ export const USERS: Record<string, SysUser> = {
     role: "CB_GIAO_DUC",
     tenCanBo: "ThS. Trần Thị Kim Oanh",
     chucVu: "Công chức Văn hóa - Xã hội phụ trách Giáo dục",
-    donVi: "UBND Phường Phú Cường",
-    phamVi: "Phường Phú Cường, TP. Thủ Dầu Một",
+    donVi: "UBND Phường Thủ Dầu Một",
+    phamVi: "Phường Thủ Dầu Một, TP. Thủ Dầu Một",
     password_hash: "$2b$10$Ep99kFq7K32U8Dk75hV1..VlO6W7q2V4N8YtYx.7s/i58QpQ6X0/K",
     is_active: true,
   },

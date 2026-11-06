@@ -144,7 +144,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
     const newHb: HoatDongKhuyenHoc = {
       id: `KH-${Date.now()}`,
       tenChuongTrinh: `Học bổng "Thắp sáng ước mơ" - Trao em ${tenHocSinhHocBong.trim()}`,
-      diaDiem: `Hội trường UBND Phường Phú Cường / ${khuPhoHocBong}`,
+      diaDiem: `Hội trường UBND Phường Thủ Dầu Một / ${khuPhoHocBong}`,
       ngayToChuc: new Date().toLocaleDateString("vi-VN"),
       kinhPhiVND: Number(mucHocBongVND),
       soNguoiThuHuong: 1,
@@ -210,7 +210,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                     Độc lập - Tự do - Hạnh phúc
                   </div>
                   <div className="text-[10px] text-gray-500 italic mt-0.5">
-                    Phú Cường, ngày 10 tháng 10 năm 2026
+                    Thủ Dầu Một, ngày 10 tháng 10 năm 2026
                   </div>
                 </div>
               </div>
@@ -633,7 +633,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                     Độc lập - Tự do - Hạnh phúc
                   </div>
                   <div className="text-[11px] italic font-sans mt-2">
-                    Phú Cường, ngày 10 tháng 05 năm 2026
+                    Thủ Dầu Một, ngày 10 tháng 05 năm 2026
                   </div>
                 </div>
               </div>
@@ -646,7 +646,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                 <div className="font-bold text-sm text-gray-800">
                   Ban hành Kế hoạch phân tuyến tuyển sinh các lớp đầu cấp (Mầm
                   non 5 tuổi, Lớp 1, Lớp 6) năm học 2026 - 2027 trên địa bàn
-                  Phường Phú Cường
+                  Phường Thủ Dầu Một
                 </div>
                 <div className="text-xs uppercase font-extrabold text-[#b91c1c] tracking-widest pt-1">
                   CHỦ TỊCH ỦY BAN NHÂN DÂN PHƯỜNG PHÚ CƯỜNG
@@ -796,7 +796,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                 </p>
                 <div className="pl-4 space-y-1 font-sans text-gray-800">
                   <div>
-                    - <strong>Công an Phường Phú Cường:</strong> Phối hợp Ban
+                    - <strong>Công an Phường Thủ Dầu Một:</strong> Phối hợp Ban
                     điều hành 9 Khu phố rà soát, làm sạch dữ liệu cư dân, xác
                     thực thông tin định danh VNeID cho 100% phụ huynh và trẻ em
                     trong độ tuổi tuyển sinh.
@@ -843,7 +843,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                   <div className="my-2 flex justify-center">
                     <DigitalSignatureBadge
                       nguoiKy="TS. Nguyễn Văn Hùng"
-                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                       ngayKy="10/05/2026"
                       maXacThuc="CA-TSDC-2026-PC-9871"
                     />
@@ -979,13 +979,13 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                   GIA ĐÌNH ÔNG NGUYỄN VĂN THÀNH
                 </div>
                 <div className="text-xs text-gray-600 font-sans">
-                  Địa chỉ: Số 42 đường Bạch Đằng, Khu phố 3, Phường Phú Cường
+                  Địa chỉ: Số 42 đường Bạch Đằng, Khu phố 3, Phường Thủ Dầu Một
                 </div>
 
                 <p className="font-serif italic text-sm text-gray-800 max-w-lg mx-auto py-2 leading-relaxed">
                   &ldquo;Đã có thành tích xuất sắc tiêu biểu trong phong trào xây
                   dựng mô hình <strong>Gia đình học tập</strong> giai đoạn 2021 -
-                  2026, góp phần tích cực xây dựng Phường Phú Cường trở thành Đô
+                  2026, góp phần tích cực xây dựng Phường Thủ Dầu Một trở thành Đô
                   thị học tập văn minh, giàu đẹp.&rdquo;
                 </p>
 
@@ -1005,7 +1005,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
 
                   <div className="text-center space-y-1">
                     <div className="italic text-gray-500 text-[11px]">
-                      Phú Cường, ngày 28 tháng 08 năm 2026
+                      Thủ Dầu Một, ngày 28 tháng 08 năm 2026
                     </div>
                     <div className="font-bold text-gray-800 uppercase">
                       CHỦ TỊCH UBND PHƯỜNG
@@ -1013,7 +1013,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                     <div className="flex justify-center my-1">
                       <DigitalSignatureBadge
                         nguoiKy="TS. Nguyễn Văn Hùng"
-                        chucVu="Chủ tịch UBND Phường Phú Cường"
+                        chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                         ngayKy="28/08/2026"
                         maXacThuc="CA-GDHT-2026-PC-4412"
                       />
@@ -1133,7 +1133,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
               className="p-6 space-y-4 text-xs overflow-y-auto font-sans flex-1"
             >
               <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-lg text-rose-900 text-xs leading-relaxed">
-                <strong>Chính sách Khuyến học Phường Phú Cường:</strong> Hỗ trợ
+                <strong>Chính sách Khuyến học Phường Thủ Dầu Một:</strong> Hỗ trợ
                 kịp thời các em học sinh có hoàn cảnh đặc biệt khó khăn, không để
                 bất kỳ trẻ em nào vì nghèo khó mà phải bỏ học giữa chừng.
               </div>
@@ -1225,7 +1225,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                 <div>
                   - Nguồn kinh phí:{" "}
                   <strong>
-                    Quỹ Khuyến học &amp; Khuyến tài Phường Phú Cường
+                    Quỹ Khuyến học &amp; Khuyến tài Phường Thủ Dầu Một
                   </strong>
                 </div>
                 <div>
@@ -1322,7 +1322,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                     Độc lập - Tự do - Hạnh phúc
                   </div>
                   <div className="text-[11px] italic font-sans mt-2">
-                    Phú Cường, ngày 05 tháng 09 năm 2026
+                    Thủ Dầu Một, ngày 05 tháng 09 năm 2026
                   </div>
                 </div>
               </div>
@@ -1354,7 +1354,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                   Nhằm chủ động phòng ngừa, kiềm chế tai nạn giao thông và giải
                   quyết triệt để tình trạng ùn tắc giao thông cục bộ trước cổng
                   các trường học trong giờ cao điểm phụ huynh đưa đón học sinh;
-                  Ủy ban nhân dân Phường Phú Cường ban hành Kế hoạch phối hợp
+                  Ủy ban nhân dân Phường Thủ Dầu Một ban hành Kế hoạch phối hợp
                   triển khai cụ thể như sau:
                 </p>
 
@@ -1439,7 +1439,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                 </h4>
                 <div className="pl-4 space-y-1.5 font-sans text-gray-800">
                   <div>
-                    <strong>1. Công an Phường Phú Cường:</strong> Chủ trì bố trí
+                    <strong>1. Công an Phường Thủ Dầu Một:</strong> Chủ trì bố trí
                     cán bộ, chiến sĩ Cảnh sát trật tự, Cảnh sát khu vực thường
                     xuyên có mặt tại cổng các trường học đúng khung giờ quy định
                     để hướng dẫn, phân luồng; kiên quyết xử lý nghiêm các trường
@@ -1506,7 +1506,7 @@ export const ModalTruongHocActions: React.FC<ModalTruongHocActionsProps> = ({
                   <div className="my-2 flex justify-center">
                     <DigitalSignatureBadge
                       nguoiKy="TS. Nguyễn Văn Hùng"
-                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                       ngayKy="05/09/2026"
                       maXacThuc="CA-KH45-ATGT-2026-PC"
                     />

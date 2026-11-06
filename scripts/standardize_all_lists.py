@@ -180,3 +180,4 @@ if __name__ == "__main__":
     for f in DOCX_FILES:
         process_file(f)
     print("\n=== HOÀN TẤT CHUẨN HÓA MỤC LỤC HÌNH VẼ VÀ BẢNG BIỂU ĐỒNG NHẤT 100%! ===")
+

@@ -843,7 +843,7 @@ export class RelationalDatabase {
   public exportSqlDump(): string {
     let sql = `-- ==============================================================================\n`;
     sql += `-- BẢN DUMP CƠ SỞ DỮ LIỆU ĐIỆN TỬ: HỆ THỐNG QUẢN LÝ CHUYÊN MÔN UBND CẤP XÃ/PHƯỜNG\n`;
-    sql += `-- Đơn vị: UBND Phường Phú Cường / Phòng LĐTBXH TP. Thủ Dầu Một\n`;
+    sql += `-- Đơn vị: UBND Phường Thủ Dầu Một / Phòng LĐTBXH TP. Thủ Dầu Một\n`;
     sql += `-- Ngày xuất file: ${new Date().toLocaleString("vi-VN")}\n`;
     sql += `-- Chuẩn: MySQL 8.0 / InnoDB / utf8mb4_unicode_ci / 3NF\n`;
     sql += `-- ==============================================================================\n\n`;

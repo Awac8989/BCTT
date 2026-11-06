@@ -1,5 +1,5 @@
 import React from "react";
-import { FileSignature, Baby, School, BookOpen, Utensils } from "lucide-react";
+import { FileSignature, Baby, School, BookOpen, Utensils, Stethoscope } from "lucide-react";
 import { type HoSoTTHCGiaoDuc } from "@/data/domain-mock";
 
 export type GiaoDucTabType =
@@ -8,7 +8,8 @@ export type GiaoDucTabType =
   | "TRUONG_CONG_LAP"
   | "PHO_CAP_KHUYEN_HOC"
   | "ATTP_BEP_AN_BAN_TRU"
-  | "PHO_CAP_CONG_DONG_TT44";
+  | "PHO_CAP_CONG_DONG_TT44"
+  | "Y_TE_CO_SO_ATTP";
 
 interface GiaoDucTabNavProps {
   activeTab: GiaoDucTabType;
@@ -180,6 +181,33 @@ export const GiaoDucTabNav: React.FC<GiaoDucTabNavProps> = ({
             }`}
           >
             Mức 3 / Tốt
+          </span>
+        </button>
+
+        {/* Tab 7: Y tế cơ sở, Y Dược tư nhân & ATTP (Khoản 9 Điều 3 QĐ 2698 & NĐ 148) */}
+        <button
+          type="button"
+          onClick={() => onChangeTab("Y_TE_CO_SO_ATTP")}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            activeTab === "Y_TE_CO_SO_ATTP"
+              ? "bg-teal-700 text-white shadow-sm ring-1 ring-teal-800"
+              : "text-gray-600 hover:text-gray-900 hover:bg-teal-50/50"
+          }`}
+        >
+          <Stethoscope
+            className={`size-4 ${
+              activeTab === "Y_TE_CO_SO_ATTP" ? "text-white" : "text-teal-600"
+            }`}
+          />
+          <span>Y tế cơ sở, Y Dược tư nhân &amp; ATTP (NĐ 148)</span>
+          <span
+            className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+              activeTab === "Y_TE_CO_SO_ATTP"
+                ? "bg-white/20 text-white"
+                : "bg-teal-100 text-teal-800"
+            }`}
+          >
+            Khoản 9 QĐ 2698
           </span>
         </button>
       </nav>

@@ -47,7 +47,7 @@ export function ModalXemQuyetDinhAnSinh({
             <div className="text-center font-sans text-xs">
               <div className="font-bold uppercase">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
               <div className="font-semibold italic">Độc lập - Tự do - Hạnh phúc</div>
-              <div className="text-[11px] text-gray-500 mt-1">Phú Cường, ngày {qd.ngayKy}</div>
+              <div className="text-[11px] text-gray-500 mt-1">Thủ Dầu Một, ngày {qd.ngayKy}</div>
             </div>
           </div>
 
@@ -126,7 +126,7 @@ export function ModalXemQuyetDinhAnSinh({
                   <ShieldCheck className="size-4 text-purple-700" />
                   <span>KÝ BỞI: {qd.nguoiKy}</span>
                 </div>
-                <div className="text-[10px] text-purple-800">Cơ quan: UBND Phường Phú Cường</div>
+                <div className="text-[10px] text-purple-800">Cơ quan: UBND Phường Thủ Dầu Một</div>
                 <div className="text-[10px] text-purple-700 font-mono">Ngày ký: {qd.ngayKy}</div>
                 <div className="text-[9px] text-gray-500 font-mono mt-0.5 max-w-[200px] truncate">
                   {qd.maXacThucSha256}

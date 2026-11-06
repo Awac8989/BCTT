@@ -11,7 +11,7 @@ export const Route = createFileRoute("/hop-truc-tuyen")({
       {
         name: "description",
         content:
-          "Hệ thống chat nội bộ, nhận thông báo giao việc và phòng họp số phục vụ điều hành UBND Phường Phú Cường.",
+          "Hệ thống chat nội bộ, nhận thông báo giao việc và phòng họp số phục vụ điều hành UBND Phường Thủ Dầu Một.",
       },
     ],
   }),
@@ -24,7 +24,7 @@ function HopTrucTuyenPage() {
       <div className="space-y-6">
         <PageHeader
           title="Trao đổi Tác nghiệp Nội bộ & Phòng họp Trực tuyến"
-          subtitle="Ủy ban nhân dân Phường Phú Cường / TP. Thủ Dầu Một · Tỉnh Bình Dương"
+          subtitle="Ủy ban nhân dân Phường Thủ Dầu Một · Tỉnh Bình Dương"
           badge="HỌP SỐ & CHAT"
         />
 

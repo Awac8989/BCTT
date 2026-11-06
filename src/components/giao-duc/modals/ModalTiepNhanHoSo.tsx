@@ -113,10 +113,10 @@ export const ModalTiepNhanHoSo: React.FC<ModalTiepNhanHoSoProps> = ({
         cccdMoi.trim() ||
         "0740" + Math.floor(10000000 + Math.random() * 90000000),
       diaChiLienHe:
-        diaChiNguoiNopMoi.trim() || `${khuPhoMoi}, Phường Phú Cường`,
+        diaChiNguoiNopMoi.trim() || `${khuPhoMoi}, Phường Thủ Dầu Một`,
       tenCoSoDeNghi: tenCoSoMoi.trim(),
       diaDiemCoSo:
-        diaDiemCoSoMoi.trim() || `${khuPhoMoi}, Phường Phú Cường`,
+        diaDiemCoSoMoi.trim() || `${khuPhoMoi}, Phường Thủ Dầu Một`,
       khuPho: khuPhoMoi,
       ngayTiepNhan,
       ngayHenTra,
@@ -338,7 +338,7 @@ export const ModalTiepNhanHoSo: React.FC<ModalTiepNhanHoSoProps> = ({
             </label>
             <input
               type="text"
-              placeholder="Số nhà, tên đường, khu phố, Phường Phú Cường"
+              placeholder="Số nhà, tên đường, khu phố, Phường Thủ Dầu Một"
               value={diaDiemCoSoMoi}
               onChange={(e) => setDiaDiemCoSoMoi(e.target.value)}
               className="w-full rounded-lg border border-gray-300 p-2 text-xs outline-none focus:border-[#dd4b39]"

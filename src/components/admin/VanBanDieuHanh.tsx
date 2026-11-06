@@ -576,7 +576,7 @@ export function VanBanDieuHanh() {
                   Trục Liên thông Văn bản Quốc gia (VDXP) & Nền tảng Tích hợp Dữ liệu Tỉnh (LGSP)
                 </h3>
                 <p className="text-xs text-slate-500 mt-1">
-                  Mã định danh cơ quan UBND Phường Phú Cường: <strong>000.00.24.H50</strong> · Trạng thái kết nối: Hoạt động ổn định 24/7
+                  Mã định danh cơ quan UBND Phường Thủ Dầu Một: <strong>000.00.24.H50</strong> · Trạng thái kết nối: Hoạt động ổn định 24/7
                 </p>
               </div>
               <div className="flex items-center gap-2">

@@ -70,7 +70,7 @@ export function ModalTiepNhanTthcAnSinh({
       cccd: cccd.trim(),
       soDienThoai: soDienThoai.trim(),
       khuPho,
-      diaChi: diaChi || `${khuPho}, Phường Phú Cường`,
+      diaChi: diaChi || `${khuPho}, Phường Thủ Dầu Một`,
       doiTuongThuHuong: doiTuongThuHuong || nguoiNop,
       loaiDoiTuong: currentProc.loai,
       mucTienHoTroVND: currentProc.tien,
@@ -192,7 +192,7 @@ export function ModalTiepNhanTthcAnSinh({
             <label className="block text-gray-700 font-semibold mb-1">Địa chỉ thường trú</label>
             <input
               type="text"
-              placeholder="VD: 14/2 đường Quang Trung, Phường Phú Cường"
+              placeholder="VD: 14/2 đường Quang Trung, Phường Thủ Dầu Một"
               value={diaChi}
               onChange={(e) => setDiaChi(e.target.value)}
               className="w-full px-2.5 py-1.5 border border-gray-300 rounded"

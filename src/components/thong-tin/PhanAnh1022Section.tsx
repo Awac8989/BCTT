@@ -242,7 +242,7 @@ export const PhanAnh1022Section: React.FC = () => {
       {/* Incident Cards */}
       <div className="space-y-4">
         {filteredItems.map((item) => {
-          const diaDiemStr = item.diaDiem || (item as any).diaChiSuCo || "Địa bàn Phường Phú Cường";
+          const diaDiemStr = item.diaDiem || (item as any).diaChiSuCo || "Địa bàn Phường Thủ Dầu Một";
           return (
             <div
               key={item.id}

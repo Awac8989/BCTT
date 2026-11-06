@@ -263,7 +263,7 @@ function VanHoaXaHoiPage() {
       <div className="space-y-6">
         <PageHeader
           title="Văn hóa, Thể thao & Đời sống Văn minh Đô thị"
-          subtitle="Ủy ban nhân dân Phường Phú Cường / TP. Thủ Dầu Một · Tỉnh Bình Dương"
+          subtitle="Ủy ban nhân dân Phường Thủ Dầu Một · Tỉnh Bình Dương"
           badge="VH-XH"
           right={
             <div className="flex items-center gap-2">

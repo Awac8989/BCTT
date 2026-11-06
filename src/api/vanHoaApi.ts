@@ -1,6 +1,6 @@
 /**
  * REST API CLIENT - PHÂN HỆ VĂN HÓA, THỂ THAO & ĐỜI SỐNG VĂN MINH ĐÔ THỊ
- * UBND Phường Phú Cường / TP. Thủ Dầu Một
+ * UBND Phường Thủ Dầu Một / TP. Thủ Dầu Một
  * Endpoints: /api/v1/van-hoa/*
  */
 

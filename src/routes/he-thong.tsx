@@ -74,7 +74,7 @@ function HeThong() {
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [newFullName, setNewFullName] = useState("");
   const [newTitle, setNewTitle] = useState("");
-  const [newDepartment, setNewDepartment] = useState("UBND Phường Phú Cường");
+  const [newDepartment, setNewDepartment] = useState("UBND Phường Thủ Dầu Một");
   const [newEmail, setNewEmail] = useState("");
   const [newPhone, setNewPhone] = useState("");
   const [newRole, setNewRole] = useState("CAN_BO_PHU_TRACH");
@@ -154,7 +154,7 @@ function HeThong() {
       roleName: newTitle || "Cán bộ Phụ trách Mảng",
       title: newTitle || "Chuyên viên thụ lý",
       department: newDepartment,
-      unit: "Ủy ban nhân dân Phường Phú Cường",
+      unit: "Ủy ban nhân dân Phường Thủ Dầu Một",
       email: newEmail.trim(),
       phone: newPhone || "0274.3822.xxx",
       avatarText: initials || "CB",

@@ -23,7 +23,7 @@ export const ModalQuyetDinhKySo: React.FC<ModalQuyetDinhKySoProps> = ({
     const res = appStore.kySoQuyetDinhGiaoDuc(
       hoSo.id,
       "TS. Nguyễn Văn Hùng",
-      "Chủ tịch UBND Phường Phú Cường"
+      "Chủ tịch UBND Phường Thủ Dầu Một"
     );
     toast.success("Chủ tịch UBND Phường đã Ký số điện tử thành công!", {
       description: `Đã ban hành Quyết định số ${res.soQuyetDinh} · Mã xác thực CA: ${res.maXacThuc}`,
@@ -111,7 +111,7 @@ export const ModalQuyetDinhKySo: React.FC<ModalQuyetDinhKySoProps> = ({
                 Độc lập - Tự do - Hạnh phúc
               </div>
               <div className="text-[11px] italic font-sans mt-2">
-                Phú Cường, ngày{" "}
+                Thủ Dầu Một, ngày{" "}
                 {hoSo.quyetDinh?.ngayBanHanh ||
                   new Date().toLocaleDateString("vi-VN")}
               </div>
@@ -125,7 +125,7 @@ export const ModalQuyetDinhKySo: React.FC<ModalQuyetDinhKySoProps> = ({
             </h2>
             <div className="font-bold text-sm text-gray-800">
               {hoSo.maThuTuc === "TTHC-GD-BGD/04"
-                ? "Về việc phê duyệt danh sách và kinh phí hỗ trợ tiền ăn trưa cho trẻ em mẫu giáo và hỗ trợ chi phí học tập học kỳ I năm học 2026 - 2027 trên địa bàn Phường Phú Cường"
+                ? "Về việc phê duyệt danh sách và kinh phí hỗ trợ tiền ăn trưa cho trẻ em mẫu giáo và hỗ trợ chi phí học tập học kỳ I năm học 2026 - 2027 trên địa bàn Phường Thủ Dầu Một"
                 : hoSo.maThuTuc === "TTHC-GD-BGD/03"
                 ? `Về việc cho phép chuyển địa điểm và mở rộng quy mô ${hoSo.tenCoSoDeNghi}`
                 : `Về việc cho phép thành lập ${hoSo.tenCoSoDeNghi}`}
@@ -157,7 +157,7 @@ export const ModalQuyetDinhKySo: React.FC<ModalQuyetDinhKySoProps> = ({
                 </p>
                 <p>
                   Căn cứ Biên bản họp Hội đồng xét duyệt chính sách trợ cấp xã
-                  hội và giáo dục Phường Phú Cường ngày{" "}
+                  hội và giáo dục Phường Thủ Dầu Một ngày{" "}
                   {hoSo.ketQuaThucDia?.ngayKiemTra || "16/10/2026"};
                 </p>
                 <p>
@@ -204,7 +204,7 @@ export const ModalQuyetDinhKySo: React.FC<ModalQuyetDinhKySoProps> = ({
               <p>
                 <strong>Điều 1.</strong> Phê duyệt danh sách 12 trẻ em mẫu giáo
                 và học sinh thuộc diện hộ nghèo, hộ cận nghèo, mồ côi trên địa
-                bàn Phường Phú Cường được hưởng chính sách hỗ trợ tiền ăn trưa và
+                bàn Phường Thủ Dầu Một được hưởng chính sách hỗ trợ tiền ăn trưa và
                 hỗ trợ chi phí học tập học kỳ I năm học 2026 - 2027.
               </p>
               <p className="font-sans">

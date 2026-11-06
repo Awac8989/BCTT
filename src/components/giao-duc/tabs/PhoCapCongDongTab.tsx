@@ -305,7 +305,7 @@ export const PhoCapCongDongTab: React.FC = () => {
             <div>
               <strong>Quy chuẩn đánh giá &ldquo;Cộng đồng học tập&rdquo; cấp xã (Thông tư 44/2014/TT-BGDĐT):</strong>
               <div className="mt-0.5 text-slate-700">
-                Gồm 5 nhóm tiêu chí với thang điểm 100. Đạt loại <strong>Tốt</strong> khi tổng điểm từ 85 điểm trở lên; Loại <strong>Khá</strong> từ 70 đến dưới 85 điểm; Loại <strong>Đạt</strong> từ 50 đến dưới 70 điểm. Hiện Phường Phú Cường đạt <strong>{tongDiemDoanKT}/100 điểm (Loại Tốt)</strong>.
+                Gồm 5 nhóm tiêu chí với thang điểm 100. Đạt loại <strong>Tốt</strong> khi tổng điểm từ 85 điểm trở lên; Loại <strong>Khá</strong> từ 70 đến dưới 85 điểm; Loại <strong>Đạt</strong> từ 50 đến dưới 70 điểm. Hiện Phường Thủ Dầu Một đạt <strong>{tongDiemDoanKT}/100 điểm (Loại Tốt)</strong>.
               </div>
             </div>
           </div>

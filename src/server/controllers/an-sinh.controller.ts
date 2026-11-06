@@ -1,6 +1,6 @@
 /**
  * BACKEND CONTROLLER - PHÂN HỆ LAO ĐỘNG, NGƯỜI CÓ CÔNG & AN SINH XÃ HỘI
- * UBND Phường Phú Cường / TP. Thủ Dầu Một
+ * UBND Phường Thủ Dầu Một / TP. Thủ Dầu Một
  * Endpoints: /api/v1/an-sinh/*
  */
 
@@ -70,7 +70,7 @@ export async function handleAnSinhRoutes(request: Request, url: URL): Promise<Re
         ngaySinh: body.ngaySinh || "1950-01-01",
         gioiTinh: body.gioiTinh || "Nam",
         khuPho: body.khuPho || "Khu phố 1",
-        diaChi: body.diaChi || "Phường Phú Cường",
+        diaChi: body.diaChi || "Phường Thủ Dầu Một",
         loaiDoiTuong: body.loaiDoiTuong || "NGUOI_CAO_TUOI_80",
         tenLoaiDoiTuong: body.tenLoaiDoiTuong || "Người cao tuổi đủ 80 tuổi (NĐ 20/2021)",
         heSoHuong: body.heSoHuong || 1.0,
@@ -183,7 +183,7 @@ export async function handleAnSinhRoutes(request: Request, url: URL): Promise<Re
         hoTenChuHo: body.hoTenChuHo || "Chủ hộ",
         cccd: body.cccd || "074099001122",
         khuPho: body.khuPho || "Khu phố 1",
-        diaChi: body.diaChi || "Phường Phú Cường",
+        diaChi: body.diaChi || "Phường Thủ Dầu Một",
         loaiSuCo: body.loaiSuCo || "HOA_HOAN_CHAY_NHA",
         moTaThietHai: body.moTaThietHai || "Sự cố rủi ro đột xuất",
         ngayXayRa: new Date().toLocaleDateString("vi-VN"),
@@ -216,7 +216,7 @@ export async function handleAnSinhRoutes(request: Request, url: URL): Promise<Re
         cccd: body.cccd || "074099001122",
         soDienThoai: body.soDienThoai || "0900.000.000",
         khuPho: body.khuPho || "Khu phố 1",
-        diaChi: body.diaChi || "Phường Phú Cường",
+        diaChi: body.diaChi || "Phường Thủ Dầu Một",
         doiTuongThuHuong: body.doiTuongThuHuong || "Đối tượng thụ hưởng",
         loaiDoiTuong: body.loaiDoiTuong || "Bảo trợ xã hội",
         mucTienHoTroVND: body.mucTienHoTroVND || 540_000,

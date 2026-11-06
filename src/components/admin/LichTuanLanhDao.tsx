@@ -93,7 +93,7 @@ export function LichTuanLanhDao() {
         <div className="relative z-10 max-w-4xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold uppercase tracking-wider">
             <Calendar className="w-3.5 h-3.5 text-indigo-300" />
-            Ủy ban nhân dân Phường Phú Cường · Quy chế làm việc
+            Ủy ban nhân dân Phường Thủ Dầu Một · Quy chế làm việc
           </div>
           <h2 className="text-2xl font-bold tracking-tight">
             Lịch Công Tác Tuần Thường Trực Đảng Ủy - HĐND - UBND Phường

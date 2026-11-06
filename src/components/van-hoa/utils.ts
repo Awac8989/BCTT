@@ -1,6 +1,6 @@
 /**
  * UTILITIES & CONSTANTS - PHÂN HỆ VĂN HÓA, THỂ THAO & ĐỜI SỐNG VĂN MINH ĐÔ THỊ
- * UBND Phường Phú Cường / TP. Thủ Dầu Một, Tỉnh Bình Dương
+ * UBND Phường Thủ Dầu Một / TP. Thủ Dầu Một, Tỉnh Bình Dương
  * Căn cứ pháp lý:
  * - Nghị định 86/2023/NĐ-CP: Tiêu chuẩn công nhận Gia đình văn hóa, Khu phố văn hóa
  * - Nghị định 54/2019/NĐ-CP & NĐ 144/2021/NĐ-CP: Quản lý Karaoke, Bar, Thể thao giải trí

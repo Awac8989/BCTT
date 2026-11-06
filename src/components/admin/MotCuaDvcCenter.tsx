@@ -131,7 +131,7 @@ export function MotCuaDvcCenter() {
       nguoiNop: newNguoiNop.trim(),
       cccd: newCccd.trim(),
       soDienThoai: newSdt.trim() || "0900.000.000",
-      diaChi: newDiaChi.trim() || "Phường Phú Cường, TP. Thủ Dầu Một",
+      diaChi: newDiaChi.trim() || "Phường Thủ Dầu Một, TP. Thủ Dầu Một",
       ngayHenTra: newNgayHen,
       canBoThuLy: currentUser.fullName,
       lePhiVND: newLePhi,
@@ -156,7 +156,7 @@ export function MotCuaDvcCenter() {
             Cơ chế Một cửa, Một cửa Liên thông & Dịch vụ công Quốc gia
           </div>
           <h2 className="text-2xl font-bold tracking-tight">
-            Bộ phận Tiếp nhận & Trả kết quả TTHC · UBND Phường Phú Cường
+            Bộ phận Tiếp nhận & Trả kết quả TTHC · UBND Phường Thủ Dầu Một
           </h2>
           <p className="text-sm text-slate-300 leading-relaxed">
             Áp dụng nghiêm ngặt <strong>Nghị định 61/2018/NĐ-CP</strong> và <strong>Nghị định 107/2021/NĐ-CP</strong>: Chuẩn hóa 4 mẫu biểu bắt buộc (Giấy hẹn Mẫu 01, Bổ sung Mẫu 02, Từ chối Mẫu 03, Xin lỗi Mẫu 04) · 100% hồ sơ cấp bản kết quả điện tử có mã băm SHA-256 tích hợp Kho dữ liệu Đề án 06.
@@ -461,7 +461,7 @@ export function MotCuaDvcCenter() {
                   <strong>Mã số hồ sơ:</strong> <span className="font-mono font-bold text-emerald-600">{viewingModalForm.hoSo.maHoSo}</span>
                 </p>
                 <p>
-                  <strong>Bộ phận tiếp nhận:</strong> Bộ phận Tiếp nhận và Trả kết quả UBND Phường Phú Cường
+                  <strong>Bộ phận tiếp nhận:</strong> Bộ phận Tiếp nhận và Trả kết quả UBND Phường Thủ Dầu Một
                 </p>
                 <p>
                   <strong>Họ và tên người nộp:</strong> {viewingModalForm.hoSo.nguoiNop} · <strong>CCCD:</strong> {viewingModalForm.hoSo.cccd}

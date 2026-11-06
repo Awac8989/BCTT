@@ -1,6 +1,6 @@
 /**
  * REST API CLIENT - PHÂN HỆ LAO ĐỘNG, NGƯỜI CÓ CÔNG & AN SINH XÃ HỘI
- * UBND Phường Phú Cường / TP. Thủ Dầu Một
+ * UBND Phường Thủ Dầu Một / TP. Thủ Dầu Một
  * Endpoints: /api/v1/an-sinh/*
  */
 
@@ -71,7 +71,7 @@ export const anSinhApi = {
       ngaySinh: payload.ngaySinh || "1950-01-01",
       gioiTinh: payload.gioiTinh || "Nam",
       khuPho: payload.khuPho || "Khu phố 1",
-      diaChi: payload.diaChi || "Phường Phú Cường",
+      diaChi: payload.diaChi || "Phường Thủ Dầu Một",
       loaiDoiTuong: payload.loaiDoiTuong || "NGUOI_CAO_TUOI_80",
       tenLoaiDoiTuong: payload.tenLoaiDoiTuong || "Người cao tuổi đủ 80 tuổi (NĐ 20/2021)",
       heSoHuong: payload.heSoHuong || 1.0,
@@ -248,7 +248,7 @@ export const anSinhApi = {
       hoTenChuHo: payload.hoTenChuHo || "Chủ hộ",
       cccd: payload.cccd || "074099001122",
       khuPho: payload.khuPho || "Khu phố 1",
-      diaChi: payload.diaChi || "Phường Phú Cường",
+      diaChi: payload.diaChi || "Phường Thủ Dầu Một",
       loaiSuCo: payload.loaiSuCo || "HOA_HOAN_CHAY_NHA",
       moTaThietHai: payload.moTaThietHai || "Sự cố đột xuất",
       ngayXayRa: new Date().toLocaleDateString("vi-VN"),
@@ -280,7 +280,7 @@ export const anSinhApi = {
       cccd: payload.cccd || "074099001122",
       soDienThoai: payload.soDienThoai || "0900.000.000",
       khuPho: payload.khuPho || "Khu phố 1",
-      diaChi: payload.diaChi || "Phường Phú Cường",
+      diaChi: payload.diaChi || "Phường Thủ Dầu Một",
       doiTuongThuHuong: payload.doiTuongThuHuong || "Đối tượng thụ hưởng",
       loaiDoiTuong: payload.loaiDoiTuong || "Bảo trợ xã hội",
       mucTienHoTroVND: payload.mucTienHoTroVND || 540_000,

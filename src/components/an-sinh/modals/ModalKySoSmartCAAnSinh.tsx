@@ -19,7 +19,7 @@ export function ModalKySoSmartCAAnSinh({
     `QĐ-UBND-${Math.floor(100 + Math.random() * 900)}/QĐ-UBND`
   );
   const [nguoiKy, setNguoiKy] = useState("Nguyễn Văn Hùng");
-  const [chucVu, setChucVu] = useState("Chủ tịch UBND Phường Phú Cường");
+  const [chucVu, setChucVu] = useState("Chủ tịch UBND Phường Thủ Dầu Một");
   const [noiDung, setNoiDung] = useState(
     `Về việc giải quyết hồ sơ thủ tục hành chính: ${item.tenThuTuc} cho công dân ${item.doiTuongThuHuong}.`
   );

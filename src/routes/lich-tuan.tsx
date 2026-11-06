@@ -24,7 +24,7 @@ function LichTuanPage() {
       <div className="space-y-6">
         <PageHeader
           title="Lịch Công Tác Tuần & Tiếp Công Dân Định Kỳ"
-          subtitle="Ủy ban nhân dân Phường Phú Cường / TP. Thủ Dầu Một · Tỉnh Bình Dương"
+          subtitle="Ủy ban nhân dân Phường Thủ Dầu Một · Tỉnh Bình Dương"
           badge="LỊCH CÔNG VỤ"
         />
 

@@ -40,7 +40,7 @@ export function ThietCheDonCaTaiTuTab({
             Hệ thống Thiết chế VHTT & Câu lạc bộ Đờn ca tài tử Nam Bộ
           </h3>
           <p className="text-teal-100 text-sm leading-relaxed mb-4">
-            Phường Phú Cường duy trì và phát huy hiệu quả Trung tâm Văn hóa Thể thao - Học tập cộng đồng, 4 Nhà văn hóa khu phố và CLB Đờn ca tài tử Nam Bộ (Nghệ thuật được UNESCO ghi danh là Di sản văn hóa phi vật thể của nhân loại). Tổ chức giao lưu định kỳ tại công viên phố đi bộ ven sông Bạch Đằng.
+            Phường Thủ Dầu Một duy trì và phát huy hiệu quả Trung tâm Văn hóa Thể thao - Học tập cộng đồng, 4 Nhà văn hóa khu phố và CLB Đờn ca tài tử Nam Bộ (Nghệ thuật được UNESCO ghi danh là Di sản văn hóa phi vật thể của nhân loại). Tổ chức giao lưu định kỳ tại công viên phố đi bộ ven sông Bạch Đằng.
           </p>
           <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
             <div className="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-lg">

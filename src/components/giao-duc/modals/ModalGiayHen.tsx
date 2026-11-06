@@ -82,7 +82,7 @@ export const ModalGiayHen: React.FC<ModalGiayHenProps> = ({ hoSo, onClose }) => 
                 Độc lập - Tự do - Hạnh phúc
               </div>
               <div className="text-[11px] italic font-sans mt-2">
-                Phú Cường, ngày {hoSo.ngayTiepNhan.split("/")[0]} tháng{" "}
+                Thủ Dầu Một, ngày {hoSo.ngayTiepNhan.split("/")[0]} tháng{" "}
                 {hoSo.ngayTiepNhan.split("/")[1]} năm{" "}
                 {hoSo.ngayTiepNhan.split("/")[2]}
               </div>
@@ -106,7 +106,7 @@ export const ModalGiayHen: React.FC<ModalGiayHenProps> = ({ hoSo, onClose }) => 
               <div>
                 <span className="text-gray-600">Đơn vị tiếp nhận:</span>{" "}
                 <strong className="text-gray-900">
-                  Bộ phận Một cửa - UBND Phường Phú Cường
+                  Bộ phận Một cửa - UBND Phường Thủ Dầu Một
                 </strong>
               </div>
               <div>
@@ -227,7 +227,7 @@ export const ModalGiayHen: React.FC<ModalGiayHenProps> = ({ hoSo, onClose }) => 
                 {hoSo.ngayHenTra} (Trước 17h00)
               </div>
               <div className="text-[11px] text-gray-500 italic">
-                Địa điểm: Bộ phận Một cửa - UBND Phường Phú Cường
+                Địa điểm: Bộ phận Một cửa - UBND Phường Thủ Dầu Một
               </div>
             </div>
           </div>

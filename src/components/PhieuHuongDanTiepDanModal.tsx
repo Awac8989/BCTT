@@ -85,7 +85,7 @@ export function PhieuHuongDanTiepDanModal({ isOpen, onClose, item }: Props) {
               <div className="font-bold text-[12px] uppercase">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
               <div className="font-bold text-[12px] underline">Độc lập - Tự do - Hạnh phúc</div>
               <div className="text-[11px] italic text-gray-600 mt-1">
-                Phú Cường, ngày {now.getDate()} tháng {now.getMonth() + 1} năm {namHienTai}
+                Thủ Dầu Một, ngày {now.getDate()} tháng {now.getMonth() + 1} năm {namHienTai}
               </div>
             </div>
           </div>
@@ -102,13 +102,13 @@ export function PhieuHuongDanTiepDanModal({ isOpen, onClose, item }: Props) {
 
           <div className="space-y-4">
             <p className="indent-6 text-justify">
-              Hồi 08 giờ 30 phút, ngày {item.ngayTiep || now.toLocaleDateString("vi-VN")}, tại Phòng Tiếp công dân UBND Phường Phú Cường; Lãnh đạo UBND phường đã trực tiếp tiếp công dân:
+              Hồi 08 giờ 30 phút, ngày {item.ngayTiep || now.toLocaleDateString("vi-VN")}, tại Phòng Tiếp công dân UBND Phường Thủ Dầu Một; Lãnh đạo UBND phường đã trực tiếp tiếp công dân:
             </p>
 
             <div className="border border-gray-300 rounded p-4 bg-gray-50/50 font-sans text-xs space-y-2">
               <p>1. Họ và tên công dân: <strong className="text-sm uppercase text-gray-900">{item.hoTenCongDan}</strong></p>
               <p>2. Số CCCD: <strong className="font-mono">{item.cccd}</strong> · Số điện thoại: <strong className="font-mono">{item.soDienThoai || "0918.234.567"}</strong></p>
-              <p>3. Nơi thường trú: {item.diaChi || "Khu phố 2, Phường Phú Cường, TP. Thủ Dầu Một, tỉnh Bình Dương"}</p>
+              <p>3. Nơi thường trú: {item.diaChi || "Khu phố 2, Phường Thủ Dầu Một, TP. Thủ Dầu Một, tỉnh Bình Dương"}</p>
               <p>4. Nội dung phản ánh / khiếu nại / đề nghị: <strong>{item.noiDung}</strong></p>
               <p>5. Lĩnh vực quản lý: <span className="font-semibold text-blue-900">{item.linhVuc}</span></p>
             </div>
@@ -150,7 +150,7 @@ export function PhieuHuongDanTiepDanModal({ isOpen, onClose, item }: Props) {
               <div className="my-1">
                 <DigitalSignatureBadge
                   nguoiKy="Trần Văn Nam"
-                  chucVu="Chủ tịch UBND Phường Phú Cường"
+                  chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                 />
               </div>
               <div className="font-bold text-gray-900">Trần Văn Nam</div>

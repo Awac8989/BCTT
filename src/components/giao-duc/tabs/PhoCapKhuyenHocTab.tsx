@@ -37,7 +37,7 @@ export const PhoCapKhuyenHocTab: React.FC<PhoCapKhuyenHocTabProps> = ({
             <div className="flex items-center gap-2">
               <BookOpen className="size-4.5 text-purple-600" />
               <h3 className="text-sm font-bold text-gray-900">
-                Chỉ số Phổ cập Giáo dục &amp; Xóa mù chữ Phường Phú Cường năm 2026
+                Chỉ số Phổ cập Giáo dục &amp; Xóa mù chữ Phường Thủ Dầu Một năm 2026
               </h3>
             </div>
             <p className="text-xs text-gray-500 mt-0.5">

@@ -64,7 +64,7 @@ const MOCK_QUA_277_DATA: QuaTangRow[] = [
     hoTen: "Nguyễn Văn Thành",
     cccd: "074052007788",
     loaiDoiTuong: "Thương binh 61%",
-    diaBan: "P. Phú Cường, TP. TDM",
+    diaBan: "P. Thủ Dầu Một, TP. TDM",
     quaChuTichNuoc: 300000,
     quaTinhBinhDuong: 1500000,
     thoCungLietSi: 0,

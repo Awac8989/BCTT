@@ -68,7 +68,7 @@ export function BangKeBuuDienModal({ isOpen, onClose, items, kyChiTra = "Tháng 
       `"${d.soHoSoTinh}"`,
       `"${d.hoTen}"`,
       `"${d.cccd}"`,
-      `"${d.diaChi || "P. Phú Cường, TP. Thủ Dầu Một"}"`,
+      `"${d.diaChi || "P. Thủ Dầu Một, TP. Thủ Dầu Một"}"`,
       `"${d.loaiDoiTuong}"`,
       `"${d.tenCheDo}"`,
       d.soTien,
@@ -319,7 +319,7 @@ export function BangKeBuuDienModal({ isOpen, onClose, items, kyChiTra = "Tháng 
                   <p>1. Họ và tên người nhận: <strong className="text-sm uppercase text-gray-900">{doiTuongTanNha.hoTen}</strong></p>
                   <p>2. Thuộc diện chính sách: <strong>{doiTuongTanNha.loaiDoiTuong}</strong> · Số hồ sơ: <strong className="font-mono">{doiTuongTanNha.soHoSoTinh}</strong></p>
                   <p>3. Số CCCD: <strong className="font-mono">{doiTuongTanNha.cccd}</strong></p>
-                  <p>4. Địa chỉ cư trú: {doiTuongTanNha.diaChi || "Phường Phú Cường, thành phố Thủ Dầu Một, tỉnh Bình Dương"}</p>
+                  <p>4. Địa chỉ cư trú: {doiTuongTanNha.diaChi || "Phường Thủ Dầu Một, thành phố Thủ Dầu Một, tỉnh Bình Dương"}</p>
                   <p>5. Nội dung trợ cấp chi trả: <strong>{doiTuongTanNha.tenCheDo} ({kyChiTra})</strong></p>
                   <p className="text-sm font-bold text-red-700">
                     ➔ SỐ TIỀN THỰC PHÁT: {formatVND(doiTuongTanNha.soTien)}

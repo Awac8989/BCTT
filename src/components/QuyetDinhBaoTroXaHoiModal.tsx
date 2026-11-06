@@ -123,7 +123,7 @@ export function QuyetDinhBaoTroXaHoiModal({ isOpen, onClose, doiTuong }: Props) 
               Căn cứ Nghị định số 76/2024/NĐ-CP ngày 01 tháng 7 năm 2024 của Chính phủ sửa đổi, bổ sung một số điều của Nghị định số 20/2021/NĐ-CP (Quy định mức chuẩn trợ giúp xã hội là 500.000 đồng/tháng);
             </p>
             <p className="indent-6">
-              Xét Tờ trình của Ủy ban nhân dân Phường Phú Cường và đề nghị của Trưởng phòng Lao động - Thương binh và Xã hội thành phố Thủ Dầu Một,
+              Xét Tờ trình của Ủy ban nhân dân Phường Thủ Dầu Một và đề nghị của Trưởng phòng Lao động - Thương binh và Xã hội thành phố Thủ Dầu Một,
             </p>
           </div>
 
@@ -140,7 +140,7 @@ export function QuyetDinhBaoTroXaHoiModal({ isOpen, onClose, doiTuong }: Props) 
               <p>- Họ và tên đối tượng: <strong className="text-sm uppercase text-gray-900">{doiTuong.hoTen}</strong></p>
               <p>- Sinh ngày: {doiTuong.ngaySinh || "1950"} · Giới tính: {doiTuong.gioiTinh || "Nam"}</p>
               <p>- Số định danh cá nhân / CCCD: <strong className="font-mono">{doiTuong.cccd}</strong></p>
-              <p>- Nơi thường trú: {doiTuong.diaChi || "Khu phố 1, Phường Phú Cường, TP. Thủ Dầu Một, tỉnh Bình Dương"}</p>
+              <p>- Nơi thường trú: {doiTuong.diaChi || "Khu phố 1, Phường Thủ Dầu Một, TP. Thủ Dầu Một, tỉnh Bình Dương"}</p>
               <p>- Thuộc diện đối tượng: <strong>{doiTuong.tenLoaiDoiTuong || "Đối tượng bảo trợ xã hội"}</strong></p>
               <p>- Mức chuẩn áp dụng: <strong>500.000 đồng/tháng</strong> (Hệ số: <strong>{heSo}</strong> theo Nghị định 76/2024/NĐ-CP).</p>
               <p className="font-bold text-red-700 text-sm">
@@ -158,7 +158,7 @@ export function QuyetDinhBaoTroXaHoiModal({ isOpen, onClose, doiTuong }: Props) 
             </p>
 
             <p className="indent-6 text-justify">
-              <strong>Điều 3.</strong> Chánh Văn phòng HĐND - UBND thành phố, Trưởng phòng Lao động - TB&amp;XH thành phố, Trưởng phòng Tài chính - Kế hoạch, Chủ tịch UBND Phường Phú Cường và ông/bà <strong>{doiTuong.hoTen}</strong> chịu trách nhiệm thi hành Quyết định này./.
+              <strong>Điều 3.</strong> Chánh Văn phòng HĐND - UBND thành phố, Trưởng phòng Lao động - TB&amp;XH thành phố, Trưởng phòng Tài chính - Kế hoạch, Chủ tịch UBND Phường Thủ Dầu Một và ông/bà <strong>{doiTuong.hoTen}</strong> chịu trách nhiệm thi hành Quyết định này./.
             </p>
           </div>
 

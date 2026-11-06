@@ -132,7 +132,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; pinBg: string;
 };
 
 export function MapTilerGisView({
-  center = [10.9805, 106.6543], // Phường Phú Cường, TP. Thủ Dầu Một
+  center = [10.9805, 106.6543], // Phường Thủ Dầu Một, TP. Thủ Dầu Một
   zoom = 15,
   markers = [],
   selectedMarkerId,
@@ -401,7 +401,7 @@ export function MapTilerGisView({
           </div>
           <div>
             <h4 className="font-bold text-white text-sm flex items-center gap-2">
-              {title || "Bản Đồ Số GIS Phường Phú Cường & TP. Thủ Dầu Một"}
+              {title || "Bản Đồ Số GIS Phường Thủ Dầu Một & TP. Thủ Dầu Một"}
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-semibold">
                 MapTiler Cloud Live
               </span>

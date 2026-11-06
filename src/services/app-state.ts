@@ -150,6 +150,12 @@ import {
   initialQuyDenOnList,
   type NhaTinhNghiaItem,
   initialNhaTinhNghiaList,
+  type CoSoYTeDuocTuNhan,
+  initialCoSoYTeDuocList,
+  type CoSoAttpVaThucAnDuongPho,
+  initialCoSoAttpList,
+  type SoSucKhoeDienTuKhuPho,
+  initialSoSucKhoeKhuPhoList,
 } from "@/data/domain-mock";
 export type { DomainCode };
 import { calculateAllowance } from "./calculator.service";
@@ -300,7 +306,7 @@ export const MOCK_USERS = {
     roleName: "Cán bộ Thông tin, Truyền thông & Chuyển đổi số",
     title: "Chuyên viên Văn hóa - Thông tin & Chuyển đổi số",
     department: "Tổ Công nghệ số & Đài Truyền thanh Phường",
-    unit: "Ủy ban nhân dân Phường Phú Cường, TP. Thủ Dầu Một",
+    unit: "Ủy ban nhân dân Phường Thủ Dầu Một, TP. Thủ Dầu Một",
     email: "vdcuong.phucuong@thudaumot.binhduong.gov.vn",
     phone: "0908.556.789",
     avatarText: "VDC",
@@ -324,7 +330,7 @@ export const MOCK_USERS = {
     roleName: "Cán bộ Lao động, Việc làm & An sinh xã hội",
     title: "Công chức Văn hóa - Xã hội phụ trách LĐ-TB&XH",
     department: "Bộ phận Lao động - Thương binh và Xã hội Phường",
-    unit: "Ủy ban nhân dân Phường Phú Cường, TP. Thủ Dầu Một",
+    unit: "Ủy ban nhân dân Phường Thủ Dầu Một, TP. Thủ Dầu Một",
     email: "lhnam.phucuong@thudaumot.binhduong.gov.vn",
     phone: "0912.889.334",
     avatarText: "LHN",
@@ -349,7 +355,7 @@ export const MOCK_USERS = {
     roleName: "Cán bộ Giáo dục & Đào tạo cơ sở",
     title: "Công chức phụ trách Giáo dục - Đào tạo & Khuyến học",
     department: "Bộ phận Giáo dục & Trung tâm Học tập cộng đồng",
-    unit: "Ủy ban nhân dân Phường Phú Cường, TP. Thủ Dầu Một",
+    unit: "Ủy ban nhân dân Phường Thủ Dầu Một, TP. Thủ Dầu Một",
     email: "ttkoanh.phucuong@thudaumot.binhduong.gov.vn",
     phone: "0987.334.221",
     avatarText: "TKO",
@@ -373,7 +379,7 @@ export const MOCK_USERS = {
     roleName: "Cán bộ Văn hóa, Thể thao & Đời sống văn minh",
     title: "Công chức Văn hóa - Xã hội (Văn hóa, Thể thao, Du lịch & Gia đình)",
     department: "Bộ phận Văn hóa - Xã hội Phường",
-    unit: "Ủy ban nhân dân Phường Phú Cường, TP. Thủ Dầu Một",
+    unit: "Ủy ban nhân dân Phường Thủ Dầu Một, TP. Thủ Dầu Một",
     email: "nttung.phucuong@thudaumot.binhduong.gov.vn",
     phone: "0918.665.432",
     avatarText: "NTT",
@@ -482,6 +488,10 @@ interface AppState {
   khongGianMangList: GiamSatKhongGianMangItem[];
   quyDenOnList: QuyDenOnDapNghiaItem[];
   nhaTinhNghiaList: NhaTinhNghiaItem[];
+  // Lĩnh vực Y tế & An toàn thực phẩm cơ sở (Khoản 9 Điều 3 QĐ 2698 & NĐ 148/2025/NĐ-CP)
+  coSoYTeDuocList: CoSoYTeDuocTuNhan[];
+  coSoAttpList: CoSoAttpVaThucAnDuongPho[];
+  soSucKhoeKhuPhoList: SoSucKhoeDienTuKhuPho[];
   technicalErrorReports: TechnicalErrorReport[];
   auditLogs: {
     id: string;
@@ -847,6 +857,9 @@ function getInitialState(): AppState {
           khongGianMangList: parsed.khongGianMangList || initialKhongGianMangList,
           quyDenOnList: parsed.quyDenOnList || initialQuyDenOnList,
           nhaTinhNghiaList: parsed.nhaTinhNghiaList || initialNhaTinhNghiaList,
+          coSoYTeDuocList: parsed.coSoYTeDuocList || initialCoSoYTeDuocList,
+          coSoAttpList: parsed.coSoAttpList || initialCoSoAttpList,
+          soSucKhoeKhuPhoList: parsed.soSucKhoeKhuPhoList || initialSoSucKhoeKhuPhoList,
         };
       }
     } catch (e) {
@@ -943,6 +956,9 @@ function getInitialState(): AppState {
     khongGianMangList: initialKhongGianMangList,
     quyDenOnList: initialQuyDenOnList,
     nhaTinhNghiaList: initialNhaTinhNghiaList,
+    coSoYTeDuocList: initialCoSoYTeDuocList,
+    coSoAttpList: initialCoSoAttpList,
+    soSucKhoeKhuPhoList: initialSoSucKhoeKhuPhoList,
     technicalErrorReports: [
       {
         id: "ERR-2026-001",
@@ -2091,7 +2107,7 @@ export const appStore = {
 
   kySoQuyetDinhGiaoDuc(hoSoId: string, nguoiKy?: string, chucVu?: string) {
     const signer = nguoiKy || "TS. Nguyễn Văn Hùng";
-    const title = chucVu || "Chủ tịch UBND Phường Phú Cường";
+    const title = chucVu || "Chủ tịch UBND Phường Thủ Dầu Một";
     const now = new Date();
     const maXacThuc = `SHA256:${Math.random().toString(36).substring(2, 8).toUpperCase()}-UBND-GD-${Date.now().toString(36).toUpperCase()}`;
 
@@ -2191,7 +2207,7 @@ export const appStore = {
             lyDo,
             ngayHenMoi,
             nguoiKy: "TS. Nguyễn Văn Hùng",
-            chucVu: "Chủ tịch UBND Phường Phú Cường",
+            chucVu: "Chủ tịch UBND Phường Thủ Dầu Một",
           },
         };
       }
@@ -4410,11 +4426,11 @@ export const appStore = {
       hoTenLietSi: data.hoTenLietSi || "Liệt sĩ chưa cập nhật tên",
       namSinh: data.namSinh || 1950,
       namHySinh: data.namHySinh || 1972,
-      queQuan: data.queQuan || "Phường Phú Cường, TP. Thủ Dầu Một",
+      queQuan: data.queQuan || "Phường Thủ Dầu Một, TP. Thủ Dầu Một",
       hoTenNguoiThoCung: data.hoTenNguoiThoCung || "Người thờ cúng",
       quanHeVoiLietSi: data.quanHeVoiLietSi || "Thân nhân",
       cccdNguoiThoCung: data.cccdNguoiThoCung || "074000000000",
-      diaChiNguoiThoCung: data.diaChiNguoiThoCung || "Phường Phú Cường",
+      diaChiNguoiThoCung: data.diaChiNguoiThoCung || "Phường Thủ Dầu Một",
       khuPho: data.khuPho || "Khu phố 1",
       soVanBanUyQuyen: data.soVanBanUyQuyen || "Mẫu 04 - Giấy ủy quyền",
       dinhMucNamVND: data.dinhMucNamVND || 1400000,
@@ -4474,7 +4490,7 @@ export const appStore = {
       ngaySinh: data.ngaySinh || "01/01/1980",
       gioiTinh: data.gioiTinh || "NAM",
       cccd: data.cccd || "074000000000",
-      diaChi: data.diaChi || "Phường Phú Cường",
+      diaChi: data.diaChi || "Phường Thủ Dầu Một",
       khuPho: data.khuPho || "Khu phố 1",
       dangTat: data.dangTat || "VAN_DONG",
       mucDoKhuyetTat: data.mucDoKhuyetTat || "NANG",
@@ -4811,7 +4827,7 @@ export const appStore = {
       hoTenChuHo: data.hoTenChuHo || "Chủ hộ chính sách",
       dienDoiTuong: data.dienDoiTuong || "THAN_NHAN_LIET_SI",
       khuPho: data.khuPho || "Khu phố 1",
-      diaChi: data.diaChi || "Phường Phú Cường",
+      diaChi: data.diaChi || "Phường Thủ Dầu Một",
       loaiHinhHoTro: data.loaiHinhHoTro || "XAY_MOI",
       kinhPhiHoTroVND: data.kinhPhiHoTroVND || 80000000,
       kinhPhiGiaDinhVND: data.kinhPhiGiaDinhVND || 20000000,
@@ -4865,6 +4881,234 @@ export const appStore = {
         },
         ...state.auditLogs,
       ],
+    };
+    notify();
+  },
+
+  /**
+   * Quản lý Mạng lưới Tổ Công nghệ số cộng đồng (Khoản 14 Điều 3 Quyết định số 2698/QĐ-UBND)
+   */
+  addToCNS(data: Omit<ToCongNgheSoCongDong, "id">) {
+    const newItem: ToCongNgheSoCongDong = {
+      ...data,
+      id: `CNS-${Date.now().toString().slice(-4)}`,
+    };
+    state = {
+      ...state,
+      toCNSList: [newItem, ...state.toCNSList],
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Thành lập Tổ CNS Cộng đồng",
+          details: `Kiện toàn thành lập ${newItem.tenTo} (${newItem.khuPho})`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+  },
+
+  updateToCNS(id: string, updates: Partial<ToCongNgheSoCongDong>) {
+    const updated = state.toCNSList.map((item) => {
+      if (item.id !== id) return item;
+      return { ...item, ...updates };
+    });
+    state = {
+      ...state,
+      toCNSList: updated,
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Cập nhật Tổ CNS Cộng đồng",
+          details: `Cập nhật thông tin hoạt động Tổ CNSCĐ ${id}`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+  },
+
+  giaoNhiemVuChienDichToCNS(id: string, tangBuoiRaQuan: number, tangVNeIDPercent: number, tangDVCPercent: number) {
+    const updated = state.toCNSList.map((item) => {
+      if (item.id !== id) return item;
+      const newVNeID = Math.min(100, item.tyLeCaiVNeIDPercent + tangVNeIDPercent);
+      const newDVC = Math.min(100, item.tyLeDVCPercent + tangDVCPercent);
+      const newBuoi = item.soBuoiRaQuan + tangBuoiRaQuan;
+      const newDanhGia = newVNeID >= 95 ? "XUAT_SAC" : newVNeID >= 90 ? "TOT" : "TRUNG_BINH";
+      return {
+        ...item,
+        soBuoiRaQuan: newBuoi,
+        tyLeCaiVNeIDPercent: Number(newVNeID.toFixed(1)),
+        tyLeDVCPercent: Number(newDVC.toFixed(1)),
+        danhGiaHoatDong: newDanhGia as any,
+      };
+    });
+    state = {
+      ...state,
+      toCNSList: updated,
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Giao nhiệm vụ chiến dịch Tổ CNSCĐ",
+          details: `Phát động chiến dịch số hóa cho Tổ CNS ${id}, ghi nhận thêm ${tangBuoiRaQuan} buổi ra quân`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+  },
+
+  // ==========================================================================
+  // NGHIỆP VỤ Y TẾ CƠ SỞ & AN TOÀN THỰC PHẨM (KHOẢN 9 ĐIỀU 3 QĐ 2698 & NĐ 148)
+  // ==========================================================================
+
+  addCoSoYTeDuoc(item: CoSoYTeDuocTuNhan) {
+    state = {
+      ...state,
+      coSoYTeDuocList: [item, ...state.coSoYTeDuocList],
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Thêm cơ sở Y - Dược tư nhân",
+          details: `Đăng ký quản lý cơ sở ${item.tenCoSo} (${item.maCoSo}) tại ${item.khuPho}`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+  },
+
+  updateCoSoYTeDuoc(id: string, updates: Partial<CoSoYTeDuocTuNhan>) {
+    state = {
+      ...state,
+      coSoYTeDuocList: state.coSoYTeDuocList.map((c) =>
+        c.id === id ? { ...c, ...updates } : c
+      ),
+    };
+    notify();
+  },
+
+  kiemTraCoSoYTe(
+    id: string,
+    ketQua: CoSoYTeDuocTuNhan["ketQuaKiemTraGanNhat"],
+    ghiChu: string
+  ) {
+    const today = new Date().toLocaleDateString("vi-VN");
+    state = {
+      ...state,
+      coSoYTeDuocList: state.coSoYTeDuocList.map((c) =>
+        c.id === id
+          ? {
+              ...c,
+              ketQuaKiemTraGanNhat: ketQua,
+              ngayKiemTraGanNhat: today,
+              ghiChuKiemTra: ghiChu,
+            }
+          : c
+      ),
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Kiểm tra cơ sở Y - Dược tư nhân",
+          details: `Hậu kiểm cơ sở ${id}: Kết quả ${ketQua} - ${ghiChu}`,
+          status: ketQua === "XU_PHAT_HANH_CHINH" ? "WARNING" : "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+  },
+
+  addCoSoAttp(item: CoSoAttpVaThucAnDuongPho) {
+    state = {
+      ...state,
+      coSoAttpList: [item, ...state.coSoAttpList],
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Đăng ký cơ sở ATTP & Thức ăn đường phố",
+          details: `Quản lý cơ sở ATTP ${item.tenCoSo} tại ${item.khuPho}`,
+          status: "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+  },
+
+  updateCoSoAttp(id: string, updates: Partial<CoSoAttpVaThucAnDuongPho>) {
+    state = {
+      ...state,
+      coSoAttpList: state.coSoAttpList.map((c) =>
+        c.id === id ? { ...c, ...updates } : c
+      ),
+    };
+    notify();
+  },
+
+  kiemTraAttp(
+    id: string,
+    ketQua: CoSoAttpVaThucAnDuongPho["ketQuaKiemTra"],
+    noiDung: string,
+    tienPhat?: number
+  ) {
+    const today = new Date().toLocaleDateString("vi-VN");
+    state = {
+      ...state,
+      coSoAttpList: state.coSoAttpList.map((c) =>
+        c.id === id
+          ? {
+              ...c,
+              ketQuaKiemTra: ketQua,
+              ngayKiemTraGanNhat: today,
+              noiDungXuLy: noiDung,
+              tienPhatVND: tienPhat,
+            }
+          : c
+      ),
+      auditLogs: [
+        {
+          id: `LOG-${Date.now()}`,
+          timestamp: new Date().toLocaleString("vi-VN"),
+          action: "Kiểm tra liên ngành ATTP",
+          details: `Kiểm tra ATTP cơ sở ${id}: Kết quả ${ketQua}${
+            tienPhat ? ` - Phạt ${tienPhat.toLocaleString("vi-VN")} đ` : ""
+          } - ${noiDung}`,
+          status: ketQua === "XU_PHAT" ? "WARNING" : "SUCCESS",
+        },
+        ...state.auditLogs,
+      ],
+    };
+    notify();
+  },
+
+  capNhatSoSucKhoeKhuPho(khuPho: string, daLapSo: number) {
+    state = {
+      ...state,
+      soSucKhoeKhuPhoList: state.soSucKhoeKhuPhoList.map((item) => {
+        if (item.khuPho === khuPho) {
+          const newDaLap = daLapSo;
+          const newPercent = Number(
+            ((newDaLap / item.tongDanSo) * 100).toFixed(1)
+          );
+          return {
+            ...item,
+            daLapSoSucKhoeVNeID: newDaLap,
+            tyLePercent: newPercent,
+          };
+        }
+        return item;
+      }),
     };
     notify();
   },

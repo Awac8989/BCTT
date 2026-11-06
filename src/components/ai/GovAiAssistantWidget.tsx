@@ -175,7 +175,7 @@ Khung tiêu chuẩn xét tặng danh hiệu **Gia đình văn hóa** theo thang 
 
 UBND TP. THỦ DẦU MỘT               CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
 UBND PHƯỜNG PHÚ CƯỜNG                     Độc lập - Tự do - Hạnh phúc
-Số: QĐ-UBND-CTX/...               Phú Cường, ngày ... tháng ... năm 2026
+Số: QĐ-UBND-CTX/...               Thủ Dầu Một, ngày ... tháng ... năm 2026
 
                               QUYẾT ĐỊNH
                    Về việc áp dụng biện pháp cấm tiếp xúc

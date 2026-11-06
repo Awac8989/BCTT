@@ -24,7 +24,7 @@ function VanBanPage() {
       <div className="space-y-6">
         <PageHeader
           title="Văn phòng Điện tử & Quản lý Văn bản Điều hành (e-Office)"
-          subtitle="Ủy ban nhân dân Phường Phú Cường / TP. Thủ Dầu Một · Tỉnh Bình Dương"
+          subtitle="Ủy ban nhân dân Phường Thủ Dầu Một · Tỉnh Bình Dương"
           badge="NĐ 30/2020 & VDXP"
         />
 

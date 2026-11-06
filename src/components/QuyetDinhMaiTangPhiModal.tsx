@@ -265,7 +265,7 @@ export function QuyetDinhMaiTangPhiModal({ isOpen, onClose, hoSo, onDisbursed }:
             </div>
 
             <p className="indent-6 text-justify">
-              <strong>Điều 3.</strong> Quyết định này có hiệu lực kể từ ngày ký. Chánh Văn phòng Sở, Trưởng phòng Người có công, Trưởng phòng Kế hoạch - Tài chính Sở Lao động - TB&amp;XH, Trưởng phòng Lao động - TB&amp;XH thành phố Thủ Dầu Một, Chủ tịch UBND Phường Phú Cường và ông/bà <strong>{tenNguoiLoMaiTang}</strong> chịu trách nhiệm thi hành Quyết định này./.
+              <strong>Điều 3.</strong> Quyết định này có hiệu lực kể từ ngày ký. Chánh Văn phòng Sở, Trưởng phòng Người có công, Trưởng phòng Kế hoạch - Tài chính Sở Lao động - TB&amp;XH, Trưởng phòng Lao động - TB&amp;XH thành phố Thủ Dầu Một, Chủ tịch UBND Phường Thủ Dầu Một và ông/bà <strong>{tenNguoiLoMaiTang}</strong> chịu trách nhiệm thi hành Quyết định này./.
             </p>
           </div>
 

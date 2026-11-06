@@ -44,7 +44,7 @@ export function BienBanXacMinhThucDiaModal({ isOpen, onClose, hoSo }: Props) {
                 Biên Bản Kiểm Tra Hiện Trường &amp; Xác Minh Thực Địa Cấp Cơ Sở (Mẫu 02/XMTD)
               </div>
               <div className="text-[11px] text-blue-100">
-                Tổ công tác liên ngành UBND Phường Phú Cường - Công an Phường - Ban điều hành Khu phố
+                Tổ công tác liên ngành UBND Phường Thủ Dầu Một - Công an Phường - Ban điều hành Khu phố
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ export function BienBanXacMinhThucDiaModal({ isOpen, onClose, hoSo }: Props) {
               <div className="font-bold text-[12px] uppercase">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
               <div className="font-bold text-[12px] underline">Độc lập - Tự do - Hạnh phúc</div>
               <div className="text-[11px] italic text-gray-600 mt-1">
-                Phú Cường, ngày {now.getDate()} tháng {now.getMonth() + 1} năm {namHienTai}
+                Thủ Dầu Một, ngày {now.getDate()} tháng {now.getMonth() + 1} năm {namHienTai}
               </div>
             </div>
           </div>
@@ -105,13 +105,13 @@ export function BienBanXacMinhThucDiaModal({ isOpen, onClose, hoSo }: Props) {
 
           <div className="space-y-3">
             <p className="indent-6 text-justify">
-              Hôm nay, vào hồi 09 giờ 30 phút ngày {now.toLocaleDateString("vi-VN")}, Tổ công tác liên ngành Ủy ban nhân dân Phường Phú Cường tiến hành kiểm tra hiện trường, xác minh thực tế nơi cư trú và điều kiện hưởng chính sách ưu đãi người có công tại địa bàn khu phố đối với trường hợp của ông/bà <strong>{hoSo.hoTen}</strong>.
+              Hôm nay, vào hồi 09 giờ 30 phút ngày {now.toLocaleDateString("vi-VN")}, Tổ công tác liên ngành Ủy ban nhân dân Phường Thủ Dầu Một tiến hành kiểm tra hiện trường, xác minh thực tế nơi cư trú và điều kiện hưởng chính sách ưu đãi người có công tại địa bàn khu phố đối với trường hợp của ông/bà <strong>{hoSo.hoTen}</strong>.
             </p>
 
             <div className="font-bold font-sans text-xs uppercase text-gray-800">I. THÀNH PHẦN TỔ CÔNG TÁC XÁC MINH:</div>
             <ol className="list-decimal pl-6 space-y-1 font-sans text-xs">
-              <li><strong>Ông Đoàn Minh Quân</strong> - Công chức Lao động - Thương binh &amp; Xã hội Phường Phú Cường - Tổ trưởng.</li>
-              <li><strong>Đại úy Nguyễn Văn Dũng</strong> - Cán bộ Cảnh sát khu vực - Công an Phường Phú Cường - Thành viên.</li>
+              <li><strong>Ông Đoàn Minh Quân</strong> - Công chức Lao động - Thương binh &amp; Xã hội Phường Thủ Dầu Một - Tổ trưởng.</li>
+              <li><strong>Đại úy Nguyễn Văn Dũng</strong> - Cán bộ Cảnh sát khu vực - Công an Phường Thủ Dầu Một - Thành viên.</li>
               <li><strong>Ông Lê Văn Hải</strong> - Trưởng ban điều hành Khu phố - Thành viên.</li>
               <li><strong>Ông/Bà {hoSo.thanNhan?.[0]?.hoTen || hoSo.hoTen}</strong> - Đại diện gia đình người có công - Người được xác minh.</li>
             </ol>
@@ -138,7 +138,7 @@ export function BienBanXacMinhThucDiaModal({ isOpen, onClose, hoSo }: Props) {
 
             <div className="font-bold font-sans text-xs uppercase text-gray-800 mt-4">III. KẾT LUẬN CỦA TỔ CÔNG TÁC LIÊN NGÀNH:</div>
             <p className="indent-6 text-justify">
-              Tổ công tác liên ngành thống nhất kết luận: Hồ sơ đề nghị công nhận và giải quyết chế độ ưu đãi của ông/bà <strong>{hoSo.hoTen}</strong> là <strong>hoàn toàn chính xác, trung thực, đủ điều kiện đưa vào danh sách niêm yết công khai 15 ngày tại Trụ sở UBND Phường Phú Cường và Nhà văn hóa Khu phố</strong> theo đúng quy định tại Nghị định số 131/2021/NĐ-CP của Chính phủ.
+              Tổ công tác liên ngành thống nhất kết luận: Hồ sơ đề nghị công nhận và giải quyết chế độ ưu đãi của ông/bà <strong>{hoSo.hoTen}</strong> là <strong>hoàn toàn chính xác, trung thực, đủ điều kiện đưa vào danh sách niêm yết công khai 15 ngày tại Trụ sở UBND Phường Thủ Dầu Một và Nhà văn hóa Khu phố</strong> theo đúng quy định tại Nghị định số 131/2021/NĐ-CP của Chính phủ.
             </p>
 
             <p className="indent-6 text-justify">
@@ -178,7 +178,7 @@ export function BienBanXacMinhThucDiaModal({ isOpen, onClose, hoSo }: Props) {
               <div className="my-1">
                 <DigitalSignatureBadge
                   nguoiKy="Đoàn Minh Quân"
-                  chucVu="Công chức LĐ-TB&XH Phường Phú Cường"
+                  chucVu="Công chức LĐ-TB&XH Phường Thủ Dầu Một"
                 />
               </div>
               <div className="font-bold text-gray-900">Đoàn Minh Quân</div>

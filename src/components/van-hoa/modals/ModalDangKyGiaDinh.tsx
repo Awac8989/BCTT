@@ -34,7 +34,7 @@ export function ModalDangKyGiaDinh({
     onAdd({
       chuHo: chuHo.trim(),
       cccd: cccd.trim(),
-      diaChi: diaChi.trim() || "Phường Phú Cường",
+      diaChi: diaChi.trim() || "Phường Thủ Dầu Một",
       khuPho,
       soThanhVien: Number(soThanhVien) || 1,
       ghiChu: ghiChu.trim(),

@@ -110,7 +110,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
       loaiHinh,
       chuCoSo: chuCoSo.trim(),
       nguoiPhuTrachChuyenMon: phuTrach.trim() || chuCoSo.trim(),
-      diaChi: diaChi || `${khuPho}, Phường Phú Cường`,
+      diaChi: diaChi || `${khuPho}, Phường Thủ Dầu Một`,
       khuPho,
       soDienThoai,
       soQuyetDinhCapPhep: `QĐ-UBND-${Math.floor(100 + Math.random() * 900)}/2026`,
@@ -546,7 +546,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                 <p>
                   <strong>Điều 2.</strong> Người phụ trách chuyên môn:{" "}
                   <strong>{viewingMn.nguoiPhuTrachChuyenMon}</strong>. Cơ sở
-                  chịu sự quản lý Nhà nước của UBND Phường Phú Cường và hướng dẫn
+                  chịu sự quản lý Nhà nước của UBND Phường Thủ Dầu Một và hướng dẫn
                   chuyên môn của Phòng Giáo dục và Đào tạo Thành phố Thủ Dầu
                   Một.
                 </p>
@@ -898,7 +898,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                     Độc lập - Tự do - Hạnh phúc
                   </div>
                   <div className="text-[11px] italic font-sans mt-2">
-                    Phú Cường, ngày {new Date().toLocaleDateString("vi-VN")}
+                    Thủ Dầu Một, ngày {new Date().toLocaleDateString("vi-VN")}
                   </div>
                 </div>
               </div>
@@ -935,7 +935,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                   Căn cứ Biên bản kiểm tra an toàn phòng cháy, chữa cháy và vệ
                   sinh an toàn thực phẩm số 14/BB-LN ngày{" "}
                   {viewingDinhChiMn.ngayKiemTraCuoi} của Đoàn kiểm tra liên
-                  ngành UBND Phường Phú Cường;
+                  ngành UBND Phường Thủ Dầu Một;
                 </p>
                 <p>
                   Theo đề nghị của Công chức Văn hóa - Xã hội phụ trách Giáo dục.
@@ -1048,7 +1048,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                   <div className="my-2 flex justify-center">
                     <DigitalSignatureBadge
                       nguoiKy="TS. Nguyễn Văn Hùng"
-                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                       ngayKy={new Date().toLocaleDateString("vi-VN")}
                       maXacThuc={`CA-ĐC-${viewingDinhChiMn.id}-${Date.now()
                         .toString()
@@ -1192,7 +1192,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                     Độc lập - Tự do - Hạnh phúc
                   </div>
                   <div className="text-[11px] italic font-sans mt-2">
-                    Phú Cường, ngày {new Date().toLocaleDateString("vi-VN")}
+                    Thủ Dầu Một, ngày {new Date().toLocaleDateString("vi-VN")}
                   </div>
                 </div>
               </div>
@@ -1228,14 +1228,14 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                 </p>
                 <p>
                   Căn cứ Quyết định số 89/QĐ-UBND ngày 12 tháng 03 năm 2026 của
-                  Chủ tịch UBND Phường Phú Cường về việc tạm đình chỉ hoạt động
+                  Chủ tịch UBND Phường Thủ Dầu Một về việc tạm đình chỉ hoạt động
                   giáo dục đối với {viewingPhucHoiMn.tenCoSo};
                 </p>
                 <p>
                   Căn cứ Báo cáo khắc phục tồn tại vi phạm của bà/ông{" "}
                   {viewingPhucHoiMn.chuCoSo} và Biên bản kiểm tra nghiệm thu số
                   25/BB-LN ngày {new Date().toLocaleDateString("vi-VN")} của Đoàn
-                  kiểm tra liên ngành UBND Phường Phú Cường;
+                  kiểm tra liên ngành UBND Phường Thủ Dầu Một;
                 </p>
                 <p>
                   Theo đề nghị của Công chức Văn hóa - Xã hội phụ trách Giáo dục.
@@ -1338,7 +1338,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                   <div className="my-2 flex justify-center">
                     <DigitalSignatureBadge
                       nguoiKy="TS. Nguyễn Văn Hùng"
-                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                       ngayKy={new Date().toLocaleDateString("vi-VN")}
                       maXacThuc={`CA-PH-${viewingPhucHoiMn.id}-${Date.now()
                         .toString()
@@ -1469,7 +1469,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                     Độc lập - Tự do - Hạnh phúc
                   </div>
                   <div className="text-[11px] italic font-sans mt-2">
-                    Phú Cường, ngày {new Date().toLocaleDateString("vi-VN")}
+                    Thủ Dầu Một, ngày {new Date().toLocaleDateString("vi-VN")}
                   </div>
                 </div>
               </div>
@@ -1492,7 +1492,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                 <p>
                   Thực hiện Luật Giáo dục 2019, Nghị định số 46/2017/NĐ-CP và
                   Thông tư số 49/2021/TT-BGDĐT ngày 31/12/2021 của Bộ Giáo dục
-                  và Đào tạo; Ủy ban nhân dân Phường Phú Cường báo cáo tình hình
+                  và Đào tạo; Ủy ban nhân dân Phường Thủ Dầu Một báo cáo tình hình
                   quản lý mạng lưới cơ sở giáo dục mầm non ngoài công lập như
                   sau:
                 </p>
@@ -1665,7 +1665,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
                   <div className="my-2 flex justify-center">
                     <DigitalSignatureBadge
                       nguoiKy="TS. Nguyễn Văn Hùng"
-                      chucVu="Chủ tịch UBND Phường Phú Cường"
+                      chucVu="Chủ tịch UBND Phường Thủ Dầu Một"
                       ngayKy={new Date().toLocaleDateString("vi-VN")}
                       maXacThuc={`CA-BC32-GD-${Date.now().toString().slice(-6)}`}
                     />
@@ -1679,7 +1679,7 @@ export const ModalMamNonActions: React.FC<ModalMamNonActionsProps> = ({
 
             <div className="flex items-center justify-between px-6 py-3 border-t bg-gray-50 rounded-b-xl no-print">
               <span className="text-xs text-gray-500">
-                Báo cáo số 32/BC-UBND · Phường Phú Cường, TP. Thủ Dầu Một
+                Báo cáo số 32/BC-UBND · Phường Thủ Dầu Một, TP. Thủ Dầu Một
               </span>
               <div className="flex items-center gap-2">
                 <button

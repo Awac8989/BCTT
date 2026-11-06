@@ -117,7 +117,7 @@ function KyThuatPage() {
           trangThaiLamSanh: "CẢNH BÁO LỆCH ĐỊA BÀN CƯ TRÚ (Cần Công an khu vực xác minh)",
           maGiaoDichNdxp: `NDXP-C06-${Date.now().toString().slice(-8)}`,
           thoiGianDoiSoat: new Date().toLocaleString("vi-VN"),
-          ghiChu: "Yêu cầu Cán bộ LĐTBXH phối hợp Công an Phường Phú Cường kiểm tra lại sổ hộ khẩu và cập nhật CSDL.",
+          ghiChu: "Yêu cầu Cán bộ LĐTBXH phối hợp Công an Phường Thủ Dầu Một kiểm tra lại sổ hộ khẩu và cập nhật CSDL.",
         });
         toast.warning("Phát hiện lệch thông tin cư trú giữa CSDL địa phương và C06!");
       } else {

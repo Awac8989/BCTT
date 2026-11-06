@@ -32,7 +32,7 @@ export function ModalTiepNhanCuuTro({
       hoTenChuHo: hoTenChuHo.trim(),
       cccd: cccd.trim(),
       khuPho,
-      diaChi: diaChi || `${khuPho}, Phường Phú Cường`,
+      diaChi: diaChi || `${khuPho}, Phường Thủ Dầu Một`,
       loaiSuCo,
       moTaThietHai: moTaThietHai || "Sự cố đột xuất cần hỗ trợ khẩn cấp",
       soTienHoTroVND: Number(soTienHoTroVND),

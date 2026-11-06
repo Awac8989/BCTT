@@ -4,14 +4,12 @@ try {
     $word = New-Object -ComObject Word.Application
     $word.Visible = $false
     $word.DisplayAlerts = 0
-    $docPath = "Q:\CODE_visual\filebctt\BAO_CAO_THUC_TAP_100_TRANG_DOAN_MINH_QUAN.docx"
+    $docPath = "Q:\CODE_visual\filebctt\test_clean.docx"
     $doc = $word.Documents.Open($docPath, [System.Reflection.Missing]::Value, $true)
     $pages = $doc.ComputeStatistics(2)
     $output += "TOTAL_PAGES:$pages"
     
-    $pCount = $doc.Paragraphs.Count
-    for ($i = 1; $i -le $pCount; $i++) {
-        $p = $doc.Paragraphs.Item($i)
+    foreach ($p in $doc.Paragraphs) {
         $txt = $p.Range.Text.Trim().Trim([char]13).Trim([char]7).Trim()
         if ([string]::IsNullOrWhiteSpace($txt)) { continue }
         

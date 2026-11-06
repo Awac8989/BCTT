@@ -63,7 +63,7 @@ export const NgheNhanTheThaoTab: React.FC = () => {
       khuPho: nnKhuPho,
       tinhTrangSucKhoe: "Tốt",
       mucTroCapThangVND: Number(nnTroCap),
-      clbSinhHoat: "CLB Văn nghệ Quần chúng Phường Phú Cường",
+      clbSinhHoat: "CLB Văn nghệ Quần chúng Phường Thủ Dầu Một",
       thanhTichTruyenDay: nnTruyenDay,
     });
     toast.success(`Đã ghi nhận thông tin Nghệ nhân ${nnHoTen} thành công!`);

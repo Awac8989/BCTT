@@ -126,7 +126,7 @@ export function ModalKySoSmartCA({
           <div className="p-2.5 bg-slate-50 dark:bg-slate-800/40 rounded-lg text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-2">
             <Lock className="w-4 h-4 text-emerald-600 flex-shrink-0" />
             <span>
-              Chữ ký số tuân thủ Nghị định 130/2018/NĐ-CP, tích hợp mã định danh điện tử UBND Phường Phú Cường.
+              Chữ ký số tuân thủ Nghị định 130/2018/NĐ-CP, tích hợp mã định danh điện tử UBND Phường Thủ Dầu Một.
             </span>
           </div>
 
