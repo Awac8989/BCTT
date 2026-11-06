@@ -269,17 +269,17 @@ function VanHoaXaHoiPage() {
             <div className="flex items-center gap-2">
               <Link
                 to="/dieu-hanh"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-medium hover:bg-emerald-700 transition shadow-sm cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#dd4b39] text-white text-xs font-bold hover:bg-[#c23321] transition shadow-xs cursor-pointer"
               >
                 <LayoutDashboard className="w-3.5 h-3.5" />
-                <span>Bàn Điều hành Sếp & Check-in</span>
+                <span>Bàn Điều hành Lãnh đạo &amp; Giao việc</span>
               </Link>
               <Link
                 to="/hop-truc-tuyen"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-xs font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-xs cursor-pointer"
               >
-                <MessagesSquare className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                <span>Họp số & Chat</span>
+                <MessagesSquare className="w-3.5 h-3.5 text-[#dd4b39]" />
+                <span>Họp số &amp; Trao đổi nội bộ</span>
               </Link>
             </div>
           }

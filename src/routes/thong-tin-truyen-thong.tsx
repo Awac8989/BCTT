@@ -318,45 +318,45 @@ function ThongTinTruyenThongPage() {
 
         <button
           onClick={() => setActiveTab("PHAN_ANH_1022")}
-          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors ${
+          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors cursor-pointer ${
             activeTab === "PHAN_ANH_1022"
-              ? "border-cyan-600 text-cyan-800"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
-          <Smartphone className="size-4 text-cyan-600" />
+          <Smartphone className={`size-4 ${activeTab === "PHAN_ANH_1022" ? "text-[#dd4b39]" : "text-gray-400"}`} />
           <span>4. Phản ánh Hiện trường 1022/IOC (SLA 24h)</span>
-          <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-100 text-cyan-800">
+          <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${activeTab === "PHAN_ANH_1022" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
             {(phanAnh1022List || []).length}
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab("DTI_CAP_XA")}
-          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors ${
+          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors cursor-pointer ${
             activeTab === "DTI_CAP_XA"
-              ? "border-purple-600 text-purple-800"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
-          <Activity className="size-4 text-purple-600" />
+          <Activity className={`size-4 ${activeTab === "DTI_CAP_XA" ? "text-[#dd4b39]" : "text-gray-400"}`} />
           <span>5. Bộ Chỉ số DTI Cấp Xã (QĐ 922)</span>
-          <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800">
+          <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${activeTab === "DTI_CAP_XA" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
             Xuất sắc
           </span>
         </button>
 
         <button
           onClick={() => setActiveTab("CONG_THONG_TIN_MANG")}
-          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors ${
+          className={`pb-2.5 px-3 font-bold border-b-2 flex items-center gap-1.5 transition-colors cursor-pointer ${
             activeTab === "CONG_THONG_TIN_MANG"
-              ? "border-sky-600 text-sky-800"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
-          <Globe className="size-4 text-sky-600" />
+          <Globe className={`size-4 ${activeTab === "CONG_THONG_TIN_MANG" ? "text-[#dd4b39]" : "text-gray-400"}`} />
           <span>6. Cổng TTĐT, Zalo OA &amp; Không gian mạng (Lực lượng 35)</span>
-          <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800">
+          <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${activeTab === "CONG_THONG_TIN_MANG" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
             NĐ 42 &amp; CT 14
           </span>
         </button>

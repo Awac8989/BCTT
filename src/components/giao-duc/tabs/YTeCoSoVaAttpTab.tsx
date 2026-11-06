@@ -99,16 +99,16 @@ export const YTeCoSoVaAttpTab: React.FC = () => {
   return (
     <div className="space-y-5">
       {/* Banner Căn cứ pháp lý QĐ 2698 & NĐ 148/2025/NĐ-CP */}
-      <div className="bg-gradient-to-r from-teal-900 via-emerald-950 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-teal-800/50 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] text-white rounded-2xl p-6 shadow-md border-b-2 border-[#dd4b39] relative overflow-hidden">
         <div className="relative z-10 max-w-4xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-500/20 text-teal-300 border border-teal-500/30 backdrop-blur-xs rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#dd4b39] text-white rounded-full text-xs font-semibold uppercase tracking-wider mb-3 shadow-xs">
             <Stethoscope className="size-3.5" />
             Nghiệp vụ Y tế cơ sở · Khoản 9 Điều 3 QĐ 2698/QĐ-UBND &amp; NĐ số 148/2025/NĐ-CP
           </div>
           <h3 className="text-2xl font-bold mb-2">
             Quản lý Y tế cơ sở, Hành nghề Y Dược tư nhân &amp; An toàn thực phẩm
           </h3>
-          <p className="text-teal-200/90 text-xs leading-relaxed max-w-3xl">
+          <p className="text-gray-300 text-xs leading-relaxed max-w-3xl">
             Bộ phận Giáo dục và Y tế – Phòng Văn hóa – Xã hội phường Thủ Dầu Một thực hiện quản lý
             danh bạ cơ sở khám chữa bệnh, nhà thuốc GPP, thẩm định và hậu kiểm liên ngành điều kiện ATTP
             tại các nhà hàng, quán ăn, thức ăn đường phố quanh Chợ Thủ Dầu Một, phố đi bộ Bạch Đằng và
@@ -178,11 +178,11 @@ export const YTeCoSoVaAttpTab: React.FC = () => {
           onClick={() => setSubTab("Y_DUOC")}
           className={`pb-3 px-3 font-bold border-b-2 flex items-center gap-2 transition-colors cursor-pointer ${
             subTab === "Y_DUOC"
-              ? "border-teal-600 text-teal-800"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
-          <Stethoscope className="size-4 text-teal-600" />
+          <Stethoscope className={`size-4 ${subTab === "Y_DUOC" ? "text-[#dd4b39]" : "text-gray-400"}`} />
           <span>1. Quản lý Hành nghề Y - Dược tư nhân ({coSoYTeDuocList.length})</span>
         </button>
 
@@ -190,11 +190,11 @@ export const YTeCoSoVaAttpTab: React.FC = () => {
           onClick={() => setSubTab("ATTP")}
           className={`pb-3 px-3 font-bold border-b-2 flex items-center gap-2 transition-colors cursor-pointer ${
             subTab === "ATTP"
-              ? "border-emerald-600 text-emerald-800"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
-          <Utensils className="size-4 text-emerald-600" />
+          <Utensils className={`size-4 ${subTab === "ATTP" ? "text-[#dd4b39]" : "text-gray-400"}`} />
           <span>2. An toàn thực phẩm &amp; Thức ăn đường phố ({coSoAttpList.length})</span>
         </button>
 
@@ -202,11 +202,11 @@ export const YTeCoSoVaAttpTab: React.FC = () => {
           onClick={() => setSubTab("VNEID_HEALTH")}
           className={`pb-3 px-3 font-bold border-b-2 flex items-center gap-2 transition-colors cursor-pointer ${
             subTab === "VNEID_HEALTH"
-              ? "border-purple-600 text-purple-800"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-gray-500 hover:text-gray-900"
           }`}
         >
-          <Smartphone className="size-4 text-purple-600" />
+          <Smartphone className={`size-4 ${subTab === "VNEID_HEALTH" ? "text-[#dd4b39]" : "text-gray-400"}`} />
           <span>3. Sổ sức khỏe điện tử VNeID &amp; Y tế dự phòng (14 Khu phố)</span>
         </button>
       </div>
@@ -612,3 +612,4 @@ export const YTeCoSoVaAttpTab: React.FC = () => {
     </div>
   );
 };
+

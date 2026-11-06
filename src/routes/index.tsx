@@ -121,7 +121,7 @@ function Dashboard() {
   return (
     <AppShell>
       <PageHeader
-        eyebrow="UBND Thành phố Thủ Dầu Một · Hệ thống Quản trị Đa mảng Cơ sở"
+        eyebrow="UBND Phường Thủ Dầu Một · Hệ thống Quản trị Đa mảng Cơ sở"
         title="Bảng điều khiển chỉ số điều hành & Phân quyền công vụ"
         right={
           <div className="flex items-center gap-2">
@@ -137,7 +137,7 @@ function Dashboard() {
       />
 
       {/* BANNER THÔNG TIN PHÂN QUYỀN TÀI KHOẢN HIỆN TẠI */}
-      <div className="mb-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white rounded-lg p-3.5 border border-slate-700 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <div className="mb-4 bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] border-b-2 border-[#dd4b39] text-white rounded-lg p-3.5 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="size-10 rounded-full bg-[#dd4b39] flex items-center justify-center font-bold text-white text-sm shadow-md shrink-0">
             {currentUser.avatarText}
@@ -158,28 +158,28 @@ function Dashboard() {
         <div className="flex flex-wrap items-center gap-1.5 text-xs">
           <span className="text-[11px] text-slate-400 mr-1 font-medium">Quyền hạn mảng được cấp:</span>
           {currentUser.assignedDomains.includes("ALL") ? (
-            <span className="px-2 py-0.5 rounded bg-red-600 font-bold text-[11px] shadow-xs">
+            <span className="px-2 py-0.5 rounded bg-[#dd4b39] font-bold text-[11px] shadow-xs">
               Toàn quyền (Tất cả 4 mảng)
             </span>
           ) : (
             <>
               {hasAccessNCC && (
-                <span className="px-2 py-0.5 rounded bg-rose-600/80 font-semibold text-[10px]">
+                <span className="px-2 py-0.5 rounded bg-[#dd4b39]/90 font-semibold text-[10px]">
                   Người có công
                 </span>
               )}
               {hasAccessTT && (
-                <span className="px-2 py-0.5 rounded bg-purple-600/80 font-semibold text-[10px]">
+                <span className="px-2 py-0.5 rounded bg-[#dd4b39]/90 font-semibold text-[10px]">
                   Thông tin & CĐS
                 </span>
               )}
               {hasAccessAnSinh && (
-                <span className="px-2 py-0.5 rounded bg-emerald-600/80 font-semibold text-[10px]">
+                <span className="px-2 py-0.5 rounded bg-[#dd4b39]/90 font-semibold text-[10px]">
                   An sinh XH
                 </span>
               )}
               {hasAccessGD && (
-                <span className="px-2 py-0.5 rounded bg-amber-600/80 font-semibold text-[10px]">
+                <span className="px-2 py-0.5 rounded bg-[#dd4b39]/90 font-semibold text-[10px]">
                   Giáo dục & ĐT
                 </span>
               )}
@@ -207,13 +207,13 @@ function Dashboard() {
           <div
             className={`rounded-lg border p-3.5 transition-all flex flex-col justify-between ${
               hasAccessNCC
-                ? "bg-white border-rose-300 shadow-2xs hover:shadow-md hover:border-rose-400"
+                ? "bg-white border-slate-200 shadow-2xs hover:shadow-xs hover:border-[#dd4b39]"
                 : "bg-gray-50/80 border-gray-200 opacity-60"
             }`}
           >
             <div>
               <div className="flex items-center justify-between mb-2">
-                <div className="p-2 rounded-md bg-rose-100 text-rose-700">
+                <div className="p-2 rounded-md bg-red-50 text-[#dd4b39]">
                   <FileText className="size-4.5" />
                 </div>
                 {hasAccessNCC ? (
@@ -235,7 +235,7 @@ function Dashboard() {
               <div className="mt-3 pt-2.5 border-t border-gray-100 grid grid-cols-2 gap-1 text-xs">
                 <div>
                   <div className="text-[10px] text-gray-400">Hồ sơ quản lý</div>
-                  <div className="font-extrabold text-rose-700 font-mono text-sm">12.480</div>
+                  <div className="font-extrabold text-[#dd4b39] font-mono text-sm">12.480</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-gray-400">Kinh phí/tháng</div>
@@ -248,7 +248,7 @@ function Dashboard() {
               {hasAccessNCC ? (
                 <Link
                   to="/ho-so"
-                  className="w-full flex items-center justify-center gap-1 text-xs font-bold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 py-1.5 rounded transition-colors"
+                  className="w-full flex items-center justify-center gap-1 text-xs font-bold text-white bg-[#dd4b39] hover:bg-[#c23321] py-1.5 rounded shadow-xs transition-colors"
                 >
                   <span>Mở Quản lý hồ sơ</span>
                   <ArrowRight className="size-3.5" />
@@ -265,13 +265,13 @@ function Dashboard() {
           <div
             className={`rounded-lg border p-3.5 transition-all flex flex-col justify-between ${
               hasAccessTT
-                ? "bg-white border-purple-300 shadow-2xs hover:shadow-md hover:border-purple-400"
+                ? "bg-white border-slate-200 shadow-2xs hover:shadow-xs hover:border-[#dd4b39]"
                 : "bg-gray-50/80 border-gray-200 opacity-60"
             }`}
           >
             <div>
               <div className="flex items-center justify-between mb-2">
-                <div className="p-2 rounded-md bg-purple-100 text-purple-700">
+                <div className="p-2 rounded-md bg-red-50 text-[#dd4b39]">
                   <Radio className="size-4.5" />
                 </div>
                 {hasAccessTT ? (
@@ -293,7 +293,7 @@ function Dashboard() {
               <div className="mt-3 pt-2.5 border-t border-gray-100 grid grid-cols-2 gap-1 text-xs">
                 <div>
                   <div className="text-[10px] text-gray-400">Cụm loa TT</div>
-                  <div className="font-extrabold text-purple-700 font-mono text-sm">{cumLoaList.length} Cụm</div>
+                  <div className="font-extrabold text-[#dd4b39] font-mono text-sm">{cumLoaList.length} Cụm</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-gray-400">Bản tin số</div>
@@ -306,7 +306,7 @@ function Dashboard() {
               {hasAccessTT ? (
                 <Link
                   to="/thong-tin-truyen-thong"
-                  className="w-full flex items-center justify-center gap-1 text-xs font-bold text-purple-700 hover:text-purple-800 bg-purple-50 hover:bg-purple-100 py-1.5 rounded transition-colors"
+                  className="w-full flex items-center justify-center gap-1 text-xs font-bold text-white bg-[#dd4b39] hover:bg-[#c23321] py-1.5 rounded shadow-xs transition-colors"
                 >
                   <span>Mở Truyền thông & CĐS</span>
                   <ArrowRight className="size-3.5" />
@@ -323,13 +323,13 @@ function Dashboard() {
           <div
             className={`rounded-lg border p-3.5 transition-all flex flex-col justify-between ${
               hasAccessAnSinh
-                ? "bg-white border-emerald-300 shadow-2xs hover:shadow-md hover:border-emerald-400"
+                ? "bg-white border-slate-200 shadow-2xs hover:shadow-xs hover:border-[#dd4b39]"
                 : "bg-gray-50/80 border-gray-200 opacity-60"
             }`}
           >
             <div>
               <div className="flex items-center justify-between mb-2">
-                <div className="p-2 rounded-md bg-emerald-100 text-emerald-700">
+                <div className="p-2 rounded-md bg-red-50 text-[#dd4b39]">
                   <HeartHandshake className="size-4.5" />
                 </div>
                 {hasAccessAnSinh ? (
@@ -351,7 +351,7 @@ function Dashboard() {
               <div className="mt-3 pt-2.5 border-t border-gray-100 grid grid-cols-2 gap-1 text-xs">
                 <div>
                   <div className="text-[10px] text-gray-400">Bảo trợ XH</div>
-                  <div className="font-extrabold text-emerald-700 font-mono text-sm">{baoTroList.length} Đối tượng</div>
+                  <div className="font-extrabold text-[#dd4b39] font-mono text-sm">{baoTroList.length} Đối tượng</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-gray-400">Hộ nghèo & CN</div>
@@ -364,7 +364,7 @@ function Dashboard() {
               {hasAccessAnSinh ? (
                 <Link
                   to="/an-sinh-xa-hoi"
-                  className="w-full flex items-center justify-center gap-1 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 py-1.5 rounded transition-colors"
+                  className="w-full flex items-center justify-center gap-1 text-xs font-bold text-white bg-[#dd4b39] hover:bg-[#c23321] py-1.5 rounded shadow-xs transition-colors"
                 >
                   <span>Mở An sinh xã hội</span>
                   <ArrowRight className="size-3.5" />
@@ -381,13 +381,13 @@ function Dashboard() {
           <div
             className={`rounded-lg border p-3.5 transition-all flex flex-col justify-between ${
               hasAccessGD
-                ? "bg-white border-amber-300 shadow-2xs hover:shadow-md hover:border-amber-400"
+                ? "bg-white border-slate-200 shadow-2xs hover:shadow-xs hover:border-[#dd4b39]"
                 : "bg-gray-50/80 border-gray-200 opacity-60"
             }`}
           >
             <div>
               <div className="flex items-center justify-between mb-2">
-                <div className="p-2 rounded-md bg-amber-100 text-amber-800">
+                <div className="p-2 rounded-md bg-red-50 text-[#dd4b39]">
                   <GraduationCap className="size-4.5" />
                 </div>
                 {hasAccessGD ? (
@@ -409,7 +409,7 @@ function Dashboard() {
               <div className="mt-3 pt-2.5 border-t border-gray-100 grid grid-cols-2 gap-1 text-xs">
                 <div>
                   <div className="text-[10px] text-gray-400">Mầm non tư thục</div>
-                  <div className="font-extrabold text-amber-700 font-mono text-sm">{mamNonList.length} Cơ sở</div>
+                  <div className="font-extrabold text-[#dd4b39] font-mono text-sm">{mamNonList.length} Cơ sở</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-gray-400">Trường công lập</div>
@@ -422,7 +422,7 @@ function Dashboard() {
               {hasAccessGD ? (
                 <Link
                   to="/giao-duc-dao-tao"
-                  className="w-full flex items-center justify-center gap-1 text-xs font-bold text-amber-800 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 py-1.5 rounded transition-colors"
+                  className="w-full flex items-center justify-center gap-1 text-xs font-bold text-white bg-[#dd4b39] hover:bg-[#c23321] py-1.5 rounded shadow-xs transition-colors"
                 >
                   <span>Mở Giáo dục & ĐT</span>
                   <ArrowRight className="size-3.5" />

@@ -439,7 +439,7 @@ function HeThong() {
                   <span className="font-bold text-gray-900 flex items-center gap-1.5">
                     <Server className="size-3.5 text-[#dd4b39]" /> Node.js Gateway
                   </span>
-                  <span className="font-mono text-emerald-600 font-bold">ONLINE</span>
+                  <span className="font-mono text-emerald-600 font-bold">HOẠT ĐỘNG</span>
                 </div>
                 <p className="mt-1 text-gray-500 text-[11px]">JWT Auth, Profile CRUD &amp; CSAT</p>
                 <div className="mt-2 font-mono text-[10px] text-gray-400">Port: 8080 · Express.js</div>
@@ -450,7 +450,7 @@ function HeThong() {
                   <span className="font-bold text-gray-900 flex items-center gap-1.5">
                     <Cpu className="size-3.5 text-amber-600" /> Spring Boot Core
                   </span>
-                  <span className="font-mono text-emerald-600 font-bold">ONLINE</span>
+                  <span className="font-mono text-emerald-600 font-bold">HOẠT ĐỘNG</span>
                 </div>
                 <p className="mt-1 text-gray-500 text-[11px]">Allowance BigDecimal Engine</p>
                 <div className="mt-2 font-mono text-[10px] text-gray-400">Port: 8081 · Java 21</div>
@@ -461,7 +461,7 @@ function HeThong() {
                   <span className="font-bold text-gray-900 flex items-center gap-1.5">
                     <Database className="size-3.5 text-[#0073b7]" /> MySQL 8.0 Cluster
                   </span>
-                  <span className="font-mono text-emerald-600 font-bold">CONNECTED</span>
+                  <span className="font-mono text-emerald-600 font-bold">ĐÃ KẾT NỐI</span>
                 </div>
                 <p className="mt-1 text-gray-500 text-[11px]">18 Tables · InnoDB 3NF · UTF8MB4</p>
                 <div className="mt-2 font-mono text-[10px] text-gray-400">Lat: 1.2ms · Index OK</div>
@@ -472,10 +472,10 @@ function HeThong() {
                   <span className="font-bold text-gray-900 flex items-center gap-1.5">
                     <Sparkles className="size-3.5 text-amber-600" /> Trục liên thông LGSP
                   </span>
-                  <span className="font-mono text-emerald-600 font-bold">SYNCED</span>
+                  <span className="font-mono text-emerald-600 font-bold">ĐÃ ĐỒNG BỘ</span>
                 </div>
                 <p className="mt-1 text-gray-500 text-[11px]">OAuth2 / mTLS TP. Thủ Dầu Một</p>
-                <div className="mt-2 font-mono text-[10px] text-gray-400">Status: 200 OK</div>
+                <div className="mt-2 font-mono text-[10px] text-gray-400">Trạng thái: 200 OK (Bình thường)</div>
               </div>
             </div>
           </div>

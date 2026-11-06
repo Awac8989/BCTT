@@ -49,9 +49,9 @@ export const KiemThuc3BuocTab: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Banner Nghiệp vụ Quyết định 1246 */}
-      <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-emerald-800/50 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] text-white rounded-2xl p-6 shadow-md border-b-2 border-[#dd4b39] relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 backdrop-blur-xs rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#dd4b39] text-white rounded-full text-xs font-semibold uppercase tracking-wider mb-3 shadow-xs">
             <Utensils className="size-3.5" />
             Nghiệp vụ Chuyên môn Y tế &amp; Giáo dục · QĐ 1246/QĐ-BYT
           </div>

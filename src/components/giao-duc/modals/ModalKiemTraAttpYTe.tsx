@@ -86,27 +86,27 @@ export const ModalKiemTraAttpYTe: React.FC<ModalKiemTraAttpYTeProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
       <div className="relative w-full max-w-3xl rounded-xl bg-white shadow-2xl overflow-hidden border border-gray-200">
         {/* Header Modal */}
-        <div className="flex items-center justify-between bg-gradient-to-r from-emerald-800 to-teal-900 px-6 py-4 text-white">
+        <div className="flex items-center justify-between bg-gradient-to-r from-[#222d32] to-[#1e282c] border-b-2 border-[#dd4b39] px-6 py-4 text-white">
           <div className="flex items-center gap-3">
             {targetType === "Y_TE" ? (
-              <Stethoscope className="size-6 text-emerald-300" />
+              <Stethoscope className="size-6 text-[#dd4b39]" />
             ) : (
-              <Utensils className="size-6 text-emerald-300" />
+              <Utensils className="size-6 text-[#dd4b39]" />
             )}
             <div>
-              <h3 className="text-base font-bold">
+              <h3 className="text-base font-bold text-white">
                 {targetType === "Y_TE"
                   ? "Biên bản Hậu kiểm Cơ sở Y tế / Dược tư nhân"
                   : "Biên bản Kiểm tra Liên ngành An toàn thực phẩm"}
               </h3>
-              <p className="text-xs text-emerald-200">
+              <p className="text-xs text-gray-300">
                 Thực hiện theo Khoản 9 Điều 3 QĐ 2698/QĐ-UBND &amp; Nghị định số 148/2025/NĐ-CP
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+            className="rounded-lg p-1.5 text-white/80 hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
           >
             ✕
           </button>
@@ -297,7 +297,7 @@ export const ModalKiemTraAttpYTe: React.FC<ModalKiemTraAttpYTeProps> = ({
               </button>
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-bold shadow-xs transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded bg-[#dd4b39] hover:bg-[#c23321] text-white font-bold shadow-xs transition-colors cursor-pointer"
               >
                 <CheckCircle2 className="size-3.5" />
                 Lưu Biên Bản &amp; Đồng Bộ Hệ Thống
@@ -309,3 +309,4 @@ export const ModalKiemTraAttpYTe: React.FC<ModalKiemTraAttpYTeProps> = ({
     </div>
   );
 };
+

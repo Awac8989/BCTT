@@ -184,8 +184,8 @@ export function AppShell({ children }: { children: ReactNode }) {
 
             {!collapsed && (
               <div className="leading-tight select-none">
-                <div className="text-[10px] uppercase font-bold tracking-tight text-white/90">SLĐTBXH</div>
-                <div className="text-[13px] font-extrabold tracking-tight text-white">Bình Dương</div>
+                <div className="text-[10px] uppercase font-bold tracking-tight text-white/90">UBND PHƯỜNG</div>
+                <div className="text-[13px] font-extrabold tracking-tight text-white">Thủ Dầu Một</div>
               </div>
             )}
           </div>

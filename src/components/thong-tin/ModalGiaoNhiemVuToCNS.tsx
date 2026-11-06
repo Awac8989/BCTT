@@ -76,11 +76,11 @@ export const ModalGiaoNhiemVuToCNS: React.FC<ModalGiaoNhiemVuToCNSProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
       <div className="w-full max-w-2xl rounded-xl bg-white shadow-2xl border border-gray-200 overflow-hidden animate-in fade-in duration-200 max-h-[90vh] flex flex-col">
         {/* HEADER */}
-        <div className="bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-800 p-4 text-white">
+        <div className="bg-gradient-to-r from-[#222d32] to-[#1e282c] border-b-2 border-[#dd4b39] p-4 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Zap className="size-5 text-amber-300" />
-              <h3 className="font-bold text-base">
+              <Zap className="size-5 text-[#dd4b39]" />
+              <h3 className="font-bold text-base text-white">
                 {showPrintPreview
                   ? "Kế Hoạch Ra Quân Chiến Dịch Số Hóa (Mẫu In A4)"
                   : "Giao Nhiệm Vụ Chiến Dịch Số Cho Tổ Công Nghệ Số Cộng Đồng"}
@@ -88,12 +88,12 @@ export const ModalGiaoNhiemVuToCNS: React.FC<ModalGiaoNhiemVuToCNSProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="rounded-lg p-1 text-white/80 hover:bg-white/10"
+              className="rounded-lg p-1 text-white/80 hover:bg-white/10 cursor-pointer"
             >
               ✕
             </button>
           </div>
-          <p className="text-xs text-purple-100 mt-1">
+          <p className="text-xs text-gray-300 mt-1">
             Căn cứ Khoản 14 Điều 3 Quy định ban hành kèm Quyết định số 2698/QĐ-UBND của UBND phường Thủ Dầu Một
           </p>
         </div>
@@ -311,10 +311,10 @@ export const ModalGiaoNhiemVuToCNS: React.FC<ModalGiaoNhiemVuToCNSProps> = ({
               <button
                 type="submit"
                 form="giao-nhiem-vu-form"
-                className="flex items-center gap-1.5 rounded-lg bg-purple-700 px-4 py-1.5 text-xs font-bold text-white hover:bg-purple-800 shadow-sm"
+                className="flex items-center gap-1.5 rounded-lg bg-[#dd4b39] hover:bg-[#c23321] px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer"
               >
                 <FileSignature className="size-3.5" />
-                <span>Ký Phê Duyệt & Giao Việc</span>
+                <span>Ký Phê Duyệt &amp; Giao Việc</span>
               </button>
             )}
           </div>
@@ -323,3 +323,4 @@ export const ModalGiaoNhiemVuToCNS: React.FC<ModalGiaoNhiemVuToCNSProps> = ({
     </div>
   );
 };
+

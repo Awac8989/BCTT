@@ -82,31 +82,31 @@ export const IocSmartDashboard: React.FC<IocSmartDashboardProps> = ({ onNavigate
   return (
     <div className="space-y-6">
       {/* 1. TOP HEADER BANNER - IOC COMMAND CENTER */}
-      <div className="relative overflow-hidden rounded-xl border border-sky-600/40 bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 p-5 text-white shadow-xl">
-        <div className="absolute right-0 top-0 -mt-8 -mr-8 h-48 w-48 rounded-full bg-sky-500/10 blur-2xl pointer-events-none" />
+      <div className="relative overflow-hidden rounded-xl border border-[#dd4b39]/40 bg-gradient-to-r from-[#1a2226] via-[#222d32] to-[#1a2226] border-b-2 border-[#dd4b39] p-5 text-white shadow-xl">
+        <div className="absolute right-0 top-0 -mt-8 -mr-8 h-48 w-48 rounded-full bg-[#dd4b39]/10 blur-2xl pointer-events-none" />
         <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/20 border border-sky-400/40 px-2.5 py-0.5 text-[11px] font-bold text-sky-300">
-                <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-                IOC LIVE · TRỤC LIÊN THÔNG VDXP / LGSP
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#dd4b39]/20 border border-[#dd4b39]/40 px-2.5 py-0.5 text-[11px] font-bold text-red-200">
+                <span className="size-2 rounded-full bg-[#dd4b39] animate-pulse" />
+                TRỰC TUYẾN 24/7 (IOC) · TRỤC LIÊN THÔNG VDXP / LGSP
               </span>
-              <span className="text-xs text-slate-400 font-mono">
+              <span className="text-xs text-gray-400 font-mono">
                 MÃ ĐƠN VỊ: UBND-TDM-711
               </span>
             </div>
             <h2 className="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-2">
-              <Activity className="size-6 text-sky-400 animate-pulse" />
+              <Activity className="size-6 text-[#dd4b39] animate-pulse" />
               TRUNG TÂM GIÁM SÁT ĐIỀU HÀNH THÔNG MINH (IOC) PHƯỜNG THỦ DẦU MỘT
             </h2>
-            <p className="text-xs text-sky-200/80">
-              Vận hành theo Khoản 8 Điều 3 Quyết định số 2698/QĐ-UBND của UBND phường Thủ Dầu Một · Kết nối IOC Thành phố & IOC Tỉnh
+            <p className="text-xs text-gray-300">
+              Vận hành theo Khoản 8 Điều 3 Quyết định số 2698/QĐ-UBND của UBND phường Thủ Dầu Một · Kết nối IOC Thành phố &amp; IOC Tỉnh
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-black/40 border border-sky-500/30 px-3.5 py-2 text-right">
-              <div className="text-[10px] text-sky-300 font-bold uppercase tracking-wider">Thời gian hệ thống</div>
+            <div className="rounded-lg bg-black/40 border border-gray-700 px-3.5 py-2 text-right">
+              <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Thời gian hệ thống</div>
               <div className="text-lg font-mono font-black text-amber-300 tabular-nums">
                 {currentTime.toLocaleTimeString("vi-VN")}
               </div>
@@ -117,7 +117,7 @@ export const IocSmartDashboard: React.FC<IocSmartDashboardProps> = ({ onNavigate
 
             <button
               onClick={() => setShowDirectDirectiveModal(true)}
-              className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 px-3.5 py-2.5 text-xs font-bold text-white shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center gap-1.5 rounded-lg bg-[#dd4b39] hover:bg-[#c23321] px-3.5 py-2.5 text-xs font-bold text-white shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <Zap className="size-4 text-amber-300 animate-bounce" />
               <span>Chỉ đạo Hỏa tốc</span>
@@ -476,3 +476,4 @@ export const IocSmartDashboard: React.FC<IocSmartDashboardProps> = ({ onNavigate
     </div>
   );
 };
+

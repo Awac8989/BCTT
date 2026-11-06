@@ -136,8 +136,8 @@ export const GiaoDucTabNav: React.FC<GiaoDucTabNavProps> = ({
           onClick={() => onChangeTab("ATTP_BEP_AN_BAN_TRU")}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
             activeTab === "ATTP_BEP_AN_BAN_TRU"
-              ? "bg-emerald-700 text-white shadow-sm ring-1 ring-emerald-800"
-              : "text-gray-600 hover:text-gray-900 hover:bg-emerald-50/50"
+              ? "bg-[#dd4b39] text-white shadow-sm ring-1 ring-[#c23321]"
+              : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
           }`}
         >
           <Utensils
@@ -150,7 +150,7 @@ export const GiaoDucTabNav: React.FC<GiaoDucTabNavProps> = ({
             className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
               activeTab === "ATTP_BEP_AN_BAN_TRU"
                 ? "bg-white/20 text-white"
-                : "bg-emerald-100 text-emerald-800"
+                : "bg-gray-100 text-gray-700"
             }`}
           >
             Lưu mẫu 24h
@@ -163,8 +163,8 @@ export const GiaoDucTabNav: React.FC<GiaoDucTabNavProps> = ({
           onClick={() => onChangeTab("PHO_CAP_CONG_DONG_TT44")}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
             activeTab === "PHO_CAP_CONG_DONG_TT44"
-              ? "bg-indigo-700 text-white shadow-sm ring-1 ring-indigo-800"
-              : "text-gray-600 hover:text-gray-900 hover:bg-indigo-50/50"
+              ? "bg-[#dd4b39] text-white shadow-sm ring-1 ring-[#c23321]"
+              : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
           }`}
         >
           <BookOpen
@@ -177,7 +177,7 @@ export const GiaoDucTabNav: React.FC<GiaoDucTabNavProps> = ({
             className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
               activeTab === "PHO_CAP_CONG_DONG_TT44"
                 ? "bg-white/20 text-white"
-                : "bg-indigo-100 text-indigo-800"
+                : "bg-gray-100 text-gray-700"
             }`}
           >
             Mức 3 / Tốt
@@ -190,8 +190,8 @@ export const GiaoDucTabNav: React.FC<GiaoDucTabNavProps> = ({
           onClick={() => onChangeTab("Y_TE_CO_SO_ATTP")}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
             activeTab === "Y_TE_CO_SO_ATTP"
-              ? "bg-teal-700 text-white shadow-sm ring-1 ring-teal-800"
-              : "text-gray-600 hover:text-gray-900 hover:bg-teal-50/50"
+              ? "bg-[#dd4b39] text-white shadow-sm ring-1 ring-[#c23321]"
+              : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
           }`}
         >
           <Stethoscope
@@ -204,7 +204,7 @@ export const GiaoDucTabNav: React.FC<GiaoDucTabNavProps> = ({
             className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
               activeTab === "Y_TE_CO_SO_ATTP"
                 ? "bg-white/20 text-white"
-                : "bg-teal-100 text-teal-800"
+                : "bg-gray-100 text-gray-700"
             }`}
           >
             Khoản 9 QĐ 2698

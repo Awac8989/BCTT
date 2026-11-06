@@ -165,13 +165,13 @@ export function VanBanDieuHanh() {
           onClick={() => setActiveTab("VAN_BAN_DEN")}
           className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${
             activeTab === "VAN_BAN_DEN"
-              ? "border-blue-600 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/20"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
           }`}
         >
-          <Inbox className="w-4 h-4" />
-          <span>Sổ Văn bản Đến & Bút phê Sếp</span>
-          <span className="px-2 py-0.5 text-xs rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-bold">
+          <Inbox className={`w-4 h-4 ${activeTab === "VAN_BAN_DEN" ? "text-[#dd4b39]" : ""}`} />
+          <span>Sổ Văn bản Đến &amp; Bút phê Lãnh đạo</span>
+          <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${activeTab === "VAN_BAN_DEN" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
             {vbdStats.total}
           </span>
         </button>
@@ -180,13 +180,13 @@ export function VanBanDieuHanh() {
           onClick={() => setActiveTab("VAN_BAN_DI")}
           className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${
             activeTab === "VAN_BAN_DI"
-              ? "border-indigo-600 text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-950/20"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
           }`}
         >
-          <Send className="w-4 h-4" />
-          <span>Sổ Văn bản Đi & Trình ký SmartCA</span>
-          <span className="px-2 py-0.5 text-xs rounded-full bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold">
+          <Send className={`w-4 h-4 ${activeTab === "VAN_BAN_DI" ? "text-[#dd4b39]" : ""}`} />
+          <span>Sổ Văn bản Đi &amp; Trình ký SmartCA</span>
+          <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${activeTab === "VAN_BAN_DI" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
             {vanBanDiList.length}
           </span>
         </button>
@@ -195,14 +195,14 @@ export function VanBanDieuHanh() {
           onClick={() => setActiveTab("TRUC_VDXP")}
           className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${
             activeTab === "TRUC_VDXP"
-              ? "border-emerald-600 text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
           }`}
         >
-          <Share2 className="w-4 h-4" />
+          <Share2 className={`w-4 h-4 ${activeTab === "TRUC_VDXP" ? "text-[#dd4b39]" : ""}`} />
           <span>Trục Liên thông Quốc gia (VDXP)</span>
-          <span className="px-2 py-0.5 text-xs rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 font-bold">
-            Online
+          <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${activeTab === "TRUC_VDXP" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
+            Kết nối thông suốt
           </span>
         </button>
 
@@ -210,13 +210,13 @@ export function VanBanDieuHanh() {
           onClick={() => setActiveTab("TIEP_CONG_DAN")}
           className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold border-b-2 transition-all cursor-pointer ${
             activeTab === "TIEP_CONG_DAN"
-              ? "border-amber-600 text-amber-600 dark:text-amber-400 bg-amber-50/50 dark:bg-amber-950/20"
+              ? "border-[#dd4b39] text-[#dd4b39] bg-red-50/50"
               : "border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
           }`}
         >
-          <UserCheck className="w-4 h-4" />
-          <span>Sổ Tiếp Công Dân Thứ 5 & Đơn Thư</span>
-          <span className="px-2 py-0.5 text-xs rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 font-bold">
+          <UserCheck className={`w-4 h-4 ${activeTab === "TIEP_CONG_DAN" ? "text-[#dd4b39]" : ""}`} />
+          <span>Sổ Tiếp Công Dân &amp; Đơn Thư Khiếu Nại</span>
+          <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${activeTab === "TIEP_CONG_DAN" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}`}>
             {tiepCongDanList.length}
           </span>
         </button>

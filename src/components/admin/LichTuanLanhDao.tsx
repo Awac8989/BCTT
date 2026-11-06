@@ -89,10 +89,10 @@ export function LichTuanLanhDao() {
   return (
     <div className="space-y-6">
       {/* Top Banner Lịch Tuần */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] border-b-2 border-[#dd4b39] text-white rounded-xl p-6 shadow-md relative overflow-hidden">
         <div className="relative z-10 max-w-4xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold uppercase tracking-wider">
-            <Calendar className="w-3.5 h-3.5 text-indigo-300" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dd4b39]/20 border border-[#dd4b39]/40 text-red-200 text-xs font-semibold uppercase tracking-wider">
+            <Calendar className="w-3.5 h-3.5 text-red-400" />
             Ủy ban nhân dân Phường Thủ Dầu Một · Quy chế làm việc
           </div>
           <h2 className="text-2xl font-bold tracking-tight">
@@ -137,7 +137,7 @@ export function LichTuanLanhDao() {
           <button
             type="button"
             onClick={() => setModalThemLich(true)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-md transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-semibold shadow-xs transition cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Đăng Ký Lịch Công Tác Mới</span>
@@ -232,7 +232,7 @@ export function LichTuanLanhDao() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
             <div className="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-indigo-600" />
+                <Calendar className="w-5 h-5 text-[#dd4b39]" />
                 <h3 className="text-base font-bold text-slate-900 dark:text-white">
                   Đăng Ký Lịch Công Tác Lãnh Đạo UBND Phường
                 </h3>
@@ -363,7 +363,7 @@ export function LichTuanLanhDao() {
               <button
                 type="button"
                 onClick={handleLuuLich}
-                className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-md transition cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-semibold shadow-xs transition cursor-pointer"
               >
                 Lưu Vào Lịch Tuần
               </button>

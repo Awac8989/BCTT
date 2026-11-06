@@ -50,7 +50,7 @@ import { useAppState } from "@/services/app-state";
 export const Route = createFileRoute("/danh-gia")({
   head: () => ({
     meta: [
-      { title: "Sổ theo dõi & Xem Nhận xét, Đánh giá Cán bộ · SLĐTBXH Bình Dương" },
+      { title: "Sổ theo dõi & Xem Nhận xét, Đánh giá Cán bộ · UBND Phường Thủ Dầu Một" },
       {
         name: "description",
         content:
@@ -158,7 +158,7 @@ function GiamSatDanhGiaPage() {
               Chế độ chỉ xem nội bộ
             </span>
             <span className="text-xs text-gray-500 font-medium">
-              SLĐTBXH Bình Dương · Phân hệ Giám sát Công vụ Một cửa
+              UBND Phường Thủ Dầu Một · Phân hệ Giám sát Công vụ Một cửa
             </span>
           </div>
           <h1 className="text-xl font-extrabold text-[#333333] flex items-baseline mt-1">
@@ -176,7 +176,7 @@ function GiamSatDanhGiaPage() {
           <button
             type="button"
             onClick={() => setQrModalOpen(true)}
-            className="flex items-center gap-1.5 rounded-[3px] border border-[#00c0ef] bg-[#00c0ef]/10 text-[#0073b7] px-3 py-1.5 font-bold hover:bg-[#00c0ef]/20 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 rounded-[3px] border border-[#dd4b39] bg-[#dd4b39]/10 text-[#dd4b39] px-3 py-1.5 font-bold hover:bg-[#dd4b39]/20 transition-colors cursor-pointer"
             title="Xem mã QR để in dán tại bàn tiếp nhận cho công dân quét"
           >
             <QrCode className="size-4" />
@@ -185,30 +185,30 @@ function GiamSatDanhGiaPage() {
           <button
             type="button"
             onClick={handleExportReport}
-            className="flex items-center gap-1.5 rounded-[3px] bg-[#00a65a] hover:bg-[#008d4c] px-3.5 py-1.5 font-bold text-white shadow-xs cursor-pointer transition-colors"
+            className="flex items-center gap-1.5 rounded-[3px] bg-[#dd4b39] hover:bg-[#c23321] px-3.5 py-1.5 font-bold text-white shadow-xs cursor-pointer transition-colors"
           >
             <FileSpreadsheet className="size-4" />
-            Xuất Báo cáo gửi UBND Tỉnh
+            Xuất Báo cáo gửi Lãnh đạo
           </button>
         </div>
       </div>
 
       {/* 2. Banner Nghiệp vụ Quan trọng: Khẳng định Chế độ CHỈ XEM cho Cán bộ & Lãnh đạo */}
-      <div className="mb-4 bg-gradient-to-r from-[#1e282c] via-[#222d32] to-[#2c3b41] text-white rounded-xs p-3.5 shadow-xs border-l-4 border-l-amber-400">
+      <div className="mb-4 bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] border-b-2 border-[#dd4b39] text-white rounded-xs p-3.5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded bg-amber-400/20 text-amber-300 shrink-0 mt-0.5">
+            <div className="p-2 rounded bg-[#dd4b39]/20 text-red-300 shrink-0 mt-0.5">
               <Eye className="size-5" />
             </div>
             <div>
               <div className="font-bold text-xs uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
                 <span>Chế độ CHỈ XEM dành cho Cán bộ & Lãnh đạo nghiệp vụ</span>
-                <span className="text-[10px] bg-amber-400/30 px-1.5 py-0.2 rounded font-normal text-amber-200">
-                  READ-ONLY MONITORING
+                <span className="text-[10px] bg-red-500/30 px-1.5 py-0.2 rounded font-normal text-red-200">
+                  GIÁM SÁT THỜI GIAN THỰC
                 </span>
               </div>
               <p className="text-xs text-gray-200 mt-1 leading-relaxed">
-                Đây là phần mềm nghiệp vụ nội bộ của Cán bộ Sở LĐTBXH. <strong>Cán bộ không tự chấm điểm hay nhập đánh giá tại đây</strong>. Toàn bộ điểm số, xếp hạng và nhận xét được đồng bộ khách quan từ Người dân và Thân nhân gửi về. Cán bộ và Lãnh đạo có trách nhiệm theo dõi chất lượng phục vụ và xử lý giải trình đối với các phản ánh chưa hài lòng.
+                Đây là phần mềm nghiệp vụ nội bộ của Cán bộ UBND Phường Thủ Dầu Một. <strong>Cán bộ không tự chấm điểm hay nhập đánh giá tại đây</strong>. Toàn bộ điểm số, xếp hạng và nhận xét được đồng bộ khách quan từ Người dân và Thân nhân gửi về. Cán bộ và Lãnh đạo có trách nhiệm theo dõi chất lượng phục vụ và xử lý giải trình đối với các phản ánh chưa hài lòng.
               </p>
             </div>
           </div>
@@ -856,7 +856,7 @@ function GiamSatDanhGiaPage() {
 
             <div className="border-2 border-dashed border-[#dd4b39] p-4 rounded bg-red-50/50 mb-4">
               <div className="text-[11px] font-extrabold uppercase text-[#dd4b39]">
-                UBND TỈNH BÌNH DƯƠNG - SỞ LĐTBXH
+                UBND PHƯỜNG THỦ DẦU MỘT
               </div>
               <div className="text-xs font-bold text-gray-800 mt-0.5">
                 BỘ PHẬN TIẾP NHẬN VÀ TRẢ KẾT QUẢ MỘT CỬA
@@ -882,7 +882,7 @@ function GiamSatDanhGiaPage() {
                   window.print();
                   toast.success("Đang gửi lệnh in biển mã QR để dán tại quầy...");
                 }}
-                className="px-4 py-2 bg-[#00a65a] hover:bg-[#008d4c] text-white text-xs font-bold rounded flex items-center gap-1.5 cursor-pointer shadow-xs"
+                className="px-4 py-2 bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-bold rounded flex items-center gap-1.5 cursor-pointer shadow-xs"
               >
                 <Printer className="size-3.5" />
                 In Biển Mã QR đặt tại quầy
@@ -958,7 +958,7 @@ function GiamSatDanhGiaPage() {
                   toast.success(`Đã lưu biên bản giải trình cho hồ sơ ${selectedGiaiTrinh.hoSoId}!`);
                   setSelectedGiaiTrinh(null);
                 }}
-                className="px-4 py-2 bg-[#00a65a] hover:bg-[#008d4c] text-white text-xs font-bold rounded cursor-pointer"
+                className="px-4 py-2 bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-bold rounded cursor-pointer transition-colors"
               >
                 Lưu biên bản giải trình
               </button>

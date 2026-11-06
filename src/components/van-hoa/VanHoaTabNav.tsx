@@ -142,7 +142,7 @@ export function VanHoaTabNav({ activeTab, onSelectTab, counts }: VanHoaTabNavPro
               onClick={() => onSelectTab(tab.key)}
               className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg text-left whitespace-nowrap transition-all duration-200 flex-shrink-0 cursor-pointer ${
                 isActive
-                  ? "bg-blue-600 text-white shadow-sm font-medium dark:bg-blue-600"
+                  ? "bg-[#dd4b39] text-white shadow-xs font-bold ring-1 ring-[#c23321]"
                   : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60"
               }`}
             >
@@ -172,7 +172,7 @@ export function VanHoaTabNav({ activeTab, onSelectTab, counts }: VanHoaTabNavPro
                 </div>
                 <span
                   className={`text-[11px] leading-tight ${
-                    isActive ? "text-blue-100" : "text-slate-400 dark:text-slate-400"
+                    isActive ? "text-red-100" : "text-slate-400 dark:text-slate-400"
                   }`}
                 >
                   {tab.subLabel}

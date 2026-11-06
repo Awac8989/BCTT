@@ -39,25 +39,25 @@ function DieuHanhPage() {
           <div className="inline-flex rounded-lg bg-gray-100 p-1">
             <button
               onClick={() => setViewMode("IOC_WALL")}
-              className={`flex items-center gap-2 rounded-md px-3.5 py-2 text-xs font-bold transition-all ${
+              className={`flex items-center gap-2 rounded-md px-3.5 py-2 text-xs font-bold transition-all cursor-pointer ${
                 viewMode === "IOC_WALL"
-                  ? "bg-sky-700 text-white shadow-xs"
+                  ? "bg-[#dd4b39] text-white shadow-xs"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
               <Activity className="size-4" />
-              <span>1. Màn Hình Giám Sát IOC Đa Ngành (Real-Time Wall)</span>
+              <span>1. Màn Hình Giám Sát IOC Đa Ngành Thời Gian Thực</span>
             </button>
             <button
               onClick={() => setViewMode("KPI_CHECKIN")}
-              className={`flex items-center gap-2 rounded-md px-3.5 py-2 text-xs font-bold transition-all ${
+              className={`flex items-center gap-2 rounded-md px-3.5 py-2 text-xs font-bold transition-all cursor-pointer ${
                 viewMode === "KPI_CHECKIN"
-                  ? "bg-slate-800 text-white shadow-xs"
+                  ? "bg-[#dd4b39] text-white shadow-xs"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
               <LayoutDashboard className="size-4" />
-              <span>2. Check-in Sản phẩm, Giao việc & Đánh giá KPI Cán bộ</span>
+              <span>2. Nộp Sản Phẩm Công Vụ, Giao Việc &amp; Đánh Giá KPI Cán Bộ</span>
             </button>
           </div>
 

@@ -146,14 +146,14 @@ export function MotCuaDvcCenter() {
   return (
     <div className="space-y-6">
       {/* Top Banner Tiêu chuẩn Một cửa NĐ 61/2018 */}
-      <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] text-white rounded-2xl p-6 shadow-xl border-b-2 border-[#dd4b39] relative overflow-hidden">
         <div className="absolute right-0 top-0 bottom-0 opacity-10 pointer-events-none flex items-center pr-10">
           <Building2 className="w-80 h-80" />
         </div>
         <div className="relative z-10 max-w-4xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs font-semibold uppercase tracking-wider">
-            <Building2 className="w-3.5 h-3.5 text-emerald-300" />
-            Cơ chế Một cửa, Một cửa Liên thông & Dịch vụ công Quốc gia
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dd4b39] text-white text-xs font-semibold uppercase tracking-wider shadow-xs">
+            <Building2 className="w-3.5 h-3.5" />
+            Cơ chế Một cửa, Một cửa Liên thông &amp; Dịch vụ công Quốc gia
           </div>
           <h2 className="text-2xl font-bold tracking-tight">
             Bộ phận Tiếp nhận & Trả kết quả TTHC · UBND Phường Thủ Dầu Một
@@ -255,7 +255,7 @@ export function MotCuaDvcCenter() {
           <button
             type="button"
             onClick={() => setModalTiepNhanMoi(true)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-md transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-bold shadow-xs transition cursor-pointer"
           >
             <Building2 className="w-4 h-4" />
             <span>Tiếp nhận Hồ sơ Mới</span>

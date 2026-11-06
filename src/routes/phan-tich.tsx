@@ -75,7 +75,7 @@ function PhanTich() {
 
   const handleExportHieuQuaReport = () => {
     const reportText = `BÁO CÁO ĐÁNH GIÁ HIỆU QUẢ ỨNG DỤNG HỆ THỐNG QUẢN LÝ NGHIỆP VỤ & DỊCH VỤ CÔNG
-ĐƠN VỊ THỰC HIỆN: ỦY BAN NHÂN DÂN PHƯỜNG PHÚ CƯỜNG / SỞ LĐTBXH BÌNH DƯƠNG
+ĐƠN VỊ THỰC HIỆN: ỦY BAN NHÂN DÂN PHƯỜNG THỦ DẦU MỘT
 ĐỀ TÀI: CHUYỂN ĐỔI SỐ QUẢN LÝ HỒ SƠ NGƯỜI CÓ CÔNG & ĐÁNH GIÁ DỊCH VỤ CÔNG THEO ĐỀ ÁN 06
 
 1. HIỆU QUẢ CẢI CÁCH THỦ TỤC HÀNH CHÍNH (SLA & TIME SAVINGS)
@@ -170,7 +170,7 @@ NGƯỜI LẬP BÁO CÁO: ĐOÀN MINH QUÂN - MSSV: 2224801030137`;
           <button
             type="button"
             onClick={handleExportHieuQuaReport}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs cursor-pointer transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#dd4b39] hover:bg-[#c23321] text-white text-xs font-bold shadow-xs cursor-pointer transition-colors"
           >
             <Download className="size-3.5" />
             <span>Xuất Báo cáo Hiệu quả (.txt)</span>
@@ -374,7 +374,7 @@ NGƯỜI LẬP BÁO CÁO: ĐOÀN MINH QUÂN - MSSV: 2224801030137`;
       {activeTab === "HIEU_QUA" && (
         <div className="space-y-6">
           {/* Banner chính đề tài */}
-          <div className="rounded-xl border border-emerald-300 bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 p-5 text-white shadow-md">
+          <div className="rounded-xl border border-slate-700 bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] border-b-2 border-[#dd4b39] p-5 text-white shadow-md">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
@@ -383,13 +383,13 @@ NGƯỜI LẬP BÁO CÁO: ĐOÀN MINH QUÂN - MSSV: 2224801030137`;
                     KHUNG ĐÁNH GIÁ ĐỊNH LƯỢNG HIỆU QUẢ CHUYỂN ĐỔI SỐ & CẢI CÁCH TTHC
                   </span>
                 </div>
-                <p className="text-xs text-emerald-100 max-w-3xl leading-relaxed">
+                <p className="text-xs text-slate-300 max-w-3xl leading-relaxed">
                   Căn cứ Nghị quyết 76/NQ-CP của Chính phủ về Chương trình tổng thể cải cách hành chính nhà nước giai đoạn 2021-2030, Quyết định 06/QĐ-TTg (Đề án 06) và Chỉ thị 21/CT-TTg về chi trả an sinh xã hội không dùng tiền mặt.
                 </p>
               </div>
 
               <div className="flex items-center gap-2 self-start md:self-center shrink-0">
-                <span className="px-3 py-1 bg-emerald-500/30 border border-emerald-400 text-emerald-100 text-xs font-bold rounded-full">
+                <span className="px-3 py-1 bg-red-500/20 border border-[#dd4b39]/40 text-red-200 text-xs font-bold rounded-full">
                   SROI ĐẠT 1 : 3.8
                 </span>
               </div>
@@ -465,9 +465,9 @@ NGƯỜI LẬP BÁO CÁO: ĐOÀN MINH QUÂN - MSSV: 2224801030137`;
 
           {/* BẢNG SO SÁNH ĐỐI CHỨNG TRƯỚC VÀ SAU KHI TRIỂN KHAI PHẦN MỀM */}
           <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden">
-            <div className="bg-[#3c8dbc] px-4 py-3 text-white flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#222d32] to-[#1e282c] border-b-2 border-[#dd4b39] px-4 py-3 text-white flex items-center justify-between">
               <div className="font-bold text-xs uppercase flex items-center gap-2">
-                <FileSpreadsheet className="size-4" />
+                <FileSpreadsheet className="size-4 text-[#dd4b39]" />
                 <span>Bảng So Sánh Chỉ Tiêu Cải Cách Thủ Tục Hành Chính Trước &amp; Sau Triển Khai</span>
               </div>
               <span className="text-[11px] bg-white/20 px-2.5 py-0.5 rounded font-mono">

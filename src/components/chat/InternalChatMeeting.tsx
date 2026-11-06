@@ -74,16 +74,16 @@ export function InternalChatMeeting({ initialChannel }: InternalChatMeetingProps
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-slate-800 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#222d32] via-[#2c3b41] to-[#1e282c] text-white rounded-2xl p-6 shadow-md border-b-2 border-[#dd4b39] relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-xs rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#dd4b39] text-white rounded-full text-xs font-semibold uppercase tracking-wider mb-3 shadow-xs">
             <MessageSquare className="w-3.5 h-3.5" />
             Hệ thống Tác nghiệp &amp; Phòng họp Số
           </div>
           <h2 className="text-2xl font-bold mb-2">
             Liên hệ Trao đổi Nội bộ &amp; Phòng họp Trực tuyến UBND Phường
           </h2>
-          <p className="text-blue-100 text-sm leading-relaxed mb-4">
+          <p className="text-gray-300 text-sm leading-relaxed mb-4">
             Kết nối thông tin thông suốt giữa Lãnh đạo UBND và toàn thể công chức, cán bộ chuyên trách (Văn hóa, Giáo dục, An sinh, Đội 814). Nhận thông báo giao việc tức thì, tổ chức họp giao ban trực tuyến và lưu trữ biên bản cuộc họp số hóa.
           </p>
 
@@ -93,7 +93,7 @@ export function InternalChatMeeting({ initialChannel }: InternalChatMeetingProps
               onClick={() => setActiveMainTab("CHAT")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                 activeMainTab === "CHAT"
-                  ? "bg-white text-blue-950 shadow-md"
+                  ? "bg-[#dd4b39] text-white shadow-md ring-1 ring-[#c23321]"
                   : "bg-white/10 hover:bg-white/20 text-white"
               }`}
             >
@@ -105,7 +105,7 @@ export function InternalChatMeeting({ initialChannel }: InternalChatMeetingProps
               onClick={() => setActiveMainTab("HOP_ONLINE")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                 activeMainTab === "HOP_ONLINE"
-                  ? "bg-white text-blue-950 shadow-md"
+                  ? "bg-[#dd4b39] text-white shadow-md ring-1 ring-[#c23321]"
                   : "bg-white/10 hover:bg-white/20 text-white"
               }`}
             >
@@ -380,7 +380,7 @@ export function InternalChatMeeting({ initialChannel }: InternalChatMeetingProps
                     <div className="font-bold text-sm">Nguyễn Thanh Tùng</div>
                     <div className="text-[11px] text-slate-400">Công chức Văn hóa - Xã hội</div>
                   </div>
-                  <div className="text-[11px] text-slate-400 text-right">Online</div>
+                  <div className="text-[11px] text-emerald-400 font-bold text-right">● Trực tuyến</div>
                 </div>
 
                 {/* Video Cán bộ Giáo dục */}
@@ -396,7 +396,7 @@ export function InternalChatMeeting({ initialChannel }: InternalChatMeetingProps
                     <div className="font-bold text-sm">ThS. Trần Thị Kim Oanh</div>
                     <div className="text-[11px] text-slate-400">Công chức Giáo dục - Đào tạo</div>
                   </div>
-                  <div className="text-[11px] text-slate-400 text-right">Online</div>
+                  <div className="text-[11px] text-emerald-400 font-bold text-right">● Trực tuyến</div>
                 </div>
               </div>
 

@@ -1158,10 +1158,10 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
       {reviewingProduct && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <div className="px-6 py-4 bg-gradient-to-r from-blue-700 to-indigo-800 text-white flex items-center justify-between">
+            <div className="px-6 py-4 bg-gradient-to-r from-[#222d32] to-[#1e282c] border-b-2 border-[#dd4b39] text-white flex items-center justify-between">
               <div>
-                <h3 className="text-base font-bold">Thẩm định &amp; Phê chuẩn Sản phẩm Check-in</h3>
-                <p className="text-xs text-blue-200 mt-0.5">{reviewingProduct.maSanPham}</p>
+                <h3 className="text-base font-bold text-white">Thẩm định &amp; Phê chuẩn Sản phẩm Công việc</h3>
+                <p className="text-xs text-gray-300 mt-0.5">{reviewingProduct.maSanPham}</p>
               </div>
               <button
                 type="button"
@@ -1838,7 +1838,7 @@ export function ExecutiveKpiCheckIn({ onOpenChatWithCanBo }: ExecutiveKpiCheckIn
                       <option value="PHAT_CSAT_XAU">Phản ánh tiêu cực về tinh thần, thái độ phục vụ (-5đ)</option>
                       <option value="PHAT_CHAM_BC">Chậm nộp báo cáo chuyên đề theo hạn giao (-3đ)</option>
                       <option value="PHAT_KY_LUAT">Vi phạm kỷ luật giờ giấc, văn hóa công sở (-3đ)</option>
-                      <option value="PHAT_SAN_PHAM">Sản phẩm check-in bị trả về sửa &gt;2 lần (-3đ)</option>
+                      <option value="PHAT_SAN_PHAM">Sản phẩm công việc bị trả về sửa &gt;2 lần (-3đ)</option>
                       <option value="PHAT_CUSTOM">Trừ điểm vi phạm khác (Tự nhập)</option>
                     </>
                   )}

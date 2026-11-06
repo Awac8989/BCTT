@@ -365,30 +365,30 @@ export function DatabaseStudioTab() {
           <button
             type="button"
             onClick={handleCreateBackup}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#dd4b39] hover:bg-[#c23321] text-white font-bold text-xs shadow-xs cursor-pointer"
           >
             <Clock className="size-3.5" />
-            <span>Tạo Snapshot Backup</span>
+            <span>Tạo Bản Sao Lưu (Backup)</span>
           </button>
 
           <button
             type="button"
             onClick={handleResetDatabase}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 hover:bg-gray-100 text-gray-700 font-bold text-xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-gray-300 hover:bg-gray-100 text-gray-700 font-bold text-xs cursor-pointer"
           >
             <RotateCcw className="size-3.5 text-amber-600" />
-            <span>Reset Seed Data</span>
+            <span>Khôi phục CSDL Gốc</span>
           </button>
         </div>
       </div>
 
-      {/* 2.5 PHÂN HỆ RÀ SOÁT & SỬA LỖI DỮ LIỆU CSDL (DATA DIAGNOSTICS & ANOMALY FIX STUDIO) */}
+      {/* 2.5 PHÂN HỆ RÀ SOÁT & SỬA LỖI DỮ LIỆU CSDL */}
       <div className="rounded-lg border border-amber-300 bg-white shadow-xs overflow-hidden">
         <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <Wrench className="size-4 text-amber-200" />
             <span className="font-bold text-xs tracking-wide">
-              PHÂN HỆ TRUY VẤN & SỬA LỖI DỮ LIỆU TOÀN DIỆN (DATA DIAGNOSTIC & FIX STUDIO)
+              PHÂN HỆ TRUY VẤN &amp; SỬA LỖI DỮ LIỆU CSDL NỘI BỘ
             </span>
             <span className="bg-amber-100/20 text-[10px] px-2 py-0.5 rounded font-mono font-medium">
               Kiểm toán toàn vẹn CSDL
