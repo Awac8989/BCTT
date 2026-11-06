@@ -103,7 +103,7 @@ export const DoThiVanMinhTab: React.FC = () => {
             <span className="text-2xl font-extrabold text-emerald-700">{tongDiemDat}</span>
             <span className="text-xs font-semibold text-slate-600">/ {tongDiemToiDa} điểm</span>
           </div>
-          <span className="text-[11px] text-emerald-600 mt-1 block">Yêu cầu $\ge$ 90 điểm để công nhận</span>
+          <span className="text-[11px] text-emerald-600 mt-1 block">Yêu cầu từ 90 điểm trở lên để công nhận</span>
         </div>
 
         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">

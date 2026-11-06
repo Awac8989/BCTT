@@ -101,7 +101,7 @@ export const ModalThemKiemThuc3Buoc: React.FC<ModalThemKiemThuc3BuocProps> = ({
             <div>
               <h3 className="text-base font-bold">Lập Sổ Kiểm Thực 3 Bước ATTP Bếp Ăn Bán Trú</h3>
               <p className="text-xs text-emerald-200">
-                Thực hiện nghiêm Quyết định số 1246/QĐ-BYT của Bộ Y tế · Lưu mẫu $\ge$ 24 giờ
+                Thực hiện nghiêm Quyết định số 1246/QĐ-BYT của Bộ Y tế · Lưu mẫu ≥ 24 giờ
               </p>
             </div>
           </div>

@@ -158,7 +158,7 @@ export const DieuDuongNccTab: React.FC = () => {
             Quản Lý Chế Độ Điều Dưỡng Phục Hồi Sức Khỏe NCC &amp; Học Nghề KCN
           </h3>
           <p className="text-slate-300 text-xs md:text-sm leading-relaxed mb-4">
-            Triển khai chi trả chế độ điều dưỡng tập trung (định mức 4.363.000 VNĐ/người) và tại nhà (2.181.500 VNĐ/người) theo chu kỳ 1 năm/lần (Mẹ VNAH, thương binh nặng $\ge 81\%$) và 2 năm/lần; phối hợp kết nối việc làm KCN cho bộ đội xuất ngũ.
+            Triển khai chi trả chế độ điều dưỡng tập trung (định mức 4.363.000 VNĐ/người) và tại nhà (2.181.500 VNĐ/người) theo chu kỳ 1 năm/lần (Mẹ VNAH, thương binh nặng từ 81% trở lên) và 2 năm/lần; phối hợp kết nối việc làm KCN cho bộ đội xuất ngũ.
           </p>
           <div className="flex flex-wrap gap-2 text-xs">
             <span className="bg-amber-900/60 border border-amber-700/60 px-3 py-1 rounded-lg flex items-center gap-1.5 font-medium">

@@ -64,7 +64,7 @@ export const KiemThuc3BuocTab: React.FC = () => {
           <div className="flex flex-wrap gap-2 text-xs">
             <span className="bg-emerald-800/60 border border-emerald-700/60 px-3 py-1 rounded-lg flex items-center gap-1.5 font-medium">
               <CheckCircle2 className="size-3.5 text-emerald-400" />
-              100% mẫu lưu niêm phong $\ge$ 24 giờ
+              100% mẫu lưu niêm phong ≥ 24 giờ
             </span>
             <span className="bg-emerald-800/60 border border-emerald-700/60 px-3 py-1 rounded-lg flex items-center gap-1.5 font-medium">
               <Refrigerator className="size-3.5 text-sky-400" />

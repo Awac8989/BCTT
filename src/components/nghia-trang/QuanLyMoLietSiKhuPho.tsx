@@ -252,7 +252,7 @@ export function QuanLyMoLietSiKhuPho({ moLietSiList }: QuanLyMoLietSiKhuPhoProps
             Quản Lý & Xử Lý Phần Mộ Liệt Sĩ Theo Chỗ Thờ Cúng 4 Khu Phố
           </h2>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Hệ thống liên kết toàn diện: <strong>Nhà bia tưởng niệm ghi danh tại 4 Khu phố</strong> $\leftrightarrow$ <strong>Vị trí phần mộ thực tế (Nghĩa trang Tỉnh, Nghĩa trang TP, Mộ do gia đình quản lý ngoài nghĩa trang)</strong> $\leftrightarrow$ <strong>Thân nhân thờ cúng & Trợ cấp 1.400.000đ/năm</strong> $\leftrightarrow$ <strong>Nghiệp vụ tu bổ vỏ mộ (10 triệu), đính chính bia, di chuyển hài cốt & giám định ADN Đề án 06</strong>.
+            Hệ thống liên kết toàn diện: <strong>Nhà bia tưởng niệm ghi danh tại 4 Khu phố</strong> ↔ <strong>Vị trí phần mộ thực tế (Nghĩa trang Tỉnh, Nghĩa trang TP, Mộ do gia đình quản lý ngoài nghĩa trang)</strong> ↔ <strong>Thân nhân thờ cúng & Trợ cấp 1.400.000đ/năm</strong> ↔ <strong>Nghiệp vụ tu bổ vỏ mộ (10 triệu), đính chính bia, di chuyển hài cốt & giám định ADN Đề án 06</strong>.
           </p>
         </div>
       </div>

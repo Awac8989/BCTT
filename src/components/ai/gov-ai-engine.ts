@@ -627,7 +627,7 @@ ${vbdUrgent.map((v) => `     - Số ${v.soDen}: *${v.trichYeu.slice(0, 75)}...* 
 1. **Kết quả kiểm tra thực tế trên địa bàn Phường Thủ Dầu Một**:
    - Đã tiến hành kiểm tra: **${list.length > 0 ? list.length : 4} cơ sở** dịch vụ văn hóa, Karaoke và quảng cáo.
    - Phát hiện vi phạm và lập biên bản xử phạt: **1 cơ sở** (Cơ sở Biển hiệu Quảng cáo Khu phố 2 vi phạm kích thước chỉ giới, xử phạt **7.500.000 đồng** theo Nghị định 38/2021/NĐ-CP).
-   - Cơ sở Karaoke: 100% phòng hát tuân thủ diện tích $\\ge 20m^2$, không chốt cửa trong, ngừng hoạt động trước 00h00.
+   - Cơ sở Karaoke: 100% phòng hát tuân thủ diện tích tối thiểu từ 20m² trở lên, không chốt cửa trong, ngừng hoạt động trước 00h00.
 
 2. **Quy định pháp lý cốt lõi cần ghi nhớ khi kiểm tra**:
    - **Phòng hát Karaoke (NĐ 54/2019)**: Diện tích tối thiểu 20m²; cửa phòng phải trong suốt hoặc có ô kính nhìn rõ bên trong; **nghiêm cấm lắp đặt chốt khóa bên trong** hoặc thiết bị báo động đối phó kiểm tra.

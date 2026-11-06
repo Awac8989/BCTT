@@ -179,7 +179,7 @@ export function BienBanGiamDinhModal({ isOpen, onClose, hoSo }: Props) {
                   <span>3. Kết quả cận lâm sàng (X-Quang &amp; Đo chức năng):</span>
                 </div>
                 <p className="text-gray-700 pl-5">
-                  • Phim X-quang cẳng chân: Hình ảnh can xương chày lệch trục, có 01 mảnh kim loại cản quang $\approx 6 \times 4$ mm chưa phẫu thuật lấy ra.
+                  • Phim X-quang cẳng chân: Hình ảnh can xương chày lệch trục, có 01 mảnh kim loại cản quang xấp xỉ 6 × 4 mm chưa phẫu thuật lấy ra.
                 </p>
               </div>
             </div>
